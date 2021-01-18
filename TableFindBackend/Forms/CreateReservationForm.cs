@@ -15,6 +15,7 @@ namespace TableFindBackend.Models
 {
     public partial class CreateReservationForm : Form
     {
+
         RestaurantTable thisTable;
         public CreateReservationForm(RestaurantTable thisTable)
         {
