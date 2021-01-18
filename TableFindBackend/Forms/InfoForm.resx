@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="rtbStaff.Text" xml:space="preserve">
+    <value>Staff Members can access onscreen tables by double-clicking any table object. As the restaurant staff, they will have to ability to:
+
+• View reservations under specific tables made available by the manager,
+• Create reservations under specific tables made available by the manager.
+
+Restaurant staff, other than the manager or selected assistant manager, will not have elevated permissions such as:
+                
+• Adding new Tables to the restaurant,
+• Editing/updating Tables in the restaurants,
+• Removing Tables in the restaurant,
+• Adding new Menu Items to the interactive menu,
+• Updating Menu Items of the interactive menu,
+• Removing Menu Items of the interactive menu,
+• Removing Reservations already made.</value>
+  </data>
+  <data name="rtbAdmin.Text" xml:space="preserve">
+    <value>Overview:
+
+The manager and selected assistant managers can access onscreen tables by double-clicking on any table object. They will also have access to more options when a correct manager PIN is provided. Admin mode will allow the restaurant manager or selected assistant manager to have access to elivated privileges. These privileges include:
+
+• View reservations under specific tables,
+• Create reservations under specific tables,
+• Adding new Tables to the restaurant,
+• Editing/updating Tables in the restaurants,
+• Removing Tables in the restaurant,
+• Adding new Menu Items to the interactive menu,
+• Updating Menu Items of the interactive menu,
+• Removing Menu Items of the interactive menu,
+• Removing Reservations already made.
+
+
+Manager PIN:
+
+The manager PIN is a easy and quick way for the manager and selected assistant managers to gain access to elevated privileges. The manager PIN can be changed by pressing the 'Change PIN' button on the main screen. The Manager will then be prompted to enter his or her login  credentials in order to set up a new PIN. Please note that the Manager PIN is stored locally and therefor can not be changed from another computer.</value>
+  </data>
+  <data name="rtcFunctionsPnlAllReservations.Text" xml:space="preserve">
+    <value>This allows the user to view a list of all reservations that have not yet expired, along with the reservation details - Customer name, date and time of the reservation, who booked the reservation (Restaurant or Customer), Customer's contact number and the table name. Within this window, the user will be able to select a reservation and then view contact details of the user who made the reservation.</value>
+  </data>
+  <data name="rtbCapacityStatus.Text" xml:space="preserve">
+    <value>This allows the user to set the Restaurant's capacity status to either Not Busy, Moderately Busy, and Very Busy. The actual capacity status will display on the main screen at the top-center of the screen.</value>
+  </data>
+  <data name="rtbOverview.Text" xml:space="preserve">
+    <value>This panel serves as the main navigation panel for the applictaion.
+General Users will be able to see the following buttons within this panel:
+View All Reservations 
+Change Restaurant Capacity Status
+How To Use?
+Enter Admin PIN to access Admin Mode input field
+Enable Admin Mode
+Change PIN
+
+The only buttons that the General User will be able to access are View All Reservations, Change Restaurant Capacity Status and How To Use? The General user will be able to enter an Admin PIN only if they have been given the PIN by the restaurant manager or owner.</value>
+  </data>
+  <data name="rtbChangePIN.Text" xml:space="preserve">
+    <value>This will prompt the user to provide their login credentials again to confirm that they are an Elevated user. Once the login credentials are confirmed, the user will be able to change their Admin PIN and save it locally.
+</value>
+  </data>
+  <data name="rtbUsingTables.Text" xml:space="preserve">
+    <value>When not in admin mode, the user can double-click on any table item on the right-hand side of the screen. This will open the Reservations window where the user can add reservations under the selected table.
+
+When in admin mode, the user can drag the table items on the right-hand side of the screen to change the table's position. The user can also double-click on a table to open the table editor, which will allow the user to change the name of the table, maximum capacity and availability, and view the reservations made under it by pressing the 'Reservations' button.</value>
+  </data>
+  <data name="rtbAddNewTable.Text" xml:space="preserve">
+    <value>This will open the Table Editor window where the user can create new table objects. The user can enter the table name, number of seats the table should have and table description (where in the restaurant the table object is located).
+
+The user will be able to view the reservations made for that table via the Reservations button.
+
+The user will also be able to delete the table and make the table Available or Unavailable.</value>
+  </data>
+  <data name="richTextBox2.Text" xml:space="preserve">
+    <value>The user will be able to edit restaurant information - name, location, and contact number.
+
+The user will be able to upload a menu in the form of a PDF file, PNG file or a JPEG file. This menu will display on the TableFind Mobile application.
+
+The user can change the restaurant layout image displayed on the main screen by selecting an image file from the computer.
+
+	// functionality for System Report</value>
+  </data>
+  <data name="rtbRestaurantOptions.Text" xml:space="preserve">
+    <value>The user will be able to edit restaurant information - name, location, and contact number.
+
+The user will be able to upload a menu in the form of a PDF file, PNG file or a JPEG file. This menu will display on the TableFind Mobile application.
+
+The user can change the restaurant layout image displayed on the main screen by selecting an image file from the computer.
+
+	// functionality for System Report</value>
+  </data>
+  <data name="rtbMenuItems.Text" xml:space="preserve">
+    <value>The Edit Interactive Menu window will allow the user to to add, edit, and delete menu items from the Interactive Menu that will display on the TableFind Mobile application.
+
+Adding a Menu Item:
+The user can click on the 'Add Item' button which will provide a new interface that will allow the user to specify all the details of the new item - name, type, price and description.	
+	
+Editing a Menu Item:
+The user must select the menu item he/she would like to modify on the right side of the window. After selecting an item, the left side will become enabled and can then be used to make changes to the selected item.</value>
+  </data>
+  <data name="rtbUpdates.Text" xml:space="preserve">
+    <value>This runs a secondary program in the background which will check for any available updates. If there is an update available, the user wil be notified and will have the option to view update details, and to download the new update. 
+
+Once the user downloads the update, the TableFind Backend program will close and the new version will automatically open.</value>
+  </data>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>The Reservations panel is located in the top-left corner of the screen and has two tabs to view - Current Reservations and Previous Reservations.
+The panel's main functions include notifying the user that a new reservation has been made and displaying these reservations in the form of Restaurant objects. If the user wishes to view a list of all reservations, the user should navigate to the Functions panel just below the Reservations panel, that includes a few buttons. 
+
+• Current Reservations:
+When a new reservation is made, either by the restaurant or by a customer, a flashing Reservation object will appear inside the panel under Current Reservations. This object shows basic reservation information such as the client information - name and contact number, and table information - table name, date of the reservation and the duration that the table was reserved for.
+If the user clicks on the object, a secondary window Reservation for &lt;Customer name&gt; will open and the flashing will stop. This window shows the basic information listed previously, as well as whether the reservation was made by the restaurant or a client, and includes the table capacity.
+
+• Previous Reservations:
+If a reservation has been cancelled or deleted, or if the reservation has expired, the reservation object will move from the Current Reservations tab and appear in the panel under Previous Reservations.</value>
+  </data>
+</root>
