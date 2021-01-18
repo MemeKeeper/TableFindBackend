@@ -26,37 +26,46 @@ namespace TableFindBackend.RT_Database_Listeneres
             reservationCreatedEvent.AddCreateListener("restaurantId = '" + OwnerStorage.ThisRestaurant.objectId + "'", createdOrder =>
             {
 
-                RestaurantTable temp = null;
-
-                foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
+                Boolean flag = false;
+                foreach (Reservation r in OwnerStorage.AllReservations)
                 {
-                    if (table.objectId == createdOrder.tableId)
-                    {
-                        temp = table;
-                    }
+                    if (createdOrder.objectId == r.objectId)
+                        flag = true;
                 }
-                AsyncCallback<BackendlessUser> loadContactCallback = new AsyncCallback<BackendlessUser>(
-                        foundContact =>
-                        {
-                            if (foundContact != null)
-                            {
-                                OwnerStorage.AllUsers.Add(foundContact);
-                                OwnerStorage.AllReservations.Add(createdOrder);
-                                _masterform.AddOneReservationView(createdOrder);
-                                OwnerStorage.Log.Add("Reservation has been created    : " + System.DateTime.Now.ToString("HH:mm"));
-                                OwnerStorage.Log.Add("Name:  " + createdOrder.name);
-                                if (foundContact.ObjectId==OwnerStorage.CurrentlyLoggedIn.ObjectId)
-                                OwnerStorage.Log.Add("Created By:   Restaurant");
-                                else
-                                    OwnerStorage.Log.Add("Created By:   Customer");
-                            }
-                        },
-                        error =>
-                        {
+                if (flag != true)
+                {
+                    RestaurantTable temp = null;
 
-                        });
-                Backendless.Data.Of<BackendlessUser>().FindById(createdOrder.userId, loadContactCallback);
-            });         
+                    foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
+                    {
+                        if (table.objectId == createdOrder.tableId)
+                        {
+                            temp = table;
+                        }
+                    }
+                    AsyncCallback<BackendlessUser> loadContactCallback = new AsyncCallback<BackendlessUser>(
+                            foundContact =>
+                            {
+                                if (foundContact != null)
+                                {
+                                    OwnerStorage.AllUsers.Add(foundContact);
+                                    OwnerStorage.AllReservations.Add(createdOrder);
+                                    _masterform.AddOneReservationView(createdOrder);
+                                    OwnerStorage.Log.Add("Reservation has been created    : " + System.DateTime.Now.ToString("HH:mm"));
+                                    OwnerStorage.Log.Add("Name:  " + createdOrder.name);
+                                    if (foundContact.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
+                                        OwnerStorage.Log.Add("Created By:   Restaurant");
+                                    else
+                                        OwnerStorage.Log.Add("Created By:   Customer");
+                                }
+                            },
+                            error =>
+                            {
+
+                            });
+                    Backendless.Data.Of<BackendlessUser>().FindById(createdOrder.userId, loadContactCallback);
+                }
+            });
         }
     }
 }
