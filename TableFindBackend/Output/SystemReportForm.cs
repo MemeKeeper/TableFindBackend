@@ -105,7 +105,6 @@ namespace TableFindBackend.Output
                 wsTables = workbook.Sheets["Sheet2"];
                 wsTables.Name = "System Log";     
                 wsTables.Cells[1, 1] = "System Events";
-
                 int index = 1;
                 foreach (String item in OwnerStorage.Log)
                 {

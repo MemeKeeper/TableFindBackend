@@ -105,7 +105,6 @@ namespace TableFindBackend.Forms
                     this.Close();
                             }            
                         }
-
         }
          
         private void tbxPrice_TextChanged(object sender, EventArgs e)

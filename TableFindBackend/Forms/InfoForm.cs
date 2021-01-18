@@ -26,7 +26,6 @@ namespace TableFindBackend.Forms
         {
            
         }
-
         private void btnTables_Click(object sender, EventArgs e)
         {
             rtbStaff.Text = "When in admin mode, the User can drag the table items on the right-hand side of the screen to change the table's position. \n" +
