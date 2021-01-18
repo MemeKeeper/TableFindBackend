@@ -219,6 +219,7 @@ namespace TableFindBackend.Models
             // 
             this.tbxName.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxName.Location = new System.Drawing.Point(18, 39);
+            this.tbxName.MaxLength = 40;
             this.tbxName.Name = "tbxName";
             this.tbxName.Size = new System.Drawing.Size(312, 27);
             this.tbxName.TabIndex = 0;
