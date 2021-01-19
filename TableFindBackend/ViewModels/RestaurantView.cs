@@ -16,74 +16,60 @@ namespace TableFindBackend.ViewModels
         {
             InitializeComponent();
         }
-        //#region properties
-        //private string uName;
-        //private string uContactNumber;
-        //private string tTableName;
-        //private string tDate;
-        //private string tTime;
-        //private string objectId;
-        //private string uObjectId;
-        //private bool blinking = true;
-
-        //[Category("Custom Prop")]
-        //public string UserName
-        //{
-        //    get => uName; set
-        //    {
-        //        uName = value;
-        //        lblName.Text = value;
-        //    }
-        //}
-        //[Category("Custom Prop")]
-        //public string UserContactNumber
-        //{
-        //    get => uContactNumber; set
-        //    {
-        //        uContactNumber = value;
-        //        lblContact.Text = value;
-        //    }
-        //}
-        //[Category("Custom Prop")]
-        //public string TableName
-        //{
-        //    get => tTableName; set
-        //    {
-        //        tTableName = value;
-        //        lblTable.Text = value;
-        //    }
-        //}
-        //[Category("Custom Prop")]
-        //public string Date
-        //{
-        //    get => tDate; set
-        //    {
-        //        tDate = value;
-        //        lblDate.Text = value;
-        //    }
-        //}
-        //[Category("Custom Prop")]
-        //public string FromToTime
-        //{
-        //    get => tTime; set
-        //    {
-        //        tTime = value;
-        //        lblTime.Text = value;
-        //    }
-        //}
-        //[Category("Custom Prop")]
-        //public string ObjectId
-        //{
-        //    get => objectId; set
-        //    {
-        //        objectId = value;
-        //        lblId.Text = value;
-        //    }
-        //}
-        //[Category("Custom Prop")]
-        //public string UObjectId { get => uObjectId; set => uObjectId = value; }
+        #region properties
+        private string name;
+        private string locationString;
+        private string objectId;
+        private Color backgroundColor;
 
 
-        //#endregion
+
+        [Category("Custom Prop")]
+        public string RestaurantName
+        {
+            get => name; 
+            set
+            {
+                name = value;
+                lblName.Text = value;
+            }
+        }
+        [Category("Custom Prop")]
+        public string LocationString
+        {
+            get => locationString; 
+            set
+            {
+                locationString = value;
+                lblLocation.Text = value;
+            }
+        }
+        [Category("Custom Prop")]
+        public Color BackgroundColor
+        {
+            set
+            {
+                backgroundColor = value;
+                this.BackColor = value;
+            }
+        }
+        public void Selected(bool toggled)
+        {
+            if (toggled == true)
+                this.BackColor = System.Drawing.Color.FromName("ActiveCaption");
+            else
+                this.BackColor = this.backgroundColor;
+        }
+        public Color TextColor
+        {
+            set
+            {
+                lblName.ForeColor = value;
+                lblLocation.ForeColor = value;
+            }
+        }
+
+        public string ObjectId { get => objectId; set => objectId = value; }
+        #endregion
     }
 }
