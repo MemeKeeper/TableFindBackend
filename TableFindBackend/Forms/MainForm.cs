@@ -29,7 +29,8 @@ namespace TableFindBackend.Forms
 
         public MainForm()
         {
-            OwnerStorage.Log = new List<String>();
+            OwnerStorage.LogInfo = new List<String>();
+            OwnerStorage.LogTimes = new List<String>();
             string APPLICATION_ID = "3341DD88-C207-2A48-FF9F-D4103CEA4900";
             string API_KEY = "3A3E7B64-7786-49D1-9D5B-AFC31D98CE13";
             Backendless.InitApp(APPLICATION_ID, API_KEY);
@@ -49,7 +50,8 @@ namespace TableFindBackend.Forms
             OwnerStorage.AdminMode = false;
             OwnerStorage.RestaurantTables = new List<RestaurantTable>();
             OwnerStorage.MenuItems = new List<RestaurantMenuItem>();
-            OwnerStorage.AllReservations = new List<Reservation>();
+            OwnerStorage.ActiveReservations = new List<Reservation>();
+            OwnerStorage.PastReservations = new List<Reservation>();
             OwnerStorage.AllUsers = new List<BackendlessUser>();
 
             
@@ -64,8 +66,8 @@ namespace TableFindBackend.Forms
             PerformBackgroundMenuItemPopulation();
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
-            OwnerStorage.Log.Add("User Logged in with valid Login at "+System.DateTime.Now.ToString("dd/MM,   HH:mm"));
-
+            OwnerStorage.LogInfo.Add("User Logged in with valid Login");
+            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
             updater = new SharpUpdater(Assembly.GetExecutingAssembly(), this, new Uri("http://bernardkleinhans.co.za/Johan/update.xml"));  //<------ Domain on which we host the update for the program
 
@@ -108,7 +110,7 @@ namespace TableFindBackend.Forms
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
 
-            foreach (Reservation r in OwnerStorage.AllReservations)
+            foreach (Reservation r in OwnerStorage.ActiveReservations)
             {
                 if (r.takenTo < System.DateTime.Now)
                 {
@@ -120,8 +122,9 @@ namespace TableFindBackend.Forms
                         AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
                         deletionTime =>
                         {
-                            OwnerStorage.Log.Add("Reservation has Expired    : " + System.DateTime.Now.ToString("HH:mm"));
-                            OwnerStorage.Log.Add("Name:  " + savedReservation.name);
+                            OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  "+savedReservation.name);
+                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+
                         },
                         error =>
                         {
@@ -239,7 +242,7 @@ namespace TableFindBackend.Forms
         {
 
             flpItems.Controls.Clear();
-            foreach (Reservation r in OwnerStorage.AllReservations)
+            foreach (Reservation r in OwnerStorage.ActiveReservations)
             {
                 ReservationView reservation = new ReservationView();
                 RestaurantTable table = new RestaurantTable();
@@ -285,7 +288,7 @@ namespace TableFindBackend.Forms
                                 }
                             }
                         Reservation tempReservation = null;
-                        foreach (Reservation reservation in OwnerStorage.AllReservations)
+                        foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                         {
                             if (reservation.objectId == views.Tag.ToString())
                             {
@@ -338,7 +341,7 @@ namespace TableFindBackend.Forms
             {
                 ShowLoading(true);
             }));
-            OwnerStorage.AllReservations.Clear();
+            OwnerStorage.ActiveReservations.Clear();
             OwnerStorage.AllUsers.Clear();
             String whereClause = "restaurantId = '" + OwnerStorage.ThisRestaurant.objectId + "'";
             BackendlessAPI.Persistence.DataQueryBuilder queryBuilder = BackendlessAPI.Persistence.DataQueryBuilder.Create();
@@ -349,7 +352,7 @@ namespace TableFindBackend.Forms
             foundReservations =>
             {
                 InitializeTimer();
-                OwnerStorage.AllReservations = (List<Reservation>)foundReservations;
+                OwnerStorage.ActiveReservations = (List<Reservation>)foundReservations;
                 if (foundReservations.Count != 0)
                 {
                     int i = 1;
@@ -415,7 +418,7 @@ namespace TableFindBackend.Forms
                       {
                           OwnerStorage.RestaurantTables = (List<RestaurantTable>)foundTableItem;
                           createdListener = new ReservationCreatedEventListener(this);
-                          deletedListener = new ReservationDeletedEventListener(this);                          
+                          deletedListener = new ReservationDeletedEventListener(this);
                           PerformBackgroundReservationPopulation();
                           int i = 0;
                           Invoke (new Action(() =>
@@ -495,9 +498,8 @@ namespace TableFindBackend.Forms
 
             OwnerStorage.FileWriter.WriteLineToFile("User created a new Table.", true);
             OwnerStorage.FileWriter.WriteLineToFile("Name:  " + newTable.name, false);
-            OwnerStorage.Log.Add("User added a new Restaurant Table    : " + System.DateTime.Now.ToString("HH:mm"));
-            OwnerStorage.Log.Add("Name:  " + newTable.name);
-
+            OwnerStorage.LogInfo.Add("User added a new Restaurant Table\nName:  "+ newTable.name);
+            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
         }
         private void AddControl(RestaurantTableView item)
@@ -684,8 +686,11 @@ namespace TableFindBackend.Forms
                         OwnerStorage.FileWriter.WriteLineToFile("User Finilized changes to restaurant", true);
                         OwnerStorage.FileWriter.WriteLineToFile("User deactivated Admin Mode", true);
 
-                        OwnerStorage.Log.Add("User made changes to restaurant floor plan    : " + System.DateTime.Now.ToString("HH:mm"));
-                        OwnerStorage.Log.Add("User deactivated Admin mode");
+                        OwnerStorage.LogInfo.Add("User made changes to restaurant floor plan");
+                        OwnerStorage.LogInfo.Add("User deactivated Admin mode");
+                        OwnerStorage.LogTimes.Add("blank");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+
                         ShowLoading(false);
                         PopulateTables();
                     }));
@@ -698,7 +703,8 @@ namespace TableFindBackend.Forms
                     {
                         OwnerStorage.FileWriter.WriteLineToFile("Changes were not saved", true);
                         OwnerStorage.FileWriter.WriteLineToFile("Error: " + error.Message, false);
-                        OwnerStorage.Log.Add("Error: " + error.Message);
+                        OwnerStorage.LogInfo.Add("Error: " + error.Message);
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                         ShowLoading(false);
                         MessageBox.Show(this, "Error: " + error.Message);
                     }));
@@ -712,7 +718,8 @@ namespace TableFindBackend.Forms
                 {
                     OwnerStorage.FileWriter.WriteLineToFile("Changes were not saved", true);
                     OwnerStorage.FileWriter.WriteLineToFile("Error: " + error.Message, false);
-                    OwnerStorage.Log.Add("Error: " + error.Message);
+                    OwnerStorage.LogInfo.Add("Error: " + error.Message);
+                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                     ShowLoading(false);
                     MessageBox.Show(this, "Error: " + error.Message);
 
@@ -725,6 +732,8 @@ namespace TableFindBackend.Forms
 
         private void btnReloadAll_Click(object sender, EventArgs e)
         {
+            createdListener.RemoveCreatedEventListener();
+            deletedListener.RemoveDeletedEventListener();
             PopulateTables();
         }
 
@@ -784,7 +793,8 @@ namespace TableFindBackend.Forms
                     toggleAdminMode(true);
 
                     OwnerStorage.FileWriter.WriteLineToFile("User Toggled Admin Mode", true);
-                    OwnerStorage.Log.Add("User activated elevated privileges    : " + System.DateTime.Now.ToString("HH:mm"));
+                    OwnerStorage.LogInfo.Add("User activated elevated privileges");
+                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                 }
                 tbxPass.Text = "";
@@ -857,7 +867,8 @@ namespace TableFindBackend.Forms
             if (result == DialogResult.OK)
             {
                 OwnerStorage.FileWriter.WriteLineToFile("User Edited Restaurant Details", true);
-                OwnerStorage.Log.Add("User Edited Restaurant Details    : " + System.DateTime.Now.ToString("HH:mm"));
+                OwnerStorage.LogInfo.Add("User Edited Restaurant Details");
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }           
 
             CheckLayoutImage();
@@ -901,7 +912,8 @@ namespace TableFindBackend.Forms
             if (result==DialogResult.OK)
             {
                 OwnerStorage.FileWriter.WriteLineToFile("User made changes to Restaurant Menu", true);
-                OwnerStorage.Log.Add("User made changes to Restaurant Menu    : " + System.DateTime.Now.ToString("HH:mm"));
+                OwnerStorage.LogInfo.Add("User made changes to Restaurant Menu");
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }
             
         }
@@ -914,7 +926,8 @@ namespace TableFindBackend.Forms
             if (pinResult == DialogResult.OK)
             {
                 OwnerStorage.FileWriter.WriteLineToFile("User Changed Manager PIN", true);
-                OwnerStorage.Log.Add("User Changed Manager PIN    : " + System.DateTime.Now.ToString("HH:mm"));
+                OwnerStorage.LogInfo.Add("User Changed Manager PIN");
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                 CheckPin();
             }
         }
@@ -947,7 +960,8 @@ namespace TableFindBackend.Forms
             if(result==DialogResult.OK)
             {
                 UpdateCapacityLabel();
-                OwnerStorage.Log.Add("User Toggled Capacity Level to "+lblCapacity.Text+"    : " + System.DateTime.Now.ToString("HH:mm"));
+                OwnerStorage.LogInfo.Add("User Toggled Capacity Level to "+lblCapacity.Text);
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }
         }
     }

@@ -63,7 +63,7 @@ namespace TableFindBackend.Forms
 
             if (thisTable != null)  //<--Means only one table's Reservations are to be shown
             {
-                foreach (Reservation reservation in OwnerStorage.AllReservations)
+                foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                 {
                     if (reservation.tableId == thisTable.objectId)
                     {
@@ -99,7 +99,7 @@ namespace TableFindBackend.Forms
             }
             else//<---meanse all reservations are to be shown
             {
-                foreach (Reservation reservation in OwnerStorage.AllReservations)
+                foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                 {
                     string userId = null;
                     rList.Add(reservation);
@@ -254,8 +254,8 @@ namespace TableFindBackend.Forms
                                     this.Enabled = true;
                                     MessageBox.Show(this, "reservation for " + rList[index].name + " has been removed");
                                     lvBookings.Items.RemoveAt(index);
-                                    OwnerStorage.Log.Add("Reservation has been removed    : " + System.DateTime.Now.ToString("HH:mm"));
-                                    OwnerStorage.Log.Add("Name:  " + rList[index].name);
+                                    OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + rList[index].name);
+                                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                                     //OwnerStorage.AllReservations.Remove(tempReservation);  <--no need, the listeners will remove it from local storage.
                                     //if (thisTable != null)
                                     //    populateList(true);

@@ -12,13 +12,16 @@ using TableFindBackend.Models;
 namespace TableFindBackend.RT_Database_Listeneres
 {
     public class ReservationDeletedEventListener
-    {     
+    {
+        IEventHandler<Reservation> reservationDeletedListener;
         private MainForm _master;
+        public void RemoveDeletedEventListener()
+        {
+            reservationDeletedListener.RemoveDeleteListeners();
+        }
         public ReservationDeletedEventListener(MainForm master)
         {
             _master = master;
-            IEventHandler<Reservation> reservationDeletedListener = Backendless.Data.Of<Reservation>().RT();
-
             reservationDeletedListener = Backendless.Data.Of<Reservation>().RT();
 
             reservationDeletedListener.AddDeleteListener("restaurantId = '" + OwnerStorage.ThisRestaurant.objectId + "'", deletedOrder =>
@@ -26,7 +29,7 @@ namespace TableFindBackend.RT_Database_Listeneres
 
                 Reservation tempReservation = null;
 
-                foreach (Reservation r in OwnerStorage.AllReservations)
+                foreach (Reservation r in OwnerStorage.ActiveReservations)
                 {
                     if (r.objectId == deletedOrder.objectId)
                     {
@@ -34,7 +37,8 @@ namespace TableFindBackend.RT_Database_Listeneres
                     }
                 }
 
-                OwnerStorage.AllReservations.Remove(tempReservation);
+                OwnerStorage.ActiveReservations.Remove(tempReservation);
+                OwnerStorage.PastReservations.Add(tempReservation);
                 _master.RemoveOneReservationView(deletedOrder);
             });
         }

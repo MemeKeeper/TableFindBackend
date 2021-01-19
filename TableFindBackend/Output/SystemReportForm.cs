@@ -21,7 +21,7 @@ namespace TableFindBackend.Output
             foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
             {
                 List<Reservation> tempList = new List<Reservation>();
-                foreach (Reservation reservation in OwnerStorage.AllReservations)
+                foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                 {
                     if (reservation.tableId == table.objectId)
                         tempList.Add(reservation);
@@ -32,8 +32,20 @@ namespace TableFindBackend.Output
                     AddRestaurantReservationTable(table, tempList);
                 }
             }
+            for(int i = 0;i<OwnerStorage.LogInfo.Count;i++)
+            {
+                if (OwnerStorage.LogTimes[i]=="blank")
+                {
+                    rtbLog.Text += OwnerStorage.LogInfo[i]+"\n";
+                }
+                else
+                {
+                    rtbLog.Text += OwnerStorage.LogInfo[i] + "\t" + OwnerStorage.LogTimes[i] + "\n";
+                }
+            }
+
             dgvTables.DataSource = OwnerStorage.RestaurantTables;
-            rtbLog.Lines = OwnerStorage.Log.ToArray();
+            //rtbLog.Lines = OwnerStorage.Log.ToArray();
         }
 
         private void AddRestaurantReservationTable(RestaurantTable table,List<Reservation> list)
@@ -76,22 +88,25 @@ namespace TableFindBackend.Output
         private void btnExcel_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
                 app.SheetsInNewWorkbook = 3;
                 Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing); 
                 Microsoft.Office.Interop.Excel._Worksheet wsTables = null;
-
+                Microsoft.Office.Interop.Excel.Range range;
                 app.Visible = true;
-                // get the reference of first sheet. By default its name is Sheet1.  
-                // store its reference to worksheet  
+
+                //Setup for Sheet1
                 wsTables = workbook.Sheets["Sheet1"];
                 wsTables = workbook.ActiveSheet;
                 wsTables.Name = "Restaurant Tables";
+                range = wsTables.get_Range("A1","D1");
+                range.Font.Color = System.Drawing.Color.FromName("White");
                 for (int i = 1; i < dgvTables.Columns.Count + 1; i++)
                 {                    
                     wsTables.Cells[1, i] = dgvTables.Columns[i - 1].HeaderText;
                     wsTables.Cells[1, i].Interior.Color = System.Drawing.Color.FromName("Silver");
+                    
                 }
                 for (int i = 0; i < dgvTables.Rows.Count - 1; i++)
                 {
@@ -101,16 +116,78 @@ namespace TableFindBackend.Output
 
                     }
                 }
+                range = wsTables.get_Range("A1", "E100");
+                range.Columns.AutoFit();
+
+
+                //Setup for Sheet2
                 wsTables = workbook.Sheets["Sheet2"];
                 wsTables.Name = "System Log";     
                 wsTables.Cells[1, 1] = "System Events";
-                int index = 1;
-                foreach (String item in OwnerStorage.Log)
-                {
-                    index++;
-                    wsTables.Cells[index, 1] = item;
+                wsTables.Cells[1, 2] = "Recorded Time";
+                wsTables.Cells[1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                wsTables.Cells[1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
+                range = wsTables.get_Range("A1", "B1");
+                range.Font.Color = System.Drawing.Color.FromName("White");
 
+                for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
+                {
+                    wsTables.Cells[i + 2, 1] = OwnerStorage.LogInfo[i];
+                    if (OwnerStorage.LogTimes[i] != "blank")
+                    {
+                        wsTables.Cells[i+2, 2] = OwnerStorage.LogTimes[i];
+                    }
                 }
+                range = wsTables.get_Range("A1", "E100");
+                range.Columns.AutoFit();
+
+
+
+                //setup for Sheet3
+                wsTables = workbook.Sheets["Sheet3"];
+                wsTables.Name = "Reservation";
+                int rowHeadingIndex = 0;
+                for (int i = 0; i < OwnerStorage.RestaurantTables.Count;i++) 
+                {
+                    List<Reservation> tempList = new List<Reservation>();
+                    foreach (Reservation reservation in OwnerStorage.ActiveReservations)
+                    {
+                        if (reservation.tableId == OwnerStorage.RestaurantTables[i].objectId)
+                            tempList.Add(reservation);
+                    }
+                    if (tempList.Count != 0)
+                    {
+                        rowHeadingIndex += 1;
+
+                        wsTables.Range[wsTables.Cells[rowHeadingIndex , 1], wsTables.Cells[rowHeadingIndex , 4]].Merge();
+                        wsTables.Cells[rowHeadingIndex , 1] = OwnerStorage.RestaurantTables[i].name;
+
+                        wsTables.Cells[rowHeadingIndex , 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString()).Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenterAcrossSelection;
+
+                        wsTables.Cells[rowHeadingIndex + 1, 1] ="Name";
+                        wsTables.Cells[rowHeadingIndex + 1, 2] = "Date Taken From";
+                        wsTables.Cells[rowHeadingIndex + 1, 3] = "Date Taken To";
+                        wsTables.Cells[rowHeadingIndex + 1, 4] = "Contact Number";
+                        wsTables.Cells[rowHeadingIndex + 1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.Cells[rowHeadingIndex + 1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.Cells[rowHeadingIndex + 1, 3].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.Cells[rowHeadingIndex + 1, 4].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        range = wsTables.get_Range("A"+ (rowHeadingIndex + 1).ToString(), "D" + (rowHeadingIndex + 1).ToString());
+                        range.Font.Color = System.Drawing.Color.FromName("White");
+                        for (int inner = 0; inner< tempList.Count; inner++)
+                        {
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].name;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].takenFrom;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].takenTo;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].number;
+                            
+                        }
+                        rowHeadingIndex += tempList.Count+2;
+                    }
+                }
+                range = wsTables.get_Range("A1", "E100");
+                range.Columns.AutoFit();
             }
             catch(Exception ex)
             {

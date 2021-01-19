@@ -48,7 +48,7 @@ namespace TableFindBackend.Forms
             this.btnBrowseLayout = new System.Windows.Forms.Button();
             this.lblLayout = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.ofdBrowse = new System.Windows.Forms.OpenFileDialog();
+            this.ofdMenuBrowse = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnPrint = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -56,6 +56,7 @@ namespace TableFindBackend.Forms
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.ofdLayoutBrowse = new System.Windows.Forms.OpenFileDialog();
             this.pnlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -244,9 +245,9 @@ namespace TableFindBackend.Forms
             this.pnlButtons.Size = new System.Drawing.Size(281, 73);
             this.pnlButtons.TabIndex = 10;
             // 
-            // ofdBrowse
+            // ofdMenuBrowse
             // 
-            this.ofdBrowse.FileName = "openFileDialog1";
+            this.ofdMenuBrowse.FileName = "openFileDialog1";
             // 
             // panel1
             // 
@@ -326,6 +327,10 @@ namespace TableFindBackend.Forms
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Restaurant Editor";
             // 
+            // ofdLayoutBrowse
+            // 
+            this.ofdLayoutBrowse.FileName = "openFileDialog1";
+            // 
             // EditRestaurantForm
             // 
             this.AcceptButton = this.btnSave;
@@ -368,7 +373,7 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Panel pnlPanel;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Panel pnlButtons;
-        private System.Windows.Forms.OpenFileDialog ofdBrowse;
+        private System.Windows.Forms.OpenFileDialog ofdMenuBrowse;
         private System.Windows.Forms.Label lblSize;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.PictureBox pbxLoading;
@@ -383,5 +388,6 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.OpenFileDialog ofdLayoutBrowse;
     }
 }
