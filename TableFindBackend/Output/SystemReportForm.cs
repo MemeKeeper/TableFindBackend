@@ -77,12 +77,9 @@ namespace TableFindBackend.Output
         {
             try
             {
-                // creating Excel Application  
                 Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-                // creating new WorkBook within Excel application  
                 app.SheetsInNewWorkbook = 3;
-                Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-                // creating new Excelsheet in workbook  
+                Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing); 
                 Microsoft.Office.Interop.Excel._Worksheet wsTables = null;
 
                 app.Visible = true;
@@ -93,13 +90,15 @@ namespace TableFindBackend.Output
                 wsTables.Name = "Restaurant Tables";
                 for (int i = 1; i < dgvTables.Columns.Count + 1; i++)
                 {                    
-                    wsTables.Cells[1, i] = dgvTables.Columns[i - 1].HeaderText;                   
+                    wsTables.Cells[1, i] = dgvTables.Columns[i - 1].HeaderText;
+                    wsTables.Cells[1, i].Interior.Color = System.Drawing.Color.FromName("Silver");
                 }
                 for (int i = 0; i < dgvTables.Rows.Count - 1; i++)
                 {
                     for (int j = 0; j < dgvTables.Columns.Count; j++)
                     {
                         wsTables.Cells[i + 2, j + 1] = dgvTables.Rows[i].Cells[j].Value.ToString();
+
                     }
                 }
                 wsTables = workbook.Sheets["Sheet2"];
