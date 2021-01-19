@@ -20,7 +20,7 @@ namespace TableFindBackend.Forms
 
             if (user.ObjectId == OwnerStorage.ThisRestaurant.ownerId)
             {
-                lblRestaurantLabel.Visible = true;
+                lblRestaurantLabel.Visible = true;                
             }
             else
             {
@@ -28,7 +28,9 @@ namespace TableFindBackend.Forms
                 tbxFName.Text = user.GetProperty("FirstName").ToString();
                 tbxLName.Text = user.GetProperty("LastName").ToString();
                 tbxEmail.Text = user.GetProperty("email").ToString();
+                lblTitle.Text = "Reservation details for " + user.GetProperty("FirstName").ToString();
             }
+            
         }
 
         private void btnExit_Click(object sender, EventArgs e)
