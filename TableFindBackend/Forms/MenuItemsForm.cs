@@ -24,7 +24,7 @@ namespace TableFindBackend.Forms
             populateMenu();
         }
 
-        private void populateMenu()
+        private void populateMenu() // Controller for RestaurantMenuItem
         {
             flpItems.Controls.Clear();
 
@@ -97,7 +97,7 @@ namespace TableFindBackend.Forms
         {
             AddOrEdit(selectedItem);
         }
-        private void AddOrEdit(RestaurantMenuItem temp)
+        private void AddOrEdit(RestaurantMenuItem temp) // Controller for RestaurantMenuItem
         {
             AddEditMenuItem newForm = new AddEditMenuItem(temp);
             

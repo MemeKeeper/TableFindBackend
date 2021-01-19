@@ -308,7 +308,7 @@ namespace TableFindBackend.Forms
                         tempUser = user;
 
                 }
-                CustomerDetailsForm detailsForm = new CustomerDetailsForm(tempUser);
+                CustomerDetailsForm detailsForm = new CustomerDetailsForm(tempUser, rList[index]);
                 detailsForm.ShowDialog();          
         }
     }

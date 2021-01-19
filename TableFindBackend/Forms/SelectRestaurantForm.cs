@@ -21,7 +21,7 @@ namespace TableFindBackend.Forms
             InitializeComponent();
             foreach (Restaurant r in list)
             {
-                ListViewItem item = new ListViewItem(r.name + ", " + r.locationString);
+                ListViewItem item = new ListViewItem(r.name);
                 lvRestaurant.Items.Add(item);
             }
         
