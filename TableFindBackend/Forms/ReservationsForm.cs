@@ -79,8 +79,8 @@ namespace TableFindBackend.Forms
                         string[] arr = new string[5];
                         ListViewItem itm;
                         arr[0] = reservation.name.ToString();
-                        arr[1] = reservation.takenFrom.ToString();
-                        arr[2] = reservation.takenTo.ToString();
+                        arr[1] = reservation.takenFrom.ToString("ddd, dd/MM/yyyy, HH:mm");
+                        arr[2] = reservation.takenTo.ToString("ddd, dd/MM/yyyy, HH:mm");
                         if (userId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                         {
                             arr[3] = "Restaurant";
@@ -113,8 +113,8 @@ namespace TableFindBackend.Forms
                     string[] arr = new string[6];
                     ListViewItem itm;
                     arr[0] = reservation.name.ToString();
-                    arr[1] = reservation.takenFrom.ToString();
-                    arr[2] = reservation.takenTo.ToString();
+                    arr[1] = reservation.takenFrom.ToString("ddd, dd/MM/yyyy, HH:mm");
+                    arr[2] = reservation.takenTo.ToString("ddd, dd/MM/yyyy, HH:mm");
                     if (userId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                     {
                         arr[3] = "Restaurant";

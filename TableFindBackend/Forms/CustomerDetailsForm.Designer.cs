@@ -111,7 +111,7 @@ namespace TableFindBackend.Forms
             this.lblRestaurantLabel.Name = "lblRestaurantLabel";
             this.lblRestaurantLabel.Size = new System.Drawing.Size(338, 242);
             this.lblRestaurantLabel.TabIndex = 8;
-            this.lblRestaurantLabel.Text = "This Booking was made by the restaurant";
+            this.lblRestaurantLabel.Text = "This Reservation was made by the restaurant";
             this.lblRestaurantLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblRestaurantLabel.Visible = false;
             // 
