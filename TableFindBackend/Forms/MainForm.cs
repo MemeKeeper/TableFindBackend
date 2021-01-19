@@ -205,7 +205,7 @@ namespace TableFindBackend.Forms
                 flpItems.Controls.Remove(tempReservation);
             }));
         }    
-        public void AddOneReservationView(Reservation r)
+        public void AddOneReservationView(Reservation r) // Controller for ReservationView
         {
             ReservationView reservation = new ReservationView();
             RestaurantTable table = new RestaurantTable();
@@ -396,7 +396,7 @@ namespace TableFindBackend.Forms
 
             Backendless.Data.Of<Reservation>().Find(queryBuilder,getContactsCallback);
         }
-        private void PopulateTables()
+        private void PopulateTables() // Controller for RestaurantTableView
         {
             btnViewAll.Enabled = false;
             OwnerStorage.RestaurantTables.Clear();

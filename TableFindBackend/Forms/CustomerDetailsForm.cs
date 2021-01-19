@@ -9,18 +9,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
+using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
     public partial class CustomerDetailsForm : Form
     {
-        public CustomerDetailsForm(BackendlessUser user)
+        public CustomerDetailsForm(BackendlessUser user, Reservation r)
         {
             InitializeComponent();
 
             if (user.ObjectId == OwnerStorage.ThisRestaurant.ownerId)
             {
-                lblRestaurantLabel.Visible = true;                
+                lblRestaurantLabel.Visible = true;
+                lblTitle.Text = "Reservation details for " + r.name;
             }
             else
             {
@@ -30,6 +32,7 @@ namespace TableFindBackend.Forms
                 tbxEmail.Text = user.GetProperty("email").ToString();
                 lblTitle.Text = "Reservation details for " + user.GetProperty("FirstName").ToString();
             }
+
             
         }
 

@@ -34,6 +34,10 @@ namespace TableFindBackend.Output
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.dgvTables = new System.Windows.Forms.DataGridView();
+            this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnl = new System.Windows.Forms.Panel();
             this.tcTables = new System.Windows.Forms.TabControl();
             this.tpTables = new System.Windows.Forms.TabPage();
@@ -41,21 +45,17 @@ namespace TableFindBackend.Output
             this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.flpReservationTables = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlControls = new System.Windows.Forms.Panel();
-            this.btnExcel = new System.Windows.Forms.Button();
-            this.btnWord = new System.Windows.Forms.Button();
             this.btnPDF = new System.Windows.Forms.Button();
-            this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnWord = new System.Windows.Forms.Button();
+            this.btnExcel = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.pnl.SuspendLayout();
             this.tcTables.SuspendLayout();
             this.tpTables.SuspendLayout();
             this.tpSystemLog.SuspendLayout();
             this.pnlControls.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -72,10 +72,11 @@ namespace TableFindBackend.Output
             // 
             // btnExit
             // 
-            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(118)))), ((int)(((byte)(210)))));
+            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(109)))), ((int)(((byte)(254)))));
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.ForeColor = System.Drawing.SystemColors.Control;
             this.btnExit.Location = new System.Drawing.Point(879, 0);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExit.Name = "btnExit";
@@ -89,11 +90,11 @@ namespace TableFindBackend.Output
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.SystemColors.Control;
             this.lblTitle.Location = new System.Drawing.Point(3, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(154, 25);
+            this.lblTitle.Size = new System.Drawing.Size(140, 23);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "System Report";
             // 
@@ -115,6 +116,31 @@ namespace TableFindBackend.Output
             this.dgvTables.ReadOnly = true;
             this.dgvTables.Size = new System.Drawing.Size(363, 358);
             this.dgvTables.TabIndex = 7;
+            // 
+            // availableDataGridViewCheckBoxColumn
+            // 
+            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "available";
+            this.availableDataGridViewCheckBoxColumn.HeaderText = "Table Active?";
+            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
+            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Table Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // capacityDataGridViewTextBoxColumn
+            // 
+            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "capacity";
+            this.capacityDataGridViewTextBoxColumn.HeaderText = "Maximum Seating";
+            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
+            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // restaurantTableBindingSource
+            // 
+            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
             // 
             // pnl
             // 
@@ -190,18 +216,17 @@ namespace TableFindBackend.Output
             this.pnlControls.Size = new System.Drawing.Size(902, 61);
             this.pnlControls.TabIndex = 10;
             // 
-            // btnExcel
+            // btnPDF
             // 
-            this.btnExcel.BackColor = System.Drawing.Color.DarkOliveGreen;
-            this.btnExcel.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExcel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnExcel.Location = new System.Drawing.Point(11, 5);
-            this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(202, 51);
-            this.btnExcel.TabIndex = 0;
-            this.btnExcel.Text = "Export to a Microsoft Excel Document";
-            this.btnExcel.UseVisualStyleBackColor = false;
-            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            this.btnPDF.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnPDF.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPDF.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnPDF.Location = new System.Drawing.Point(427, 5);
+            this.btnPDF.Name = "btnPDF";
+            this.btnPDF.Size = new System.Drawing.Size(202, 51);
+            this.btnPDF.TabIndex = 2;
+            this.btnPDF.Text = "Export to Portable Document Format file (PDF)";
+            this.btnPDF.UseVisualStyleBackColor = false;
             // 
             // btnWord
             // 
@@ -215,42 +240,18 @@ namespace TableFindBackend.Output
             this.btnWord.Text = "Export to a Microsoft Word Document";
             this.btnWord.UseVisualStyleBackColor = false;
             // 
-            // btnPDF
+            // btnExcel
             // 
-            this.btnPDF.BackColor = System.Drawing.Color.OrangeRed;
-            this.btnPDF.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPDF.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnPDF.Location = new System.Drawing.Point(427, 5);
-            this.btnPDF.Name = "btnPDF";
-            this.btnPDF.Size = new System.Drawing.Size(202, 51);
-            this.btnPDF.TabIndex = 2;
-            this.btnPDF.Text = "Export to Portable Document Format file (PDF)";
-            this.btnPDF.UseVisualStyleBackColor = false;
-            // 
-            // availableDataGridViewCheckBoxColumn
-            // 
-            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "available";
-            this.availableDataGridViewCheckBoxColumn.HeaderText = "Table Active?";
-            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
-            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Table Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // capacityDataGridViewTextBoxColumn
-            // 
-            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "capacity";
-            this.capacityDataGridViewTextBoxColumn.HeaderText = "Maximum Seating";
-            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
-            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // restaurantTableBindingSource
-            // 
-            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
+            this.btnExcel.BackColor = System.Drawing.Color.DarkOliveGreen;
+            this.btnExcel.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExcel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnExcel.Location = new System.Drawing.Point(11, 5);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(202, 51);
+            this.btnExcel.TabIndex = 0;
+            this.btnExcel.Text = "Export to a Microsoft Excel Document";
+            this.btnExcel.UseVisualStyleBackColor = false;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // SystemReportForm
             // 
@@ -270,12 +271,12 @@ namespace TableFindBackend.Output
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.pnl.ResumeLayout(false);
             this.tcTables.ResumeLayout(false);
             this.tpTables.ResumeLayout(false);
             this.tpSystemLog.ResumeLayout(false);
             this.pnlControls.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

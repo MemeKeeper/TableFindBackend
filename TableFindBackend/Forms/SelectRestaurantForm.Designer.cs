@@ -46,7 +46,7 @@ namespace TableFindBackend.Forms
             this.lvRestaurant.HideSelection = false;
             this.lvRestaurant.Location = new System.Drawing.Point(12, 104);
             this.lvRestaurant.Name = "lvRestaurant";
-            this.lvRestaurant.Size = new System.Drawing.Size(274, 252);
+            this.lvRestaurant.Size = new System.Drawing.Size(348, 288);
             this.lvRestaurant.TabIndex = 0;
             this.lvRestaurant.UseCompatibleStateImageBehavior = false;
             this.lvRestaurant.View = System.Windows.Forms.View.List;
@@ -58,7 +58,7 @@ namespace TableFindBackend.Forms
             this.panel1.Controls.Add(this.lblTitle);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(274, 86);
+            this.panel1.Size = new System.Drawing.Size(348, 86);
             this.panel1.TabIndex = 1;
             // 
             // lblTitle
@@ -67,7 +67,8 @@ namespace TableFindBackend.Forms
             this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(272, 84);
+            this.lblTitle.Padding = new System.Windows.Forms.Padding(5);
+            this.lblTitle.Size = new System.Drawing.Size(346, 84);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Please select the restaurant you wish to log in to";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -76,7 +77,7 @@ namespace TableFindBackend.Forms
             // 
             this.cbxDefault.AutoSize = true;
             this.cbxDefault.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxDefault.Location = new System.Drawing.Point(12, 362);
+            this.cbxDefault.Location = new System.Drawing.Point(49, 398);
             this.cbxDefault.Name = "cbxDefault";
             this.cbxDefault.Size = new System.Drawing.Size(257, 24);
             this.cbxDefault.TabIndex = 2;
@@ -88,7 +89,7 @@ namespace TableFindBackend.Forms
             this.btnChangeLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnChangeLoad.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeLoad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnChangeLoad.Location = new System.Drawing.Point(72, 392);
+            this.btnChangeLoad.Location = new System.Drawing.Point(104, 427);
             this.btnChangeLoad.Name = "btnChangeLoad";
             this.btnChangeLoad.Size = new System.Drawing.Size(152, 43);
             this.btnChangeLoad.TabIndex = 16;
@@ -100,7 +101,7 @@ namespace TableFindBackend.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 446);
+            this.ClientSize = new System.Drawing.Size(372, 482);
             this.Controls.Add(this.btnChangeLoad);
             this.Controls.Add(this.cbxDefault);
             this.Controls.Add(this.panel1);

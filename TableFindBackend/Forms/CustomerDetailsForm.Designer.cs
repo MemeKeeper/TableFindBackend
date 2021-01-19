@@ -55,7 +55,7 @@ namespace TableFindBackend.Forms
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(358, 43);
+            this.pnlHeader.Size = new System.Drawing.Size(472, 43);
             this.pnlHeader.TabIndex = 5;
             // 
             // btnExit
@@ -63,8 +63,9 @@ namespace TableFindBackend.Forms
             this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(109)))), ((int)(((byte)(254)))));
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(312, 0);
+            this.btnExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnExit.Location = new System.Drawing.Point(426, 0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(46, 43);
             this.btnExit.TabIndex = 1;
@@ -76,11 +77,11 @@ namespace TableFindBackend.Forms
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.SystemColors.Control;
             this.lblTitle.Location = new System.Drawing.Point(3, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(0, 25);
+            this.lblTitle.Size = new System.Drawing.Size(0, 23);
             this.lblTitle.TabIndex = 0;
             // 
             // panel1
@@ -101,15 +102,15 @@ namespace TableFindBackend.Forms
             this.panel1.Controls.Add(this.tbxFName);
             this.panel1.Location = new System.Drawing.Point(8, 49);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(338, 311);
+            this.panel1.Size = new System.Drawing.Size(452, 311);
             this.panel1.TabIndex = 6;
             // 
             // lblRestaurantLabel
             // 
-            this.lblRestaurantLabel.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRestaurantLabel.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRestaurantLabel.Location = new System.Drawing.Point(-1, 0);
             this.lblRestaurantLabel.Name = "lblRestaurantLabel";
-            this.lblRestaurantLabel.Size = new System.Drawing.Size(338, 242);
+            this.lblRestaurantLabel.Size = new System.Drawing.Size(452, 309);
             this.lblRestaurantLabel.TabIndex = 8;
             this.lblRestaurantLabel.Text = "This Reservation was made by the restaurant";
             this.lblRestaurantLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -118,7 +119,7 @@ namespace TableFindBackend.Forms
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(120, 258);
+            this.btnClose.Location = new System.Drawing.Point(163, 260);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(95, 37);
             this.btnClose.TabIndex = 0;
@@ -130,7 +131,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmail.Location = new System.Drawing.Point(13, 191);
+            this.lblEmail.Location = new System.Drawing.Point(75, 194);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(108, 20);
             this.lblEmail.TabIndex = 7;
@@ -140,7 +141,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblContact.AutoSize = true;
             this.lblContact.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContact.Location = new System.Drawing.Point(13, 132);
+            this.lblContact.Location = new System.Drawing.Point(75, 135);
             this.lblContact.Name = "lblContact";
             this.lblContact.Size = new System.Drawing.Size(132, 20);
             this.lblContact.TabIndex = 6;
@@ -150,7 +151,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblLName.AutoSize = true;
             this.lblLName.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLName.Location = new System.Drawing.Point(13, 69);
+            this.lblLName.Location = new System.Drawing.Point(75, 72);
             this.lblLName.Name = "lblLName";
             this.lblLName.Size = new System.Drawing.Size(85, 20);
             this.lblLName.TabIndex = 5;
@@ -160,7 +161,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblFName.AutoSize = true;
             this.lblFName.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFName.Location = new System.Drawing.Point(13, 9);
+            this.lblFName.Location = new System.Drawing.Point(75, 12);
             this.lblFName.Name = "lblFName";
             this.lblFName.Size = new System.Drawing.Size(83, 20);
             this.lblFName.TabIndex = 4;
@@ -169,7 +170,7 @@ namespace TableFindBackend.Forms
             // tbxEmail
             // 
             this.tbxEmail.Font = new System.Drawing.Font("Century Gothic", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxEmail.Location = new System.Drawing.Point(17, 214);
+            this.tbxEmail.Location = new System.Drawing.Point(79, 217);
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.ReadOnly = true;
             this.tbxEmail.Size = new System.Drawing.Size(301, 28);
@@ -178,7 +179,7 @@ namespace TableFindBackend.Forms
             // tbxContact
             // 
             this.tbxContact.Font = new System.Drawing.Font("Century Gothic", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxContact.Location = new System.Drawing.Point(17, 155);
+            this.tbxContact.Location = new System.Drawing.Point(79, 158);
             this.tbxContact.Name = "tbxContact";
             this.tbxContact.ReadOnly = true;
             this.tbxContact.Size = new System.Drawing.Size(301, 28);
@@ -187,7 +188,7 @@ namespace TableFindBackend.Forms
             // tbxLName
             // 
             this.tbxLName.Font = new System.Drawing.Font("Century Gothic", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxLName.Location = new System.Drawing.Point(17, 92);
+            this.tbxLName.Location = new System.Drawing.Point(79, 95);
             this.tbxLName.Name = "tbxLName";
             this.tbxLName.ReadOnly = true;
             this.tbxLName.Size = new System.Drawing.Size(301, 28);
@@ -196,7 +197,7 @@ namespace TableFindBackend.Forms
             // tbxFName
             // 
             this.tbxFName.Font = new System.Drawing.Font("Century Gothic", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxFName.Location = new System.Drawing.Point(17, 32);
+            this.tbxFName.Location = new System.Drawing.Point(79, 35);
             this.tbxFName.Name = "tbxFName";
             this.tbxFName.ReadOnly = true;
             this.tbxFName.Size = new System.Drawing.Size(301, 28);
@@ -207,7 +208,7 @@ namespace TableFindBackend.Forms
             this.AcceptButton = this.btnClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(358, 372);
+            this.ClientSize = new System.Drawing.Size(472, 372);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
