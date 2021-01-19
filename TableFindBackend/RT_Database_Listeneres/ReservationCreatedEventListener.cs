@@ -14,12 +14,15 @@ namespace TableFindBackend.RT_Database_Listeneres
 
 {   public class ReservationCreatedEventListener
     {
+        IEventHandler<Reservation> reservationCreatedEvent;
         private MainForm _masterform;
+        public void RemoveCreatedEventListener()
+        {
+            reservationCreatedEvent.RemoveCreateListeners();
+        }
         public ReservationCreatedEventListener(MainForm masterform)
         {
             _masterform = masterform;
-
-            IEventHandler<Reservation> reservationCreatedEvent = Backendless.Data.Of<Reservation>().RT();
 
             reservationCreatedEvent = Backendless.Data.Of<Reservation>().RT();
 
@@ -27,7 +30,7 @@ namespace TableFindBackend.RT_Database_Listeneres
             {
 
                 Boolean flag = false;
-                foreach (Reservation r in OwnerStorage.AllReservations)
+                foreach (Reservation r in OwnerStorage.ActiveReservations)
                 {
                     if (createdOrder.objectId == r.objectId)
                         flag = true;
@@ -49,14 +52,18 @@ namespace TableFindBackend.RT_Database_Listeneres
                                 if (foundContact != null)
                                 {
                                     OwnerStorage.AllUsers.Add(foundContact);
-                                    OwnerStorage.AllReservations.Add(createdOrder);
+                                    OwnerStorage.ActiveReservations.Add(createdOrder);
                                     _masterform.AddOneReservationView(createdOrder);
-                                    OwnerStorage.Log.Add("Reservation has been created    : " + System.DateTime.Now.ToString("HH:mm"));
-                                    OwnerStorage.Log.Add("Name:  " + createdOrder.name);
                                     if (foundContact.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
-                                        OwnerStorage.Log.Add("Created By:   Restaurant");
+                                    {
+                                        OwnerStorage.LogInfo.Add("Reservation has been created\nName:   " + createdOrder.name + "\nCreated By:  Restaurant");
+                                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                                    }
                                     else
-                                        OwnerStorage.Log.Add("Created By:   Customer");
+                                    {
+                                        OwnerStorage.LogInfo.Add("Reservation has been created\nName:   " + createdOrder.name + "\nCreated By:  Customer");
+                                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                                    }
                                 }
                             },
                             error =>

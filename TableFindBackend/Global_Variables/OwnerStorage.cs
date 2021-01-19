@@ -1,5 +1,6 @@
 ﻿using BackendlessAPI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,14 +17,16 @@ namespace TableFindBackend.Global_Variables
         private static BackendlessUser currentlyLoggedIn = null;
         private static List<RestaurantTable> restaurantTables;
         private static List<RestaurantMenuItem> menuItems;
-        private static List<Reservation> allReservations;
+        private static List<Reservation> activeReservations;
+        private static List<Reservation> pastReservations;
         private static List<BackendlessUser> allUsers;
         private static Restaurant thisRestaurant;
         private static RestaurantTable tempTable;
         private static bool adminMode;
         private static string managerPin;
         private static string eventsLog;
-        private static List<String> log;
+        private static List<String> logInfo;
+        private static List<String> logTimes;
         public static BackendlessUser CurrentlyLoggedIn 
         {
             get => currentlyLoggedIn; 
@@ -38,7 +41,9 @@ namespace TableFindBackend.Global_Variables
         public static string EventsLog { get => eventsLog; set => eventsLog = value; }
         public static TextFileWriter FileWriter { get => fileWriter; set => fileWriter = value; }
         public static List<BackendlessUser> AllUsers { get => allUsers; set => allUsers = value; }
-        public static List<Reservation> AllReservations { get => allReservations; set => allReservations = value; }
-        public static List<string> Log { get => log; set => log = value; }
+        public static List<Reservation> ActiveReservations { get => activeReservations; set => activeReservations = value; }
+        public static List<string> LogInfo { get => logInfo; set => logInfo = value; }
+        public static List<string> LogTimes { get => logTimes; set => logTimes = value; }
+        public static List<Reservation> PastReservations { get => pastReservations; set => pastReservations = value; }
     }
 }

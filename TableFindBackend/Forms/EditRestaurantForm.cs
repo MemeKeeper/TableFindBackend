@@ -53,7 +53,7 @@ namespace TableFindBackend.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string file = ofdBrowse.FileName;
+            string file = ofdLayoutBrowse.FileName;
             try
             {
                 if (File.Exists("layouts") != true)
@@ -62,7 +62,7 @@ namespace TableFindBackend.Forms
                 if (file != "")   //    <---Layout was chosen or left as is
                 {
                     string text = File.ReadAllText(file);
-                    lblLayout.Text = ofdBrowse.FileName;
+                    lblLayout.Text = ofdLayoutBrowse.FileName;
                     if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl"))
                         try
                         {
@@ -71,7 +71,7 @@ namespace TableFindBackend.Forms
                         }
                         catch (IOException)
                         { }
-                    File.Copy(ofdBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl");
+                    File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl");
                 }
                 else
                 {
@@ -102,14 +102,14 @@ namespace TableFindBackend.Forms
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             long size = -1;
-            DialogResult result = ofdBrowse.ShowDialog(); // Show the dialog.
+            DialogResult result = ofdMenuBrowse.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.
             {
-                string file = ofdBrowse.FileName;
+                string file = ofdMenuBrowse.FileName;
                 try
                 {
                     string text = File.ReadAllText(file);
-                    tbxMenu.Text = ofdBrowse.FileName;
+                    tbxMenu.Text = ofdMenuBrowse.FileName;
                     size = text.Length / 1024;
                     lblSize.Text = "File size: " + size+ "KB";
                 }
@@ -126,51 +126,99 @@ namespace TableFindBackend.Forms
             pbxLoading.Visible = true;
                 btnSave.Enabled = false;
             
-                lblSize.Text = "Uploading...";
-                AsyncCallback<BackendlessAPI.File.BackendlessFile> callback = new AsyncCallback<BackendlessAPI.File.BackendlessFile>(
+
+
+                lblSize.Text = "Removing Existing File...";
+                AsyncCallback<object> deleteCallback = new AsyncCallback<object>(
                 result =>
                 {
-                    OwnerStorage.ThisRestaurant.menuLink = result.FileURL;
-                    Invoke(new Action(() =>
+                    lblSize.Text = "Uploading...";
+                    AsyncCallback<BackendlessAPI.File.BackendlessFile> callback = new AsyncCallback<BackendlessAPI.File.BackendlessFile>(
+                    success =>
                     {
-                        OwnerStorage.FileWriter.WriteLineToFile("User Uploaded new menu pdf", true);
+                        OwnerStorage.ThisRestaurant.menuLink = success.FileURL;
+                        Invoke(new Action(() =>
+                        {
+                            OwnerStorage.FileWriter.WriteLineToFile("User Uploaded new menu pdf", true);
 
 
-                        pbxLoading.Visible = false;
-                        lblSize.Text = "Upload completed";
-                        btnSave.Enabled = true;
-                    }));
+                            pbxLoading.Visible = false;
+                            lblSize.Text = "Upload completed";
+                            btnSave.Enabled = true;
+                        }));
+                    },
+
+                    fault =>
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            OwnerStorage.FileWriter.WriteLineToFile("Menu Upload Failed", true);
+
+                            pbxLoading.Visible = false;
+                            MessageBox.Show(this, "Error: " + fault.Message.ToString());
+                            lblSize.Text = "Upload failed";
+                            btnSave.Enabled = true;
+                        }));
+                    });
+
+                    FileStream fs = new FileStream(tbxMenu.Text, FileMode.Open, FileAccess.Read);
+                    BackendlessAPI.Backendless.Files.Upload(fs, "Menu", callback);
                 },
 
                 fault =>
                 {
                     Invoke(new Action(() =>
                     {
-                        OwnerStorage.FileWriter.WriteLineToFile("Menu Upload Failed", true);
-
-                        pbxLoading.Visible = false;
-                        MessageBox.Show(this, "Error: " + fault.Message);
-                        lblSize.Text = "Upload failed";
-                        btnSave.Enabled = true;
+                        lblSize.Text = "Uploading...";
                     }));
+                    AsyncCallback<BackendlessAPI.File.BackendlessFile> callback = new AsyncCallback<BackendlessAPI.File.BackendlessFile>(
+                    success =>
+                    {
+                        OwnerStorage.ThisRestaurant.menuLink = success.FileURL;
+                        Invoke(new Action(() =>
+                        {
+                            OwnerStorage.FileWriter.WriteLineToFile("User Uploaded new menu pdf", true);
+
+
+                            pbxLoading.Visible = false;
+                            lblSize.Text = "Upload completed";
+                            btnSave.Enabled = true;
+                        }));
+                    },
+
+                    uploadFault =>
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            OwnerStorage.FileWriter.WriteLineToFile("Menu Upload Failed", true);
+
+                            pbxLoading.Visible = false;
+                            MessageBox.Show(this, "Error: " + uploadFault.Message.ToString());
+                            lblSize.Text = "Upload failed";
+                            btnSave.Enabled = true;
+                        }));
+                    });
+
+                    FileStream fs = new FileStream(tbxMenu.Text, FileMode.Open, FileAccess.Read);
+                    BackendlessAPI.Backendless.Files.Upload(fs, "Menu", callback);
                 });
 
-                FileStream fs = new FileStream(tbxMenu.Text, FileMode.Open, FileAccess.Read);
-                BackendlessAPI.Backendless.Files.Upload(fs, "myfiles", callback);
-            }
-            else
-            {
-                MessageBox.Show(this, "Please browse for a file to upload first");
-            }
+                BackendlessAPI.Backendless.Files.Remove("Menu", deleteCallback);
+                
+                }
+                else
+                {
+                    MessageBox.Show(this, "Please browse for a file to upload first");
+                }
         }
 
         private void btnBrowseLayout_Click(object sender, EventArgs e)
         {
-            DialogResult result = ofdBrowse.ShowDialog(); // Show the dialog.
+            DialogResult result = ofdLayoutBrowse.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.
             {
-                string file = ofdBrowse.FileName;
-                lblLayout.Text = ofdBrowse.FileName;
+                string file = ofdLayoutBrowse.FileName;
+                lblLayout.Text = ofdLayoutBrowse.FileName;
                 btnDefault.Enabled = true;
             }
         }
@@ -193,12 +241,12 @@ namespace TableFindBackend.Forms
             {
                 try
                 {
-                    lblLayout.Text = ofdBrowse.FileName;
+                    lblLayout.Text = ofdLayoutBrowse.FileName;
                     try
                     {
                         lblLayout.Text = "Change restaurant layout image";
                         btnDefault.Enabled = false;
-                        ofdBrowse.FileName = null;
+                        ofdLayoutBrowse.FileName = null;
 
                     }
                     catch (IOException)

@@ -95,8 +95,9 @@ namespace TableFindBackend.Forms
                             {
                                 Invoke(new Action(() =>
                                 {
-                                    OwnerStorage.Log.Add("Reservation has been removed    : " + System.DateTime.Now.ToString("HH:mm"));
-                                    OwnerStorage.Log.Add("Name:  " + thisReservation.name);
+                                    OwnerStorage.LogInfo.Add("Reservation has been removed\nName:   "+ thisReservation.name);
+                                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("dd/MM,   HH:mm"));
+
                                     MessageBox.Show(this, "reservation for " + thisReservation.name+ " has been removed");
                                     ShowLoading(false);
                                     this.Close();
