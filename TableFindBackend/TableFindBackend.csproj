@@ -435,6 +435,12 @@
       <DependentUpon>RestaurantTableView.cs</DependentUpon>
     </Compile>
     <Compile Include="Global_Variables\OwnerStorage.cs" />
+    <Compile Include="ViewModels\RestaurantView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewModels\RestaurantView.Designer.cs">
+      <DependentUpon>RestaurantView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\AddEditMenuItem.resx">
       <DependentUpon>AddEditMenuItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -498,6 +504,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ViewModels\RestaurantTableView.resx">
       <DependentUpon>RestaurantTableView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewModels\RestaurantView.resx">
+      <DependentUpon>RestaurantView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
