@@ -88,6 +88,7 @@ namespace TableFindBackend.Forms
             this.tbxName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxName.Location = new System.Drawing.Point(17, 39);
             this.tbxName.Name = "tbxName";
+            this.tbxName.ReadOnly = true;
             this.tbxName.Size = new System.Drawing.Size(242, 29);
             this.tbxName.TabIndex = 3;
             // 
