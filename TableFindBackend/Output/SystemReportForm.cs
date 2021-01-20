@@ -263,5 +263,11 @@ namespace TableFindBackend.Output
             }
             catch { }
         }
+
+        private void btnPDF_Click(object sender, EventArgs e)
+        {
+            // test for generating a PDF -- was getting ahead of myself, will leave this for after Word works completely
+
+        }
     }
 }
