@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
+using Spire.Doc;
+using Spire.Doc.Documents;
 using System.IO;
 
 namespace TableFindBackend.Output
@@ -53,7 +55,7 @@ namespace TableFindBackend.Output
         {
 
             Panel backPanel = new Panel();
-            backPanel.BorderStyle = BorderStyle.FixedSingle;
+            backPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             backPanel.Width = flpReservationTables.Width-10;
             backPanel.Height = 80;
             Label titleLabel = new Label();
@@ -244,6 +246,24 @@ namespace TableFindBackend.Output
 
             }
 
+        }
+
+        private void btnWord_Click(object sender, EventArgs e)
+        {
+            // test for generating a Word document
+            Document document = new Document();
+
+            Paragraph paragraph = document.AddSection().AddParagraph();
+            paragraph.AppendText("Hello World!");
+            paragraph.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+
+            //where does it save the document to?
+            document.SaveToFile("Sample.docx", FileFormat.Docx);
+            try
+            {
+                System.Diagnostics.Process.Start("Sample.docx");
+            }
+            catch { }
         }
     }
 }
