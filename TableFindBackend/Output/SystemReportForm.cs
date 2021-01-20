@@ -245,9 +245,7 @@ namespace TableFindBackend.Output
             {
 
             }
-
         }
-
         private void btnWord_Click(object sender, EventArgs e)
         {
             // test for generating a Word document
