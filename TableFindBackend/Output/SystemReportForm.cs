@@ -463,7 +463,11 @@ namespace TableFindBackend.Output
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            // test for generating a PDF -- was getting ahead of myself, will leave this for after Word works completely
+            // test for generating a PDF 
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports");
+
+            Document document = new Document();
+            document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
 
         }
     }
