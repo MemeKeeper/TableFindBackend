@@ -259,7 +259,7 @@ namespace TableFindBackend.Output
             Paragraph headerParagraph = header.AddParagraph();
             headerParagraph.Format.AfterSpacing = 10;
             headerParagraph.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            TextRange headerText = headerParagraph.AppendText("TableFindBackend System Report for " + OwnerStorage.ThisRestaurant); //how to reference the current Restaurant?
+            TextRange headerText = headerParagraph.AppendText("TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.name); 
             headerText.CharacterFormat.Bold = true;
 
 
