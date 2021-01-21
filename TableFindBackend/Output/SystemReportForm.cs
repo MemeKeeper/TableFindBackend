@@ -229,7 +229,6 @@ namespace TableFindBackend.Output
                             wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].takenFrom;
                             wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].takenTo;
                             wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].number;
-
                         }
                         rowHeadingIndex += tempList.Count + 2;
                     }
@@ -237,11 +236,11 @@ namespace TableFindBackend.Output
                 range = wsTables.get_Range("A1", "E100");
                 range.Columns.AutoFit();
 
-                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports");
+                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.name+@"\"+OwnerStorage.ThisRestaurant.locationString);
                 if (File.Exists(path) != true)
                     Directory.CreateDirectory(path);
 
-                workbook.SaveAs("TableFindBackend\\System Reports\\excel_sr" + System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xls", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+                workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.name+@"\"+OwnerStorage.ThisRestaurant.locationString+"\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
                 workbook.Save();
 
             }
@@ -251,8 +250,7 @@ namespace TableFindBackend.Output
             }
 
         }
-
-        private void btnWord_Click(object sender, EventArgs e)
+        private void GenerateWordDoc(Boolean word)
         {
             Document document = new Document();
 
@@ -445,24 +443,34 @@ namespace TableFindBackend.Output
             }
 
             //where document is saved to
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports");
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.name + @"\" + OwnerStorage.ThisRestaurant.locationString);
             if (File.Exists(path) != true)
                 Directory.CreateDirectory(path);
             document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
 
             //launches document
-            try
+            if (word == true)
             {
-                System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                try
+                {
+                    System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                }
+                catch { }
             }
-            catch { }
+        }
+
+        private void btnWord_Click(object sender, EventArgs e)
+        {
+            GenerateWordDoc(true);
         }
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
+            GenerateWordDoc(false);
+
             // test for generating a PDF -- can only convert previously generated Word doc, will have to use Free Spire.PDF to generate a PDF.
 
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports");
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.name + @"\" + OwnerStorage.ThisRestaurant.locationString);
 
             //load document
             Document document = new Document();
