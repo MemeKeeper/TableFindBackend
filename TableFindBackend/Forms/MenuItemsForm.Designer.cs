@@ -307,6 +307,7 @@ namespace TableFindBackend.Forms
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.flpItems);
             this.Controls.Add(this.lblStatus);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MenuItemsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
