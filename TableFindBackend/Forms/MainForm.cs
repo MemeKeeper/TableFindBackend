@@ -491,7 +491,7 @@ namespace TableFindBackend.Forms
             newView.Location = new Point(0, 0);
             newView.Seating = newTable.capacity;
             newView.Label = newTable.name;
-            newView.Availability = newTable.available;
+            newView.Availability = newTable.available;            
 
             AddControl(newView);
             MyControl_DoubleClick(newView, e);
@@ -546,6 +546,7 @@ namespace TableFindBackend.Forms
             {
                 EditTableForm editor = new EditTableForm(tempTable);
                 DialogResult result = editor.ShowDialog();
+                tempTable =editor.RetreiveEditedTable();
 
                 if (result == DialogResult.Yes) //Removes the Table
                 {
@@ -569,15 +570,15 @@ namespace TableFindBackend.Forms
 
                     RestaurantTableView tempView = new RestaurantTableView();
 
-                    tempView.Tag = OwnerStorage.TempTable.objectId;
-                    tempView.Label = OwnerStorage.TempTable.name;
-                    tempView.Seating = OwnerStorage.TempTable.capacity;
-                    tempView.Availability = OwnerStorage.TempTable.available;
+                    tempView.Tag = tempTable.objectId;
+                    tempView.Label = tempTable.name;
+                    tempView.Seating = tempTable.capacity;
+                    tempView.Availability = tempTable.available;
 
                     pnlMain.Controls.Add(tempView);
-                    pnlMain.Controls[pnlMain.Controls.Count - 1].Location = new Point(OwnerStorage.TempTable.xPos, OwnerStorage.TempTable.yPos);
+                    pnlMain.Controls[pnlMain.Controls.Count - 1].Location = new Point(tempTable.xPos, tempTable.yPos);
 
-                    OwnerStorage.RestaurantTables.Add(OwnerStorage.TempTable);
+                    OwnerStorage.RestaurantTables.Add(tempTable);
 
                     AddControl(tempView);
 

@@ -21,10 +21,8 @@ namespace TableFindBackend.Global_Variables
         private static List<Reservation> pastReservations;
         private static List<BackendlessUser> allUsers;
         private static Restaurant thisRestaurant;
-        private static RestaurantTable tempTable;
         private static bool adminMode;
         private static string managerPin;
-        private static string eventsLog;
         private static List<String> logInfo;
         private static List<String> logTimes;
         public static BackendlessUser CurrentlyLoggedIn 
@@ -34,11 +32,9 @@ namespace TableFindBackend.Global_Variables
         }
         public static List<RestaurantTable> RestaurantTables { get => restaurantTables; set => restaurantTables = value; }
         public static Restaurant ThisRestaurant { get => thisRestaurant; set => thisRestaurant = value; }
-        public static RestaurantTable TempTable { get => tempTable; set => tempTable = value; }
         public static bool AdminMode { get => adminMode; set => adminMode = value; }
         public static List<RestaurantMenuItem> MenuItems { get => menuItems; set => menuItems = value; }
         public static string ManagerPin { get => managerPin; set => managerPin = value; }
-        public static string EventsLog { get => eventsLog; set => eventsLog = value; }
         public static TextFileWriter FileWriter { get => fileWriter; set => fileWriter = value; }
         public static List<BackendlessUser> AllUsers { get => allUsers; set => allUsers = value; }
         public static List<Reservation> ActiveReservations { get => activeReservations; set => activeReservations = value; }

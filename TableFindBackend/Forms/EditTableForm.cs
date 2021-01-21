@@ -63,7 +63,9 @@ namespace TableFindBackend.Forms
                       showLoading(false);
                       MessageBox.Show(this, table.name + " has been updated!");
                       DialogResult = DialogResult.OK;
-                      OwnerStorage.TempTable= table;
+                      this.table.objectId = savedTable.objectId;
+                    //OwnerStorage.TempTable= table;
+
                       this.Close();
                   }));
               },
@@ -229,6 +231,10 @@ namespace TableFindBackend.Forms
         private void EditTableForm_Load(object sender, EventArgs e)
         {
 
+        }
+        public RestaurantTable RetreiveEditedTable()
+        {
+            return table;
         }
     }       
 }
