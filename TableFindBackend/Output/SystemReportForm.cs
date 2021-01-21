@@ -251,23 +251,18 @@ namespace TableFindBackend.Output
             }
 
         }
+
         private void btnWord_Click(object sender, EventArgs e)
         {
-            // test for generating a Word document
             Document document = new Document();
-
-            //Paragraph paragraph = document.AddSection().AddParagraph();
-            //paragraph.AppendText("Hello World!");
-            //paragraph.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
             Section section = document.AddSection();
             HeaderFooter header = section.HeadersFooters.Header;
             Paragraph headerParagraph = header.AddParagraph();
             headerParagraph.Format.AfterSpacing = 10;
             headerParagraph.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            TextRange headerText = headerParagraph.AppendText("TableFindBackend System Report");
+            TextRange headerText = headerParagraph.AppendText("TableFindBackend System Report for " + OwnerStorage.ThisRestaurant); //how to reference the current Restaurant?
             headerText.CharacterFormat.Bold = true;
-
 
 
             Paragraph p2 = section.AddParagraph();
@@ -454,6 +449,8 @@ namespace TableFindBackend.Output
             if (File.Exists(path) != true)
                 Directory.CreateDirectory(path);
             document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+
+            //launches document
             try
             {
                 System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
@@ -463,11 +460,21 @@ namespace TableFindBackend.Output
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            // test for generating a PDF 
+            // test for generating a PDF -- can only convert previously generated Word doc, will have to use Free Spire.PDF to generate a PDF.
+
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports");
 
+            //load document
             Document document = new Document();
-            document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+            document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+
+            //convert to PDF
+            document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
+
+            //launch document
+            System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
+
+
 
         }
     }
