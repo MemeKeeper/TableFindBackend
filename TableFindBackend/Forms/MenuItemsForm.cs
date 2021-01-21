@@ -331,6 +331,7 @@ namespace TableFindBackend.Forms
             {
                 case -1:
                     {
+                        populateMenu();
                         break;
                     }
                 case 0:
