@@ -43,10 +43,16 @@ namespace TableFindBackend.Forms
             this.btnReload = new System.Windows.Forms.Button();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.pnlSortation = new System.Windows.Forms.Panel();
+            this.lblSortingTitle = new System.Windows.Forms.Label();
+            this.cbxType = new System.Windows.Forms.ComboBox();
+            this.clbSortOptions = new System.Windows.Forms.CheckedListBox();
+            this.btnSort = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.pnlEdit.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
+            this.pnlSortation.SuspendLayout();
             this.SuspendLayout();
             // 
             // flpItems
@@ -57,9 +63,9 @@ namespace TableFindBackend.Forms
             this.flpItems.AutoScroll = true;
             this.flpItems.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.flpItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flpItems.Location = new System.Drawing.Point(154, 57);
+            this.flpItems.Location = new System.Drawing.Point(154, 128);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(690, 443);
+            this.flpItems.Size = new System.Drawing.Size(653, 372);
             this.flpItems.TabIndex = 0;
             // 
             // pnlHeader
@@ -70,7 +76,7 @@ namespace TableFindBackend.Forms
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(856, 43);
+            this.pnlHeader.Size = new System.Drawing.Size(819, 43);
             this.pnlHeader.TabIndex = 4;
             // 
             // btnExit
@@ -80,7 +86,7 @@ namespace TableFindBackend.Forms
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnExit.Location = new System.Drawing.Point(810, 0);
+            this.btnExit.Location = new System.Drawing.Point(773, 0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(46, 43);
             this.btnExit.TabIndex = 1;
@@ -107,7 +113,7 @@ namespace TableFindBackend.Forms
             this.pnlEdit.Controls.Add(this.cbxEnabled);
             this.pnlEdit.Controls.Add(this.btnEdit);
             this.pnlEdit.Enabled = false;
-            this.pnlEdit.Location = new System.Drawing.Point(12, 132);
+            this.pnlEdit.Location = new System.Drawing.Point(12, 128);
             this.pnlEdit.Name = "pnlEdit";
             this.pnlEdit.Size = new System.Drawing.Size(136, 165);
             this.pnlEdit.TabIndex = 5;
@@ -153,7 +159,7 @@ namespace TableFindBackend.Forms
             this.panel2.Controls.Add(this.btnAdd);
             this.panel2.Location = new System.Drawing.Point(12, 57);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(136, 69);
+            this.panel2.Size = new System.Drawing.Size(136, 65);
             this.panel2.TabIndex = 6;
             // 
             // btnAdd
@@ -170,7 +176,7 @@ namespace TableFindBackend.Forms
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(27, 461);
+            this.btnClose.Location = new System.Drawing.Point(27, 457);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(108, 39);
             this.btnClose.TabIndex = 1;
@@ -181,7 +187,7 @@ namespace TableFindBackend.Forms
             // btnReload
             // 
             this.btnReload.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReload.Location = new System.Drawing.Point(27, 303);
+            this.btnReload.Location = new System.Drawing.Point(27, 299);
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(42, 38);
             this.btnReload.TabIndex = 7;
@@ -192,7 +198,7 @@ namespace TableFindBackend.Forms
             // pbxLoading
             // 
             this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pbxLoading.Location = new System.Drawing.Point(25, 347);
+            this.pbxLoading.Location = new System.Drawing.Point(25, 343);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(110, 108);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -207,12 +213,92 @@ namespace TableFindBackend.Forms
             this.lblStatus.Size = new System.Drawing.Size(108, 108);
             this.lblStatus.TabIndex = 9;
             // 
+            // pnlSortation
+            // 
+            this.pnlSortation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSortation.Controls.Add(this.lblSortingTitle);
+            this.pnlSortation.Controls.Add(this.cbxType);
+            this.pnlSortation.Controls.Add(this.clbSortOptions);
+            this.pnlSortation.Controls.Add(this.btnSort);
+            this.pnlSortation.Location = new System.Drawing.Point(154, 57);
+            this.pnlSortation.Name = "pnlSortation";
+            this.pnlSortation.Size = new System.Drawing.Size(653, 65);
+            this.pnlSortation.TabIndex = 10;
+            // 
+            // lblSortingTitle
+            // 
+            this.lblSortingTitle.AutoSize = true;
+            this.lblSortingTitle.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSortingTitle.Location = new System.Drawing.Point(5, 3);
+            this.lblSortingTitle.Name = "lblSortingTitle";
+            this.lblSortingTitle.Size = new System.Drawing.Size(53, 17);
+            this.lblSortingTitle.TabIndex = 4;
+            this.lblSortingTitle.Text = "Sort By:";
+            // 
+            // cbxType
+            // 
+            this.cbxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxType.Enabled = false;
+            this.cbxType.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxType.FormattingEnabled = true;
+            this.cbxType.Items.AddRange(new object[] {
+            "Hot beverage",
+            "Cold beverage",
+            "Alcoholic beverage",
+            "Light Meal",
+            "Seafood",
+            "Kids Meal",
+            "Sandwich",
+            "Dessert",
+            "Breakfast",
+            "Grills",
+            "Burgers",
+            "Salads",
+            "Other"});
+            this.cbxType.Location = new System.Drawing.Point(380, 20);
+            this.cbxType.Name = "cbxType";
+            this.cbxType.Size = new System.Drawing.Size(144, 25);
+            this.cbxType.TabIndex = 3;
+            // 
+            // clbSortOptions
+            // 
+            this.clbSortOptions.BackColor = System.Drawing.SystemColors.Control;
+            this.clbSortOptions.ColumnWidth = 180;
+            this.clbSortOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbSortOptions.FormattingEnabled = true;
+            this.clbSortOptions.Items.AddRange(new object[] {
+            "Price (Low to High)",
+            "Price (High to Low)",
+            "Recently Added",
+            "Meal Type"});
+            this.clbSortOptions.Location = new System.Drawing.Point(6, 20);
+            this.clbSortOptions.Margin = new System.Windows.Forms.Padding(6);
+            this.clbSortOptions.MultiColumn = true;
+            this.clbSortOptions.Name = "clbSortOptions";
+            this.clbSortOptions.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.clbSortOptions.Size = new System.Drawing.Size(365, 38);
+            this.clbSortOptions.TabIndex = 2;
+            this.clbSortOptions.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbSortOptions_ItemCheck);
+            this.clbSortOptions.SelectedIndexChanged += new System.EventHandler(this.clbSortOptions_SelectedIndexChanged);
+            // 
+            // btnSort
+            // 
+            this.btnSort.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSort.Location = new System.Drawing.Point(530, 12);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Size = new System.Drawing.Size(108, 39);
+            this.btnSort.TabIndex = 1;
+            this.btnSort.Text = "Sort";
+            this.btnSort.UseVisualStyleBackColor = true;
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
+            // 
             // MenuItemsForm
             // 
             this.AcceptButton = this.btnAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 512);
+            this.ClientSize = new System.Drawing.Size(819, 512);
+            this.Controls.Add(this.pnlSortation);
             this.Controls.Add(this.pbxLoading);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.btnClose);
@@ -231,6 +317,8 @@ namespace TableFindBackend.Forms
             this.pnlEdit.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
+            this.pnlSortation.ResumeLayout(false);
+            this.pnlSortation.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -251,5 +339,10 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.PictureBox pbxLoading;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Panel pnlSortation;
+        private System.Windows.Forms.Button btnSort;
+        private System.Windows.Forms.CheckedListBox clbSortOptions;
+        private System.Windows.Forms.ComboBox cbxType;
+        private System.Windows.Forms.Label lblSortingTitle;
     }
 }

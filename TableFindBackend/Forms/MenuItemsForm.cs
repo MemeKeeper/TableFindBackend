@@ -33,6 +33,7 @@ namespace TableFindBackend.Forms
                 RestaurantMenuItemView newItem = new RestaurantMenuItemView();
                 newItem.Tag = item.objectId;
                 newItem.Active = item.outOfStock?false:true;
+                newItem.Price = item.price;
 
                 newItem.Type = item.type;
                 if (newItem.Active != true)
@@ -120,9 +121,11 @@ namespace TableFindBackend.Forms
                                         {
                                             item.Name = newForm.transferedItem.name;
                                             item.Type = newForm.transferedItem.type;
+                                            item.Price = newForm.transferedItem.price;
                                         }
                                     }
                                     populateMenu();
+                                    SortRefresh();
                                     SelectItemHighLight(selectedItem.objectId);
                                 }
                                 else//means a new Item is created
@@ -132,6 +135,7 @@ namespace TableFindBackend.Forms
                                     newView.Active = true;
                                     newView.Type = result.type;
                                     newView.Tag = result.objectId;
+                                    newView.Price = result.price;
 
                                     OwnerStorage.MenuItems.Add(result);
 
@@ -173,7 +177,12 @@ namespace TableFindBackend.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             pnlEdit.Enabled = false;
-            populateMenu();
+            populateMenu();            
+            clbSortOptions.ClearSelected();
+            while (clbSortOptions.CheckedIndices.Count > 0)
+            {
+                clbSortOptions.SetItemChecked(clbSortOptions.CheckedIndices[0], false);
+            }
         }
 
         private void cbxEnabled_CheckedChanged(object sender, EventArgs e)
@@ -191,6 +200,7 @@ namespace TableFindBackend.Forms
                 {
                     System.Console.WriteLine("Restaurant details has been updated");
                     populateMenu();
+                    SortRefresh();
                     SelectItemHighLight(selectedItem.objectId);
                 }));
             },
@@ -217,6 +227,7 @@ namespace TableFindBackend.Forms
             );
 
             Backendless.Persistence.Of<RestaurantMenuItem>().Save(selectedItem, saveObjectCallback);
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -280,11 +291,97 @@ namespace TableFindBackend.Forms
             else if (dialogResult == DialogResult.No)
             {
                 
+            }            
+        }
+        private void clbSortOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (clbSortOptions.SelectedIndex == 3)
+            {
+                cbxType.Enabled = true;                
             }
+            else
+            {
+                cbxType.Enabled = false;                
+            }
+            if(clbSortOptions.SelectedIndex!=-1)
+            clbSortOptions.SetItemChecked(clbSortOptions.SelectedIndex, true);
 
+        }
 
+        private void clbSortOptions_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            for (int ix = 0; ix < clbSortOptions.Items.Count; ++ix)
+                if (ix != e.Index)
+                    clbSortOptions.SetItemChecked(ix, false);
+        }
 
-            
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            SortRefresh();
+        }
+        private void SortRefresh()
+        {
+            List<RestaurantMenuItemView> tempList = new List<RestaurantMenuItemView>();
+            foreach (RestaurantMenuItemView r in flpItems.Controls)
+            {
+                tempList.Add(r);
+            }
+            flpItems.Controls.Clear();
+            switch (clbSortOptions.SelectedIndex)
+            {
+                case -1:
+                    {
+                        break;
+                    }
+                case 0:
+                    {
+                        RestaurantMenuItemView tempView;
+
+                        for (int write = 0; write < tempList.Count; write++)
+                        {
+                            for (int sort = 0; sort < tempList.Count - 1; sort++)
+                            {
+                                if (tempList[sort].Price > tempList[sort + 1].Price)
+                                {
+                                    tempView = tempList[sort];
+                                    tempList[sort] = tempList[sort + 1];
+                                    tempList[sort + 1] = tempView;
+                                }
+                            }
+                        }
+                        flpItems.Controls.AddRange(tempList.ToArray());
+                        break;
+                    }
+                case 1:
+                    {
+                        RestaurantMenuItemView tempView;
+
+                        for (int write = 0; write < tempList.Count; write++)
+                        {
+                            for (int sort = 0; sort < tempList.Count - 1; sort++)
+                            {
+                                if (tempList[sort].Price < tempList[sort + 1].Price)
+                                {
+                                    tempView = tempList[sort];
+                                    tempList[sort] = tempList[sort + 1];
+                                    tempList[sort + 1] = tempView;
+                                }
+                            }
+                        }
+                        flpItems.Controls.AddRange(tempList.ToArray());
+                        break;
+                    }
+                case 2:
+                    {
+
+                        break;
+                    }
+                default:
+                    {
+
+                        break;
+                    }
+            }
         }
     }
 }

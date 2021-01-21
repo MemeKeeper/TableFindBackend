@@ -21,6 +21,7 @@ namespace TableFindBackend.ViewModels
         private string label;
         private bool enabled;
         private string type;
+        private double price;
 
         [Category("Custom Props")]
         public string Label { get => label; set 
@@ -109,6 +110,9 @@ namespace TableFindBackend.ViewModels
                         }
                 }
             } }
+
+        public double Price { get => price; set => price = value; }
+
         public void resetColor()
         {
             this.Type = type;    //  <--- resets the color after the user selects it.
