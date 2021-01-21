@@ -551,6 +551,12 @@ namespace TableFindBackend.Forms
                 if (result == DialogResult.Yes) //Removes the Table
                 {
                     OwnerStorage.RestaurantTables.Remove(tempTable);
+                    if(sender is Label)
+                    {
+                        Label tempLabel = (Label)sender;
+                        pnlMain.Controls.Remove((RestaurantTableView)tempLabel.Parent);
+                    }
+                    else
                     pnlMain.Controls.Remove((RestaurantTableView)sender);
                 }
                 if (result == DialogResult.OK) //Updates the Table
