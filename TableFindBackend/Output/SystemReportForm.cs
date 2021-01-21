@@ -268,7 +268,10 @@ namespace TableFindBackend.Output
             p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
             Paragraph p4 = section.AddParagraph();
-            //DocPicture logo = p4.AppendPicture(Image.TableFindBackend.Properties.Resources.Logo); // <-- I want to reference the logo used in Resources folder
+            p4.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            DocPicture logo = p4.AppendPicture(TableFindBackend.Properties.Resources.Logo);
+            logo.Width = 100;
+            logo.Height = 100;
 
             //active reservations displayed
             Paragraph p5 = section.AddParagraph();
@@ -442,6 +445,17 @@ namespace TableFindBackend.Output
                 }
             }
 
+            //System Log displayed
+            Paragraph p7 = section.AddParagraph();
+            p7.AppendText("System Log");
+            p7.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
+            p7.Format.BeforeSpacing = 20;
+
+            for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
+            {
+
+            }
+
             //where document is saved to
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.name + @"\" + OwnerStorage.ThisRestaurant.locationString);
             if (File.Exists(path) != true)
@@ -467,8 +481,6 @@ namespace TableFindBackend.Output
         private void btnPDF_Click(object sender, EventArgs e)
         {
             GenerateWordDoc(false);
-
-            // test for generating a PDF -- can only convert previously generated Word doc, will have to use Free Spire.PDF to generate a PDF.
 
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.name + @"\" + OwnerStorage.ThisRestaurant.locationString);
 
