@@ -373,12 +373,29 @@ namespace TableFindBackend.Forms
                     }
                 case 2:
                     {
-
+                        foreach(RestaurantMenuItemView view in tempList)
+                        {
+                            flpItems.Controls.Add(view);
+                            view.BringToFront();
+                        }
                         break;
                     }
                 default:
                     {
-
+                        RestaurantMenuItemView tempView;
+                        for (int write = 0; write < tempList.Count; write++)
+                        {
+                            for (int sort = 0; sort < tempList.Count - 1; sort++)
+                            {
+                                if (cbxType.Text == tempList[sort + 1].Type)
+                                {
+                                    tempView = tempList[sort];
+                                    tempList[sort] = tempList[sort + 1];
+                                    tempList[sort + 1] = tempView;
+                                }
+                            }
+                        }
+                        flpItems.Controls.AddRange(tempList.ToArray());
                         break;
                     }
             }
