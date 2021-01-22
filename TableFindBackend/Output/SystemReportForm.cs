@@ -15,6 +15,8 @@ using System.IO;
 using Spire.Doc.Documents;
 using Spire.Doc.Fields;
 using Spire.Doc;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace TableFindBackend.Output
 {
@@ -501,19 +503,58 @@ namespace TableFindBackend.Output
 
             //where document is saved to
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.name + @"\" + OwnerStorage.ThisRestaurant.locationString);
+
+
             if (File.Exists(path) != true)
                 Directory.CreateDirectory(path);
-            document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
 
-            //launches document
+            //Kills the word document if it is already open
+
+            FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+
+               //launches document
             if (word == true)
             {
-                try
+                if (IsFileLocked(fInfo) == true)//means file is still open
                 {
-                    System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                    MessageBox.Show("The Document is already open in one instance of Word. Please close that document and try again", "Document already open", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                catch { }
+                else
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                    }
+                    catch { }
+                    document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+               }
             }
+
+
+            
+
+
+        }
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+
+            //file is not locked
+            return false;
         }
 
         private void btnWord_Click(object sender, EventArgs e)
