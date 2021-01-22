@@ -10,12 +10,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
-using Spire.Doc;
-using Spire.Doc.Documents;
+
 using System.IO;
-using System.Data;
-using System.Drawing;
+using Spire.Doc.Documents;
 using Spire.Doc.Fields;
+using Spire.Doc;
 
 namespace TableFindBackend.Output
 {
@@ -355,8 +354,6 @@ namespace TableFindBackend.Output
                         }
                     }
                 }
-
-
             }
 
             //past reservations displayed
