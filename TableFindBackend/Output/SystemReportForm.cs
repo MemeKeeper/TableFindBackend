@@ -30,7 +30,7 @@ namespace TableFindBackend.Output
                 List<Reservation> tempList = new List<Reservation>();
                 foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                 {
-                    if (reservation.tableId == table.objectId)
+                    if (reservation.TableId == table.objectId)
                         tempList.Add(reservation);
 
                 }
@@ -64,7 +64,8 @@ namespace TableFindBackend.Output
             backPanel.Height = 80;
             Label titleLabel = new Label();
             titleLabel.Font=new Font("Century Gothic", 10);
-            titleLabel.Text = table.name;
+            titleLabel.Text = table.Name;
+            titleLabel.AutoSize = true;
             titleLabel.Location = new Point(10, 10);
             backPanel.Controls.Add(titleLabel);             
             DataGridView newView = new DataGridView();
@@ -80,7 +81,7 @@ namespace TableFindBackend.Output
             newView.Columns.Add("contactNumber", "Contact number");
             foreach (Reservation reservation in list)
             {
-                newView.Rows.Add(reservation.name, reservation.takenFrom, reservation.takenTo, reservation.number);
+                newView.Rows.Add(reservation.Name, reservation.TakenFrom, reservation.TakenTo, reservation.Number);
                 newView.Height += 22;
                 backPanel.Height += 22;
             }
@@ -101,7 +102,6 @@ namespace TableFindBackend.Output
                 Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
                 Microsoft.Office.Interop.Excel._Worksheet wsTables = null;
                 Microsoft.Office.Interop.Excel.Range range;
-                app.Visible = true;
 
                 //Setup for Sheet1
                 wsTables = workbook.Sheets["Sheet1"];
@@ -156,7 +156,7 @@ namespace TableFindBackend.Output
                     List<Reservation> tempList = new List<Reservation>();
                     foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                     {
-                        if (reservation.tableId == OwnerStorage.RestaurantTables[i].objectId)
+                        if (reservation.TableId == OwnerStorage.RestaurantTables[i].objectId)
                             tempList.Add(reservation);
                     }
                     if (tempList.Count != 0)
@@ -164,7 +164,7 @@ namespace TableFindBackend.Output
                         rowHeadingIndex += 1;
 
                         wsTables.Range[wsTables.Cells[rowHeadingIndex , 1], wsTables.Cells[rowHeadingIndex , 4]].Merge();
-                        wsTables.Cells[rowHeadingIndex , 1] = OwnerStorage.RestaurantTables[i].name;
+                        wsTables.Cells[rowHeadingIndex , 1] = OwnerStorage.RestaurantTables[i].Name;
 
                         wsTables.Cells[rowHeadingIndex , 1].Interior.Color = System.Drawing.Color.FromName("Silver");
                         wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString()).Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenterAcrossSelection;
@@ -181,10 +181,10 @@ namespace TableFindBackend.Output
                         range.Font.Color = System.Drawing.Color.FromName("White");
                         for (int inner = 0; inner< tempList.Count; inner++)
                         {
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].name;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].takenFrom;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].takenTo;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].number;                            
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].Name;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].TakenFrom;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].TakenTo;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].Number;                            
                         }
                         rowHeadingIndex += tempList.Count+2;
                     }
@@ -201,7 +201,7 @@ namespace TableFindBackend.Output
                     List<Reservation> tempList = new List<Reservation>();
                     foreach (Reservation reservation in OwnerStorage.PastReservations)
                     {
-                        if (reservation.tableId == OwnerStorage.RestaurantTables[i].objectId)
+                        if (reservation.TableId == OwnerStorage.RestaurantTables[i].objectId)
                             tempList.Add(reservation);
                     }
                     if (tempList.Count != 0)
@@ -209,7 +209,7 @@ namespace TableFindBackend.Output
                         rowHeadingIndex += 1;
 
                         wsTables.Range[wsTables.Cells[rowHeadingIndex, 1], wsTables.Cells[rowHeadingIndex, 4]].Merge();
-                        wsTables.Cells[rowHeadingIndex, 1] = OwnerStorage.RestaurantTables[i].name;
+                        wsTables.Cells[rowHeadingIndex, 1] = OwnerStorage.RestaurantTables[i].Name;
 
                         wsTables.Cells[rowHeadingIndex, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
                         wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString()).Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenterAcrossSelection;
@@ -226,28 +226,29 @@ namespace TableFindBackend.Output
                         range.Font.Color = System.Drawing.Color.FromName("White");
                         for (int inner = 0; inner < tempList.Count; inner++)
                         {
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].name;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].takenFrom;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].takenTo;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].number;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].Name;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].TakenFrom;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].TakenTo;
+                            wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].Number;
                         }
                         rowHeadingIndex += tempList.Count + 2;
                     }
                 }
                 range = wsTables.get_Range("A1", "E100");
                 range.Columns.AutoFit();
+                app.Visible = true;
 
-                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.name+@"\"+OwnerStorage.ThisRestaurant.locationString);
+                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.LocationString);
                 if (File.Exists(path) != true)
                     Directory.CreateDirectory(path);
 
-                workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.name+@"\"+OwnerStorage.ThisRestaurant.locationString+"\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+                workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.LocationString+"\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
                 workbook.Save();
-
+                
             }
             catch(Exception ex)
             {
-
+                MessageBox.Show("There was an error generating the workbook: " + ex.Message.ToString()) ;
             }
 
         }
@@ -260,7 +261,7 @@ namespace TableFindBackend.Output
             Paragraph headerParagraph = header.AddParagraph();
             headerParagraph.Format.AfterSpacing = 10;
             headerParagraph.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            TextRange headerText = headerParagraph.AppendText("TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.name); 
+            TextRange headerText = headerParagraph.AppendText("TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.Name); 
             headerText.CharacterFormat.Bold = true;
 
 
@@ -292,7 +293,7 @@ namespace TableFindBackend.Output
                 List<Reservation> tempList = new List<Reservation>();
                 foreach (Reservation r in OwnerStorage.ActiveReservations)
                 {
-                    if (r.tableId == t.objectId)
+                    if (r.TableId == t.objectId)
                     {
                         tempList.Add(r);
                     }
@@ -303,7 +304,7 @@ namespace TableFindBackend.Output
                 {
                     Paragraph paragraph = section.AddParagraph();
                     //paragraph.AppendText("Table Name: " + t.name);
-                    TextRange tableNames = paragraph.AppendText(t.name);
+                    TextRange tableNames = paragraph.AppendText(t.Name);
                     tableNames.CharacterFormat.Bold = true;
                     paragraph.Format.BeforeSpacing = 5;
                     paragraph.Format.AfterSpacing = 5;
@@ -318,7 +319,7 @@ namespace TableFindBackend.Output
 
                     foreach (Reservation r in tempList)
                     {
-                        data.Add(new String[] { r.name, r.takenFrom.ToString(), r.takenTo.ToString(), r.number });
+                        data.Add(new String[] { r.Name, r.TakenFrom.ToString(), r.TakenTo.ToString(), r.Number });
                     }
 
                     table.ResetCells(data.Count + 1, Header.Length);
@@ -376,7 +377,7 @@ namespace TableFindBackend.Output
                 List<Reservation> tempList1 = new List<Reservation>();
                 foreach (Reservation r in OwnerStorage.PastReservations)
                 {
-                    if (r.tableId == t.objectId)
+                    if (r.TableId == t.objectId)
                     {
                         tempList1.Add(r);
                     }
@@ -392,7 +393,7 @@ namespace TableFindBackend.Output
 
                     Paragraph paragraph = section.AddParagraph();
                     //paragraph.AppendText("Table Name: " + t.name);
-                    TextRange tableNames = paragraph.AppendText(t.name);
+                    TextRange tableNames = paragraph.AppendText(t.Name);
                     tableNames.CharacterFormat.Bold = true;
                     paragraph.Format.BeforeSpacing = 5;
                     paragraph.Format.AfterSpacing = 5;
@@ -407,7 +408,7 @@ namespace TableFindBackend.Output
 
                     foreach (Reservation r in tempList1)
                     {
-                        data.Add(new String[] { r.name, r.takenFrom.ToString(), r.takenTo.ToString(), r.number });
+                        data.Add(new String[] { r.Name, r.TakenFrom.ToString(), r.TakenTo.ToString(), r.Number });
                     }
 
                     table.ResetCells(data.Count + 1, Header.Length);
@@ -527,7 +528,7 @@ namespace TableFindBackend.Output
             }
 
             //where document is saved to
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.name + @"\" + OwnerStorage.ThisRestaurant.locationString);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.LocationString);
 
 
             if (File.Exists(path) != true)
@@ -601,7 +602,7 @@ namespace TableFindBackend.Output
         {
             GenerateWordDoc(false);
 
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.name + @"\" + OwnerStorage.ThisRestaurant.locationString);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.LocationString);
 
             //load document
             Document document = new Document();

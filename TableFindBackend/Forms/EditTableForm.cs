@@ -25,16 +25,16 @@ namespace TableFindBackend.Forms
             InitializeComponent();
 
             this.FormBorderStyle = FormBorderStyle.None;
-            availability = item.available;
+            availability = item.Available;
 
             if (availability == true)
                 btnDisable.Text = "Make Table Unavailable";
             else
                 btnDisable.Text = "Make Table Available";
 
-            edtName.Text = item.name;
-            spnSeating.Value = item.capacity;
-            rtbInfo.Text = item.tableInfo;
+            edtName.Text = item.Name;
+            spnSeating.Value = item.Capacity;
+            rtbInfo.Text = item.TableInfo;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -50,10 +50,10 @@ namespace TableFindBackend.Forms
         private void btnSave_Click(object sender, EventArgs e)
         {
             showLoading(true);
-            table.name = edtName.Text;
-            table.capacity = Convert.ToInt32(spnSeating.Value);
-            table.available = availability;
-            table.tableInfo = rtbInfo.Text ;
+            table.Name = edtName.Text;
+            table.Capacity = Convert.ToInt32(spnSeating.Value);
+            table.Available = availability;
+            table.TableInfo = rtbInfo.Text ;
 
             AsyncCallback<RestaurantTable> updateObjectCallback = new AsyncCallback<RestaurantTable>(
               savedTable =>
@@ -61,7 +61,7 @@ namespace TableFindBackend.Forms
                   Invoke(new Action(() =>
                   {
                       showLoading(false);
-                      MessageBox.Show(this, table.name + " has been updated!");
+                      MessageBox.Show(this, table.Name + " has been updated!");
                       DialogResult = DialogResult.OK;
                       this.table.objectId = savedTable.objectId;
                     //OwnerStorage.TempTable= table;
@@ -110,11 +110,11 @@ namespace TableFindBackend.Forms
             DialogResult result;
             if (table.objectId!=null)
             {
-                result = MessageBox.Show(this, "Are you sure you would like to delete '" + table.name + "'? All reservations made under this table by customers will be lost!", "Delete '" + table.name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                result = MessageBox.Show(this, "Are you sure you would like to delete '" + table.Name + "'? All reservations made under this table by customers will be lost!", "Delete '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             }
             else
             {
-                result = MessageBox.Show(this, "Are you sure you would like to delete '" + table.name + "'?", "Delete '" + table.name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                result = MessageBox.Show(this, "Are you sure you would like to delete '" + table.Name + "'?", "Delete '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             }
             
             if (result == DialogResult.Yes)
@@ -127,7 +127,7 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         OwnerStorage.FileWriter.WriteLineToFile("User deleted table ", true);
-                        OwnerStorage.FileWriter.WriteLineToFile("Name:  " + table.name, false);             
+                        OwnerStorage.FileWriter.WriteLineToFile("Name:  " + table.Name, false);             
                     }));
                     if (table.objectId != null)
                     {
@@ -139,7 +139,7 @@ namespace TableFindBackend.Forms
                             Invoke(new Action(() =>
                             {
                                 showLoading(false);
-                                MessageBox.Show(this, table.name + " has been removed, along with "+ objectsDeleted.ToString()+" reservations");
+                                MessageBox.Show(this, table.Name + " has been removed, along with "+ objectsDeleted.ToString()+" reservations");
                                 OwnerStorage.FileWriter.WriteLineToFile("User deleted "+objectsDeleted.ToString() + " reservations",false);
                                 DialogResult = DialogResult.Yes;
                                 this.Close();
@@ -157,7 +157,7 @@ namespace TableFindBackend.Forms
                         Invoke(new Action(() =>
                         {
                             showLoading(false);
-                            MessageBox.Show(this, table.name + " has been removed");                        
+                            MessageBox.Show(this, table.Name + " has been removed");                        
                             DialogResult = DialogResult.Yes;
                             this.Close();
                         }));
@@ -217,14 +217,14 @@ namespace TableFindBackend.Forms
                 btnDisable.Text = "Make Table Unavailable";
                 availability = true;
 
-                OwnerStorage.FileWriter.WriteLineToFile("User made table '"+table.name+"' available", true);
+                OwnerStorage.FileWriter.WriteLineToFile("User made table '"+table.Name+"' available", true);
             }
             else
             {
                 btnDisable.Text = "Make Table Available";
                 availability = false;
 
-                OwnerStorage.FileWriter.WriteLineToFile("User made table '" + table.name + "' unavailable", true);
+                OwnerStorage.FileWriter.WriteLineToFile("User made table '" + table.Name + "' unavailable", true);
             }
         }
 

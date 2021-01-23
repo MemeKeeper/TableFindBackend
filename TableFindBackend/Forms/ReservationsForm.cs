@@ -35,7 +35,7 @@ namespace TableFindBackend.Forms
             
             thisTable = item;
 
-            lblTitle.Text = thisTable.name;
+            lblTitle.Text = thisTable.Name;
 
             populateList(true);
         }
@@ -65,22 +65,22 @@ namespace TableFindBackend.Forms
             {
                 foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                 {
-                    if (reservation.tableId == thisTable.objectId)
+                    if (reservation.TableId == thisTable.objectId)
                     {
                         string userId = null;
                         rList.Add(reservation);
                         foreach (BackendlessUser user in OwnerStorage.AllUsers)
                         {
-                            if (user.ObjectId == reservation.userId)
+                            if (user.ObjectId == reservation.UserId)
                             {
                                 userId = user.ObjectId;
                             }
                         }
                         string[] arr = new string[5];
                         ListViewItem itm;
-                        arr[0] = reservation.name.ToString();
-                        arr[1] = reservation.takenFrom.ToString("ddd, dd/MM/yyyy, HH:mm");
-                        arr[2] = reservation.takenTo.ToString("ddd, dd/MM/yyyy, HH:mm");
+                        arr[0] = reservation.Name.ToString();
+                        arr[1] = reservation.TakenFrom.ToString("ddd, dd/MM/yyyy, HH:mm");
+                        arr[2] = reservation.TakenTo.ToString("ddd, dd/MM/yyyy, HH:mm");
                         if (userId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                         {
                             arr[3] = "Restaurant";
@@ -89,7 +89,7 @@ namespace TableFindBackend.Forms
                         {
                             arr[3] = "Customer";
                         }
-                        arr[4] = reservation.number.ToString();
+                        arr[4] = reservation.Number.ToString();
 
                         itm = new ListViewItem(arr);
 
@@ -105,16 +105,16 @@ namespace TableFindBackend.Forms
                     rList.Add(reservation);
                     foreach (BackendlessUser user in OwnerStorage.AllUsers)
                     {
-                        if (user.ObjectId == reservation.userId)
+                        if (user.ObjectId == reservation.UserId)
                         {
                             userId = user.ObjectId;
                         }
                     }
                     string[] arr = new string[6];
                     ListViewItem itm;
-                    arr[0] = reservation.name.ToString();
-                    arr[1] = reservation.takenFrom.ToString("ddd, dd/MM/yyyy, HH:mm");
-                    arr[2] = reservation.takenTo.ToString("ddd, dd/MM/yyyy, HH:mm");
+                    arr[0] = reservation.Name.ToString();
+                    arr[1] = reservation.TakenFrom.ToString("ddd, dd/MM/yyyy, HH:mm");
+                    arr[2] = reservation.TakenTo.ToString("ddd, dd/MM/yyyy, HH:mm");
                     if (userId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                     {
                         arr[3] = "Restaurant";
@@ -123,13 +123,13 @@ namespace TableFindBackend.Forms
                     {
                         arr[3] = "Customer";
                     }
-                    arr[4] = reservation.number.ToString();
+                    arr[4] = reservation.Number.ToString();
 
                     foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
                     {
-                        if (table.objectId==reservation.tableId)
+                        if (table.objectId==reservation.TableId)
                         {
-                            arr[5] = table.name.ToString();
+                            arr[5] = table.Name.ToString();
                         }
                     }
 
@@ -252,9 +252,9 @@ namespace TableFindBackend.Forms
                                 {
                                     pbxLoading.Visible = false;
                                     this.Enabled = true;
-                                    MessageBox.Show(this, "reservation for " + rList[index].name + " has been removed");
+                                    MessageBox.Show(this, "reservation for " + rList[index].Name + " has been removed");
                                     lvBookings.Items.RemoveAt(index);
-                                    OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + rList[index].name);
+                                    OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + rList[index].Name);
                                     OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                                     //OwnerStorage.AllReservations.Remove(tempReservation);  <--no need, the listeners will remove it from local storage.
                                     //if (thisTable != null)
@@ -304,7 +304,7 @@ namespace TableFindBackend.Forms
             BackendlessUser tempUser=null;          
                 foreach (BackendlessUser user in OwnerStorage.AllUsers)
                 {
-                    if (user.ObjectId == rList[index].userId)
+                    if (user.ObjectId == rList[index].UserId)
                         tempUser = user;
 
                 }

@@ -238,7 +238,6 @@ namespace TableFindBackend.Forms
             // cbxType
             // 
             this.cbxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxType.Enabled = false;
             this.cbxType.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxType.FormattingEnabled = true;
             this.cbxType.Items.AddRange(new object[] {
@@ -259,6 +258,7 @@ namespace TableFindBackend.Forms
             this.cbxType.Name = "cbxType";
             this.cbxType.Size = new System.Drawing.Size(144, 25);
             this.cbxType.TabIndex = 3;
+            this.cbxType.Visible = false;
             // 
             // clbSortOptions
             // 

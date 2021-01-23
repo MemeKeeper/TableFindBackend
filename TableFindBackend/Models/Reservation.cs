@@ -8,30 +8,30 @@ namespace TableFindBackend.Models
 {
     public class Reservation
     {
-        private string ObjectId;
+        private string ObjectId;  //Exception for Backendless
 
-        private string TableID;
+        private string tableId;
 
-        private DateTime TakenFrom;
+        private DateTime takenFrom;
 
-        private DateTime TakenTo;
+        private DateTime takenTo;
 
-        private string UserID;
+        private string userId;
 
-        private string Number;
+        private string number;
 
-        private string Name;
+        private string name;
 
-        private string RestaurantId;
+        private string restaurantId;
 
 
-        public string objectId { get => ObjectId; set => ObjectId = value; }
-        public string tableId { get => TableID; set => TableID = value; }
-        public DateTime takenFrom { get => TakenFrom; set => TakenFrom = value; }
-        public DateTime takenTo { get => TakenTo; set => TakenTo = value; }
-        public string userId { get => UserID; set => UserID = value; }
-        public string number { get => Number; set => Number = value; }
-        public string name { get => Name; set => Name = value; }
-        public string restaurantId { get => RestaurantId; set => RestaurantId = value; }
+        public string objectId { get => ObjectId; set => ObjectId = value; }//Exception for Backendless
+        public string TableId { get => tableId; set => tableId = value; }
+        public DateTime TakenFrom { get => takenFrom; set => takenFrom = value; }
+        public DateTime TakenTo { get => takenTo; set => takenTo = value; }
+        public string UserId { get => userId; set => userId = value; }
+        public string Number { get => number; set => number = value; }
+        public string Name { get => name; set => name = value; }
+        public string RestaurantId { get => restaurantId; set => restaurantId = value; }
     }
 }

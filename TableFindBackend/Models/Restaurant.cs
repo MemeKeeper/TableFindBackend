@@ -11,27 +11,27 @@ namespace TableFindBackend.Models
 {
     public class Restaurant
     {
-        private string ObjectId;
+        private string ObjectId;//Exception for Backendless
 
-        private string Name;
+        private string name;
 
-        private string OwnerId;
+        private string OwnerId;//Exception for Backendless
 
-        private string LocationString;
+        private string locationString;
 
-        private string MenuLink;
+        private string menuLink;
 
-        private string ContactNumber;
+        private string contactNumber;
 
-        private int MaxCapacity;
+        private int maxCapacity;
 
-        public string name { get => Name; set => Name = value; }
-        public string ownerId { get => OwnerId; set => OwnerId = value; }
-        public string locationString { get => LocationString; set => LocationString = value; }
-        public string objectId { get => ObjectId; set => ObjectId = value; }
-        public string menuLink { get => MenuLink; set => MenuLink = value; }
-        public string contactNumber { get => ContactNumber; set => ContactNumber = value; }
-        public int maxCapacity { get => MaxCapacity; set => MaxCapacity = value; }
+        public string Name { get => name; set => name = value; }
+        public string ownerId { get => OwnerId; set => OwnerId = value; }//Exception for Backendless
+        public string LocationString { get => locationString; set => locationString = value; }
+        public string objectId { get => ObjectId; set => ObjectId = value; }//Exception for Backendless
+        public string MenuLink { get => menuLink; set => menuLink = value; }
+        public string ContactNumber { get => contactNumber; set => contactNumber = value; }
+        public int MaxCapacity { get => maxCapacity; set => maxCapacity = value; }
 
         public void EditRestaurant()
         {

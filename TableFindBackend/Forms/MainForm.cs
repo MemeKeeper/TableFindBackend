@@ -76,7 +76,7 @@ namespace TableFindBackend.Forms
         }
         private void UpdateCapacityLabel()
         {
-            switch (OwnerStorage.ThisRestaurant.maxCapacity)
+            switch (OwnerStorage.ThisRestaurant.MaxCapacity)
             {
                 case 0:
                     {
@@ -112,7 +112,7 @@ namespace TableFindBackend.Forms
 
             foreach (Reservation r in OwnerStorage.ActiveReservations)
             {
-                if (r.takenTo < System.DateTime.Now)
+                if (r.TakenTo < System.DateTime.Now)
                 {
                     AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
                     savedReservation =>
@@ -122,7 +122,7 @@ namespace TableFindBackend.Forms
                         AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
                         deletionTime =>
                         {
-                            OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  "+savedReservation.name);
+                            OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  "+savedReservation.Name);
                             OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                         },
@@ -143,7 +143,7 @@ namespace TableFindBackend.Forms
 
         private void CheckLayoutImage()
         {
-            string file = @"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl";
+            string file = @"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl";
             if (File.Exists(file) == true)
             {
 
@@ -214,18 +214,18 @@ namespace TableFindBackend.Forms
             RestaurantTable table = new RestaurantTable();
             foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
             {
-                if (t.objectId == r.tableId)
+                if (t.objectId == r.TableId)
                     table = t;
             }
             reservation.Tag = r.objectId;
 
-            reservation.UserName = r.name;
-            reservation.UObjectId = r.userId;
-            reservation.UserContactNumber = r.number;
-            reservation.TableName = "Table: " + table.name;
+            reservation.UserName = r.Name;
+            reservation.UObjectId = r.UserId;
+            reservation.UserContactNumber = r.Number;
+            reservation.TableName = "Table: " + table.Name;
             reservation.ObjectId = r.objectId;
-            reservation.Date = r.takenFrom.ToString("ddd, dd / MM");
-            reservation.FromToTime = r.takenFrom.ToString("HH:mm") + " to " + r.takenTo.ToString("HH:mm");
+            reservation.Date = r.TakenFrom.ToString("ddd, dd / MM");
+            reservation.FromToTime = r.TakenFrom.ToString("HH:mm") + " to " + r.TakenTo.ToString("HH:mm");
 
             reservation.pnlContact.MouseClick += new MouseEventHandler(activeReservation_Click);
             reservation.pnlReservation.MouseClick += new MouseEventHandler(activeReservation_Click);
@@ -248,18 +248,18 @@ namespace TableFindBackend.Forms
                 RestaurantTable table = new RestaurantTable();
                 foreach(RestaurantTable t in OwnerStorage.RestaurantTables)
                 {
-                    if (t.objectId == r.tableId)
+                    if (t.objectId == r.TableId)
                         table = t;
                 }
                 reservation.Tag = r.objectId;
 
-                reservation.UserName = r.name;
-                reservation.UObjectId = r.userId;
-                reservation.UserContactNumber = r.number;
-                reservation.TableName ="Table: "+ table.name;
+                reservation.UserName = r.Name;
+                reservation.UObjectId = r.UserId;
+                reservation.UserContactNumber = r.Number;
+                reservation.TableName ="Table: "+ table.Name;
                 reservation.ObjectId = r.objectId;
-                reservation.Date = r.takenFrom.ToString("ddd, dd / MM");
-                reservation.FromToTime = r.takenFrom.ToString("HH:mm") + " to " + r.takenTo.ToString("HH:mm");
+                reservation.Date = r.TakenFrom.ToString("ddd, dd / MM");
+                reservation.FromToTime = r.TakenFrom.ToString("HH:mm") + " to " + r.TakenTo.ToString("HH:mm");
 
                 reservation.pnlContact.MouseClick += new MouseEventHandler(activeReservation_Click);
                 reservation.pnlReservation.MouseClick += new MouseEventHandler(activeReservation_Click);
@@ -298,7 +298,7 @@ namespace TableFindBackend.Forms
                         RestaurantTable tempTable = null;
                         foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
                         {
-                            if (table.objectId == tempReservation.tableId)
+                            if (table.objectId == tempReservation.TableId)
                             {
                                 tempTable = table;
                             }
@@ -339,7 +339,7 @@ namespace TableFindBackend.Forms
                     RestaurantTable tempTable = null;
                     foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
                     {
-                        if (table.objectId == tempReservation.tableId)
+                        if (table.objectId == tempReservation.TableId)
                         {
                             tempTable = table;
                         }
@@ -420,7 +420,7 @@ namespace TableFindBackend.Forms
 
                         });
 
-                        Backendless.Data.Of<BackendlessUser>().FindById(r.userId, loadContactCallback);
+                        Backendless.Data.Of<BackendlessUser>().FindById(r.UserId, loadContactCallback);
                     }
                 }
                 else
@@ -475,17 +475,17 @@ namespace TableFindBackend.Forms
                                   RestaurantTableView newItem = new RestaurantTableView();
                                   
                                   newItem.Tag = tb.objectId;
-                                  newItem.Label = tb.name;
-                                  newItem.Seating = tb.capacity;
-                                  newItem.Availability = tb.available;
+                                  newItem.Label = tb.Name;
+                                  newItem.Seating = tb.Capacity;
+                                  newItem.Availability = tb.Available;
 
                                   pnlMain.Controls.Add(newItem);
-                                  if (tb.yPos>pnlMain.Height ||tb.xPos>pnlMain.Width)
+                                  if (tb.YPos>pnlMain.Height ||tb.XPos>pnlMain.Width)
                                   {
                                       pnlMain.Controls[i].Location = new Point(pnlMain.Width-73, pnlMain.Height - 38);
                                   }
                                   else
-                                      pnlMain.Controls[i].Location = new Point(tb.xPos, tb.yPos);
+                                      pnlMain.Controls[i].Location = new Point(tb.XPos, tb.YPos);
 
                                   this.AddControl(newItem);
                                   //newItem.lblName.MouseDoubleClick += new MouseEventHandler(MyControlLabel_DoubleClick);
@@ -521,25 +521,25 @@ namespace TableFindBackend.Forms
         {
             RestaurantTable newTable = new RestaurantTable();
 
-            newTable.name = "Tbl #"+Convert.ToString(OwnerStorage.RestaurantTables.Count+1);
-            newTable.capacity = 1; //<-- min value
-            newTable.restaurantId = OwnerStorage.ThisRestaurant.objectId;
+            newTable.Name = "Tbl #"+Convert.ToString(OwnerStorage.RestaurantTables.Count+1);
+            newTable.Capacity = 1; //<-- min value
+            newTable.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
 
             OwnerStorage.RestaurantTables.Add(newTable);
 
             RestaurantTableView newView = new RestaurantTableView();
 
             newView.Location = new Point(0, 0);
-            newView.Seating = newTable.capacity;
-            newView.Label = newTable.name;
-            newView.Availability = newTable.available;            
+            newView.Seating = newTable.Capacity;
+            newView.Label = newTable.Name;
+            newView.Availability = newTable.Available;            
 
             AddControl(newView);
             MyControl_DoubleClick(newView, e);
 
             OwnerStorage.FileWriter.WriteLineToFile("User created a new Table.", true);
-            OwnerStorage.FileWriter.WriteLineToFile("Name:  " + newTable.name, false);
-            OwnerStorage.LogInfo.Add("User added a new Restaurant Table\nName:  "+ newTable.name);
+            OwnerStorage.FileWriter.WriteLineToFile("Name:  " + newTable.Name, false);
+            OwnerStorage.LogInfo.Add("User added a new Restaurant Table\nName:  "+ newTable.Name);
             OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
         }
@@ -577,7 +577,7 @@ namespace TableFindBackend.Forms
 
                 foreach (RestaurantTable ti in OwnerStorage.RestaurantTables)
                 {
-                    if (ti.objectId == tempItem.Tag)
+                if (ti.objectId == tempItem.Tag)
                     {
                         tempTable = ti;
                     }
@@ -618,12 +618,12 @@ namespace TableFindBackend.Forms
                     RestaurantTableView tempView = new RestaurantTableView();
 
                     tempView.Tag = tempTable.objectId;
-                    tempView.Label = tempTable.name;
-                    tempView.Seating = tempTable.capacity;
-                    tempView.Availability = tempTable.available;
+                    tempView.Label = tempTable.Name;
+                    tempView.Seating = tempTable.Capacity;
+                    tempView.Availability = tempTable.Available;
 
                     pnlMain.Controls.Add(tempView);
-                    pnlMain.Controls[pnlMain.Controls.Count - 1].Location = new Point(tempTable.xPos, tempTable.yPos);
+                    pnlMain.Controls[pnlMain.Controls.Count - 1].Location = new Point(tempTable.XPos, tempTable.YPos);
 
                     OwnerStorage.RestaurantTables.Add(tempTable);
 
@@ -718,8 +718,8 @@ namespace TableFindBackend.Forms
             int i = 0;
             foreach (RestaurantTable tb in OwnerStorage.RestaurantTables)
             {
-                tb.yPos = pnlMain.Controls[i].Location.Y;
-                tb.xPos = pnlMain.Controls[i].Location.X;
+                tb.YPos = pnlMain.Controls[i].Location.Y;
+                tb.XPos = pnlMain.Controls[i].Location.X;
                 i++;
             }
 

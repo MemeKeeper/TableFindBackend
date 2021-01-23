@@ -24,11 +24,11 @@ namespace TableFindBackend.Forms
             _master = master;
             InitializeComponent();
 
-            tbxName.Text = OwnerStorage.ThisRestaurant.name;
-            tbxLocation.Text = OwnerStorage.ThisRestaurant.locationString;
-            tbxContactNumber.Text = OwnerStorage.ThisRestaurant.contactNumber;
+            tbxName.Text = OwnerStorage.ThisRestaurant.Name;
+            tbxLocation.Text = OwnerStorage.ThisRestaurant.LocationString;
+            tbxContactNumber.Text = OwnerStorage.ThisRestaurant.ContactNumber;
 
-            if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl"))
+            if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
                 try
                 {
                     btnDefault.Enabled = true;
@@ -63,15 +63,15 @@ namespace TableFindBackend.Forms
                 {
                     string text = File.ReadAllText(file);
                     lblLayout.Text = ofdLayoutBrowse.FileName;
-                    if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl"))
+                    if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
                         try
                         {
                             _master.DisableLayoutImage();
-                            File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl");
+                            File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
                         }
                         catch (IOException)
                         { }
-                    File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl");
+                    File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
                 }
                 else
                 {
@@ -79,7 +79,7 @@ namespace TableFindBackend.Forms
                     try
                     {
                         _master.DisableLayoutImage();
-                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.name + "_" + OwnerStorage.ThisRestaurant.locationString + "_layout.tbl");                        
+                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");                        
                     }
                     catch(IOException)
                     {
@@ -91,9 +91,9 @@ namespace TableFindBackend.Forms
             {
             }
 
-            OwnerStorage.ThisRestaurant.contactNumber = tbxContactNumber.Text;
-            OwnerStorage.ThisRestaurant.name = tbxName.Text;
-            OwnerStorage.ThisRestaurant.locationString = tbxLocation.Text;                 
+            OwnerStorage.ThisRestaurant.ContactNumber = tbxContactNumber.Text;
+            OwnerStorage.ThisRestaurant.Name = tbxName.Text;
+            OwnerStorage.ThisRestaurant.LocationString = tbxLocation.Text;                 
             OwnerStorage.ThisRestaurant.EditRestaurant();
             DialogResult = DialogResult.OK;
             this.Close();
@@ -136,7 +136,7 @@ namespace TableFindBackend.Forms
                     AsyncCallback<BackendlessAPI.File.BackendlessFile> callback = new AsyncCallback<BackendlessAPI.File.BackendlessFile>(
                     success =>
                     {
-                        OwnerStorage.ThisRestaurant.menuLink = success.FileURL;
+                        OwnerStorage.ThisRestaurant.MenuLink = success.FileURL;
                         Invoke(new Action(() =>
                         {
                             OwnerStorage.FileWriter.WriteLineToFile("User Uploaded new menu pdf", true);
@@ -174,7 +174,7 @@ namespace TableFindBackend.Forms
                     AsyncCallback<BackendlessAPI.File.BackendlessFile> callback = new AsyncCallback<BackendlessAPI.File.BackendlessFile>(
                     success =>
                     {
-                        OwnerStorage.ThisRestaurant.menuLink = success.FileURL;
+                        OwnerStorage.ThisRestaurant.MenuLink = success.FileURL;
                         Invoke(new Action(() =>
                         {
                             OwnerStorage.FileWriter.WriteLineToFile("User Uploaded new menu pdf", true);

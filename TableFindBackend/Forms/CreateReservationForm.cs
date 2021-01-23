@@ -26,7 +26,7 @@ namespace TableFindBackend.Models
             //dtpTakenFrom.CustomFormat = "dddd, dd/MM, HH:mm";
 
             this.thisTable = thisTable;
-            lblTitle.Text = thisTable.name;
+            lblTitle.Text = thisTable.Name;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -68,13 +68,13 @@ namespace TableFindBackend.Models
                 DateTime tempTime = dtpTakenFrom.Value.AddHours(2);   //<-- +2:00 time zone
                 tempTime.AddHours(Convert.ToInt32(spnDuration.Value));             
 
-                    reservation.number = tbxContact.Text;
-                    reservation.name = tbxName.Text;
-                    reservation.takenFrom = dtpTakenFrom.Value.AddHours(2);
-                    reservation.tableId = thisTable.objectId;
-                    reservation.takenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)+2);   //the +2:00 timezone
-                    reservation.restaurantId = OwnerStorage.ThisRestaurant.objectId;
-                    reservation.userId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
+                    reservation.Number = tbxContact.Text;
+                    reservation.Name = tbxName.Text;
+                    reservation.TakenFrom = dtpTakenFrom.Value.AddHours(2);
+                    reservation.TableId = thisTable.objectId;
+                    reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)+2);   //the +2:00 timezone
+                    reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                    reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
 
                     AsyncCallback<Reservation> callback = new AsyncCallback<Reservation>(
                                         result =>
@@ -83,9 +83,9 @@ namespace TableFindBackend.Models
                                             {
                                                 pnlPanel.Visible = true;
                                                 OwnerStorage.FileWriter.WriteLineToFile("User Created Manager Reservation", true);
-                                                OwnerStorage.FileWriter.WriteLineToFile("Name:  " + reservation.name, false);
+                                                OwnerStorage.FileWriter.WriteLineToFile("Name:  " + reservation.Name, false);
 
-                                                MessageBox.Show(this, "Reservation for " + reservation.name + " is successfull");
+                                                MessageBox.Show(this, "Reservation for " + reservation.Name + " is successfull");
                                                 DialogResult = DialogResult.OK;
                                                 this.Close();
                                             }));

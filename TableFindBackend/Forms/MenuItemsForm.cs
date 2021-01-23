@@ -32,15 +32,15 @@ namespace TableFindBackend.Forms
             {
                 RestaurantMenuItemView newItem = new RestaurantMenuItemView();
                 newItem.Tag = item.objectId;
-                newItem.Active = item.outOfStock?false:true;
-                newItem.Price = item.price;
+                newItem.Active = item.OutOfStock?false:true;
+                newItem.Price = item.Price;
 
-                newItem.Type = item.type;
+                newItem.Type = item.Type;
                 if (newItem.Active != true)
                 {
                     newItem.BackColor = Color.FromName("ControlDark");
                 }
-                newItem.Label = item.name;
+                newItem.Label = item.Name;
 
                 flpItems.Controls.Add(newItem);
                 newItem.lblName.MouseClick += new MouseEventHandler(MenuLabel_Click);
@@ -70,12 +70,12 @@ namespace TableFindBackend.Forms
                         }
                         foreach (RestaurantMenuItem item in OwnerStorage.MenuItems)
                         {
-                            if (viewItem.Label == item.name)
+                            if (viewItem.Label == item.Name)
                             {
                                 selectedItem = item;
                             }
                         }
-                        cbxEnabled.Checked = selectedItem.outOfStock ? false : true;
+                        cbxEnabled.Checked = selectedItem.OutOfStock ? false : true;
                         pnlEdit.Enabled = true;
                     }
                 }
@@ -119,9 +119,9 @@ namespace TableFindBackend.Forms
                                     {
                                         if (item.Tag.Equals(temp.objectId))
                                         {
-                                            item.Name = newForm.transferedItem.name;
-                                            item.Type = newForm.transferedItem.type;
-                                            item.Price = newForm.transferedItem.price;
+                                            item.Name = newForm.transferedItem.Name;
+                                            item.Type = newForm.transferedItem.Type;
+                                            item.Price = newForm.transferedItem.Price;
                                         }
                                     }
                                     populateMenu();
@@ -131,11 +131,11 @@ namespace TableFindBackend.Forms
                                 else//means a new Item is created
                                 {
                                     RestaurantMenuItemView newView = new RestaurantMenuItemView();
-                                    newView.Label = result.name;
+                                    newView.Label = result.Name;
                                     newView.Active = true;
-                                    newView.Type = result.type;
+                                    newView.Type = result.Type;
                                     newView.Tag = result.objectId;
-                                    newView.Price = result.price;
+                                    newView.Price = result.Price;
 
                                     OwnerStorage.MenuItems.Add(result);
 
@@ -192,7 +192,7 @@ namespace TableFindBackend.Forms
 
         private void cbxEnabled_Click(object sender, EventArgs e)
         {
-            selectedItem.outOfStock = cbxEnabled.Checked ? false : true;
+            selectedItem.OutOfStock = cbxEnabled.Checked ? false : true;
             AsyncCallback<RestaurantMenuItem> updateObjectCallback = new AsyncCallback<RestaurantMenuItem>(
             savedRestaurantMenuItem =>
             {
@@ -234,7 +234,7 @@ namespace TableFindBackend.Forms
         {
             this.DialogResult = DialogResult.OK;
             RestaurantMenuItem tempItem = selectedItem;
-            DialogResult dialogResult = MessageBox.Show("Are you sure you would like to delete "+ tempItem.name+"?", tempItem.name, MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Are you sure you would like to delete "+ tempItem.Name+"?", tempItem.Name, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 pbxLoading.Visible = true;
@@ -258,7 +258,7 @@ namespace TableFindBackend.Forms
                         populateMenu();
                         pnlEdit.Enabled = false;
                         pbxLoading.Visible=false;
-                        lblStatus.Text=selectedItem.name + " has been removed";
+                        lblStatus.Text=selectedItem.Name + " has been removed";
                     }));
                 },
                 error =>
@@ -297,11 +297,11 @@ namespace TableFindBackend.Forms
         {
             if (clbSortOptions.SelectedIndex == 3)
             {
-                cbxType.Enabled = true;                
+                cbxType.Visible = true;                
             }
             else
             {
-                cbxType.Enabled = false;                
+                cbxType.Visible = false;                
             }
             if(clbSortOptions.SelectedIndex!=-1)
             clbSortOptions.SetItemChecked(clbSortOptions.SelectedIndex, true);

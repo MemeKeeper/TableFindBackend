@@ -41,7 +41,7 @@ namespace TableFindBackend.RT_Database_Listeneres
 
                     foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
                     {
-                        if (table.objectId == createdOrder.tableId)
+                        if (table.objectId == createdOrder.TableId)
                         {
                             temp = table;
                         }
@@ -56,12 +56,12 @@ namespace TableFindBackend.RT_Database_Listeneres
                                     _masterform.AddOneReservationView(createdOrder);
                                     if (foundContact.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                                     {
-                                        OwnerStorage.LogInfo.Add("Reservation has been created\nName:   " + createdOrder.name + "\nCreated By:  Restaurant");
+                                        OwnerStorage.LogInfo.Add("Reservation has been created\nName:   " + createdOrder.Name + "\nCreated By:  Restaurant");
                                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                                     }
                                     else
                                     {
-                                        OwnerStorage.LogInfo.Add("Reservation has been created\nName:   " + createdOrder.name + "\nCreated By:  Customer");
+                                        OwnerStorage.LogInfo.Add("Reservation has been created\nName:   " + createdOrder.Name + "\nCreated By:  Customer");
                                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                                     }
                                 }
@@ -70,7 +70,7 @@ namespace TableFindBackend.RT_Database_Listeneres
                             {
 
                             });
-                    Backendless.Data.Of<BackendlessUser>().FindById(createdOrder.userId, loadContactCallback);
+                    Backendless.Data.Of<BackendlessUser>().FindById(createdOrder.UserId, loadContactCallback);
                 }
             });
         }

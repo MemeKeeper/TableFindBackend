@@ -22,7 +22,7 @@ namespace TableFindBackend.Forms
             if (user.ObjectId == OwnerStorage.ThisRestaurant.ownerId)
             {
                 lblRestaurantLabel.Visible = true;
-                lblTitle.Text = "Reservation details for " + r.name;
+                lblTitle.Text = "Reservation details for " + r.Name;
             }
             else
             {

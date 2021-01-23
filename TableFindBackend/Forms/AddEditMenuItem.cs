@@ -21,10 +21,10 @@ namespace TableFindBackend.Forms
             this.transferedItem = item;
             if (transferedItem != null)
             {
-                tbxDescription.Text = item.ingredients;
-                tbxName.Text = item.name;
-                cbxType.Text = item.type;
-                tbxPrice.Text = item.price.ToString();
+                tbxDescription.Text = item.Ingredients;
+                tbxName.Text = item.Name;
+                cbxType.Text = item.Type;
+                tbxPrice.Text = item.Price.ToString("N2");
             }           
         }
 
@@ -76,7 +76,7 @@ namespace TableFindBackend.Forms
                             bool flag = false;
                             foreach(RestaurantMenuItem item in OwnerStorage.MenuItems)
                             {
-                                if (item.name == tbxName.Text)
+                                if (item.Name == tbxName.Text)
                                 flag = true;
                             }
                             if (flag == true && transferedItem==null)
@@ -86,12 +86,12 @@ namespace TableFindBackend.Forms
                             else
                             {
                                 RestaurantMenuItem newItem = new RestaurantMenuItem();
-                                newItem.name = tbxName.Text;
-                                newItem.ingredients = tbxDescription.Text;
-                                newItem.type = cbxType.Text;
-                                newItem.restaurantId = OwnerStorage.ThisRestaurant.objectId;
-                                newItem.price = Convert.ToDouble(tbxPrice.Text);
-                                newItem.outOfStock = false;
+                                newItem.Name = tbxName.Text;
+                                newItem.Ingredients = tbxDescription.Text;
+                                newItem.Type = cbxType.Text;
+                                newItem.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                                newItem.Price = Convert.ToDouble(tbxPrice.Text);
+                                newItem.OutOfStock = false;
                                 if (transferedItem!=null)
                                     newItem.objectId = transferedItem.objectId;
 
@@ -99,7 +99,7 @@ namespace TableFindBackend.Forms
                                 
                                 
                                 OwnerStorage.FileWriter.WriteLineToFile("User Added a new Menu Item", true);
-                                OwnerStorage.FileWriter.WriteLineToFile("Name:  " + newItem.name, false);
+                                OwnerStorage.FileWriter.WriteLineToFile("Name:  " + newItem.Name, false);
 
                     DialogResult = DialogResult.OK;
                     this.Close();
