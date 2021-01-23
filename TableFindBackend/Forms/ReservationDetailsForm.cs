@@ -17,7 +17,7 @@ namespace TableFindBackend.Forms
     public partial class ReservationDetailsForm : Form
     {
         Reservation thisReservation;
-        public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t)
+        public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t, bool active)
         {
             thisReservation = r;
 
@@ -45,7 +45,7 @@ namespace TableFindBackend.Forms
                 pnlReservation.Height += -50;
             }
 
-            if (OwnerStorage.AdminMode == true)
+            if (OwnerStorage.AdminMode == true && active == true)
                 btnDelete.Visible = true;
         }
 
@@ -96,7 +96,7 @@ namespace TableFindBackend.Forms
                                 Invoke(new Action(() =>
                                 {
                                     OwnerStorage.LogInfo.Add("Reservation has been removed\nName:   "+ thisReservation.name);
-                                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("dd/MM,   HH:mm"));
+                                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                                     MessageBox.Show(this, "reservation for " + thisReservation.name+ " has been removed");
                                     ShowLoading(false);
