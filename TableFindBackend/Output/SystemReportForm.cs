@@ -465,8 +465,6 @@ namespace TableFindBackend.Output
             p7.Format.AfterSpacing = 5;
             p7.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
-            //System Log bugs out if more than 2 events are logged
-
             //Table logTable = section.AddTable(true);
             //logTable.TableFormat.HorizontalAlignment = RowAlignment.Center;
 
@@ -533,21 +531,35 @@ namespace TableFindBackend.Output
                //launches document
             if (word == true)
             {
-                if (IsFileLocked(fInfo) == true)//means file is still open
+                if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx")==true)
                 {
-                    MessageBox.Show("The Document is already open in one instance of Word. Please close that document and try again", "Document already open", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+
+                    if (IsFileLocked(fInfo) == true)//means file is still open
+                    {
+                        MessageBox.Show("The Document is already open in one instance of Word. Please close that document and try again", "Document already open", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                        }
+                        catch { }
+                        document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+                    }
                 }
                 else
                 {
+                    document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
                     try
                     {
                         System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
                     }
                     catch { }
-                    document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
-               }
+                    
+                }
             }
-
         }
         protected virtual bool IsFileLocked(FileInfo file)
         {
