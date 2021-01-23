@@ -370,11 +370,6 @@ namespace TableFindBackend.Output
             }
 
             //past reservations displayed
-            Paragraph p6 = section.AddParagraph();
-            p6.AppendText("Past Reservations");
-            p6.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
-            p6.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            p6.Format.BeforeSpacing = 20;
 
             foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
             {
@@ -389,6 +384,12 @@ namespace TableFindBackend.Output
 
                 if (tempList1.Count != 0)
                 {
+                    Paragraph p6 = section.AddParagraph();
+                    p6.AppendText("Past Reservations");
+                    p6.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
+                    p6.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                    p6.Format.BeforeSpacing = 20;
+
                     Paragraph paragraph = section.AddParagraph();
                     //paragraph.AppendText("Table Name: " + t.name);
                     TextRange tableNames = paragraph.AppendText(t.name);
@@ -465,57 +466,65 @@ namespace TableFindBackend.Output
             p7.Format.AfterSpacing = 5;
             p7.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
-            //Table logTable = section.AddTable(true);
-            //logTable.TableFormat.HorizontalAlignment = RowAlignment.Center;
+            Table logTable = section.AddTable(true);
+            logTable.TableFormat.HorizontalAlignment = RowAlignment.Center;
 
-            //String[] logHeader = { "Event Recorded", "Recorded Time" };
+            String[] logHeader = { "Event Recorded", "Recorded Time" };
 
-            //String[][] logData = { OwnerStorage.LogInfo.ToArray(), OwnerStorage.LogTimes.ToArray() };
+            List<String[]> logData = new List<string[]>();
+            for (int i = 0;i<OwnerStorage.LogInfo.Count;i++)
+            {
+                if(OwnerStorage.LogTimes[i]=="blank")
+                logData.Add(new String[] { OwnerStorage.LogInfo[i], "" });
+                else
+                    logData.Add(new String[] { OwnerStorage.LogInfo[i], OwnerStorage.LogTimes[i] });
+            }
 
-            //logTable.ResetCells(logData.Length + 1, logHeader.Length);
-            ////Header Row
-            //TableRow FLRow = logTable.Rows[0];
-            //FLRow.IsHeader = true;
-            ////Row Height
-            //FLRow.Height = 23;
-            ////Header Format
-            //FLRow.RowFormat.BackColor = Color.AliceBlue;
-            //for (int i = 0; i < logHeader.Length; i++)
-            //{
-            //    //Cell Alignment
-            //    Paragraph p = FLRow.Cells[i].AddParagraph();
-            //    FLRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-            //    p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            //    //Data Format
-            //    TextRange TR = p.AppendText(logHeader[i]);
-            //    TR.CharacterFormat.FontName = "Calibri";
-            //    TR.CharacterFormat.FontSize = 14;
-            //    TR.CharacterFormat.TextColor = Color.Teal;
-            //    TR.CharacterFormat.Bold = true;
-            //}
+            logTable.ResetCells(logData.Count + 1, logHeader.Length);
+            //Header Row
+            TableRow FRowLog = logTable.Rows[0];
+            FRowLog.IsHeader = true;
+            //Row Height
+            FRowLog.Height = 23;
+            //Header Format
+            FRowLog.RowFormat.BackColor = Color.AliceBlue;
+            for (int i = 0; i < logHeader.Length; i++)
+            {
+                //Cell Alignment
+                Paragraph p = FRowLog.Cells[i].AddParagraph();
+                FRowLog.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+                p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                //Data Format
+                TextRange TR = p.AppendText(logHeader[i]);
+                TR.CharacterFormat.FontName = "Calibri";
+                TR.CharacterFormat.FontSize = 14;
+                TR.CharacterFormat.TextColor = Color.Teal;
+                TR.CharacterFormat.Bold = true;
+            }
 
-            //for (int r = 0; r < logData.Length; r++)
-            //{
-            //    TableRow DataRow = logTable.Rows[r + 1];
+            //Data Row
+            for (int r = 0; r < logData.Count; r++)
+            {
+                TableRow DataRow = logTable.Rows[r + 1];
 
-            //    //Row Height
-            //    DataRow.Height = 20;
+                //Row Height
+                DataRow.Height = 20;
 
-            //    //C Represents Column.
-            //    for (int c = 0; c < logData[r].Length; c++)
-            //    {
-            //        //Cell Alignment
-            //        DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-            //        //Fill Data in Rows
-            //        Paragraph p3 = DataRow.Cells[c].AddParagraph();
-            //        TextRange TR2 = p3.AppendText(logData[c][r]);
-            //        //Format Cells
-            //        p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            //        TR2.CharacterFormat.FontName = "Calibri";
-            //        TR2.CharacterFormat.FontSize = 12;
-            //        TR2.CharacterFormat.TextColor = Color.Black;
-            //    }
-            //}
+                //C Represents Column.
+                for (int c = 0; c < logData[r].Length; c++)
+                {
+                    //Cell Alignment
+                    DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+                    //Fill Data in Rows
+                    Paragraph p3 = DataRow.Cells[c].AddParagraph();
+                    TextRange TR2 = p3.AppendText(logData[r][c]);
+                    //Format Cells
+                    p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                    TR2.CharacterFormat.FontName = "Calibri";
+                    TR2.CharacterFormat.FontSize = 12;
+                    TR2.CharacterFormat.TextColor = Color.Black;
+                }
+            }
 
             //where document is saved to
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.name + @"\" + OwnerStorage.ThisRestaurant.locationString);
