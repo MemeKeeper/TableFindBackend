@@ -9,60 +9,60 @@ namespace TableFindBackend.Models
 {
     public class RestaurantTable
     {
-        private string ObjectId;
-        private string RestaurantID;
-        private bool Available;
-        private string Name;
-        private int Capacity;
-        private int XPos;
-        private int YPos;
-        private string TableInfo;
+        private string ObjectId;//Exception for Backendless
+        private string restaurantId;
+        private bool available;
+        private string name;
+        private int capacity;
+        private int xPos;
+        private int yPos;
+        private string tableInfo;
 
 
-        public string objectId
+        public string objectId//Exception for Backendless
         {
             get { return ObjectId; }
             set { ObjectId = value; }
         }
-        public bool available
+        public bool Available
         {
-            get { return Available; }
-            set { Available = value; }
+            get { return available; }
+            set { available = value; }
         }
         
-        public string name
+        public string Name
         {
-            get { return Name; }
-            set { Name = value; }
+            get { return name; }
+            set { name = value; }
         }        
 
-        public int capacity
+        public int Capacity
         {
-            get { return Capacity; }
-            set { Capacity = value; }
+            get { return capacity; }
+            set { capacity = value; }
         }
        
-        public int xPos
+        public int XPos
         {
-            get { return XPos; }
-            set { XPos = value; }
+            get { return xPos; }
+            set { xPos = value; }
         }
         
-        public int yPos
+        public int YPos
         {
-            get { return YPos; }
-            set { YPos = value; }
+            get { return yPos; }
+            set { yPos = value; }
         }
 
-        public string restaurantId
+        public string RestaurantId
         {
-            get => RestaurantID;
-            set => RestaurantID = value; 
+            get => restaurantId;
+            set => restaurantId = value; 
         }
-        public string tableInfo 
+        public string TableInfo 
         {
-            get => TableInfo; 
-            set => TableInfo = value; 
+            get => tableInfo; 
+            set => tableInfo = value; 
         }
     }
 }

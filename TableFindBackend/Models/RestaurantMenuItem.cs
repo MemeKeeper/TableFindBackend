@@ -8,20 +8,20 @@ namespace TableFindBackend.Models
 {
     public class RestaurantMenuItem
     {
-        private string ObjectId;
-        private string RestaurantID;
-        private string Name;
-        private string Type;  //beverege, grill, breakfast, etc
-        private string Ingredients;
-        private double Price;
-        private Boolean OutOfStock;
+        private string ObjectId;//Exception for Backendless
+        private string restaurantId;
+        private string name;
+        private string type;  //beverege, grill, breakfast, etc
+        private string ingredients;
+        private double price;
+        private Boolean outOfStock;
 
-        public string objectId { get => ObjectId; set => ObjectId = value; }
-        public string restaurantId { get => RestaurantID; set => RestaurantID = value; }
-        public string name { get => Name; set => Name = value; }
-        public string type { get => Type; set => Type = value; }
-        public string ingredients { get => Ingredients; set => Ingredients = value; }
-        public bool outOfStock { get => OutOfStock; set => OutOfStock = value; }
-        public double price { get => Price; set => Price = value; }
+        public string objectId { get => ObjectId; set => ObjectId = value; }//Exception for Backendless
+        public string RestaurantId { get => restaurantId; set => restaurantId = value; }
+        public string Name { get => name; set => name = value; }
+        public string Type { get => type; set => type = value; }
+        public string Ingredients { get => ingredients; set => ingredients = value; }
+        public bool OutOfStock { get => outOfStock; set => outOfStock = value; }
+        public double Price { get => price; set => price = value; }
     }
 }

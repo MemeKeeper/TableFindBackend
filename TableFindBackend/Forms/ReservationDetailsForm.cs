@@ -24,15 +24,15 @@ namespace TableFindBackend.Forms
         
             InitializeComponent();
 
-            tbxCapacity.Text = t.capacity.ToString();
+            tbxCapacity.Text = t.Capacity.ToString();
             tbxContact.Text = u.GetProperty("Cellphone").ToString();
-            tbxContact2.Text = r.number;
+            tbxContact2.Text = r.Number;
             tbxEmail.Text = u.Email;
             tbxFName.Text = u.GetProperty("FirstName").ToString();
             tbxLName.Text = u.GetProperty("LastName").ToString();
-            tbxTable.Text = t.name;
-            tbxTime.Text = r.takenFrom.ToString("dddd, dd/MM,    HH:mm") + " - " + r.takenTo.ToString("HH:mm");
-            lblTitle.Text ="Reservation for "+ r.name;
+            tbxTable.Text = t.Name;
+            tbxTime.Text = r.TakenFrom.ToString("dddd, dd/MM,    HH:mm") + " - " + r.TakenTo.ToString("HH:mm");
+            lblTitle.Text ="Reservation for "+ r.Name;
 
             if (u.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
             {
@@ -95,10 +95,10 @@ namespace TableFindBackend.Forms
                             {
                                 Invoke(new Action(() =>
                                 {
-                                    OwnerStorage.LogInfo.Add("Reservation has been removed\nName:   "+ thisReservation.name);
+                                    OwnerStorage.LogInfo.Add("Reservation has been removed\nName:   "+ thisReservation.Name);
                                     OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
-                                    MessageBox.Show(this, "reservation for " + thisReservation.name+ " has been removed");
+                                    MessageBox.Show(this, "reservation for " + thisReservation.Name+ " has been removed");
                                     ShowLoading(false);
                                     this.Close();
                                 }));

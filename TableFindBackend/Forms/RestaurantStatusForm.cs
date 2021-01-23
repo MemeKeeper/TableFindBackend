@@ -16,7 +16,7 @@ namespace TableFindBackend.Forms
         public RestaurantStatusForm()
         {
             InitializeComponent();
-            tbrCapacity.Value = OwnerStorage.ThisRestaurant.maxCapacity;
+            tbrCapacity.Value = OwnerStorage.ThisRestaurant.MaxCapacity;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace TableFindBackend.Forms
 
         private void btnEditor_Click(object sender, EventArgs e)
         {
-            OwnerStorage.ThisRestaurant.maxCapacity = tbrCapacity.Value;
+            OwnerStorage.ThisRestaurant.MaxCapacity = tbrCapacity.Value;
             OwnerStorage.ThisRestaurant.EditRestaurant();
             this.DialogResult = DialogResult.OK;
             this.Close();

@@ -98,7 +98,7 @@ namespace TableFindBackend.Forms
             this.tbxPrice.Location = new System.Drawing.Point(47, 166);
             this.tbxPrice.Name = "tbxPrice";
             this.tbxPrice.Size = new System.Drawing.Size(301, 27);
-            this.tbxPrice.TabIndex = 9;
+            this.tbxPrice.TabIndex = 2;
             this.tbxPrice.Tag = "0";
             this.tbxPrice.TextChanged += new System.EventHandler(this.tbxPrice_TextChanged);
             this.tbxPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPrice_KeyPress);
@@ -108,9 +108,9 @@ namespace TableFindBackend.Forms
             this.lblDescriptionTitle.AutoSize = true;
             this.lblDescriptionTitle.Location = new System.Drawing.Point(28, 211);
             this.lblDescriptionTitle.Name = "lblDescriptionTitle";
-            this.lblDescriptionTitle.Size = new System.Drawing.Size(145, 17);
+            this.lblDescriptionTitle.Size = new System.Drawing.Size(287, 17);
             this.lblDescriptionTitle.TabIndex = 8;
-            this.lblDescriptionTitle.Text = "Dish/Item Description";
+            this.lblDescriptionTitle.Text = "Dish/Item Description (Describe ingredients)";
             // 
             // lblTypeTitle
             // 
@@ -136,7 +136,7 @@ namespace TableFindBackend.Forms
             this.tbxName.Location = new System.Drawing.Point(28, 32);
             this.tbxName.Name = "tbxName";
             this.tbxName.Size = new System.Drawing.Size(320, 27);
-            this.tbxName.TabIndex = 4;
+            this.tbxName.TabIndex = 0;
             this.tbxName.Tag = "0";
             // 
             // tbxDescription
@@ -146,7 +146,7 @@ namespace TableFindBackend.Forms
             this.tbxDescription.Multiline = true;
             this.tbxDescription.Name = "tbxDescription";
             this.tbxDescription.Size = new System.Drawing.Size(320, 143);
-            this.tbxDescription.TabIndex = 2;
+            this.tbxDescription.TabIndex = 3;
             // 
             // cbxType
             // 
@@ -188,7 +188,7 @@ namespace TableFindBackend.Forms
             this.btnCancel.Location = new System.Drawing.Point(293, 448);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(99, 49);
-            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -199,7 +199,7 @@ namespace TableFindBackend.Forms
             this.btnSave.Location = new System.Drawing.Point(13, 448);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 49);
-            this.btnSave.TabIndex = 3;
+            this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);

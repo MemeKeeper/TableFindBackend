@@ -23,7 +23,7 @@ namespace TableFindBackend.Forms
             PopulateList();
             foreach (Restaurant r in list)
             {
-                ListViewItem item = new ListViewItem(r.name);
+                ListViewItem item = new ListViewItem(r.Name);
             }
         
 
@@ -35,8 +35,8 @@ namespace TableFindBackend.Forms
             foreach(Restaurant r in list)
             {
                 RestaurantView tempView = new RestaurantView();
-                tempView.RestaurantName=r.name;
-                tempView.LocationString = r.locationString;
+                tempView.RestaurantName=r.Name;
+                tempView.LocationString = r.LocationString;
                 tempView.ObjectId = r.objectId;
                 if (toggle==true)
                 {
