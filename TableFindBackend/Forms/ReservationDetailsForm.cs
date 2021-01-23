@@ -17,7 +17,7 @@ namespace TableFindBackend.Forms
     public partial class ReservationDetailsForm : Form
     {
         Reservation thisReservation;
-        public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t)
+        public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t, bool active)
         {
             thisReservation = r;
 
@@ -45,7 +45,7 @@ namespace TableFindBackend.Forms
                 pnlReservation.Height += -50;
             }
 
-            if (OwnerStorage.AdminMode == true)
+            if (OwnerStorage.AdminMode == true && active == true)
                 btnDelete.Visible = true;
         }
 
