@@ -69,7 +69,7 @@ namespace TableFindBackend.Forms
             OwnerStorage.LogInfo.Add("User Logged in with valid Login");
             OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
-            updater = new SharpUpdater(Assembly.GetExecutingAssembly(), this, new Uri("http://bernardkleinhans.co.za/Johan/update.xml"));  //<------ Domain on which we host the update for the program
+            updater = new SharpUpdater(Assembly.GetExecutingAssembly(), this, new Uri("https://backendlessappcontent.com/3341DD88-C207-2A48-FF9F-D4103CEA4900/6DB97B25-6E7F-44F1-A47E-87BB1F867567/files/Update/update.xml"));  //<------ Domain on which we host the update for the program
 
             typeof(Panel).InvokeMember("DoubleBuffered",BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlMain, new object[] { true });
 
