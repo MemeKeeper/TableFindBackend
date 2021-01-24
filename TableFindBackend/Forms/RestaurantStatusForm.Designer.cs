@@ -127,9 +127,9 @@ namespace TableFindBackend.Forms
             this.lblMid.Name = "lblMid";
             this.lblMid.Size = new System.Drawing.Size(239, 96);
             this.lblMid.TabIndex = 8;
-            this.lblMid.Text = "31% - 70% - Medium load\r\nSelect this option when the restaurant \r\nis undermedium " +
-    "load. For example \r\nwhen the restaurant is busy but the staff \r\ncan keep up with" +
-    " the current customer\r\ndemand";
+            this.lblMid.Text = "31% - 70% - Medium load\r\nSelect this option when the restaurant \r\nis under medium" +
+    " load. For example \r\nwhen the restaurant is busy but the staff \r\ncan keep up wit" +
+    "h the current customer\r\ndemand";
             // 
             // lblMin
             // 

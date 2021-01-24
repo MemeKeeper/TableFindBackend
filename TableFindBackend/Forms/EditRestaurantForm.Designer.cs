@@ -246,10 +246,6 @@ namespace TableFindBackend.Forms
             this.pnlButtons.Size = new System.Drawing.Size(281, 73);
             this.pnlButtons.TabIndex = 10;
             // 
-            // ofdMenuBrowse
-            // 
-            this.ofdMenuBrowse.FileName = "openFileDialog1";
-            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;

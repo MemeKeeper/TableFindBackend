@@ -288,175 +288,199 @@ namespace TableFindBackend.Output
             p5.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
             p5.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
-            foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+            if (OwnerStorage.ActiveReservations.Count != 0)
             {
-                List<Reservation> tempList = new List<Reservation>();
-                foreach (Reservation r in OwnerStorage.ActiveReservations)
+                foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
                 {
-                    if (r.TableId == t.objectId)
+                    List<Reservation> tempList = new List<Reservation>();
+                    foreach (Reservation r in OwnerStorage.ActiveReservations)
                     {
-                        tempList.Add(r);
-                    }
-                }
-
-
-                if (tempList.Count != 0)
-                {
-                    Paragraph paragraph = section.AddParagraph();
-                    //paragraph.AppendText("Table Name: " + t.name);
-                    TextRange tableNames = paragraph.AppendText(t.Name);
-                    tableNames.CharacterFormat.Bold = true;
-                    paragraph.Format.BeforeSpacing = 5;
-                    paragraph.Format.AfterSpacing = 5;
-
-
-                    Table table = section.AddTable(true);
-                    table.TableFormat.HorizontalAlignment = RowAlignment.Center;
-
-                    String[] Header = { "Name", "Date Taken From", "Date Taken To", "Contact Number" };
-
-                    List<String[]> data = new List<string[]>();
-
-                    foreach (Reservation r in tempList)
-                    {
-                        data.Add(new String[] { r.Name, r.TakenFrom.ToString(), r.TakenTo.ToString(), r.Number });
+                        if (r.TableId == t.objectId)
+                        {
+                            tempList.Add(r);
+                        }
                     }
 
-                    table.ResetCells(data.Count + 1, Header.Length);
-                    //Header Row
-                    TableRow FRow = table.Rows[0];
-                    FRow.IsHeader = true;
-                    //Row Height
-                    FRow.Height = 23;
-                    //Header Format
-                    FRow.RowFormat.BackColor = Color.AliceBlue;
-                    for (int i = 0; i < Header.Length; i++)
-                    {
-                        //Cell Alignment
-                        Paragraph p = FRow.Cells[i].AddParagraph();
-                        FRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                        p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                        //Data Format
-                        TextRange TR = p.AppendText(Header[i]);
-                        TR.CharacterFormat.FontName = "Calibri";
-                        TR.CharacterFormat.FontSize = 14;
-                        TR.CharacterFormat.TextColor = Color.Teal;
-                        TR.CharacterFormat.Bold = true;
-                    }
 
-                    //Data Row
-                    for (int r = 0; r < data.Count; r++)
+                    if (tempList.Count != 0)
                     {
-                        TableRow DataRow = table.Rows[r + 1];
+                        Paragraph paragraph = section.AddParagraph();
+                        //paragraph.AppendText("Table Name: " + t.name);
+                        TextRange tableNames = paragraph.AppendText(t.Name);
+                        tableNames.CharacterFormat.Bold = true;
+                        paragraph.Format.BeforeSpacing = 5;
+                        paragraph.Format.AfterSpacing = 5;
 
+
+                        Table table = section.AddTable(true);
+                        table.TableFormat.HorizontalAlignment = RowAlignment.Center;
+
+                        String[] Header = { "Name", "Date Taken From", "Date Taken To", "Contact Number" };
+
+                        List<String[]> data = new List<string[]>();
+
+                        foreach (Reservation r in tempList)
+                        {
+                            data.Add(new String[] { r.Name, r.TakenFrom.ToString(), r.TakenTo.ToString(), r.Number });
+                        }
+
+                        table.ResetCells(data.Count + 1, Header.Length);
+                        //Header Row
+                        TableRow FRow = table.Rows[0];
+                        FRow.IsHeader = true;
                         //Row Height
-                        DataRow.Height = 20;
-
-                        //C Represents Column.
-                        for (int c = 0; c < data[r].Length; c++)
+                        FRow.Height = 23;
+                        //Header Format
+                        FRow.RowFormat.BackColor = Color.AliceBlue;
+                        for (int i = 0; i < Header.Length; i++)
                         {
                             //Cell Alignment
-                            DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                            //Fill Data in Rows
-                            Paragraph p3 = DataRow.Cells[c].AddParagraph();
-                            TextRange TR2 = p3.AppendText(data[r][c]);
-                            //Format Cells
-                            p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                            TR2.CharacterFormat.FontName = "Calibri";
-                            TR2.CharacterFormat.FontSize = 12;
-                            TR2.CharacterFormat.TextColor = Color.Black;
+                            Paragraph p = FRow.Cells[i].AddParagraph();
+                            FRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+                            p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                            //Data Format
+                            TextRange TR = p.AppendText(Header[i]);
+                            TR.CharacterFormat.FontName = "Calibri";
+                            TR.CharacterFormat.FontSize = 14;
+                            TR.CharacterFormat.TextColor = Color.Teal;
+                            TR.CharacterFormat.Bold = true;
+                        }
+
+                        //Data Row
+                        for (int r = 0; r < data.Count; r++)
+                        {
+                            TableRow DataRow = table.Rows[r + 1];
+
+                            //Row Height
+                            DataRow.Height = 20;
+
+                            //C Represents Column.
+                            for (int c = 0; c < data[r].Length; c++)
+                            {
+                                //Cell Alignment
+                                DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+                                //Fill Data in Rows
+                                Paragraph p3 = DataRow.Cells[c].AddParagraph();
+                                TextRange TR2 = p3.AppendText(data[r][c]);
+                                //Format Cells
+                                p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                                TR2.CharacterFormat.FontName = "Calibri";
+                                TR2.CharacterFormat.FontSize = 12;
+                                TR2.CharacterFormat.TextColor = Color.Black;
+                            }
                         }
                     }
                 }
+
+            }
+            else
+            {
+                Paragraph empty = section.AddParagraph();
+                empty.AppendText("There are currently no reservations that expired in the current session");
+                empty.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                empty.Format.BeforeSpacing = 5;
+                empty.Format.AfterSpacing = 5;
             }
 
             //past reservations displayed
 
-            foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+            Paragraph p6 = section.AddParagraph();
+            p6.AppendText("Past Reservations");
+            p6.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
+            p6.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            p6.Format.BeforeSpacing = 20;
+
+            if (OwnerStorage.PastReservations.Count != 0)
             {
-                List<Reservation> tempList1 = new List<Reservation>();
-                foreach (Reservation r in OwnerStorage.PastReservations)
+
+                foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
                 {
-                    if (r.TableId == t.objectId)
+                    List<Reservation> tempList1 = new List<Reservation>();
+                    foreach (Reservation r in OwnerStorage.PastReservations)
                     {
-                        tempList1.Add(r);
-                    }
-                }
-
-                if (tempList1.Count != 0)
-                {
-                    Paragraph p6 = section.AddParagraph();
-                    p6.AppendText("Past Reservations");
-                    p6.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
-                    p6.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                    p6.Format.BeforeSpacing = 20;
-
-                    Paragraph paragraph = section.AddParagraph();
-                    //paragraph.AppendText("Table Name: " + t.name);
-                    TextRange tableNames = paragraph.AppendText(t.Name);
-                    tableNames.CharacterFormat.Bold = true;
-                    paragraph.Format.BeforeSpacing = 5;
-                    paragraph.Format.AfterSpacing = 5;
-
-
-                    Table table = section.AddTable(true);
-                    table.TableFormat.HorizontalAlignment = RowAlignment.Center;
-
-                    String[] Header = { "Name", "Date Taken From", "Date Taken To", "Contact Number" };
-
-                    List<String[]> data = new List<string[]>();
-
-                    foreach (Reservation r in tempList1)
-                    {
-                        data.Add(new String[] { r.Name, r.TakenFrom.ToString(), r.TakenTo.ToString(), r.Number });
+                        if (r.TableId == t.objectId)
+                        {
+                            tempList1.Add(r);
+                        }
                     }
 
-                    table.ResetCells(data.Count + 1, Header.Length);
-                    //Header Row
-                    TableRow FRow = table.Rows[0];
-                    FRow.IsHeader = true;
-                    //Row Height
-                    FRow.Height = 23;
-                    //Header Format
-                    FRow.RowFormat.BackColor = Color.AliceBlue;
-                    for (int i = 0; i < Header.Length; i++)
+                    if (tempList1.Count != 0)
                     {
-                        //Cell Alignment
-                        Paragraph p = FRow.Cells[i].AddParagraph();
-                        FRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                        p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                        //Data Format
-                        TextRange TR = p.AppendText(Header[i]);
-                        TR.CharacterFormat.FontName = "Calibri";
-                        TR.CharacterFormat.FontSize = 14;
-                        TR.CharacterFormat.TextColor = Color.Teal;
-                        TR.CharacterFormat.Bold = true;
-                    }
+                        Paragraph paragraph = section.AddParagraph();
+                        //paragraph.AppendText("Table Name: " + t.name);
+                        TextRange tableNames = paragraph.AppendText(t.Name);
+                        tableNames.CharacterFormat.Bold = true;
+                        paragraph.Format.BeforeSpacing = 5;
+                        paragraph.Format.AfterSpacing = 5;
 
-                    //Data Row
-                    for (int r = 0; r < data.Count; r++)
-                    {
-                        TableRow DataRow = table.Rows[r + 1];
 
+                        Table table = section.AddTable(true);
+                        table.TableFormat.HorizontalAlignment = RowAlignment.Center;
+
+                        String[] Header = { "Name", "Date Taken From", "Date Taken To", "Contact Number" };
+
+                        List<String[]> data = new List<string[]>();
+
+                        foreach (Reservation r in tempList1)
+                        {
+                            data.Add(new String[] { r.Name, r.TakenFrom.ToString(), r.TakenTo.ToString(), r.Number });
+                        }
+
+                        table.ResetCells(data.Count + 1, Header.Length);
+                        //Header Row
+                        TableRow FRow = table.Rows[0];
+                        FRow.IsHeader = true;
                         //Row Height
-                        DataRow.Height = 20;
-
-                        //C Represents Column.
-                        for (int c = 0; c < data[r].Length; c++)
+                        FRow.Height = 23;
+                        //Header Format
+                        FRow.RowFormat.BackColor = Color.AliceBlue;
+                        for (int i = 0; i < Header.Length; i++)
                         {
                             //Cell Alignment
-                            DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                            //Fill Data in Rows
-                            Paragraph p3 = DataRow.Cells[c].AddParagraph();
-                            TextRange TR2 = p3.AppendText(data[r][c]);
-                            //Format Cells
-                            p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                            TR2.CharacterFormat.FontName = "Calibri";
-                            TR2.CharacterFormat.FontSize = 12;
-                            TR2.CharacterFormat.TextColor = Color.Black;
+                            Paragraph p = FRow.Cells[i].AddParagraph();
+                            FRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+                            p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                            //Data Format
+                            TextRange TR = p.AppendText(Header[i]);
+                            TR.CharacterFormat.FontName = "Calibri";
+                            TR.CharacterFormat.FontSize = 14;
+                            TR.CharacterFormat.TextColor = Color.Teal;
+                            TR.CharacterFormat.Bold = true;
+                        }
+
+                        //Data Row
+                        for (int r = 0; r < data.Count; r++)
+                        {
+                            TableRow DataRow = table.Rows[r + 1];
+
+                            //Row Height
+                            DataRow.Height = 20;
+
+                            //C Represents Column.
+                            for (int c = 0; c < data[r].Length; c++)
+                            {
+                                //Cell Alignment
+                                DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+                                //Fill Data in Rows
+                                Paragraph p3 = DataRow.Cells[c].AddParagraph();
+                                TextRange TR2 = p3.AppendText(data[r][c]);
+                                //Format Cells
+                                p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                                TR2.CharacterFormat.FontName = "Calibri";
+                                TR2.CharacterFormat.FontSize = 12;
+                                TR2.CharacterFormat.TextColor = Color.Black;
+                            }
                         }
                     }
                 }
+            }
+            else
+            {
+                Paragraph empty = section.AddParagraph();
+                empty.AppendText("There are currently no reservations that expired in the current session");
+                empty.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+                empty.Format.BeforeSpacing = 5;
+                empty.Format.AfterSpacing = 5;
             }
 
             //System Log displayed

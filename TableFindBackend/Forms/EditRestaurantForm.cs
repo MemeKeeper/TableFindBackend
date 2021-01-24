@@ -31,7 +31,7 @@ namespace TableFindBackend.Forms
             if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
                 try
                 {
-                    btnDefault.Enabled = true;
+                    btnDefault.Enabled = true;                 
                 }
                 catch (IOException)
                 { 
@@ -59,7 +59,7 @@ namespace TableFindBackend.Forms
                 if (File.Exists("layouts") != true)
                     Directory.CreateDirectory("layouts");
 
-                if (file != "")   //    <---Layout was chosen or left as is
+                if (file.Equals("")!=true )   //    <---Layout was chosen or left as is
                 {
                     string text = File.ReadAllText(file);
                     lblLayout.Text = ofdLayoutBrowse.FileName;
@@ -102,6 +102,7 @@ namespace TableFindBackend.Forms
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             long size = -1;
+            ofdMenuBrowse.Filter = "pdf files (*.pdf)|*.pdf|Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
             DialogResult result = ofdMenuBrowse.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.
             {
@@ -214,7 +215,9 @@ namespace TableFindBackend.Forms
 
         private void btnBrowseLayout_Click(object sender, EventArgs e)
         {
+            ofdLayoutBrowse.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG|TableFindBackend Layout files (*.tbl)|*.tbl";
             DialogResult result = ofdLayoutBrowse.ShowDialog(); // Show the dialog.
+            
             if (result == DialogResult.OK) // Test result.
             {
                 string file = ofdLayoutBrowse.FileName;
