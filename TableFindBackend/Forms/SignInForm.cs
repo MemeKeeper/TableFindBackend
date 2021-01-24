@@ -253,7 +253,8 @@ namespace TableFindBackend.Forms
                                 MessageBox.Show(this, "No Restaurant was located under these login credentials. If " +
                                     "you are a new user who only recently created a Tablefind Profile " +
                                     "then it may be that we are still setting up your profile for a restaurant " +
-                                    "on our side. If this issue is not resolved within one week, please contact us"); //Fix later
+                                    "on our side. If this issue is not resolved within one week, please contact " +
+                                    "a member of our development team to assist with restaurant registeration"); //Fix later
                             }));
                         }
 
@@ -330,6 +331,7 @@ namespace TableFindBackend.Forms
                                         {
                                             tcLoginRegister.SelectedTab = tpLogin;
                                             MessageBox.Show(this,"Registration successful. Please login to start using TableFind");
+                                            ToggleLoading(false);
                                         }));
                                 },
                                 fault =>
@@ -398,6 +400,20 @@ namespace TableFindBackend.Forms
                 valid =true;
             }
             return valid;
+        }
+
+        private void tbContactNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbContactNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

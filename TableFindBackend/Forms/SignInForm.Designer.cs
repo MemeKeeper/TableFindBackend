@@ -164,7 +164,7 @@
             // pbxLogo
             // 
             this.pbxLogo.Image = global::TableFindBackend.Properties.Resources.Logo;
-            this.pbxLogo.Location = new System.Drawing.Point(122, 22);
+            this.pbxLogo.Location = new System.Drawing.Point(130, 22);
             this.pbxLogo.Name = "pbxLogo";
             this.pbxLogo.Size = new System.Drawing.Size(104, 97);
             this.pbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -211,7 +211,7 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(86, 19);
+            this.lblTitle.Location = new System.Drawing.Point(22, 19);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(156, 30);
             this.lblTitle.TabIndex = 17;
@@ -258,9 +258,12 @@
             // tbContactNumber
             // 
             this.tbContactNumber.Location = new System.Drawing.Point(10, 21);
+            this.tbContactNumber.MaxLength = 10;
             this.tbContactNumber.Name = "tbContactNumber";
             this.tbContactNumber.Size = new System.Drawing.Size(306, 29);
             this.tbContactNumber.TabIndex = 0;
+            this.tbContactNumber.TextChanged += new System.EventHandler(this.tbContactNumber_TextChanged);
+            this.tbContactNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbContactNumber_KeyPress);
             // 
             // tbConfirmPass
             // 
