@@ -238,11 +238,11 @@ namespace TableFindBackend.Output
                 range.Columns.AutoFit();
                 app.Visible = true;
 
-                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.LocationString);
+                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId);
                 if (File.Exists(path) != true)
                     Directory.CreateDirectory(path);
 
-                workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.LocationString+"\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+                workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
                 workbook.Save();
                 
             }
@@ -552,7 +552,7 @@ namespace TableFindBackend.Output
             }
 
             //where document is saved to
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.LocationString);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
 
 
             if (File.Exists(path) != true)
@@ -631,7 +631,7 @@ namespace TableFindBackend.Output
         {
             GenerateWordDoc(false);
 
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.LocationString);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
 
             //load document
             Document document = new Document();
