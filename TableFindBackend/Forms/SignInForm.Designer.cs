@@ -53,6 +53,7 @@
             this.tbEmailAddress = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
             this.lblX2 = new System.Windows.Forms.Label();
+            this.lblEnterEmailForRecovery = new System.Windows.Forms.Label();
             this.tcLoginRegister.SuspendLayout();
             this.tpLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).BeginInit();
@@ -143,9 +144,10 @@
             // 
             // tpLogin
             // 
+            this.tpLogin.Controls.Add(this.pbxLoading);
+            this.tpLogin.Controls.Add(this.lblEnterEmailForRecovery);
             this.tpLogin.Controls.Add(this.pbxLogo);
             this.tpLogin.Controls.Add(this.cbxStaySignedIn);
-            this.tpLogin.Controls.Add(this.pbxLoading);
             this.tpLogin.Controls.Add(this.lblRegisterTitle);
             this.tpLogin.Controls.Add(this.lblX);
             this.tpLogin.Controls.Add(this.btnLogin);
@@ -184,7 +186,7 @@
             // pbxLoading
             // 
             this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(135, 355);
+            this.pbxLoading.Location = new System.Drawing.Point(135, 357);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(91, 78);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -236,7 +238,7 @@
             // pbxLoadingFS
             // 
             this.pbxLoadingFS.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoadingFS.Image")));
-            this.pbxLoadingFS.Location = new System.Drawing.Point(98, 204);
+            this.pbxLoadingFS.Location = new System.Drawing.Point(97, 204);
             this.pbxLoadingFS.Name = "pbxLoadingFS";
             this.pbxLoadingFS.Size = new System.Drawing.Size(125, 115);
             this.pbxLoadingFS.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -325,6 +327,16 @@
             this.lblX2.Text = "X";
             this.lblX2.Click += new System.EventHandler(this.label1_Click);
             // 
+            // lblEnterEmailForRecovery
+            // 
+            this.lblEnterEmailForRecovery.Location = new System.Drawing.Point(142, 343);
+            this.lblEnterEmailForRecovery.Name = "lblEnterEmailForRecovery";
+            this.lblEnterEmailForRecovery.Size = new System.Drawing.Size(77, 108);
+            this.lblEnterEmailForRecovery.TabIndex = 7;
+            this.lblEnterEmailForRecovery.Text = "Please enter an Email Address";
+            this.lblEnterEmailForRecovery.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblEnterEmailForRecovery.Visible = false;
+            // 
             // SignInForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -377,5 +389,6 @@
         private System.Windows.Forms.CheckBox cbxStaySignedIn;
         private System.Windows.Forms.Label lblPassHint;
         private System.Windows.Forms.PictureBox pbxLogo;
+        private System.Windows.Forms.Label lblEnterEmailForRecovery;
     }
 }

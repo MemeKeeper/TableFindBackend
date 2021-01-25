@@ -320,9 +320,9 @@ namespace TableFindBackend.Forms
             this.lblTitle.ForeColor = System.Drawing.SystemColors.Control;
             this.lblTitle.Location = new System.Drawing.Point(3, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(164, 23);
+            this.lblTitle.Size = new System.Drawing.Size(183, 23);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Restaurant Editor";
+            this.lblTitle.Text = "Restaurant Options";
             // 
             // ofdLayoutBrowse
             // 

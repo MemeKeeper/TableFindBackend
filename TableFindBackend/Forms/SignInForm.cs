@@ -163,7 +163,8 @@ namespace TableFindBackend.Forms
             if (!IsValidEmail(userEmail))
             {
                 pbxLoading.Visible = false;
-                MessageBox.Show("Invalid email has been entered. Please make sure your email format is correct e.g wizerd@oz.com");
+                lblEnterEmailForRecovery.Visible = true;
+                //MessageBox.Show("Invalid email has been entered. Please make sure your email format is correct e.g wizerd@oz.com");
             
             }
             else
@@ -330,7 +331,7 @@ namespace TableFindBackend.Forms
                                         Invoke(new Action(() =>
                                         {
                                             tcLoginRegister.SelectedTab = tpLogin;
-                                            MessageBox.Show(this,"Registration successful. Please login to start using TableFind");
+                                            MessageBox.Show(this, "A verification email has been sent to the specified email address. Please follow the link which is provided in the email");
                                             ToggleLoading(false);
                                         }));
                                 },

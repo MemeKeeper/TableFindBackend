@@ -98,7 +98,7 @@
             this.btnViewDetails.Location = new System.Drawing.Point(11, 270);
             this.btnViewDetails.Name = "btnViewDetails";
             this.btnViewDetails.Size = new System.Drawing.Size(281, 50);
-            this.btnViewDetails.TabIndex = 1;
+            this.btnViewDetails.TabIndex = 3;
             this.btnViewDetails.Text = "Reservations";
             this.btnViewDetails.UseVisualStyleBackColor = true;
             this.btnViewDetails.Click += new System.EventHandler(this.btnViewDetails_Click);
@@ -109,7 +109,7 @@
             this.edtName.Location = new System.Drawing.Point(11, 25);
             this.edtName.Name = "edtName";
             this.edtName.Size = new System.Drawing.Size(288, 35);
-            this.edtName.TabIndex = 2;
+            this.edtName.TabIndex = 0;
             // 
             // spnSeating
             // 
@@ -117,7 +117,7 @@
             this.spnSeating.Location = new System.Drawing.Point(11, 83);
             this.spnSeating.Name = "spnSeating";
             this.spnSeating.Size = new System.Drawing.Size(57, 35);
-            this.spnSeating.TabIndex = 3;
+            this.spnSeating.TabIndex = 1;
             // 
             // btnCancel
             // 
@@ -125,7 +125,7 @@
             this.btnCancel.Location = new System.Drawing.Point(202, 10);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(89, 49);
-            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -137,7 +137,7 @@
             this.btnSave.Location = new System.Drawing.Point(12, 10);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(89, 49);
-            this.btnSave.TabIndex = 5;
+            this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save Changes";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -198,7 +198,7 @@
             this.btnDisable.Location = new System.Drawing.Point(12, 326);
             this.btnDisable.Name = "btnDisable";
             this.btnDisable.Size = new System.Drawing.Size(184, 52);
-            this.btnDisable.TabIndex = 5;
+            this.btnDisable.TabIndex = 4;
             this.btnDisable.Text = "Make Table Unavailable";
             this.btnDisable.UseVisualStyleBackColor = false;
             this.btnDisable.Click += new System.EventHandler(this.btnDisable_Click);
@@ -209,7 +209,7 @@
             this.rtbInfo.Location = new System.Drawing.Point(12, 144);
             this.rtbInfo.Name = "rtbInfo";
             this.rtbInfo.Size = new System.Drawing.Size(280, 120);
-            this.rtbInfo.TabIndex = 11;
+            this.rtbInfo.TabIndex = 2;
             this.rtbInfo.Text = "";
             // 
             // btnDelete
@@ -219,7 +219,7 @@
             this.btnDelete.Location = new System.Drawing.Point(202, 326);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(90, 52);
-            this.btnDelete.TabIndex = 9;
+            this.btnDelete.TabIndex = 5;
             this.btnDelete.Text = "Delete Table";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
