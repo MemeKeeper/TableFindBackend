@@ -600,7 +600,15 @@ namespace TableFindBackend.Forms
                     else
                     pnlMain.Controls.Remove((RestaurantTableView)sender);
                 }
-                if (result == DialogResult.OK) //Updates the Table
+                if (result == DialogResult.Cancel)
+                {
+                    if(tempTable.objectId==null)
+                    {
+                        pnlMain.Controls.Remove(tempItem);
+                        OwnerStorage.RestaurantTables.Remove(tempTable);
+                    }
+                }
+                if (result == DialogResult.OK) //Updates the Tab12le
                 {
                     OwnerStorage.RestaurantTables.Remove(tempTable);
 

@@ -238,11 +238,11 @@ namespace TableFindBackend.Output
                 range.Columns.AutoFit();
                 app.Visible = true;
 
-                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.LocationString);
+                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId);
                 if (File.Exists(path) != true)
                     Directory.CreateDirectory(path);
 
-                workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.LocationString+"\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+                workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
                 workbook.Save();
                 
             }
@@ -552,7 +552,7 @@ namespace TableFindBackend.Output
             }
 
             //where document is saved to
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.LocationString);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
 
 
             if (File.Exists(path) != true)
@@ -562,7 +562,12 @@ namespace TableFindBackend.Output
 
             FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
 
-               //launches document
+            if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx") != true)
+            {
+                    document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+            }
+
+            //launches document
             if (word == true)
             {
                 if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx")==true)
@@ -626,7 +631,7 @@ namespace TableFindBackend.Output
         {
             GenerateWordDoc(false);
 
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.LocationString);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
 
             //load document
             Document document = new Document();
