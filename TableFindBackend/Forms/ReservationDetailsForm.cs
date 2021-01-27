@@ -16,9 +16,11 @@ namespace TableFindBackend.Forms
 {
     public partial class ReservationDetailsForm : Form
     {
+        MainForm _master;
         Reservation thisReservation;
-        public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t, bool active)
+        public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t, bool active, MainForm _master)
         {
+
             thisReservation = r;
 
         
@@ -47,6 +49,8 @@ namespace TableFindBackend.Forms
 
             if (OwnerStorage.AdminMode == true && active == true)
                 btnDelete.Visible = true;
+
+            this._master = _master;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -85,45 +89,49 @@ namespace TableFindBackend.Forms
                 if (remove == DialogResult.Yes)
                 {
                     ShowLoading(true);
-                    AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
-                      savedReservation =>
-                      {
 
 
-                          AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
-                            deletionTime =>
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    OwnerStorage.LogInfo.Add("Reservation has been removed\nName:   "+ thisReservation.Name);
-                                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                    AsyncCallback<Reservation> updateObjectCallback = new AsyncCallback<Reservation>(
+                   savedReservation =>
+                   {
+                       Invoke(new Action(() =>
+                       {
+                           OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  " + savedReservation.Name);
+                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                            _master.RemoveOneReservationView(thisReservation, savedReservation);
 
-                                    MessageBox.Show(this, "reservation for " + thisReservation.Name+ " has been removed");
-                                    ShowLoading(false);
-                                    this.Close();
-                                }));
-                            },
-                            error =>
-                            {
-                                Invoke(new Action(() =>
+                            MessageBox.Show(this, "reservation for " + thisReservation.Name + " has been removed");
+                            ShowLoading(false);
+                            this.Close();
+                       }));
+                   },
+                   error =>
+                   {
+                       Invoke(new Action(() =>
                                 {
                                     MessageBox.Show(this, "Error: " + error.Message);
                                     ShowLoading(false);
                                 }));
-                            });
-                          Backendless.Persistence.Of<Reservation>().Remove(savedReservation, deleteObjectCallback);
-                      },
-                      error =>
-                      {
-                          Invoke(new Action(() =>
-                          {
-                              MessageBox.Show(this, "Error: " + error.Message);
-                              ShowLoading(false);
-                          }));
-                      }
-                    );
+                   });
 
-                    Backendless.Persistence.Of<Reservation>().Save(thisReservation, saveObjectCallback);
+                    AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
+                    savedReservation =>
+                    {
+                        // now update the saved object
+                        savedReservation.Active = false;
+                        savedReservation.ReasonForExpiration = "Reservation has passed its expiration date";
+                        Backendless.Persistence.Of<Reservation>().Save(savedReservation, updateObjectCallback);
+                    },
+                    error =>
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            MessageBox.Show(this, "Error: " + error.Message);
+                            ShowLoading(false);
+                        }));
+                    });
+
+                    Backendless.Persistence.Of<Reservation>().Save(thisReservation, saveObjectCallback);                 
                 }
             }
             else

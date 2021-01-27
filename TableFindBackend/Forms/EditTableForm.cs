@@ -19,9 +19,11 @@ namespace TableFindBackend.Forms
     {
         RestaurantTable table;
         private bool availability;
-        public EditTableForm(RestaurantTable item)
+        MainForm _master;
+        public EditTableForm(RestaurantTable item,MainForm _master)
         {
             table = item;
+            this._master = _master;
             InitializeComponent();
 
             this.FormBorderStyle = FormBorderStyle.None;
@@ -207,7 +209,7 @@ namespace TableFindBackend.Forms
 
         private void btnViewDetails_Click(object sender, EventArgs e)
         {
-            ReservationsForm bookings = new ReservationsForm(table);
+            ReservationsForm bookings = new ReservationsForm(table, _master);
             bookings.ShowDialog();
         }
 

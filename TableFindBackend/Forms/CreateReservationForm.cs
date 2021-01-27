@@ -75,6 +75,8 @@ namespace TableFindBackend.Models
                     reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)+2);   //the +2:00 timezone
                     reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
                     reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
+                    reservation.Active = true;
+                    reservation.ReasonForExpiration = "";
 
                     AsyncCallback<Reservation> callback = new AsyncCallback<Reservation>(
                                         result =>
