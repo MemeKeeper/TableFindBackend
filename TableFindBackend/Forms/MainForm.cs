@@ -53,6 +53,7 @@ namespace TableFindBackend.Forms
             OwnerStorage.ActiveReservations = new List<Reservation>();
             OwnerStorage.PastReservations = new List<Reservation>();
             OwnerStorage.AllUsers = new List<BackendlessUser>();
+            OwnerStorage.AdminLog = new List<String[]>();
             OwnerStorage.ListOfAdmins = new List<AdminPins>();
             
 
@@ -487,6 +488,8 @@ namespace TableFindBackend.Forms
                                     ShowLoading(false);
                                     OwnerStorage.FileWriter.WriteLineToFile("All Reservations has been downloaded", true);
                                     btnViewAll.Enabled = true;
+                                    btnApply.Enabled = true;
+                                    btnChangePin.Enabled = true;
                                     PerformReservationViewListPopulation((List<Reservation>)foundReservations);
                                 }));
                             else
@@ -506,6 +509,8 @@ namespace TableFindBackend.Forms
                     {
                         ShowLoading(false);
                         OwnerStorage.FileWriter.WriteLineToFile("No Reservations to download", true);
+                        btnApply.Enabled = true;
+                        btnChangePin.Enabled = true;
                         btnViewAll.Enabled = true;
                     }));
                 }                
@@ -520,6 +525,8 @@ namespace TableFindBackend.Forms
         private void PopulateTables() // Controller for RestaurantTableView
         {
             btnViewAll.Enabled = false;
+            btnApply.Enabled = false;
+            btnChangePin.Enabled = false;
             OwnerStorage.RestaurantTables.Clear();
             pnlMain.Controls.Clear();
             pnlMain.Controls.Clear();
@@ -873,18 +880,14 @@ namespace TableFindBackend.Forms
                 Invoke(new Action(() =>
                 {
                     DialogResult result = MessageBox.Show(this, "Seems like this is your first time logging in to the " +
-                        "TableFindBackend Desktop App on this computer, therefore " +
+                        "TableFindBackend Desktop App with this restaurant, therefore " +
                         "you have not yet registered a Manager PIN. Without it " +
                         "you will not be able to have access to admin capabilities." +
                         "\nWould you like to configure a Manager PIN now?", "Manager PIN", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (result == DialogResult.Yes)
                     {
                         ChangePinForm NewPin = new ChangePinForm();
-                        DialogResult pinResult = NewPin.ShowDialog();
-                        if (pinResult == DialogResult.OK)
-                        {
-                            CheckPin();
-                        }
+                        NewPin.ShowDialog();
                     }
                     else if (result == DialogResult.No)
                     {
@@ -901,7 +904,7 @@ namespace TableFindBackend.Forms
                     AdminPins flag = null;
                     foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                     {
-                        if (tbxPass.Text.Equals(a.PinCode))
+                        if (tbxPass.Text.Equals(a.PinCode.ToString())==true)
                         {
                             flag = a;
                         }
@@ -913,8 +916,8 @@ namespace TableFindBackend.Forms
 
                         OwnerStorage.AdminLog.Add(new string[] { flag.objectId, System.DateTime.Now.ToString("HH:mm:ss") });
 
-                        OwnerStorage.FileWriter.WriteLineToFile("User Toggled Admin Mode", true);
-                        OwnerStorage.LogInfo.Add("User activated elevated privileges");
+                        OwnerStorage.FileWriter.WriteLineToFile(flag.UserName+" Toggled Admin Mode", true);
+                        OwnerStorage.LogInfo.Add(flag.UserName + " activated elevated privileges");
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                     }
@@ -925,7 +928,7 @@ namespace TableFindBackend.Forms
 
             }
 
-            OwnerStorage.AdminLog = new List<String[]>();
+            
 
             
         }
@@ -1057,7 +1060,6 @@ namespace TableFindBackend.Forms
                 OwnerStorage.FileWriter.WriteLineToFile("User Changed Manager PIN", true);
                 OwnerStorage.LogInfo.Add("User Changed Manager PIN");
                 OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                CheckPin();
             }
         }
 

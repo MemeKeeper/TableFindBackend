@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
+using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
@@ -19,7 +20,15 @@ namespace TableFindBackend.Forms
         public ChangePinForm()
         {
             InitializeComponent();
-            dgvAdmins.DataSource = OwnerStorage.ListOfAdmins;
+            PopulateList();
+        }
+        private void PopulateList()
+        {
+            dgvAdmins.Rows.Clear();
+            foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+            {
+                dgvAdmins.Rows.Add(a.UserName, a.ContactNumber, a.objectId);
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -66,59 +75,10 @@ namespace TableFindBackend.Forms
             String password = tbxPassword.Text;
             Backendless.UserService.Login(login, password, callback);
         }
-
-        private void lblPin1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            //if(tbxPin1.Text.Equals(tbxPinConfirm.Text))
-            //    {
-            //    if (File.Exists("TableFindMan") == true)
-            //    {
-            //        File.Delete("TableFindMan");  //<--Deletes file to prevent duplications                
-            //    }
-            //    try
-            //    {
-            //        StreamWriter sw = new StreamWriter("TableFindMan");
-            //        sw.WriteLine("<><><><><><><><><><><><><><><>");
-            //        sw.WriteLine(tbxPinConfirm.Text);
-            //        sw.WriteLine("<><><><><><><><><><><><><><><>");
-            //        sw.Close();
-
-            //        this.DialogResult = DialogResult.OK;
-            //        this.Close();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(this, "Error: " + ex.Message);
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show(this, "The Two PINs you have entered does not match.");
-            //    tbxPinConfirm.Text = "";
-            //    tbxPin1.Text = "";
-            //}           
-        }
-
-        private void tbxPinConfirm_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
-        private void tbxPin1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
         private void lblTitle_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnAddNewAdmins_Click(object sender, EventArgs e)
         {
             AddEditNewAdminForm addForm = new AddEditNewAdminForm(null); // creating new admin user
@@ -126,7 +86,30 @@ namespace TableFindBackend.Forms
 
             if(result == DialogResult.OK)
             {
-                dgvAdmins.DataSource = OwnerStorage.ListOfAdmins;
+                PopulateList();
+            }
+        }
+
+        private void dgvAdmins_CellDoubleClick(object sender, DataGridViewCellEventArgs e)        
+        {
+            if (e.RowIndex >= -1)
+            {
+                string selected;
+                selected = dgvAdmins.CurrentRow.Cells[2].Value.ToString();
+                AdminPins temp =null;
+                foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                {
+                    if (a.objectId == selected)
+                        temp = a;
+                }
+                AddEditNewAdminForm newPin = new AddEditNewAdminForm(temp);
+                DialogResult result = newPin.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    PopulateList();
+                }
+
             }
         }
     }

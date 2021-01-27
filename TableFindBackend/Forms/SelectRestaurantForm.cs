@@ -15,6 +15,7 @@ namespace TableFindBackend.Forms
     public partial class SelectRestaurantForm : Form
     {
         public Restaurant selected { get; set; }
+
         private List<Restaurant> list;
         public SelectRestaurantForm(List<Restaurant> list)
         {

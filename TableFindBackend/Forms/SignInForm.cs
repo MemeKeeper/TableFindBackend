@@ -301,11 +301,11 @@ namespace TableFindBackend.Forms
         private void btnRegister_Click(object sender, EventArgs e)
         {
             if (tbFirstName.Text == ""
-                && tbLastName.Text == ""
-                && tbContactNumber.Text == ""
-                && tbEmailAddress.Text == ""
-                && tbPass.Text == ""
-                && tbConfirmPass.Text == "")
+                || tbLastName.Text == ""
+                || tbContactNumber.Text == ""
+                || tbEmailAddress.Text == ""
+                || tbPass.Text == ""
+                || tbConfirmPass.Text == "")
             {
                 ToggleLoading(false);
                 MessageBox.Show("Please be sure to fill in all fields");
