@@ -49,9 +49,10 @@ namespace TableFindBackend.Forms
             this.lblDescription = new System.Windows.Forms.Label();
             this.btnAddNewAdmin = new System.Windows.Forms.Button();
             this.lblPinTitle = new System.Windows.Forms.Label();
-            this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contactNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.adminPinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.userName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contactNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ObjectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlHeader.SuspendLayout();
             this.pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
@@ -219,14 +220,13 @@ namespace TableFindBackend.Forms
             // 
             this.dgvAdmins.AllowUserToAddRows = false;
             this.dgvAdmins.AllowUserToDeleteRows = false;
-            this.dgvAdmins.AutoGenerateColumns = false;
             this.dgvAdmins.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvAdmins.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvAdmins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAdmins.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.userNameDataGridViewTextBoxColumn,
-            this.contactNumberDataGridViewTextBoxColumn});
-            this.dgvAdmins.DataSource = this.adminPinsBindingSource;
+            this.userName,
+            this.contactNumber,
+            this.ObjectId});
             this.dgvAdmins.Location = new System.Drawing.Point(15, 176);
             this.dgvAdmins.MultiSelect = false;
             this.dgvAdmins.Name = "dgvAdmins";
@@ -282,27 +282,30 @@ namespace TableFindBackend.Forms
             this.lblPinTitle.TabIndex = 8;
             this.lblPinTitle.Text = "Change PIN";
             // 
-            // userNameDataGridViewTextBoxColumn
-            // 
-            this.userNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
-            this.userNameDataGridViewTextBoxColumn.HeaderText = "Admin User";
-            this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
-            this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.userNameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // contactNumberDataGridViewTextBoxColumn
-            // 
-            this.contactNumberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.contactNumberDataGridViewTextBoxColumn.DataPropertyName = "ContactNumber";
-            this.contactNumberDataGridViewTextBoxColumn.HeaderText = "Contact Number";
-            this.contactNumberDataGridViewTextBoxColumn.Name = "contactNumberDataGridViewTextBoxColumn";
-            this.contactNumberDataGridViewTextBoxColumn.ReadOnly = true;
-            this.contactNumberDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
             // adminPinsBindingSource
             // 
             this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
+            // 
+            // userName
+            // 
+            this.userName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.userName.HeaderText = "User Name";
+            this.userName.Name = "userName";
+            this.userName.ReadOnly = true;
+            // 
+            // contactNumber
+            // 
+            this.contactNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.contactNumber.HeaderText = "Contact Number";
+            this.contactNumber.Name = "contactNumber";
+            this.contactNumber.ReadOnly = true;
+            // 
+            // ObjectId
+            // 
+            this.ObjectId.HeaderText = "ObjectId";
+            this.ObjectId.Name = "ObjectId";
+            this.ObjectId.ReadOnly = true;
+            this.ObjectId.Visible = false;
             // 
             // ChangePinForm
             // 
@@ -353,7 +356,8 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Label lblPinTitle;
         private System.Windows.Forms.DataGridView dgvAdmins;
         private System.Windows.Forms.BindingSource adminPinsBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn userNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contactNumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contactNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ObjectId;
     }
 }

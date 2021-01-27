@@ -52,6 +52,7 @@ namespace TableFindBackend.Forms
 
         private void btnCreateNewAdmin_Click(object sender, EventArgs e)
         {
+            showLoading(true);
             if(TempAdmin == null)
             {
                 //Create New Admin
@@ -64,6 +65,7 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         // object has been saved
+                        showLoading(false);
                         MessageBox.Show(this, "Admin User has been successfully created.");
                         OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was Created");
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
@@ -76,6 +78,7 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         // server reported an error
+                        showLoading(false);
                         MessageBox.Show(this, "error: " + fault.Message);
                     }));
                     
@@ -113,6 +116,7 @@ namespace TableFindBackend.Forms
                             }
                             else
                             {
+                                showLoading(false);
                                 MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
                                 tbxPinCode.Text = "";
                                 tbxConfirmPin.Text = "";
@@ -120,6 +124,7 @@ namespace TableFindBackend.Forms
                         }
                         else
                         {
+                            showLoading(false);
                             MessageBox.Show(this, "The two Admin PINS you have entered do not match.");
                             tbxPinCode.Text = "";
                             tbxConfirmPin.Text = "";
@@ -127,6 +132,7 @@ namespace TableFindBackend.Forms
                     }
                     else
                     {
+                        showLoading(false);
                         MessageBox.Show(this, "The Contact number you have entered is invalid");
                     }
                 }                                             
@@ -142,6 +148,7 @@ namespace TableFindBackend.Forms
                     //good stuff
                     Invoke(new Action(() =>
                     {
+                        showLoading(false);
                         MessageBox.Show(this, "Admin PIN has been updated");
                         OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was Updated");
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
@@ -153,6 +160,7 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         //server reported an error
+                        showLoading(false);
                         MessageBox.Show(this, "error: " + error.Message);
                     }));
                 });
@@ -167,6 +175,7 @@ namespace TableFindBackend.Forms
                       Invoke(new Action(() =>
                       {
                           //server reported an error
+                          showLoading(false);
                           MessageBox.Show(this, "error: " + error.Message);
                       }));
                   });
@@ -204,13 +213,16 @@ namespace TableFindBackend.Forms
                             }
                             else
                             {
+                                showLoading(false);
                                 MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
                                 tbxPinCode.Text = "";
                                 tbxConfirmPin.Text = "";
+
                             }
                         }
                         else
                         {
+                            showLoading(false);
                             MessageBox.Show(this, "The two Admin PINS you have entered do not match.");
                             tbxPinCode.Text = "";
                             tbxConfirmPin.Text = "";
@@ -218,6 +230,7 @@ namespace TableFindBackend.Forms
                     }
                     else
                     {
+                        showLoading(false);
                         MessageBox.Show(this, "The Contact number you have entered is invalid");
                     }
                 }
@@ -248,7 +261,10 @@ namespace TableFindBackend.Forms
         }
         private void showLoading(bool toggle)
         {
-
+            if(toggle==true)
+            pbxLoading.Visible = true;
+            else
+            pbxLoading.Visible = false;
         }
         private void btnRemoveAdmin_Click(object sender, EventArgs e)
         {
@@ -266,7 +282,8 @@ namespace TableFindBackend.Forms
                         OwnerStorage.LogInfo.Add(TempAdmin.UserName+" admin User was deleted");
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                         MessageBox.Show(this, TempAdmin.UserName + " has been removed");
-                        DialogResult = DialogResult.Yes;
+                        OwnerStorage.ListOfAdmins.Remove(TempAdmin);
+                        DialogResult = DialogResult.OK;
                         this.Close();
                     }));
                     

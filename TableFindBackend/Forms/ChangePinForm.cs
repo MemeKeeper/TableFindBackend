@@ -20,7 +20,15 @@ namespace TableFindBackend.Forms
         public ChangePinForm()
         {
             InitializeComponent();
-            dgvAdmins.DataSource = OwnerStorage.ListOfAdmins;
+            PopulateList();
+        }
+        private void PopulateList()
+        {
+            dgvAdmins.Rows.Clear();
+            foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+            {
+                dgvAdmins.Rows.Add(a.UserName, a.ContactNumber, a.objectId);
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -78,26 +86,30 @@ namespace TableFindBackend.Forms
 
             if(result == DialogResult.OK)
             {
-                dgvAdmins.Update();
-                dgvAdmins.Refresh();
+                PopulateList();
             }
         }
 
         private void dgvAdmins_CellDoubleClick(object sender, DataGridViewCellEventArgs e)        
         {
-            if (e.RowIndex >= 0 && !(sender is DataGridViewHeaderCell))
+            if (e.RowIndex >= -1)
             {
-                AdminPins selectedAdmin = (AdminPins)dgvAdmins.CurrentRow.DataBoundItem;
-
-                AddEditNewAdminForm newPin = new AddEditNewAdminForm(selectedAdmin);
+                string selected;
+                selected = dgvAdmins.CurrentRow.Cells[2].Value.ToString();
+                AdminPins temp =null;
+                foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                {
+                    if (a.objectId == selected)
+                        temp = a;
+                }
+                AddEditNewAdminForm newPin = new AddEditNewAdminForm(temp);
                 DialogResult result = newPin.ShowDialog();
 
                 if (result == DialogResult.OK)
                 {
-                    dgvAdmins.Update();
-                    dgvAdmins.Refresh();
-
+                    PopulateList();
                 }
+
             }
         }
     }

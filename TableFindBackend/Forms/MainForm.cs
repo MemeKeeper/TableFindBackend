@@ -509,6 +509,8 @@ namespace TableFindBackend.Forms
                     {
                         ShowLoading(false);
                         OwnerStorage.FileWriter.WriteLineToFile("No Reservations to download", true);
+                        btnApply.Enabled = true;
+                        btnChangePin.Enabled = true;
                         btnViewAll.Enabled = true;
                     }));
                 }                
