@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
+using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
@@ -70,49 +71,7 @@ namespace TableFindBackend.Forms
         private void lblPin1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            //if(tbxPin1.Text.Equals(tbxPinConfirm.Text))
-            //    {
-            //    if (File.Exists("TableFindMan") == true)
-            //    {
-            //        File.Delete("TableFindMan");  //<--Deletes file to prevent duplications                
-            //    }
-            //    try
-            //    {
-            //        StreamWriter sw = new StreamWriter("TableFindMan");
-            //        sw.WriteLine("<><><><><><><><><><><><><><><>");
-            //        sw.WriteLine(tbxPinConfirm.Text);
-            //        sw.WriteLine("<><><><><><><><><><><><><><><>");
-            //        sw.Close();
-
-            //        this.DialogResult = DialogResult.OK;
-            //        this.Close();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(this, "Error: " + ex.Message);
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show(this, "The Two PINs you have entered does not match.");
-            //    tbxPinConfirm.Text = "";
-            //    tbxPin1.Text = "";
-            //}           
-        }
-
-        private void tbxPinConfirm_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
-        private void tbxPin1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
+        }       
 
         private void lblTitle_Click(object sender, EventArgs e)
         {
@@ -126,7 +85,26 @@ namespace TableFindBackend.Forms
 
             if(result == DialogResult.OK)
             {
-                dgvAdmins.DataSource = OwnerStorage.ListOfAdmins;
+                dgvAdmins.Update();
+                dgvAdmins.Refresh();
+            }
+        }
+
+        private void dgvAdmins_CellDoubleClick(object sender, DataGridViewCellEventArgs e)        
+        {
+            if (e.RowIndex >= 0 && !(sender is DataGridViewHeaderCell))
+            {
+                AdminPins selectedAdmin = (AdminPins)dgvAdmins.CurrentRow.DataBoundItem;
+
+                AddEditNewAdminForm newPin = new AddEditNewAdminForm(selectedAdmin);
+                DialogResult result = newPin.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    dgvAdmins.Update();
+                    dgvAdmins.Refresh();
+
+                }
             }
         }
     }

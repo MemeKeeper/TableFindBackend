@@ -16,15 +16,17 @@ namespace TableFindBackend.Forms
 {
     public partial class AddEditNewAdminForm : Form
     {
-        AdminPins admin;
+        public AdminPins TempAdmin { get; set; }
+
         public AddEditNewAdminForm(AdminPins a)
         {
             InitializeComponent();
 
-            admin = a;
+            TempAdmin = a;
             if(a == null)
             {
                 //Addinng New Admin User
+                btnRemoveAdmin.Visible = false ;
             }
             else 
             {
@@ -33,13 +35,13 @@ namespace TableFindBackend.Forms
                 tbxName.Text = a.UserName;
                 tbxContact.Text = a.ContactNumber;
                 tbxPinCode.Text = a.PinCode.ToString();
-                
+                btnCreateNewAdmin.Text = "Update";                
             }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -50,7 +52,7 @@ namespace TableFindBackend.Forms
 
         private void btnCreateNewAdmin_Click(object sender, EventArgs e)
         {
-            if(admin == null)
+            if(TempAdmin == null)
             {
                 //Create New Admin
 
@@ -63,8 +65,7 @@ namespace TableFindBackend.Forms
                     {
                         // object has been saved
                         MessageBox.Show(this, "Admin User has been successfully created.");
-                        DialogResult = DialogResult.OK;
-                        this.Close();
+                        this.DialogResult = DialogResult.OK;
                     }));
                 },
 
@@ -91,12 +92,12 @@ namespace TableFindBackend.Forms
                     {
                         if(tbxPinCode.Text.Equals(tbxConfirmPin.Text))
                         {
-                            admin = new AdminPins();
-                            admin.UserName = tbxName.Text;
-                            admin.ContactNumber = tbxContact.Text;
-                            admin.PinCode = Convert.ToInt32(tbxPinCode.Text);
-                            admin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                            Backendless.Data.Of<AdminPins>().Save(admin, callback);
+                            TempAdmin = new AdminPins();
+                            TempAdmin.UserName = tbxName.Text;
+                            TempAdmin.ContactNumber = tbxContact.Text;
+                            TempAdmin.PinCode = Convert.ToInt32(tbxPinCode.Text);
+                            TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                            Backendless.Data.Of<AdminPins>().Save(TempAdmin, callback);
                         }
                         else
                         {
@@ -118,6 +119,12 @@ namespace TableFindBackend.Forms
             {
                 //Edit Existing Admin
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }
