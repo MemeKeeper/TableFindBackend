@@ -488,6 +488,8 @@ namespace TableFindBackend.Forms
                                     ShowLoading(false);
                                     OwnerStorage.FileWriter.WriteLineToFile("All Reservations has been downloaded", true);
                                     btnViewAll.Enabled = true;
+                                    btnApply.Enabled = true;
+                                    btnChangePin.Enabled = true;
                                     PerformReservationViewListPopulation((List<Reservation>)foundReservations);
                                 }));
                             else
@@ -521,6 +523,8 @@ namespace TableFindBackend.Forms
         private void PopulateTables() // Controller for RestaurantTableView
         {
             btnViewAll.Enabled = false;
+            btnApply.Enabled = false;
+            btnChangePin.Enabled = false;
             OwnerStorage.RestaurantTables.Clear();
             pnlMain.Controls.Clear();
             pnlMain.Controls.Clear();

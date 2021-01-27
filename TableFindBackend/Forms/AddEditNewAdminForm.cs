@@ -141,6 +141,7 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         MessageBox.Show(this, "Admin PIN has been updated");
+                        this.DialogResult = DialogResult.OK;
                     }));
                 },
                 error =>
@@ -183,7 +184,8 @@ namespace TableFindBackend.Forms
                             bool flag = false;
                             foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                             {
-                                if (a.PinCode.ToString().Equals(tbxPinCode.Text))
+                                if (a.PinCode.ToString().Equals(tbxPinCode.Text)
+                                    && a.PinCode!=TempAdmin.PinCode)
                                 {
                                     flag = true;
                                 }
