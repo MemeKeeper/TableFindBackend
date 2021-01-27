@@ -29,6 +29,7 @@ namespace TableFindBackend.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangePinForm));
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExit = new System.Windows.Forms.Button();
@@ -46,16 +47,18 @@ namespace TableFindBackend.Forms
             this.pnlDescription = new System.Windows.Forms.Panel();
             this.lblDescription = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
-            this.lblPin2 = new System.Windows.Forms.Label();
             this.lblPinTitle = new System.Windows.Forms.Label();
-            this.lblPin1 = new System.Windows.Forms.Label();
-            this.tbxPinConfirm = new System.Windows.Forms.TextBox();
-            this.tbxPin1 = new System.Windows.Forms.TextBox();
+            this.dgvAdmins = new System.Windows.Forms.DataGridView();
+            this.adminPinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contactNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlHeader.SuspendLayout();
             this.pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlPin.SuspendLayout();
             this.pnlDescription.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -67,7 +70,7 @@ namespace TableFindBackend.Forms
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(610, 43);
+            this.pnlHeader.Size = new System.Drawing.Size(634, 43);
             this.pnlHeader.TabIndex = 4;
             // 
             // btnExit
@@ -77,7 +80,7 @@ namespace TableFindBackend.Forms
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnExit.Location = new System.Drawing.Point(567, 0);
+            this.btnExit.Location = new System.Drawing.Point(591, 0);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(43, 43);
@@ -94,9 +97,10 @@ namespace TableFindBackend.Forms
             this.lblTitle.ForeColor = System.Drawing.SystemColors.Control;
             this.lblTitle.Location = new System.Drawing.Point(3, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(160, 23);
+            this.lblTitle.Size = new System.Drawing.Size(237, 23);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Reset Admin PIN";
+            this.lblTitle.Text = "Admin PIN Management";
+            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // pnlLogin
             // 
@@ -113,13 +117,13 @@ namespace TableFindBackend.Forms
             this.pnlLogin.Location = new System.Drawing.Point(14, 51);
             this.pnlLogin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlLogin.Name = "pnlLogin";
-            this.pnlLogin.Size = new System.Drawing.Size(288, 345);
+            this.pnlLogin.Size = new System.Drawing.Size(288, 451);
             this.pnlLogin.TabIndex = 5;
             // 
             // pbxLoading
             // 
             this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pbxLoading.Location = new System.Drawing.Point(84, 164);
+            this.pbxLoading.Location = new System.Drawing.Point(81, 215);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(114, 105);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -141,7 +145,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPassword.Location = new System.Drawing.Point(28, 98);
+            this.lblPassword.Location = new System.Drawing.Point(28, 110);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(69, 17);
             this.lblPassword.TabIndex = 5;
@@ -151,7 +155,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmail.Location = new System.Drawing.Point(28, 43);
+            this.lblEmail.Location = new System.Drawing.Point(28, 55);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(43, 17);
             this.lblEmail.TabIndex = 4;
@@ -160,7 +164,7 @@ namespace TableFindBackend.Forms
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(166, 285);
+            this.btnCancel.Location = new System.Drawing.Point(166, 386);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(106, 48);
             this.btnCancel.TabIndex = 3;
@@ -171,7 +175,7 @@ namespace TableFindBackend.Forms
             // btnConfirm
             // 
             this.btnConfirm.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Location = new System.Drawing.Point(14, 285);
+            this.btnConfirm.Location = new System.Drawing.Point(14, 386);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(106, 48);
             this.btnConfirm.TabIndex = 2;
@@ -182,7 +186,7 @@ namespace TableFindBackend.Forms
             // tbxPassword
             // 
             this.tbxPassword.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPassword.Location = new System.Drawing.Point(14, 118);
+            this.tbxPassword.Location = new System.Drawing.Point(14, 130);
             this.tbxPassword.Name = "tbxPassword";
             this.tbxPassword.PasswordChar = '•';
             this.tbxPassword.Size = new System.Drawing.Size(258, 27);
@@ -191,7 +195,7 @@ namespace TableFindBackend.Forms
             // tbxEmail
             // 
             this.tbxEmail.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxEmail.Location = new System.Drawing.Point(14, 63);
+            this.tbxEmail.Location = new System.Drawing.Point(14, 75);
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(258, 27);
             this.tbxEmail.TabIndex = 0;
@@ -199,19 +203,16 @@ namespace TableFindBackend.Forms
             // pnlPin
             // 
             this.pnlPin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPin.Controls.Add(this.dgvAdmins);
             this.pnlPin.Controls.Add(this.pnlDescription);
             this.pnlPin.Controls.Add(this.btnSave);
-            this.pnlPin.Controls.Add(this.lblPin2);
             this.pnlPin.Controls.Add(this.lblPinTitle);
-            this.pnlPin.Controls.Add(this.lblPin1);
-            this.pnlPin.Controls.Add(this.tbxPinConfirm);
-            this.pnlPin.Controls.Add(this.tbxPin1);
             this.pnlPin.Enabled = false;
             this.pnlPin.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlPin.Location = new System.Drawing.Point(308, 51);
             this.pnlPin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlPin.Name = "pnlPin";
-            this.pnlPin.Size = new System.Drawing.Size(287, 345);
+            this.pnlPin.Size = new System.Drawing.Size(314, 451);
             this.pnlPin.TabIndex = 6;
             // 
             // pnlDescription
@@ -220,15 +221,15 @@ namespace TableFindBackend.Forms
             this.pnlDescription.Controls.Add(this.lblDescription);
             this.pnlDescription.Location = new System.Drawing.Point(15, 34);
             this.pnlDescription.Name = "pnlDescription";
-            this.pnlDescription.Size = new System.Drawing.Size(256, 136);
+            this.pnlDescription.Size = new System.Drawing.Size(284, 136);
             this.pnlDescription.TabIndex = 12;
             // 
             // lblDescription
             // 
             this.lblDescription.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescription.Location = new System.Drawing.Point(-1, -1);
+            this.lblDescription.Location = new System.Drawing.Point(-1, 0);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(256, 135);
+            this.lblDescription.Size = new System.Drawing.Size(284, 135);
             this.lblDescription.TabIndex = 8;
             this.lblDescription.Text = resources.GetString("lblDescription.Text");
             this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -237,23 +238,13 @@ namespace TableFindBackend.Forms
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(83, 285);
+            this.btnSave.Location = new System.Drawing.Point(83, 386);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(120, 48);
+            this.btnSave.Size = new System.Drawing.Size(157, 48);
             this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "Add New Admin";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // lblPin2
-            // 
-            this.lblPin2.AutoSize = true;
-            this.lblPin2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPin2.Location = new System.Drawing.Point(62, 232);
-            this.lblPin2.Name = "lblPin2";
-            this.lblPin2.Size = new System.Drawing.Size(141, 17);
-            this.lblPin2.TabIndex = 11;
-            this.lblPin2.Text = "Confirm PIN Number";
             // 
             // lblPinTitle
             // 
@@ -265,44 +256,47 @@ namespace TableFindBackend.Forms
             this.lblPinTitle.TabIndex = 8;
             this.lblPinTitle.Text = "Change PIN";
             // 
-            // lblPin1
+            // dgvAdmins
             // 
-            this.lblPin1.AutoSize = true;
-            this.lblPin1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPin1.Location = new System.Drawing.Point(62, 182);
-            this.lblPin1.Name = "lblPin1";
-            this.lblPin1.Size = new System.Drawing.Size(155, 17);
-            this.lblPin1.TabIndex = 10;
-            this.lblPin1.Text = "Enter New PIN Number";
-            this.lblPin1.Click += new System.EventHandler(this.lblPin1_Click);
+            this.dgvAdmins.AllowUserToAddRows = false;
+            this.dgvAdmins.AllowUserToDeleteRows = false;
+            this.dgvAdmins.AutoGenerateColumns = false;
+            this.dgvAdmins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAdmins.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.userNameDataGridViewTextBoxColumn,
+            this.contactNumberDataGridViewTextBoxColumn});
+            this.dgvAdmins.DataSource = this.adminPinsBindingSource;
+            this.dgvAdmins.Location = new System.Drawing.Point(15, 176);
+            this.dgvAdmins.Name = "dgvAdmins";
+            this.dgvAdmins.ReadOnly = true;
+            this.dgvAdmins.Size = new System.Drawing.Size(284, 150);
+            this.dgvAdmins.TabIndex = 9;
             // 
-            // tbxPinConfirm
+            // adminPinsBindingSource
             // 
-            this.tbxPinConfirm.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPinConfirm.Location = new System.Drawing.Point(61, 252);
-            this.tbxPinConfirm.MaxLength = 5;
-            this.tbxPinConfirm.Name = "tbxPinConfirm";
-            this.tbxPinConfirm.PasswordChar = '•';
-            this.tbxPinConfirm.Size = new System.Drawing.Size(169, 27);
-            this.tbxPinConfirm.TabIndex = 9;
-            this.tbxPinConfirm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPinConfirm_KeyPress);
+            this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
             // 
-            // tbxPin1
+            // userNameDataGridViewTextBoxColumn
             // 
-            this.tbxPin1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPin1.Location = new System.Drawing.Point(61, 202);
-            this.tbxPin1.MaxLength = 5;
-            this.tbxPin1.Name = "tbxPin1";
-            this.tbxPin1.PasswordChar = '•';
-            this.tbxPin1.Size = new System.Drawing.Size(169, 27);
-            this.tbxPin1.TabIndex = 8;
-            this.tbxPin1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPin1_KeyPress);
+            this.userNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
+            this.userNameDataGridViewTextBoxColumn.HeaderText = "Admin User";
+            this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
+            this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // contactNumberDataGridViewTextBoxColumn
+            // 
+            this.contactNumberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.contactNumberDataGridViewTextBoxColumn.DataPropertyName = "ContactNumber";
+            this.contactNumberDataGridViewTextBoxColumn.HeaderText = "Contact Number";
+            this.contactNumberDataGridViewTextBoxColumn.Name = "contactNumberDataGridViewTextBoxColumn";
+            this.contactNumberDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ChangePinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 402);
+            this.ClientSize = new System.Drawing.Size(634, 515);
             this.Controls.Add(this.pnlPin);
             this.Controls.Add(this.pnlLogin);
             this.Controls.Add(this.pnlHeader);
@@ -320,6 +314,8 @@ namespace TableFindBackend.Forms
             this.pnlPin.ResumeLayout(false);
             this.pnlPin.PerformLayout();
             this.pnlDescription.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -342,10 +338,10 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Panel pnlDescription;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lblPin2;
         private System.Windows.Forms.Label lblPinTitle;
-        private System.Windows.Forms.Label lblPin1;
-        private System.Windows.Forms.TextBox tbxPinConfirm;
-        private System.Windows.Forms.TextBox tbxPin1;
+        private System.Windows.Forms.DataGridView dgvAdmins;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contactNumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource adminPinsBindingSource;
     }
 }

@@ -409,6 +409,7 @@
       <DependentUpon>CreateReservationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logging\TextFileWriter.cs" />
+    <Compile Include="Models\AdminPins.cs" />
     <Compile Include="Models\RestaurantMenuItem.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Restaurant.cs" />
@@ -522,6 +523,7 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\TableFindBackend.Models.AdminPins.datasource" />
     <None Include="Properties\DataSources\TableFindBackend.Models.Reservation.datasource" />
     <None Include="Properties\DataSources\TableFindBackend.Models.RestaurantTable.datasource" />
     <None Include="Properties\Settings.settings">
