@@ -65,6 +65,8 @@ namespace TableFindBackend.Forms
                     {
                         // object has been saved
                         MessageBox.Show(this, "Admin User has been successfully created.");
+                        OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was Created");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                         this.DialogResult = DialogResult.OK;
                     }));
                 },
@@ -141,6 +143,8 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         MessageBox.Show(this, "Admin PIN has been updated");
+                        OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was Updated");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                         this.DialogResult = DialogResult.OK;
                     }));
                 },
@@ -240,6 +244,60 @@ namespace TableFindBackend.Forms
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
+            }
+        }
+        private void showLoading(bool toggle)
+        {
+
+        }
+        private void btnRemoveAdmin_Click(object sender, EventArgs e)
+        {
+            DialogResult result=MessageBox.Show(this, "Are you sure you wish permanently remove " + TempAdmin.UserName + " as administrator?", "Removing Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if(result==DialogResult.Yes)
+            {
+                AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
+                deletionTime =>
+                {
+                    Invoke(new Action(() =>
+                    {
+                        showLoading(false);
+                        OwnerStorage.FileWriter.WriteLineToFile("User deleted Admin ", true);
+                        OwnerStorage.FileWriter.WriteLineToFile("Name:  " + TempAdmin.UserName, false);
+                        OwnerStorage.LogInfo.Add(TempAdmin.UserName+" admin User was deleted");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                        MessageBox.Show(this, TempAdmin.UserName + " has been removed");
+                        DialogResult = DialogResult.Yes;
+                        this.Close();
+                    }));
+                    
+
+                },
+            error =>
+            {
+                Invoke(new Action(() => 
+                {
+                    showLoading(false);
+                    MessageBox.Show(this, "Error: " + error.Message);
+                }));
+            });
+
+                AsyncCallback<AdminPins> saveObjectCallback = new AsyncCallback<AdminPins>(
+                  savedAdmin =>
+                  {
+
+                      Backendless.Persistence.Of<AdminPins>().Remove(savedAdmin, deleteObjectCallback);
+                  },
+                  error =>
+                  {
+                      Invoke(new Action(() =>
+                      {
+                          showLoading(false);
+                          MessageBox.Show(this, "Error: " + error.Message);
+                      }));
+                  }
+                );
+
+                Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
             }
         }
     }

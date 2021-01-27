@@ -44,8 +44,10 @@ namespace TableFindBackend.Forms
             this.tbxContact = new System.Windows.Forms.TextBox();
             this.lblNameTitle = new System.Windows.Forms.Label();
             this.tbxName = new System.Windows.Forms.TextBox();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.pnlHeader.SuspendLayout();
             this.pnlNewAdmin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -91,6 +93,7 @@ namespace TableFindBackend.Forms
             // pnlNewAdmin
             // 
             this.pnlNewAdmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlNewAdmin.Controls.Add(this.pbxLoading);
             this.pnlNewAdmin.Controls.Add(this.btnCancel);
             this.pnlNewAdmin.Controls.Add(this.btnRemoveAdmin);
             this.pnlNewAdmin.Controls.Add(this.btnCreateNewAdmin);
@@ -127,6 +130,7 @@ namespace TableFindBackend.Forms
             this.btnRemoveAdmin.TabIndex = 26;
             this.btnRemoveAdmin.Text = "Remove Admin";
             this.btnRemoveAdmin.UseVisualStyleBackColor = true;
+            this.btnRemoveAdmin.Click += new System.EventHandler(this.btnRemoveAdmin_Click);
             // 
             // btnCreateNewAdmin
             // 
@@ -219,6 +223,17 @@ namespace TableFindBackend.Forms
             this.tbxName.Size = new System.Drawing.Size(261, 27);
             this.tbxName.TabIndex = 17;
             // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
+            this.pbxLoading.Location = new System.Drawing.Point(114, 34);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(262, 228);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 28;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
+            // 
             // AddEditNewAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,6 +249,7 @@ namespace TableFindBackend.Forms
             this.pnlHeader.PerformLayout();
             this.pnlNewAdmin.ResumeLayout(false);
             this.pnlNewAdmin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -255,5 +271,6 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.TextBox tbxContact;
         private System.Windows.Forms.Label lblNameTitle;
         private System.Windows.Forms.TextBox tbxName;
+        private System.Windows.Forms.PictureBox pbxLoading;
     }
 }
