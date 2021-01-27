@@ -19,6 +19,7 @@ namespace TableFindBackend.Forms
         public ChangePinForm()
         {
             InitializeComponent();
+            dgvAdmins.DataSource = OwnerStorage.ListOfAdmins;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -73,34 +74,34 @@ namespace TableFindBackend.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(tbxPin1.Text.Equals(tbxPinConfirm.Text))
-                {
-                if (File.Exists("TableFindMan") == true)
-                {
-                    File.Delete("TableFindMan");  //<--Deletes file to prevent duplications                
-                }
-                try
-                {
-                    StreamWriter sw = new StreamWriter("TableFindMan");
-                    sw.WriteLine("<><><><><><><><><><><><><><><>");
-                    sw.WriteLine(tbxPinConfirm.Text);
-                    sw.WriteLine("<><><><><><><><><><><><><><><>");
-                    sw.Close();
+            //if(tbxPin1.Text.Equals(tbxPinConfirm.Text))
+            //    {
+            //    if (File.Exists("TableFindMan") == true)
+            //    {
+            //        File.Delete("TableFindMan");  //<--Deletes file to prevent duplications                
+            //    }
+            //    try
+            //    {
+            //        StreamWriter sw = new StreamWriter("TableFindMan");
+            //        sw.WriteLine("<><><><><><><><><><><><><><><>");
+            //        sw.WriteLine(tbxPinConfirm.Text);
+            //        sw.WriteLine("<><><><><><><><><><><><><><><>");
+            //        sw.Close();
 
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(this, "Error: " + ex.Message);
-                }
-            }
-            else
-            {
-                MessageBox.Show(this, "The Two PINs you have entered does not match.");
-                tbxPinConfirm.Text = "";
-                tbxPin1.Text = "";
-            }           
+            //        this.DialogResult = DialogResult.OK;
+            //        this.Close();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(this, "Error: " + ex.Message);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show(this, "The Two PINs you have entered does not match.");
+            //    tbxPinConfirm.Text = "";
+            //    tbxPin1.Text = "";
+            //}           
         }
 
         private void tbxPinConfirm_KeyPress(object sender, KeyPressEventArgs e)
@@ -111,6 +112,22 @@ namespace TableFindBackend.Forms
         private void tbxPin1_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddNewAdmins_Click(object sender, EventArgs e)
+        {
+            AddEditNewAdminForm addForm = new AddEditNewAdminForm(null); // creating new admin user
+            DialogResult result = addForm.ShowDialog();
+
+            if(result == DialogResult.OK)
+            {
+                dgvAdmins.DataSource = OwnerStorage.ListOfAdmins;
+            }
         }
     }
 }

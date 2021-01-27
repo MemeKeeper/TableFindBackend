@@ -236,6 +236,7 @@ namespace TableFindBackend.Forms
             this.pboxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pboxLoading.TabIndex = 0;
             this.pboxLoading.TabStop = false;
+            this.pboxLoading.Click += new System.EventHandler(this.pboxLoading_Click);
             // 
             // panel2
             // 

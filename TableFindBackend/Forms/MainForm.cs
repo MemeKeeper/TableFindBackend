@@ -53,15 +53,15 @@ namespace TableFindBackend.Forms
             OwnerStorage.ActiveReservations = new List<Reservation>();
             OwnerStorage.PastReservations = new List<Reservation>();
             OwnerStorage.AllUsers = new List<BackendlessUser>();
-
+            OwnerStorage.ListOfAdmins = new List<AdminPins>();
             
 
             this.Hide();
             InitializeComponent();
-            CheckPin();
             PopulateTables();
             CheckLayoutImage();
             UpdateCapacityLabel();
+            RetrieveAdminPins();
 
             PerformBackgroundMenuItemPopulation();
             this.FormBorderStyle = FormBorderStyle.None;
@@ -73,6 +73,30 @@ namespace TableFindBackend.Forms
 
             typeof(Panel).InvokeMember("DoubleBuffered",BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlMain, new object[] { true });
 
+        }
+
+        private void RetrieveAdminPins()
+        {
+            String whereClause = "restaurantId = '" + OwnerStorage.ThisRestaurant.objectId + "'";
+            BackendlessAPI.Persistence.DataQueryBuilder queryBuilder = BackendlessAPI.Persistence.DataQueryBuilder.Create();
+            queryBuilder.SetWhereClause(whereClause);
+
+            AsyncCallback<IList<AdminPins>> findCallback;
+            findCallback = new AsyncCallback<IList<AdminPins>>(
+              foundObjects =>
+              {
+                  OwnerStorage.ListOfAdmins = (List<AdminPins>)foundObjects;
+                  OwnerStorage.LogInfo.Add("Admin PINS have been retrieved.");
+                  OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                  CheckPin();
+              },
+              error =>
+              {
+                  OwnerStorage.LogInfo.Add("Failed to retrieve Admin PINS.");
+                  OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+              });
+
+            Backendless.Data.Of<AdminPins>().Find(queryBuilder, findCallback);
         }
         private void UpdateCapacityLabel()
         {
@@ -843,18 +867,10 @@ namespace TableFindBackend.Forms
         }
         private void CheckPin()
         {
-            String line;
-            try
+            
+            if(OwnerStorage.ListOfAdmins.Count == 0)
             {
-                if (File.Exists("TableFindman") == true)
-                {
-                    StreamReader sr = new StreamReader("TableFindMan");         //Still Very basic, will add encryption
-                    line = sr.ReadLine();   //<-- Dummy line
-                    line = sr.ReadLine();   //<-- Pin Number
-                    OwnerStorage.ManagerPin = line;
-                    sr.Close();
-                }
-                else
+                Invoke(new Action(() =>
                 {
                     DialogResult result = MessageBox.Show(this, "Seems like this is your first time logging in to the " +
                         "TableFindBackend Desktop App on this computer, therefore " +
@@ -865,7 +881,7 @@ namespace TableFindBackend.Forms
                     {
                         ChangePinForm NewPin = new ChangePinForm();
                         DialogResult pinResult = NewPin.ShowDialog();
-                        if(pinResult ==DialogResult.OK)
+                        if (pinResult == DialogResult.OK)
                         {
                             CheckPin();
                         }
@@ -874,37 +890,50 @@ namespace TableFindBackend.Forms
                     {
                         OwnerStorage.FileWriter.WriteLineToFile("User Denied First-time Manager PIN Setup", true);
                     }
-                }
-            }
-            catch (Exception e)
-            {
-                OwnerStorage.FileWriter.WriteLineToFile("File could not be written.", true);
-                OwnerStorage.FileWriter.WriteLineToFile("Error: "+e.Message.ToString(), false);
-
-                MessageBox.Show(this, "Error: " + e.Message);
-            }
-        }
-        private void btnAdmin_Click(object sender, EventArgs e)
-        {
-            if (OwnerStorage.ManagerPin != null)
-            {
-                if (tbxPass.Text.Equals(OwnerStorage.ManagerPin))
-                {
-                    toggleAdminMode(true);
-
-                    OwnerStorage.FileWriter.WriteLineToFile("User Toggled Admin Mode", true);
-                    OwnerStorage.LogInfo.Add("User activated elevated privileges");
-                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-
-                }
-                tbxPass.Text = "";
-                tbxPass.Focus();
+                }));
+                
             }
             else
             {
-                CheckPin();
+
+                Invoke(new Action(() =>
+                {
+                    AdminPins flag = null;
+                    foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                    {
+                        if (tbxPass.Text.Equals(a.PinCode))
+                        {
+                            flag = a;
+                        }
+                    }
+
+                    if (flag != null)
+                    {
+                        toggleAdminMode(true);
+
+                        OwnerStorage.AdminLog.Add(new string[] { flag.objectId, System.DateTime.Now.ToString("HH:mm:ss") });
+
+                        OwnerStorage.FileWriter.WriteLineToFile("User Toggled Admin Mode", true);
+                        OwnerStorage.LogInfo.Add("User activated elevated privileges");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+
+                    }
+                    tbxPass.Text = "";
+                    tbxPass.Focus();
+                }));
                 
+
             }
+
+            OwnerStorage.AdminLog = new List<String[]>();
+
+            
+        }
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+
+             CheckPin();
+
         }
 
         private void toggleAdminMode(bool toggle)
@@ -1063,6 +1092,11 @@ namespace TableFindBackend.Forms
                 OwnerStorage.LogInfo.Add("User Toggled Capacity Level to "+lblCapacity.Text);
                 OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }
+        }
+
+        private void pboxLoading_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
