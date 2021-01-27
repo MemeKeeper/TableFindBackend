@@ -67,17 +67,10 @@ namespace TableFindBackend.Forms
             String password = tbxPassword.Text;
             Backendless.UserService.Login(login, password, callback);
         }
-
-        private void lblPin1_Click(object sender, EventArgs e)
-        {
-
-        }       
-
         private void lblTitle_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnAddNewAdmins_Click(object sender, EventArgs e)
         {
             AddEditNewAdminForm addForm = new AddEditNewAdminForm(null); // creating new admin user
