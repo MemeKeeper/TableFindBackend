@@ -57,7 +57,7 @@ namespace TableFindBackend.Forms
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(496, 43);
+            this.pnlHeader.Size = new System.Drawing.Size(491, 43);
             this.pnlHeader.TabIndex = 6;
             // 
             // btnExit
@@ -67,7 +67,7 @@ namespace TableFindBackend.Forms
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnExit.Location = new System.Drawing.Point(453, 0);
+            this.btnExit.Location = new System.Drawing.Point(448, 0);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(43, 43);
@@ -104,7 +104,7 @@ namespace TableFindBackend.Forms
             this.pnlNewAdmin.Controls.Add(this.tbxName);
             this.pnlNewAdmin.Location = new System.Drawing.Point(7, 50);
             this.pnlNewAdmin.Name = "pnlNewAdmin";
-            this.pnlNewAdmin.Size = new System.Drawing.Size(477, 388);
+            this.pnlNewAdmin.Size = new System.Drawing.Size(477, 367);
             this.pnlNewAdmin.TabIndex = 17;
             // 
             // btnCancel
@@ -199,6 +199,7 @@ namespace TableFindBackend.Forms
             this.tbxContact.Name = "tbxContact";
             this.tbxContact.Size = new System.Drawing.Size(261, 27);
             this.tbxContact.TabIndex = 19;
+            this.tbxContact.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxContact_KeyPress);
             // 
             // lblNameTitle
             // 
@@ -222,7 +223,7 @@ namespace TableFindBackend.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 450);
+            this.ClientSize = new System.Drawing.Size(491, 423);
             this.Controls.Add(this.pnlNewAdmin);
             this.Controls.Add(this.pnlHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
