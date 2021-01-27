@@ -39,7 +39,7 @@ namespace TableFindBackend.RT_Database_Listeneres
 
                 OwnerStorage.ActiveReservations.Remove(tempReservation);
                 OwnerStorage.PastReservations.Add(tempReservation);
-                _master.RemoveOneReservationView(deletedOrder);
+             //   _master.RemoveOneReservationView(deletedOrder);
             });
         }
     

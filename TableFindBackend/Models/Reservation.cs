@@ -24,6 +24,10 @@ namespace TableFindBackend.Models
 
         private string restaurantId;
 
+        private bool active;
+
+        private string reasonForExpiration;
+
 
         public string objectId { get => ObjectId; set => ObjectId = value; }//Exception for Backendless
         public string TableId { get => tableId; set => tableId = value; }
@@ -33,5 +37,7 @@ namespace TableFindBackend.Models
         public string Number { get => number; set => number = value; }
         public string Name { get => name; set => name = value; }
         public string RestaurantId { get => restaurantId; set => restaurantId = value; }
+        public bool Active { get => active; set => active = value; }
+        public string ReasonForExpiration { get => reasonForExpiration; set => reasonForExpiration = value; }
     }
 }

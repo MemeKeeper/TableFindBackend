@@ -22,8 +22,10 @@ namespace TableFindBackend.Forms
         List<Reservation> rList;
         int index;
         RestaurantTable thisTable;
-        public ReservationsForm(RestaurantTable item)
+        MainForm _master;
+        public ReservationsForm(RestaurantTable item,MainForm _master)
         {
+            this._master = _master;
             InitializeComponent();
 
 
@@ -166,20 +168,14 @@ namespace TableFindBackend.Forms
             {
                 Invoke(new Action(() =>
                 {
-                    CheckIfNew();
-                   
+                    CheckIfNew();                   
                 }));
                 //bottleneck = new System.Timers.Timer();
                 //bottleneck.Enabled = true;
                 //bottleneck.AutoReset = false;
                 //bottleneck.Interval = 4000;
-                //bottleneck.Elapsed += OnTimedEvent;               
-
-                
-
-            }
-
-           
+                //bottleneck.Elapsed += OnTimedEvent;                              
+            }           
         }
         private async void CheckIfNew()
             {
@@ -237,58 +233,100 @@ namespace TableFindBackend.Forms
                 this.Enabled = false;
                 if (remove == DialogResult.Yes)
                 {
-
                     Reservation tempReservation = rList[index];
 
+                    AsyncCallback<Reservation> updateObjectCallback = new AsyncCallback<Reservation>(
+               savedReservation =>
+               {
+                   Invoke(new Action(() =>
+                   {
+                       lvBookings.Items.RemoveAt(index);
+                       pbxLoading.Visible = false;
+                       this.Enabled = true;
+                       OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + tempReservation.Name);
+                       OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                       MessageBox.Show(this, "reservation for " + tempReservation.Name + " has been removed");
+                       _master.RemoveOneReservationView(tempReservation, savedReservation);
+                       CheckIfNew();
+                   }));
+               },
+               error =>
+               {
+                   Invoke(new Action(() =>
+                   {
+                       MessageBox.Show(this, "Error: " + error.Message);
+                       pbxLoading.Visible = true;
+                       this.Enabled = false;
+                   }));
+               });
+
                     AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
-                      savedReservation =>
-                      {
-
-
-                          AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
-                            deletionTime =>
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    pbxLoading.Visible = false;
-                                    this.Enabled = true;
-                                    MessageBox.Show(this, "reservation for " + rList[index].Name + " has been removed");
-                                    lvBookings.Items.RemoveAt(index);
-                                    OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + rList[index].Name);
-                                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                                    //OwnerStorage.AllReservations.Remove(tempReservation);  <--no need, the listeners will remove it from local storage.
-                                    //if (thisTable != null)
-                                    //    populateList(true);
-                                    //else
-                                    //    populateList(false);
-                                }));
-                            },
-                            error =>
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    pbxLoading.Visible = false;
-                                    this.Enabled = true;
-                                    MessageBox.Show(this, "Error: " + error.Message);
-                                }));
-                            });
-                          Backendless.Persistence.Of<Reservation>().Remove(savedReservation, deleteObjectCallback);
-                      },
-                      error =>
-                      {
-                          Invoke(new Action(() =>
-                          {
-                              pbxLoading.Visible = false;
-                              this.Enabled = true;
-                              MessageBox.Show(this, "Error: " + error.Message);
-                          }));
-                      }
-                    );
+                    savedReservation =>
+                    {
+                        // now update the saved object
+                        savedReservation.Active = false;
+                        savedReservation.ReasonForExpiration = "Reservation has been removed";
+                        Backendless.Persistence.Of<Reservation>().Save(savedReservation, updateObjectCallback);
+                    },
+                    error =>
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            MessageBox.Show(this, "Error: " + error.Message);
+                            pbxLoading.Visible = true;
+                            this.Enabled = false;
+                        }));
+                    });
 
                     Backendless.Persistence.Of<Reservation>().Save(tempReservation, saveObjectCallback);
+
+                    //AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
+                    //  savedReservation =>
+                    //  {
+
+
+                    //      AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
+                    //        deletionTime =>
+                    //        {
+                    //            Invoke(new Action(() =>
+                    //            {
+                    //                pbxLoading.Visible = false;
+                    //                this.Enabled = true;
+                    //                MessageBox.Show(this, "reservation for " + rList[index].Name + " has been removed");
+                    //                lvBookings.Items.RemoveAt(index);
+                    //                OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + rList[index].Name);
+                    //                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                    //            }));
+                    //        },
+                    //        error =>
+                    //        {
+                    //            Invoke(new Action(() =>
+                    //            {
+                    //                pbxLoading.Visible = false;
+                    //                this.Enabled = true;
+                    //                MessageBox.Show(this, "Error: " + error.Message);
+                    //            }));
+                    //        });
+                    //      Backendless.Persistence.Of<Reservation>().Remove(savedReservation, deleteObjectCallback);
+                    //  },
+                    //  error =>
+                    //  {
+                    //      Invoke(new Action(() =>
+                    //      {
+                    //          pbxLoading.Visible = false;
+                    //          this.Enabled = true;
+                    //          MessageBox.Show(this, "Error: " + error.Message);
+                    //      }));
+                    //  }
+                    //);
+
+                    //Backendless.Persistence.Of<Reservation>().Save(tempReservation, saveObjectCallback);
                 }
-                this.Enabled = true;
-                pbxLoading.Visible = false;
+                else
+                {
+                    this.Enabled = true;
+                    pbxLoading.Visible = false;
+                }
             }
             else
             {
