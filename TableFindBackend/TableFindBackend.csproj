@@ -330,6 +330,12 @@
     <Compile Include="Forms\AddEditMenuItem.Designer.cs">
       <DependentUpon>AddEditMenuItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddEditNewAdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddEditNewAdminForm.Designer.cs">
+      <DependentUpon>AddEditNewAdminForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ChangePinForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -453,6 +459,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\AddEditMenuItem.resx">
       <DependentUpon>AddEditMenuItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddEditNewAdminForm.resx">
+      <DependentUpon>AddEditNewAdminForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangePinForm.resx">
       <DependentUpon>ChangePinForm.cs</DependentUpon>

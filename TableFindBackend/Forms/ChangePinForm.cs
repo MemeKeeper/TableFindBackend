@@ -118,5 +118,16 @@ namespace TableFindBackend.Forms
         {
 
         }
+
+        private void btnAddNewAdmins_Click(object sender, EventArgs e)
+        {
+            AddEditNewAdminForm addForm = new AddEditNewAdminForm(null); // creating new admin user
+            DialogResult result = addForm.ShowDialog();
+
+            if(result == DialogResult.OK)
+            {
+                dgvAdmins.DataSource = OwnerStorage.ListOfAdmins;
+            }
+        }
     }
 }

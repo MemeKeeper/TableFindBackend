@@ -893,6 +893,37 @@ namespace TableFindBackend.Forms
                 }));
                 
             }
+            else
+            {
+
+                Invoke(new Action(() =>
+                {
+                    AdminPins flag = null;
+                    foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                    {
+                        if (tbxPass.Text.Equals(a.PinCode))
+                        {
+                            flag = a;
+                        }
+                    }
+
+                    if (flag != null)
+                    {
+                        toggleAdminMode(true);
+
+                        OwnerStorage.AdminLog.Add(new string[] { flag.objectId, System.DateTime.Now.ToString("HH:mm:ss") });
+
+                        OwnerStorage.FileWriter.WriteLineToFile("User Toggled Admin Mode", true);
+                        OwnerStorage.LogInfo.Add("User activated elevated privileges");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+
+                    }
+                    tbxPass.Text = "";
+                    tbxPass.Focus();
+                }));
+                
+
+            }
 
             OwnerStorage.AdminLog = new List<String[]>();
 
@@ -900,36 +931,9 @@ namespace TableFindBackend.Forms
         }
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-            if (OwnerStorage.ListOfAdmins.Count != null)
-            {
-                AdminPins flag = null;
-                foreach(AdminPins a in OwnerStorage.ListOfAdmins)
-                {
-                    if(tbxPass.Text.Equals(a.PinCode))
-                    {
-                        flag = a;
-                    }
-                }
 
-                if (flag != null)
-                {
-                    toggleAdminMode(true);
+             CheckPin();
 
-                    OwnerStorage.AdminLog.Add(new string[] {flag.objectId,System.DateTime.Now.ToString("HH:mm:ss")});
-
-                    OwnerStorage.FileWriter.WriteLineToFile("User Toggled Admin Mode", true);
-                    OwnerStorage.LogInfo.Add("User activated elevated privileges");
-                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-
-                }
-                tbxPass.Text = "";
-                tbxPass.Focus();
-            }
-            else
-            {
-                CheckPin();
-                
-            }
         }
 
         private void toggleAdminMode(bool toggle)

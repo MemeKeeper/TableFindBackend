@@ -44,21 +44,21 @@ namespace TableFindBackend.Forms
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.tbxEmail = new System.Windows.Forms.TextBox();
             this.pnlPin = new System.Windows.Forms.Panel();
-            this.pnlDescription = new System.Windows.Forms.Panel();
-            this.lblDescription = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.lblPinTitle = new System.Windows.Forms.Label();
             this.dgvAdmins = new System.Windows.Forms.DataGridView();
-            this.adminPinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contactNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.adminPinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pnlDescription = new System.Windows.Forms.Panel();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.btnAddNewAdmin = new System.Windows.Forms.Button();
+            this.lblPinTitle = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlPin.SuspendLayout();
-            this.pnlDescription.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).BeginInit();
+            this.pnlDescription.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -205,7 +205,7 @@ namespace TableFindBackend.Forms
             this.pnlPin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPin.Controls.Add(this.dgvAdmins);
             this.pnlPin.Controls.Add(this.pnlDescription);
-            this.pnlPin.Controls.Add(this.btnSave);
+            this.pnlPin.Controls.Add(this.btnAddNewAdmin);
             this.pnlPin.Controls.Add(this.lblPinTitle);
             this.pnlPin.Enabled = false;
             this.pnlPin.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -214,6 +214,42 @@ namespace TableFindBackend.Forms
             this.pnlPin.Name = "pnlPin";
             this.pnlPin.Size = new System.Drawing.Size(314, 451);
             this.pnlPin.TabIndex = 6;
+            // 
+            // dgvAdmins
+            // 
+            this.dgvAdmins.AllowUserToAddRows = false;
+            this.dgvAdmins.AllowUserToDeleteRows = false;
+            this.dgvAdmins.AutoGenerateColumns = false;
+            this.dgvAdmins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAdmins.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.userNameDataGridViewTextBoxColumn,
+            this.contactNumberDataGridViewTextBoxColumn});
+            this.dgvAdmins.DataSource = this.adminPinsBindingSource;
+            this.dgvAdmins.Location = new System.Drawing.Point(15, 176);
+            this.dgvAdmins.Name = "dgvAdmins";
+            this.dgvAdmins.ReadOnly = true;
+            this.dgvAdmins.Size = new System.Drawing.Size(284, 150);
+            this.dgvAdmins.TabIndex = 9;
+            // 
+            // userNameDataGridViewTextBoxColumn
+            // 
+            this.userNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
+            this.userNameDataGridViewTextBoxColumn.HeaderText = "Admin User";
+            this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
+            this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // contactNumberDataGridViewTextBoxColumn
+            // 
+            this.contactNumberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.contactNumberDataGridViewTextBoxColumn.DataPropertyName = "ContactNumber";
+            this.contactNumberDataGridViewTextBoxColumn.HeaderText = "Contact Number";
+            this.contactNumberDataGridViewTextBoxColumn.Name = "contactNumberDataGridViewTextBoxColumn";
+            this.contactNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // adminPinsBindingSource
+            // 
+            this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
             // 
             // pnlDescription
             // 
@@ -235,16 +271,16 @@ namespace TableFindBackend.Forms
             this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblDescription.UseCompatibleTextRendering = true;
             // 
-            // btnSave
+            // btnAddNewAdmin
             // 
-            this.btnSave.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(83, 386);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(157, 48);
-            this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Add New Admin";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnAddNewAdmin.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddNewAdmin.Location = new System.Drawing.Point(83, 386);
+            this.btnAddNewAdmin.Name = "btnAddNewAdmin";
+            this.btnAddNewAdmin.Size = new System.Drawing.Size(157, 48);
+            this.btnAddNewAdmin.TabIndex = 8;
+            this.btnAddNewAdmin.Text = "Add New Admin";
+            this.btnAddNewAdmin.UseVisualStyleBackColor = true;
+            this.btnAddNewAdmin.Click += new System.EventHandler(this.btnAddNewAdmins_Click);
             // 
             // lblPinTitle
             // 
@@ -255,42 +291,6 @@ namespace TableFindBackend.Forms
             this.lblPinTitle.Size = new System.Drawing.Size(122, 22);
             this.lblPinTitle.TabIndex = 8;
             this.lblPinTitle.Text = "Change PIN";
-            // 
-            // dgvAdmins
-            // 
-            this.dgvAdmins.AllowUserToAddRows = false;
-            this.dgvAdmins.AllowUserToDeleteRows = false;
-            this.dgvAdmins.AutoGenerateColumns = false;
-            this.dgvAdmins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAdmins.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.userNameDataGridViewTextBoxColumn,
-            this.contactNumberDataGridViewTextBoxColumn});
-            this.dgvAdmins.DataSource = this.adminPinsBindingSource;
-            this.dgvAdmins.Location = new System.Drawing.Point(15, 176);
-            this.dgvAdmins.Name = "dgvAdmins";
-            this.dgvAdmins.ReadOnly = true;
-            this.dgvAdmins.Size = new System.Drawing.Size(284, 150);
-            this.dgvAdmins.TabIndex = 9;
-            // 
-            // adminPinsBindingSource
-            // 
-            this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
-            // 
-            // userNameDataGridViewTextBoxColumn
-            // 
-            this.userNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
-            this.userNameDataGridViewTextBoxColumn.HeaderText = "Admin User";
-            this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
-            this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // contactNumberDataGridViewTextBoxColumn
-            // 
-            this.contactNumberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.contactNumberDataGridViewTextBoxColumn.DataPropertyName = "ContactNumber";
-            this.contactNumberDataGridViewTextBoxColumn.HeaderText = "Contact Number";
-            this.contactNumberDataGridViewTextBoxColumn.Name = "contactNumberDataGridViewTextBoxColumn";
-            this.contactNumberDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ChangePinForm
             // 
@@ -313,9 +313,9 @@ namespace TableFindBackend.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             this.pnlPin.ResumeLayout(false);
             this.pnlPin.PerformLayout();
-            this.pnlDescription.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).EndInit();
+            this.pnlDescription.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -337,7 +337,7 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.PictureBox pbxLoading;
         private System.Windows.Forms.Panel pnlDescription;
         private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnAddNewAdmin;
         private System.Windows.Forms.Label lblPinTitle;
         private System.Windows.Forms.DataGridView dgvAdmins;
         private System.Windows.Forms.DataGridViewTextBoxColumn userNameDataGridViewTextBoxColumn;
