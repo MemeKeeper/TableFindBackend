@@ -35,7 +35,8 @@ namespace TableFindBackend.Forms
                 tbxName.Text = a.UserName;
                 tbxContact.Text = a.ContactNumber;
                 tbxPinCode.Text = a.PinCode.ToString();
-                btnCreateNewAdmin.Text = "Update";                
+                btnCreateNewAdmin.Text = "Update";
+                lblDescription.Text = "You can edit your Admin details below.\n \n Remember that the Admin PIN should only include numerical digits wih a minimum of at least 4 digits and a maximum of 10 digits.";
             }
         }
 
@@ -231,7 +232,7 @@ namespace TableFindBackend.Forms
                     else
                     {
                         showLoading(false);
-                        MessageBox.Show(this, "The Contact number you have entered is invalid");
+                        MessageBox.Show(this, "The Contact Number you have entered is invalid");
                     }
                 }
 

@@ -45,14 +45,14 @@ namespace TableFindBackend.Forms
             this.tbxEmail = new System.Windows.Forms.TextBox();
             this.pnlPin = new System.Windows.Forms.Panel();
             this.dgvAdmins = new System.Windows.Forms.DataGridView();
+            this.userName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contactNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ObjectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDescription = new System.Windows.Forms.Panel();
             this.lblDescription = new System.Windows.Forms.Label();
             this.btnAddNewAdmin = new System.Windows.Forms.Button();
             this.lblPinTitle = new System.Windows.Forms.Label();
             this.adminPinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.userName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contactNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ObjectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlHeader.SuspendLayout();
             this.pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
@@ -227,7 +227,7 @@ namespace TableFindBackend.Forms
             this.userName,
             this.contactNumber,
             this.ObjectId});
-            this.dgvAdmins.Location = new System.Drawing.Point(15, 176);
+            this.dgvAdmins.Location = new System.Drawing.Point(15, 215);
             this.dgvAdmins.MultiSelect = false;
             this.dgvAdmins.Name = "dgvAdmins";
             this.dgvAdmins.ReadOnly = true;
@@ -241,13 +241,34 @@ namespace TableFindBackend.Forms
             this.dgvAdmins.TabIndex = 9;
             this.dgvAdmins.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAdmins_CellDoubleClick);
             // 
+            // userName
+            // 
+            this.userName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.userName.HeaderText = "User Name";
+            this.userName.Name = "userName";
+            this.userName.ReadOnly = true;
+            // 
+            // contactNumber
+            // 
+            this.contactNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.contactNumber.HeaderText = "Contact Number";
+            this.contactNumber.Name = "contactNumber";
+            this.contactNumber.ReadOnly = true;
+            // 
+            // ObjectId
+            // 
+            this.ObjectId.HeaderText = "ObjectId";
+            this.ObjectId.Name = "ObjectId";
+            this.ObjectId.ReadOnly = true;
+            this.ObjectId.Visible = false;
+            // 
             // pnlDescription
             // 
             this.pnlDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlDescription.Controls.Add(this.lblDescription);
             this.pnlDescription.Location = new System.Drawing.Point(15, 34);
             this.pnlDescription.Name = "pnlDescription";
-            this.pnlDescription.Size = new System.Drawing.Size(284, 136);
+            this.pnlDescription.Size = new System.Drawing.Size(284, 175);
             this.pnlDescription.TabIndex = 12;
             // 
             // lblDescription
@@ -255,7 +276,7 @@ namespace TableFindBackend.Forms
             this.lblDescription.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescription.Location = new System.Drawing.Point(-1, 0);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(284, 135);
+            this.lblDescription.Size = new System.Drawing.Size(284, 173);
             this.lblDescription.TabIndex = 8;
             this.lblDescription.Text = resources.GetString("lblDescription.Text");
             this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -278,34 +299,13 @@ namespace TableFindBackend.Forms
             this.lblPinTitle.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPinTitle.Location = new System.Drawing.Point(81, 9);
             this.lblPinTitle.Name = "lblPinTitle";
-            this.lblPinTitle.Size = new System.Drawing.Size(122, 22);
+            this.lblPinTitle.Size = new System.Drawing.Size(162, 22);
             this.lblPinTitle.TabIndex = 8;
-            this.lblPinTitle.Text = "Change PIN";
+            this.lblPinTitle.Text = "Manage Admins";
             // 
             // adminPinsBindingSource
             // 
             this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
-            // 
-            // userName
-            // 
-            this.userName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.userName.HeaderText = "User Name";
-            this.userName.Name = "userName";
-            this.userName.ReadOnly = true;
-            // 
-            // contactNumber
-            // 
-            this.contactNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.contactNumber.HeaderText = "Contact Number";
-            this.contactNumber.Name = "contactNumber";
-            this.contactNumber.ReadOnly = true;
-            // 
-            // ObjectId
-            // 
-            this.ObjectId.HeaderText = "ObjectId";
-            this.ObjectId.Name = "ObjectId";
-            this.ObjectId.ReadOnly = true;
-            this.ObjectId.Visible = false;
             // 
             // ChangePinForm
             // 
