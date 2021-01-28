@@ -34,16 +34,6 @@ namespace TableFindBackend.Output
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.dgvTables = new System.Windows.Forms.DataGridView();
-            this.pnl = new System.Windows.Forms.Panel();
-            this.tcTables = new System.Windows.Forms.TabControl();
-            this.tpTables = new System.Windows.Forms.TabPage();
-            this.tpSystemLog = new System.Windows.Forms.TabPage();
-            this.rtbLog = new System.Windows.Forms.RichTextBox();
-            this.flpReservationTables = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlControls = new System.Windows.Forms.Panel();
-            this.btnPDF = new System.Windows.Forms.Button();
-            this.btnWord = new System.Windows.Forms.Button();
-            this.btnExcel = new System.Windows.Forms.Button();
             this.objectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,17 +43,27 @@ namespace TableFindBackend.Output
             this.restaurantIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pnl = new System.Windows.Forms.Panel();
+            this.tcTables = new System.Windows.Forms.TabControl();
+            this.tpTables = new System.Windows.Forms.TabPage();
+            this.tpSystemLog = new System.Windows.Forms.TabPage();
+            this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.flpReservationTables = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlControls = new System.Windows.Forms.Panel();
+            this.btnPDF = new System.Windows.Forms.Button();
+            this.btnWord = new System.Windows.Forms.Button();
+            this.btnExcel = new System.Windows.Forms.Button();
+            this.flpAdminLog = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.pnl.SuspendLayout();
             this.tcTables.SuspendLayout();
             this.tpTables.SuspendLayout();
             this.tpSystemLog.SuspendLayout();
-            this.pnlControls.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.pnlControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -130,6 +130,66 @@ namespace TableFindBackend.Output
             this.dgvTables.Size = new System.Drawing.Size(363, 358);
             this.dgvTables.TabIndex = 7;
             // 
+            // objectIdDataGridViewTextBoxColumn
+            // 
+            this.objectIdDataGridViewTextBoxColumn.DataPropertyName = "objectId";
+            this.objectIdDataGridViewTextBoxColumn.HeaderText = "objectId";
+            this.objectIdDataGridViewTextBoxColumn.Name = "objectIdDataGridViewTextBoxColumn";
+            this.objectIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // availableDataGridViewCheckBoxColumn
+            // 
+            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "Available";
+            this.availableDataGridViewCheckBoxColumn.HeaderText = "Available";
+            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
+            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // capacityDataGridViewTextBoxColumn
+            // 
+            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.HeaderText = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
+            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // xPosDataGridViewTextBoxColumn
+            // 
+            this.xPosDataGridViewTextBoxColumn.DataPropertyName = "XPos";
+            this.xPosDataGridViewTextBoxColumn.HeaderText = "XPos";
+            this.xPosDataGridViewTextBoxColumn.Name = "xPosDataGridViewTextBoxColumn";
+            this.xPosDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // yPosDataGridViewTextBoxColumn
+            // 
+            this.yPosDataGridViewTextBoxColumn.DataPropertyName = "YPos";
+            this.yPosDataGridViewTextBoxColumn.HeaderText = "YPos";
+            this.yPosDataGridViewTextBoxColumn.Name = "yPosDataGridViewTextBoxColumn";
+            this.yPosDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // restaurantIdDataGridViewTextBoxColumn
+            // 
+            this.restaurantIdDataGridViewTextBoxColumn.DataPropertyName = "RestaurantId";
+            this.restaurantIdDataGridViewTextBoxColumn.HeaderText = "RestaurantId";
+            this.restaurantIdDataGridViewTextBoxColumn.Name = "restaurantIdDataGridViewTextBoxColumn";
+            this.restaurantIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tableInfoDataGridViewTextBoxColumn
+            // 
+            this.tableInfoDataGridViewTextBoxColumn.DataPropertyName = "TableInfo";
+            this.tableInfoDataGridViewTextBoxColumn.HeaderText = "TableInfo";
+            this.tableInfoDataGridViewTextBoxColumn.Name = "tableInfoDataGridViewTextBoxColumn";
+            this.tableInfoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // restaurantTableBindingSource
+            // 
+            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
+            // 
             // pnl
             // 
             this.pnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -182,6 +242,17 @@ namespace TableFindBackend.Output
             this.rtbLog.Size = new System.Drawing.Size(363, 358);
             this.rtbLog.TabIndex = 0;
             this.rtbLog.Text = "";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.flpAdminLog);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(369, 364);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Admin Users";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // flpReservationTables
             // 
@@ -244,87 +315,13 @@ namespace TableFindBackend.Output
             this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
-            // objectIdDataGridViewTextBoxColumn
+            // flpAdminLog
             // 
-            this.objectIdDataGridViewTextBoxColumn.DataPropertyName = "objectId";
-            this.objectIdDataGridViewTextBoxColumn.HeaderText = "objectId";
-            this.objectIdDataGridViewTextBoxColumn.Name = "objectIdDataGridViewTextBoxColumn";
-            this.objectIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // availableDataGridViewCheckBoxColumn
-            // 
-            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "Available";
-            this.availableDataGridViewCheckBoxColumn.HeaderText = "Available";
-            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
-            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // capacityDataGridViewTextBoxColumn
-            // 
-            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.HeaderText = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
-            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // xPosDataGridViewTextBoxColumn
-            // 
-            this.xPosDataGridViewTextBoxColumn.DataPropertyName = "XPos";
-            this.xPosDataGridViewTextBoxColumn.HeaderText = "XPos";
-            this.xPosDataGridViewTextBoxColumn.Name = "xPosDataGridViewTextBoxColumn";
-            this.xPosDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // yPosDataGridViewTextBoxColumn
-            // 
-            this.yPosDataGridViewTextBoxColumn.DataPropertyName = "YPos";
-            this.yPosDataGridViewTextBoxColumn.HeaderText = "YPos";
-            this.yPosDataGridViewTextBoxColumn.Name = "yPosDataGridViewTextBoxColumn";
-            this.yPosDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // restaurantIdDataGridViewTextBoxColumn
-            // 
-            this.restaurantIdDataGridViewTextBoxColumn.DataPropertyName = "RestaurantId";
-            this.restaurantIdDataGridViewTextBoxColumn.HeaderText = "RestaurantId";
-            this.restaurantIdDataGridViewTextBoxColumn.Name = "restaurantIdDataGridViewTextBoxColumn";
-            this.restaurantIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tableInfoDataGridViewTextBoxColumn
-            // 
-            this.tableInfoDataGridViewTextBoxColumn.DataPropertyName = "TableInfo";
-            this.tableInfoDataGridViewTextBoxColumn.HeaderText = "TableInfo";
-            this.tableInfoDataGridViewTextBoxColumn.Name = "tableInfoDataGridViewTextBoxColumn";
-            this.tableInfoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // restaurantTableBindingSource
-            // 
-            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.richTextBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(369, 364);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Admin Users";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richTextBox1.Size = new System.Drawing.Size(363, 358);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
+            this.flpAdminLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpAdminLog.Location = new System.Drawing.Point(3, 3);
+            this.flpAdminLog.Name = "flpAdminLog";
+            this.flpAdminLog.Size = new System.Drawing.Size(363, 358);
+            this.flpAdminLog.TabIndex = 0;
             // 
             // SystemReportForm
             // 
@@ -344,13 +341,13 @@ namespace TableFindBackend.Output
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.pnl.ResumeLayout(false);
             this.tcTables.ResumeLayout(false);
             this.tpTables.ResumeLayout(false);
             this.tpSystemLog.ResumeLayout(false);
-            this.pnlControls.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.pnlControls.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -381,6 +378,6 @@ namespace TableFindBackend.Output
         private System.Windows.Forms.DataGridViewTextBoxColumn restaurantIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tableInfoDataGridViewTextBoxColumn;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.FlowLayoutPanel flpAdminLog;
     }
 }

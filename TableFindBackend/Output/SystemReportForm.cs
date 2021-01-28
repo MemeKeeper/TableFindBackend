@@ -55,7 +55,62 @@ namespace TableFindBackend.Output
                     rtbLog.Text += OwnerStorage.LogInfo[i] + "\t" + OwnerStorage.LogTimes[i] + "\n";
                 }
             }
- 
+            PopulateAdminReport();
+        }
+
+        private void PopulateAdminReport()
+        {
+            foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+            {
+                List<string> tempList = new List<string>();
+                foreach (string[] s in OwnerStorage.AdminLog)
+                {
+                    if (s[0] == a.objectId)
+                    {
+                        tempList.Add(s[1]);
+
+                    }
+                }
+                AddAdminUserLoginTable(tempList, a);
+            }
+        }
+
+        private void AddAdminUserLoginTable(List<string> log, AdminPins a)
+        {
+            Panel backPanel = new Panel();
+            backPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            backPanel.Width = flpAdminLog.Width - 10;
+            backPanel.Height = 50;
+            backPanel.BackColor = SystemColors.ControlDark;
+            Label titleLabel = new Label();
+            titleLabel.Font = new Font("Century Gothic", 10);
+            titleLabel.Text = a.UserName;
+            titleLabel.AutoSize = true;
+            titleLabel.Location = new Point(10, 10);
+            backPanel.Controls.Add(titleLabel);
+            System.Windows.Forms.TextBox tbxAmount = new System.Windows.Forms.TextBox();
+            tbxAmount.Width = 180;
+            tbxAmount.ReadOnly = true;
+            tbxAmount.Font = new Font("Century Gothic", 10);
+            tbxAmount.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            tbxAmount.BackColor = SystemColors.ControlDark;
+
+            if (log.Count == 1)
+            {
+                tbxAmount.Text = log.Count.ToString() + " login during this session";
+            }
+            else
+            {
+                tbxAmount.Text = log.Count.ToString() + " logins during this session";
+            }
+
+            tbxAmount.Location = new Point(150, 10);
+            backPanel.Controls.Add(tbxAmount);
+
+            flpAdminLog.Controls.Add(backPanel);
+
+            
+
         }
 
         //displays reservations under each table (right-hand side panel)
