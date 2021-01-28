@@ -308,7 +308,7 @@ namespace TableFindBackend.Forms
             this.btnChangePin.Name = "btnChangePin";
             this.btnChangePin.Size = new System.Drawing.Size(111, 39);
             this.btnChangePin.TabIndex = 12;
-            this.btnChangePin.Text = "Change Pin";
+            this.btnChangePin.Text = "Manage Admin Users";
             this.btnChangePin.UseVisualStyleBackColor = false;
             this.btnChangePin.Click += new System.EventHandler(this.btnChangePin_Click);
             // 
@@ -346,9 +346,9 @@ namespace TableFindBackend.Forms
             this.lblLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
             this.lblLogin.Location = new System.Drawing.Point(56, 114);
             this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(120, 30);
+            this.lblLogin.Size = new System.Drawing.Size(116, 30);
             this.lblLogin.TabIndex = 11;
-            this.lblLogin.Text = "Enter Manager PIN to\r\naccess Admin Mode";
+            this.lblLogin.Text = "Enter Admin PIN to\r\naccess Admin Mode";
             this.lblLogin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnEditRestaurant
