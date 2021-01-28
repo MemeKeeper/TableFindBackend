@@ -39,7 +39,12 @@ namespace TableFindBackend.Output
                     AddRestaurantReservationTable(table, tempList);
                 }
             }
-            for(int i = 0;i<OwnerStorage.LogInfo.Count;i++)
+
+            dgvTables.DataSource = OwnerStorage.RestaurantTables; // <-- displays restaurant table info (restaurant table tab)
+            //rtbLog.Lines = OwnerStorage.Log.ToArray();
+
+            //displays system log info (system log tab)
+            for (int i = 0;i<OwnerStorage.LogInfo.Count;i++)
             {
                 if (OwnerStorage.LogTimes[i]=="blank")
                 {
@@ -50,11 +55,10 @@ namespace TableFindBackend.Output
                     rtbLog.Text += OwnerStorage.LogInfo[i] + "\t" + OwnerStorage.LogTimes[i] + "\n";
                 }
             }
-
-            dgvTables.DataSource = OwnerStorage.RestaurantTables;
-            //rtbLog.Lines = OwnerStorage.Log.ToArray();
+ 
         }
 
+        //displays reservations under each table (right-hand side panel)
         private void AddRestaurantReservationTable(RestaurantTable table,List<Reservation> list)
         {
 
@@ -89,6 +93,8 @@ namespace TableFindBackend.Output
 
             flpReservationTables.Controls.Add(backPanel);
         }
+
+        
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();

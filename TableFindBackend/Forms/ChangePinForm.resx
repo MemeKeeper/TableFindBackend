@@ -127,9 +127,11 @@
     <value>True</value>
   </metadata>
   <data name="lblDescription.Text" xml:space="preserve">
-    <value>The Admin PIN is a convenient way to quickly get access to manager privileges. Only share this PIN with responsible employees and/or loyal assistant managers.
+    <value>Admin Users are granted elevated privileges through an Admin PIN. To create an Admin User, select Add New Admin.
+To edit an existing Admin User, 
+double-click on their username below.
 
-This PIN should only include numerical digits with a maximum of 5 digits.
+The Admin PIN should only include numerical digits wih a minimum of at least 4 digits and a maximum of 10 digits.
 </value>
   </data>
   <metadata name="adminPinsBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
