@@ -90,6 +90,7 @@ namespace TableFindBackend.Forms
                     || tbxPinCode.Text == ""
                     || tbxConfirmPin.Text == "")
                 {
+                    showLoading(false);
                     MessageBox.Show(this, "Please fill in all fields.");
                 }
                 else
@@ -98,30 +99,40 @@ namespace TableFindBackend.Forms
                     {
                         if(tbxPinCode.Text.Equals(tbxConfirmPin.Text))
                         {
-                            bool flag = false;
-                            foreach(AdminPins a in OwnerStorage.ListOfAdmins)
-                            {
-                                if(a.PinCode.ToString().Equals(tbxPinCode.Text))
-                                {
-                                    flag= true;
-                                }
-                            }
-                            if (flag == false)
-                            {
-                                TempAdmin = new AdminPins();
-                                TempAdmin.UserName = tbxName.Text;
-                                TempAdmin.ContactNumber = tbxContact.Text;
-                                TempAdmin.PinCode = Convert.ToInt32(tbxPinCode.Text);
-                                TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                                Backendless.Data.Of<AdminPins>().Save(TempAdmin, callback);
-                            }
-                            else
+                            if (tbxPinCode.TextLength < 4)
                             {
                                 showLoading(false);
-                                MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
+                                MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
                                 tbxPinCode.Text = "";
                                 tbxConfirmPin.Text = "";
                             }
+                            else
+                            {
+                                bool flag = false;
+                                foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                                {
+                                    if (a.PinCode.ToString().Equals(tbxPinCode.Text))
+                                    {
+                                        flag = true;
+                                    }
+                                }
+                                if (flag == false)
+                                {
+                                    TempAdmin = new AdminPins();
+                                    TempAdmin.UserName = tbxName.Text;
+                                    TempAdmin.ContactNumber = tbxContact.Text;
+                                    TempAdmin.PinCode = Convert.ToInt32(tbxPinCode.Text);
+                                    TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                                    Backendless.Data.Of<AdminPins>().Save(TempAdmin, callback);
+                                }
+                                else
+                                {
+                                    showLoading(false);
+                                    MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
+                                    tbxPinCode.Text = "";
+                                    tbxConfirmPin.Text = "";
+                                }
+                            } 
                         }
                         else
                         {
@@ -187,7 +198,9 @@ namespace TableFindBackend.Forms
                     || tbxPinCode.Text == ""
                     || tbxConfirmPin.Text == "")
                 {
-                    MessageBox.Show(this, "Please fill in all fields.");
+                    showLoading(false);
+                    MessageBox.Show(this, "Please fill in all fields."); 
+
                 }
                 else
                 {
@@ -195,30 +208,42 @@ namespace TableFindBackend.Forms
                     {
                         if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))
                         {
-                            bool flag = false;
-                            foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+
+                            if(tbxPinCode.TextLength < 4) 
                             {
-                                if (a.PinCode.ToString().Equals(tbxPinCode.Text)
-                                    && a.PinCode!=TempAdmin.PinCode)
-                                {
-                                    flag = true;
-                                }
-                            }
-                            if (flag == false)
-                            {
-                                TempAdmin.UserName = tbxName.Text;
-                                TempAdmin.ContactNumber = tbxContact.Text;
-                                TempAdmin.PinCode = Convert.ToInt32(tbxPinCode.Text);
-                                TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                                Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
+                                showLoading(false);
+                                MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
+                                tbxPinCode.Text = "";
+                                tbxConfirmPin.Text = "";
                             }
                             else
                             {
-                                showLoading(false);
-                                MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
-                                tbxPinCode.Text = "";
-                                tbxConfirmPin.Text = "";
+                                bool flag = false;
+                                foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                                {
+                                    if (a.PinCode.ToString().Equals(tbxPinCode.Text)
+                                        && a.PinCode != TempAdmin.PinCode)
+                                    {
+                                        flag = true;
+                                    }
+                                }
 
+                                if (flag == false)
+                                {
+                                    TempAdmin.UserName = tbxName.Text;
+                                    TempAdmin.ContactNumber = tbxContact.Text;
+                                    TempAdmin.PinCode = Convert.ToInt32(tbxPinCode.Text);
+                                    TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                                    Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
+                                }
+                                else
+                                {
+                                    showLoading(false);
+                                    MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
+                                    tbxPinCode.Text = "";
+                                    tbxConfirmPin.Text = "";
+
+                                }
                             }
                         }
                         else

@@ -118,7 +118,7 @@ namespace TableFindBackend.Forms
             // pbxLoading
             // 
             this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pbxLoading.Location = new System.Drawing.Point(95, 99);
+            this.pbxLoading.Location = new System.Drawing.Point(98, 137);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(273, 297);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -173,7 +173,7 @@ namespace TableFindBackend.Forms
             // 
             this.tbxConfirmPin.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.tbxConfirmPin.Location = new System.Drawing.Point(98, 369);
-            this.tbxConfirmPin.MaxLength = 5;
+            this.tbxConfirmPin.MaxLength = 10;
             this.tbxConfirmPin.Name = "tbxConfirmPin";
             this.tbxConfirmPin.PasswordChar = '•';
             this.tbxConfirmPin.Size = new System.Drawing.Size(261, 27);
@@ -194,7 +194,7 @@ namespace TableFindBackend.Forms
             // 
             this.tbxPinCode.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.tbxPinCode.Location = new System.Drawing.Point(99, 304);
-            this.tbxPinCode.MaxLength = 5;
+            this.tbxPinCode.MaxLength = 10;
             this.tbxPinCode.Name = "tbxPinCode";
             this.tbxPinCode.PasswordChar = '•';
             this.tbxPinCode.Size = new System.Drawing.Size(261, 27);

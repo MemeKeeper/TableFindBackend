@@ -292,7 +292,7 @@ namespace TableFindBackend.Forms
             // 
             this.btnInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnInfo.Location = new System.Drawing.Point(8, 140);
+            this.btnInfo.Location = new System.Drawing.Point(4, 77);
             this.btnInfo.Name = "btnInfo";
             this.btnInfo.Size = new System.Drawing.Size(45, 64);
             this.btnInfo.TabIndex = 13;
@@ -367,11 +367,11 @@ namespace TableFindBackend.Forms
             // tbxPass
             // 
             this.tbxPass.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPass.Location = new System.Drawing.Point(69, 147);
-            this.tbxPass.MaxLength = 5;
+            this.tbxPass.Location = new System.Drawing.Point(24, 147);
+            this.tbxPass.MaxLength = 10;
             this.tbxPass.Name = "tbxPass";
             this.tbxPass.PasswordChar = '*';
-            this.tbxPass.Size = new System.Drawing.Size(89, 37);
+            this.tbxPass.Size = new System.Drawing.Size(182, 37);
             this.tbxPass.TabIndex = 4;
             this.tbxPass.TextChanged += new System.EventHandler(this.tbxPass_TextChanged);
             // 
