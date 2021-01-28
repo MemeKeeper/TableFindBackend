@@ -213,10 +213,10 @@ namespace TableFindBackend.Forms
             if (pnlMain.BackgroundImage!=null)
             pnlMain.BackgroundImage.Dispose();
         }
-        private string CalcPanelRes()
+        private double[] CalcPanelRes()
         {
-            string result;
-            result = "Recommended floor layout image size: " + pnlMain.Bounds.Width.ToString() + " x " + pnlMain.Bounds.Height.ToString();
+            double[] result;
+            result = new double []{pnlMain.Bounds.Width,pnlMain.Bounds.Height};
 
             return result;
         }
@@ -548,7 +548,7 @@ namespace TableFindBackend.Forms
                           int i = 0;
                           Invoke (new Action(() =>
                               {
-                                  lblPnlSize.Text = CalcPanelRes();
+                                  lblPnlSize.Text = "Recommended floor layout image size: "+CalcPanelRes()[0]+" x " + CalcPanelRes()[1];
                               }));
 
                           foreach (RestaurantTable tb in OwnerStorage.RestaurantTables)
@@ -569,7 +569,7 @@ namespace TableFindBackend.Forms
                                       pnlMain.Controls[i].Location = new Point(pnlMain.Width-73, pnlMain.Height - 38);
                                   }
                                   else
-                                      pnlMain.Controls[i].Location = new Point(tb.XPos, tb.YPos);
+                                      pnlMain.Controls[i].Location = new Point(Convert.ToInt32(tb.XPos* pnlMain.Width), Convert.ToInt32(tb.YPos * pnlMain.Height));
 
                                   this.AddControl(newItem);
 
@@ -686,15 +686,29 @@ namespace TableFindBackend.Forms
                 if (result == DialogResult.OK) //Updates the Table
                 {
                     OwnerStorage.RestaurantTables.Remove(tempTable);
-
+                    Point tempPoint = new Point(0,0);
                     if (sender is Label)
                     {
                         Label tempLabel = (Label)sender;
-                        RestaurantTableView tempSenderView = (RestaurantTableView)tempLabel.Parent;
-                        pnlMain.Controls.Remove(tempSenderView);
+                        RestaurantTableView tempSenderView = (RestaurantTableView)tempLabel.Parent;                        
+                        foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
+                        {
+                            if (t.Tag == tempSenderView.Tag)
+                            {
+                                tempPoint = t.Location;
+                            }
+                        }
+                        pnlMain.Controls.Remove(tempSenderView);                        
                     }
                     else
                     {
+                        foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
+                        {
+                            if (t.Tag == ((RestaurantTableView)sender).Tag)
+                            {
+                                tempPoint = t.Location;
+                            }
+                        }
                         pnlMain.Controls.Remove((RestaurantTableView)sender);
                     }
 
@@ -706,7 +720,8 @@ namespace TableFindBackend.Forms
                     tempView.Availability = tempTable.Available;
 
                     pnlMain.Controls.Add(tempView);
-                    pnlMain.Controls[pnlMain.Controls.Count - 1].Location = new Point(tempTable.XPos, tempTable.YPos);
+                    pnlMain.Controls[pnlMain.Controls.Count - 1].Location = tempPoint;
+                    //pnlMain.Controls[pnlMain.Controls.Count-1].Location = new Point(Convert.ToInt32(tempTable.XPos * pnlMain.Width), Convert.ToInt32(tempTable.YPos * pnlMain.Height));
 
                     OwnerStorage.RestaurantTables.Add(tempTable);
 
@@ -801,8 +816,8 @@ namespace TableFindBackend.Forms
             int i = 0;
             foreach (RestaurantTable tb in OwnerStorage.RestaurantTables)
             {
-                tb.YPos = pnlMain.Controls[i].Location.Y;
-                tb.XPos = pnlMain.Controls[i].Location.X;
+                tb.YPos = pnlMain.Controls[i].Location.Y/ Convert.ToDouble(pnlMain.Height);
+                tb.XPos = pnlMain.Controls[i].Location.X/ Convert.ToDouble(pnlMain.Width);
                 i++;
             }
 

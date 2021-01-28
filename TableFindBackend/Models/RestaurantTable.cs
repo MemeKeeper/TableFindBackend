@@ -14,8 +14,8 @@ namespace TableFindBackend.Models
         private bool available;
         private string name;
         private int capacity;
-        private int xPos;
-        private int yPos;
+        private double xPos;
+        private double yPos;
         private string tableInfo;
 
 
@@ -42,13 +42,13 @@ namespace TableFindBackend.Models
             set { capacity = value; }
         }
        
-        public int XPos
+        public double XPos
         {
             get { return xPos; }
             set { xPos = value; }
         }
         
-        public int YPos
+        public double YPos
         {
             get { return yPos; }
             set { yPos = value; }
