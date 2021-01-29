@@ -31,8 +31,8 @@ namespace TableFindBackend.Forms
         {
             OwnerStorage.LogInfo = new List<String>();
             OwnerStorage.LogTimes = new List<String>();
-            string APPLICATION_ID = "3341DD88-C207-2A48-FF9F-D4103CEA4900";
-            string API_KEY = "3A3E7B64-7786-49D1-9D5B-AFC31D98CE13";
+            string APPLICATION_ID = "6D59291D-64B4-B4E5-FFCD-43BA19198A00";
+            string API_KEY = "E1543695-02C8-4C57-8963-0F1AA3861D7B";
             Backendless.InitApp(APPLICATION_ID, API_KEY);
 
             OwnerStorage.FileWriter = new TextFileWriter();
@@ -70,7 +70,7 @@ namespace TableFindBackend.Forms
             OwnerStorage.LogInfo.Add("User Logged in with valid Login");
             OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
-            updater = new SharpUpdater(Assembly.GetExecutingAssembly(), this, new Uri("https://backendlessappcontent.com/3341DD88-C207-2A48-FF9F-D4103CEA4900/6DB97B25-6E7F-44F1-A47E-87BB1F867567/files/Update/update.xml"));  //<------ Domain on which we host the update for the program
+            updater = new SharpUpdater(Assembly.GetExecutingAssembly(), this, new Uri("https://backendlessappcontent.com/6D59291D-64B4-B4E5-FFCD-43BA19198A00/3DD4C6AA-9D71-4111-A769-45F6DEE35B62/files/Update/update.xml"));  //<------ Domain on which we host the update for the program
 
             typeof(Panel).InvokeMember("DoubleBuffered",BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlMain, new object[] { true });
 
