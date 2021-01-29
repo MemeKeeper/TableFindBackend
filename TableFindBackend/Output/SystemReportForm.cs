@@ -561,6 +561,71 @@ namespace TableFindBackend.Output
                 empty.Format.AfterSpacing = 5;
             }
 
+            ////Admin Users displayed
+            //Paragraph p8 = section.AddParagraph();
+            //p8.AppendText("Admin Users");
+            //p8.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
+            //p8.Format.BeforeSpacing = 20;
+            //p8.Format.AfterSpacing = 5;
+            //p8.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+
+            //Table adminTable = section.AddTable(true);
+            //adminTable.TableFormat.HorizontalAlignment = RowAlignment.Center;
+
+            //String[] adminsHeader = { "Admin User", "Logins For This Session" };
+
+            //List<String[]> adminsData = new List<string[]>();
+            //for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
+            //{
+            //    adminsData.Add(new String[] { OwnerStorage.ListOfAdmins[i].ToString(), OwnerStorage.AdminLog[i].ToString() });
+            //}
+
+            //adminTable.ResetCells(adminsData.Count + 1, adminsHeader.Length);
+            ////Header Row
+            //TableRow FRowLogA = adminTable.Rows[0];
+            //FRowLogA.IsHeader = true;
+            ////Row Height
+            //FRowLogA.Height = 23;
+            ////Header Format
+            //FRowLogA.RowFormat.BackColor = Color.AliceBlue;
+            //for (int i = 0; i < adminsHeader.Length; i++)
+            //{
+            //    //Cell Alignment
+            //    Paragraph p = FRowLogA.Cells[i].AddParagraph();
+            //    FRowLogA.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            //    p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //    //Data Format
+            //    TextRange TR = p.AppendText(adminsHeader[i]);
+            //    TR.CharacterFormat.FontName = "Calibri";
+            //    TR.CharacterFormat.FontSize = 14;
+            //    TR.CharacterFormat.TextColor = Color.Teal;
+            //    TR.CharacterFormat.Bold = true;
+            //}
+
+            ////Data Row
+            //for (int r = 0; r < adminsData.Count; r++)
+            //{
+            //    TableRow DataRow = adminTable.Rows[r + 1];
+
+            //    //Row Height
+            //    DataRow.Height = 20;
+
+            //    //C Represents Column.
+            //    for (int c = 0; c < adminsData[r].Length; c++)
+            //    {
+            //        //Cell Alignment
+            //        DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            //        //Fill Data in Rows
+            //        Paragraph p3 = DataRow.Cells[c].AddParagraph();
+            //        TextRange TR2 = p3.AppendText(adminsData[r][c]);
+            //        //Format Cells
+            //        p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //        TR2.CharacterFormat.FontName = "Calibri";
+            //        TR2.CharacterFormat.FontSize = 12;
+            //        TR2.CharacterFormat.TextColor = Color.Black;
+            //    }
+            //}
+
             //System Log displayed
             Paragraph p7 = section.AddParagraph();
             p7.AppendText("System Log");
