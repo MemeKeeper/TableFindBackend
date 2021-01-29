@@ -200,7 +200,8 @@ namespace TableFindBackend.Output
 
                     }
                 }
-                range = wsTables.get_Range("A1", "E100");
+                range = wsTables.get_Range("A1", "H1000");
+                range.Rows.AutoFit();
                 range.Columns.AutoFit();
 
 
@@ -222,7 +223,8 @@ namespace TableFindBackend.Output
                         wsTables.Cells[i+2, 2] = OwnerStorage.LogTimes[i];
                     }
                 }
-                range = wsTables.get_Range("A1", "E100");
+                range = wsTables.get_Range("A1", "H1000");
+                range.Rows.AutoFit();
                 range.Columns.AutoFit();
 
                 //setup for Sheet3
@@ -267,7 +269,8 @@ namespace TableFindBackend.Output
                         rowHeadingIndex += tempList.Count+2;
                     }
                 }
-                range = wsTables.get_Range("A1", "E100");
+                range = wsTables.get_Range("A1", "H1000");
+                range.Rows.AutoFit();
                 range.Columns.AutoFit();
 
                 //setup for sheet4
@@ -312,7 +315,8 @@ namespace TableFindBackend.Output
                         rowHeadingIndex += tempList.Count + 2;
                     }
                 }
-                range = wsTables.get_Range("A1", "E100");
+                range = wsTables.get_Range("A1", "H1000");
+                range.Rows.AutoFit();
                 range.Columns.AutoFit();
                 app.Visible = true;
 

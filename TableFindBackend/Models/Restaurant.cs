@@ -25,6 +25,10 @@ namespace TableFindBackend.Models
 
         private int maxCapacity;
 
+        private DateTime open;
+
+        private DateTime close;
+
         public string Name { get => name; set => name = value; }
         public string ownerId { get => OwnerId; set => OwnerId = value; }//Exception for Backendless
         public string LocationString { get => locationString; set => locationString = value; }
@@ -32,6 +36,8 @@ namespace TableFindBackend.Models
         public string MenuLink { get => menuLink; set => menuLink = value; }
         public string ContactNumber { get => contactNumber; set => contactNumber = value; }
         public int MaxCapacity { get => maxCapacity; set => maxCapacity = value; }
+        public DateTime Open { get => open; set => open = value; }
+        public DateTime Close { get => close; set => close = value; }
 
         public void EditRestaurant()
         {
