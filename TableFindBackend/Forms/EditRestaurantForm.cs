@@ -27,6 +27,9 @@ namespace TableFindBackend.Forms
             tbxName.Text = OwnerStorage.ThisRestaurant.Name;
             tbxLocation.Text = OwnerStorage.ThisRestaurant.LocationString;
             tbxContactNumber.Text = OwnerStorage.ThisRestaurant.ContactNumber;
+            tbxMenu.Text = OwnerStorage.ThisRestaurant.MenuLink;
+            dtpOpen.Value = OwnerStorage.ThisRestaurant.Open;
+            dtpClose.Value = OwnerStorage.ThisRestaurant.Close;
 
             if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
                 try
@@ -93,7 +96,9 @@ namespace TableFindBackend.Forms
 
             OwnerStorage.ThisRestaurant.ContactNumber = tbxContactNumber.Text;
             OwnerStorage.ThisRestaurant.Name = tbxName.Text;
-            OwnerStorage.ThisRestaurant.LocationString = tbxLocation.Text;                 
+            OwnerStorage.ThisRestaurant.LocationString = tbxLocation.Text;
+            OwnerStorage.ThisRestaurant.Open = dtpOpen.Value;
+            OwnerStorage.ThisRestaurant.Close = dtpClose.Value;
             OwnerStorage.ThisRestaurant.EditRestaurant();
             DialogResult = DialogResult.OK;
             this.Close();
@@ -133,7 +138,10 @@ namespace TableFindBackend.Forms
                 AsyncCallback<object> deleteCallback = new AsyncCallback<object>(
                 result =>
                 {
-                    lblSize.Text = "Uploading...";
+                    Invoke(new Action(() =>
+                    {
+                        lblSize.Text = "Uploading...";
+                    }));
                     AsyncCallback<BackendlessAPI.File.BackendlessFile> callback = new AsyncCallback<BackendlessAPI.File.BackendlessFile>(
                     success =>
                     {
@@ -265,6 +273,16 @@ namespace TableFindBackend.Forms
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void dtpOpen_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpClose_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

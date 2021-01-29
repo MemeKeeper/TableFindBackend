@@ -185,11 +185,6 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void cbxEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-
-            }
-
         private void cbxEnabled_Click(object sender, EventArgs e)
         {
             selectedItem.OutOfStock = cbxEnabled.Checked ? false : true;
@@ -232,7 +227,6 @@ namespace TableFindBackend.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
             RestaurantMenuItem tempItem = selectedItem;
             DialogResult dialogResult = MessageBox.Show("Are you sure you would like to delete "+ tempItem.Name+"?", tempItem.Name, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -287,11 +281,7 @@ namespace TableFindBackend.Forms
                     );
 
                     Backendless.Persistence.Of<RestaurantMenuItem>().Save(tempItem, saveObjectCallback);
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                
-            }            
+            }         
         }
         private void clbSortOptions_SelectedIndexChanged(object sender, EventArgs e)
         {

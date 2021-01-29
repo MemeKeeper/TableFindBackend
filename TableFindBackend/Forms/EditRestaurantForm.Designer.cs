@@ -57,12 +57,20 @@ namespace TableFindBackend.Forms
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.ofdLayoutBrowse = new System.Windows.Forms.OpenFileDialog();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.dtpOpen = new System.Windows.Forms.DateTimePicker();
+            this.dtpClose = new System.Windows.Forms.DateTimePicker();
+            this.lblTimes = new System.Windows.Forms.Label();
+            this.lblOpen = new System.Windows.Forms.Label();
+            this.lblClosing = new System.Windows.Forms.Label();
+            this.lblTo = new System.Windows.Forms.Label();
             this.pnlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlButtons.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbxLocation
@@ -71,15 +79,16 @@ namespace TableFindBackend.Forms
             this.tbxLocation.Location = new System.Drawing.Point(17, 96);
             this.tbxLocation.Multiline = true;
             this.tbxLocation.Name = "tbxLocation";
+            this.tbxLocation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbxLocation.Size = new System.Drawing.Size(242, 55);
             this.tbxLocation.TabIndex = 1;
             // 
             // tbxMenu
             // 
-            this.tbxMenu.Enabled = false;
             this.tbxMenu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxMenu.Location = new System.Drawing.Point(17, 241);
             this.tbxMenu.Name = "tbxMenu";
+            this.tbxMenu.ReadOnly = true;
             this.tbxMenu.Size = new System.Drawing.Size(199, 29);
             this.tbxMenu.TabIndex = 2;
             // 
@@ -104,7 +113,7 @@ namespace TableFindBackend.Forms
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(166, 15);
+            this.btnCancel.Location = new System.Drawing.Point(454, 15);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(94, 42);
             this.btnCancel.TabIndex = 5;
@@ -146,7 +155,6 @@ namespace TableFindBackend.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPanel.Controls.Add(this.lblSize);
-            this.pnlPanel.Controls.Add(this.pbxLoading);
             this.pnlPanel.Controls.Add(this.lblContactNumber);
             this.pnlPanel.Controls.Add(this.tbxContactNumber);
             this.pnlPanel.Controls.Add(this.btnUpload);
@@ -173,7 +181,7 @@ namespace TableFindBackend.Forms
             // pbxLoading
             // 
             this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(82, 125);
+            this.pbxLoading.Location = new System.Drawing.Point(240, 175);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(113, 113);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -241,28 +249,29 @@ namespace TableFindBackend.Forms
             this.pnlButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlButtons.Controls.Add(this.btnSave);
             this.pnlButtons.Controls.Add(this.btnCancel);
-            this.pnlButtons.Location = new System.Drawing.Point(12, 547);
+            this.pnlButtons.Location = new System.Drawing.Point(12, 373);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(281, 73);
+            this.pnlButtons.Size = new System.Drawing.Size(568, 73);
             this.pnlButtons.TabIndex = 10;
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.btnPrint);
-            this.panel1.Location = new System.Drawing.Point(12, 480);
+            this.panel1.Location = new System.Drawing.Point(299, 291);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 61);
+            this.panel1.Size = new System.Drawing.Size(281, 76);
             this.panel1.TabIndex = 11;
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(21, 12);
+            this.btnPrint.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnPrint.Location = new System.Drawing.Point(21, 16);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(240, 33);
+            this.btnPrint.Size = new System.Drawing.Size(240, 44);
             this.btnPrint.TabIndex = 4;
             this.btnPrint.Text = "Open System Report Page";
-            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.UseVisualStyleBackColor = false;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // panel2
@@ -271,7 +280,7 @@ namespace TableFindBackend.Forms
             this.panel2.Controls.Add(this.btnDefault);
             this.panel2.Controls.Add(this.lblLayout);
             this.panel2.Controls.Add(this.btnBrowseLayout);
-            this.panel2.Location = new System.Drawing.Point(12, 381);
+            this.panel2.Location = new System.Drawing.Point(299, 50);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(281, 93);
             this.panel2.TabIndex = 20;
@@ -295,7 +304,7 @@ namespace TableFindBackend.Forms
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(305, 43);
+            this.panel3.Size = new System.Drawing.Size(587, 43);
             this.panel3.TabIndex = 21;
             // 
             // btnClose
@@ -305,7 +314,7 @@ namespace TableFindBackend.Forms
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnClose.Location = new System.Drawing.Point(258, 0);
+            this.btnClose.Location = new System.Drawing.Point(540, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(47, 43);
             this.btnClose.TabIndex = 1;
@@ -328,12 +337,88 @@ namespace TableFindBackend.Forms
             // 
             this.ofdLayoutBrowse.FileName = "openFileDialog1";
             // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.lblTo);
+            this.panel4.Controls.Add(this.lblClosing);
+            this.panel4.Controls.Add(this.lblOpen);
+            this.panel4.Controls.Add(this.lblTimes);
+            this.panel4.Controls.Add(this.dtpClose);
+            this.panel4.Controls.Add(this.dtpOpen);
+            this.panel4.Location = new System.Drawing.Point(299, 149);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(281, 122);
+            this.panel4.TabIndex = 21;
+            // 
+            // dtpOpen
+            // 
+            this.dtpOpen.CustomFormat = "HH:mm";
+            this.dtpOpen.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpOpen.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpOpen.Location = new System.Drawing.Point(39, 74);
+            this.dtpOpen.Name = "dtpOpen";
+            this.dtpOpen.ShowUpDown = true;
+            this.dtpOpen.Size = new System.Drawing.Size(65, 27);
+            this.dtpOpen.TabIndex = 0;
+            this.dtpOpen.Value = new System.DateTime(2021, 1, 29, 15, 37, 27, 0);
+            this.dtpOpen.ValueChanged += new System.EventHandler(this.dtpOpen_ValueChanged);
+            // 
+            // dtpClose
+            // 
+            this.dtpClose.CustomFormat = "HH:mm";
+            this.dtpClose.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpClose.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpClose.Location = new System.Drawing.Point(174, 74);
+            this.dtpClose.Name = "dtpClose";
+            this.dtpClose.ShowUpDown = true;
+            this.dtpClose.Size = new System.Drawing.Size(65, 27);
+            this.dtpClose.TabIndex = 1;
+            this.dtpClose.ValueChanged += new System.EventHandler(this.dtpClose_ValueChanged);
+            // 
+            // lblTimes
+            // 
+            this.lblTimes.Location = new System.Drawing.Point(29, 17);
+            this.lblTimes.Name = "lblTimes";
+            this.lblTimes.Size = new System.Drawing.Size(225, 21);
+            this.lblTimes.TabIndex = 21;
+            this.lblTimes.Text = "Change Restaurant Open and Close Times";
+            // 
+            // lblOpen
+            // 
+            this.lblOpen.AutoSize = true;
+            this.lblOpen.Location = new System.Drawing.Point(29, 54);
+            this.lblOpen.Name = "lblOpen";
+            this.lblOpen.Size = new System.Drawing.Size(80, 13);
+            this.lblOpen.TabIndex = 22;
+            this.lblOpen.Text = "Opening Time";
+            // 
+            // lblClosing
+            // 
+            this.lblClosing.AutoSize = true;
+            this.lblClosing.Location = new System.Drawing.Point(165, 54);
+            this.lblClosing.Name = "lblClosing";
+            this.lblClosing.Size = new System.Drawing.Size(73, 13);
+            this.lblClosing.TabIndex = 23;
+            this.lblClosing.Text = "Closing Time";
+            // 
+            // lblTo
+            // 
+            this.lblTo.AutoSize = true;
+            this.lblTo.Location = new System.Drawing.Point(128, 81);
+            this.lblTo.Name = "lblTo";
+            this.lblTo.Size = new System.Drawing.Size(19, 13);
+            this.lblTo.TabIndex = 24;
+            this.lblTo.Text = "To";
+            // 
             // EditRestaurantForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 626);
+            this.ClientSize = new System.Drawing.Size(587, 454);
+            this.Controls.Add(this.pbxLoading);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -354,6 +439,8 @@ namespace TableFindBackend.Forms
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -386,5 +473,12 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.OpenFileDialog ofdLayoutBrowse;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label lblTimes;
+        private System.Windows.Forms.DateTimePicker dtpClose;
+        private System.Windows.Forms.DateTimePicker dtpOpen;
+        private System.Windows.Forms.Label lblTo;
+        private System.Windows.Forms.Label lblClosing;
+        private System.Windows.Forms.Label lblOpen;
     }
 }

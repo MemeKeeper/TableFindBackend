@@ -34,15 +34,6 @@ namespace TableFindBackend.Output
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.dgvTables = new System.Windows.Forms.DataGridView();
-            this.objectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.xPosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.yPosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.restaurantIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnl = new System.Windows.Forms.Panel();
             this.tcTables = new System.Windows.Forms.TabControl();
             this.tpTables = new System.Windows.Forms.TabPage();
@@ -55,15 +46,20 @@ namespace TableFindBackend.Output
             this.btnPDF = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
+            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.pnl.SuspendLayout();
             this.tcTables.SuspendLayout();
             this.tpTables.SuspendLayout();
             this.tpSystemLog.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.pnlControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -114,14 +110,10 @@ namespace TableFindBackend.Output
             this.dgvTables.AutoGenerateColumns = false;
             this.dgvTables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.objectIdDataGridViewTextBoxColumn,
-            this.availableDataGridViewCheckBoxColumn,
             this.nameDataGridViewTextBoxColumn,
             this.capacityDataGridViewTextBoxColumn,
-            this.xPosDataGridViewTextBoxColumn,
-            this.yPosDataGridViewTextBoxColumn,
-            this.restaurantIdDataGridViewTextBoxColumn,
-            this.tableInfoDataGridViewTextBoxColumn});
+            this.tableInfoDataGridViewTextBoxColumn,
+            this.availableDataGridViewCheckBoxColumn});
             this.dgvTables.DataSource = this.restaurantTableBindingSource;
             this.dgvTables.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTables.Location = new System.Drawing.Point(3, 3);
@@ -129,66 +121,6 @@ namespace TableFindBackend.Output
             this.dgvTables.ReadOnly = true;
             this.dgvTables.Size = new System.Drawing.Size(363, 358);
             this.dgvTables.TabIndex = 7;
-            // 
-            // objectIdDataGridViewTextBoxColumn
-            // 
-            this.objectIdDataGridViewTextBoxColumn.DataPropertyName = "objectId";
-            this.objectIdDataGridViewTextBoxColumn.HeaderText = "objectId";
-            this.objectIdDataGridViewTextBoxColumn.Name = "objectIdDataGridViewTextBoxColumn";
-            this.objectIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // availableDataGridViewCheckBoxColumn
-            // 
-            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "Available";
-            this.availableDataGridViewCheckBoxColumn.HeaderText = "Available";
-            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
-            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // capacityDataGridViewTextBoxColumn
-            // 
-            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.HeaderText = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
-            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // xPosDataGridViewTextBoxColumn
-            // 
-            this.xPosDataGridViewTextBoxColumn.DataPropertyName = "XPos";
-            this.xPosDataGridViewTextBoxColumn.HeaderText = "XPos";
-            this.xPosDataGridViewTextBoxColumn.Name = "xPosDataGridViewTextBoxColumn";
-            this.xPosDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // yPosDataGridViewTextBoxColumn
-            // 
-            this.yPosDataGridViewTextBoxColumn.DataPropertyName = "YPos";
-            this.yPosDataGridViewTextBoxColumn.HeaderText = "YPos";
-            this.yPosDataGridViewTextBoxColumn.Name = "yPosDataGridViewTextBoxColumn";
-            this.yPosDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // restaurantIdDataGridViewTextBoxColumn
-            // 
-            this.restaurantIdDataGridViewTextBoxColumn.DataPropertyName = "RestaurantId";
-            this.restaurantIdDataGridViewTextBoxColumn.HeaderText = "RestaurantId";
-            this.restaurantIdDataGridViewTextBoxColumn.Name = "restaurantIdDataGridViewTextBoxColumn";
-            this.restaurantIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tableInfoDataGridViewTextBoxColumn
-            // 
-            this.tableInfoDataGridViewTextBoxColumn.DataPropertyName = "TableInfo";
-            this.tableInfoDataGridViewTextBoxColumn.HeaderText = "TableInfo";
-            this.tableInfoDataGridViewTextBoxColumn.Name = "tableInfoDataGridViewTextBoxColumn";
-            this.tableInfoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // restaurantTableBindingSource
-            // 
-            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
             // 
             // pnl
             // 
@@ -323,6 +255,41 @@ namespace TableFindBackend.Output
             this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
+            // restaurantTableBindingSource
+            // 
+            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // capacityDataGridViewTextBoxColumn
+            // 
+            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.HeaderText = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
+            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
+            this.capacityDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // tableInfoDataGridViewTextBoxColumn
+            // 
+            this.tableInfoDataGridViewTextBoxColumn.DataPropertyName = "TableInfo";
+            this.tableInfoDataGridViewTextBoxColumn.HeaderText = "TableInfo";
+            this.tableInfoDataGridViewTextBoxColumn.Name = "tableInfoDataGridViewTextBoxColumn";
+            this.tableInfoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // availableDataGridViewCheckBoxColumn
+            // 
+            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "Available";
+            this.availableDataGridViewCheckBoxColumn.HeaderText = "Available";
+            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
+            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
             // SystemReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -341,13 +308,13 @@ namespace TableFindBackend.Output
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.pnl.ResumeLayout(false);
             this.tcTables.ResumeLayout(false);
             this.tpTables.ResumeLayout(false);
             this.tpSystemLog.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.pnlControls.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -361,9 +328,6 @@ namespace TableFindBackend.Output
         private System.Windows.Forms.BindingSource restaurantTableBindingSource;
         private System.Windows.Forms.Panel pnl;
         private System.Windows.Forms.FlowLayoutPanel flpReservationTables;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn availableDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn capacityDataGridViewTextBoxColumn;
         private System.Windows.Forms.Panel pnlControls;
         private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.TabControl tcTables;
@@ -372,12 +336,11 @@ namespace TableFindBackend.Output
         private System.Windows.Forms.RichTextBox rtbLog;
         private System.Windows.Forms.Button btnPDF;
         private System.Windows.Forms.Button btnWord;
-        private System.Windows.Forms.DataGridViewTextBoxColumn objectIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn xPosDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn yPosDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn restaurantIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tableInfoDataGridViewTextBoxColumn;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.FlowLayoutPanel flpAdminLog;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn capacityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tableInfoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn availableDataGridViewCheckBoxColumn;
     }
 }
