@@ -1051,9 +1051,7 @@ namespace TableFindBackend.Forms
         }
 
         private void btnEditMenu_Click(object sender, EventArgs e)
-        {
-
-            
+        {            
             MenuItemsForm editer = new MenuItemsForm();
             DialogResult result=editer.ShowDialog();
             if (result==DialogResult.OK)
