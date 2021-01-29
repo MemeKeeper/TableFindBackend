@@ -373,6 +373,7 @@ namespace TableFindBackend.Forms
             this.tbxPass.PasswordChar = '*';
             this.tbxPass.Size = new System.Drawing.Size(182, 37);
             this.tbxPass.TabIndex = 4;
+            this.tbxPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbxPass.TextChanged += new System.EventHandler(this.tbxPass_TextChanged);
             // 
             // btnUpdate

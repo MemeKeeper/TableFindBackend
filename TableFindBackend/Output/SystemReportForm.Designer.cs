@@ -49,12 +49,12 @@ namespace TableFindBackend.Output
             this.tpSystemLog = new System.Windows.Forms.TabPage();
             this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.flpAdminLog = new System.Windows.Forms.FlowLayoutPanel();
             this.flpReservationTables = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlControls = new System.Windows.Forms.Panel();
             this.btnPDF = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
-            this.flpAdminLog = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
@@ -254,6 +254,14 @@ namespace TableFindBackend.Output
             this.tabPage1.Text = "Admin Users";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // flpAdminLog
+            // 
+            this.flpAdminLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpAdminLog.Location = new System.Drawing.Point(3, 3);
+            this.flpAdminLog.Name = "flpAdminLog";
+            this.flpAdminLog.Size = new System.Drawing.Size(363, 358);
+            this.flpAdminLog.TabIndex = 0;
+            // 
             // flpReservationTables
             // 
             this.flpReservationTables.AutoScroll = true;
@@ -314,14 +322,6 @@ namespace TableFindBackend.Output
             this.btnExcel.Text = "Export to a Microsoft Excel Document";
             this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
-            // 
-            // flpAdminLog
-            // 
-            this.flpAdminLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpAdminLog.Location = new System.Drawing.Point(3, 3);
-            this.flpAdminLog.Name = "flpAdminLog";
-            this.flpAdminLog.Size = new System.Drawing.Size(363, 358);
-            this.flpAdminLog.TabIndex = 0;
             // 
             // SystemReportForm
             // 

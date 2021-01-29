@@ -94,23 +94,40 @@ namespace TableFindBackend.Output
             tbxAmount.Font = new Font("Century Gothic", 10);
             tbxAmount.BorderStyle = System.Windows.Forms.BorderStyle.None;
             tbxAmount.BackColor = SystemColors.ControlDark;
-
+            tbxAmount.Location = new Point(150, 10);
+            backPanel.Controls.Add(tbxAmount);
             if (log.Count == 1)
             {
                 tbxAmount.Text = log.Count.ToString() + " login during this session";
             }
             else
             {
-                tbxAmount.Text = log.Count.ToString() + " logins during this session";
+                tbxAmount.Text = log.Count.ToString() + " logins during this session";                               
             }
-
-            tbxAmount.Location = new Point(150, 10);
-            backPanel.Controls.Add(tbxAmount);
-
-            flpAdminLog.Controls.Add(backPanel);
-
-            
-
+            if(log.Count !=0)
+            {
+                flpAdminLog.Controls.Add(backPanel);
+                DataGridView dataGridView = new DataGridView();
+                dataGridView.Height = 22;
+                dataGridView.Columns.Add("recordedTime", "Recorded Time");
+                dataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                backPanel.Height += 23;
+                foreach (string s in log)
+                {
+                    dataGridView.Rows.Add(s);
+                    dataGridView.Height += 22;
+                    backPanel.Height += 22;
+                }
+                dataGridView.Width = 150;
+                dataGridView.Location = new Point(150, 40);
+                dataGridView.AllowUserToAddRows = false;
+                dataGridView.AllowUserToOrderColumns = false;
+                dataGridView.AllowUserToAddRows = false;
+                dataGridView.AllowUserToResizeRows = false;
+                dataGridView.AllowUserToDeleteRows = false;
+                dataGridView.RowHeadersVisible = false;
+                backPanel.Controls.Add(dataGridView);
+            }            
         }
 
         //displays reservations under each table (right-hand side panel)
