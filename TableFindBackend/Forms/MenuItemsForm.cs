@@ -185,11 +185,6 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void cbxEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-
-            }
-
         private void cbxEnabled_Click(object sender, EventArgs e)
         {
             selectedItem.OutOfStock = cbxEnabled.Checked ? false : true;

@@ -938,20 +938,12 @@ namespace TableFindBackend.Forms
                     }
                     tbxPass.Text = "";
                     tbxPass.Focus();
-                }));
-                
-
-            }
-
-            
-
-            
+                }));                
+            }                       
         }
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-
              CheckPin();
-
         }
 
         private void toggleAdminMode(bool toggle)
