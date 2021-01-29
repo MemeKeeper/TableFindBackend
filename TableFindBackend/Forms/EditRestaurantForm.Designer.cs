@@ -71,6 +71,7 @@ namespace TableFindBackend.Forms
             this.tbxLocation.Location = new System.Drawing.Point(17, 96);
             this.tbxLocation.Multiline = true;
             this.tbxLocation.Name = "tbxLocation";
+            this.tbxLocation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbxLocation.Size = new System.Drawing.Size(242, 55);
             this.tbxLocation.TabIndex = 1;
             // 
