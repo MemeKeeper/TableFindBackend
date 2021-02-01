@@ -44,13 +44,13 @@ namespace TableFindBackend.Forms
             this.flpItems = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.flpPrevious = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnEditor = new System.Windows.Forms.Button();
+            this.btnEnableAdmin = new System.Windows.Forms.Button();
             this.pboxLoading = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnChangeLoad = new System.Windows.Forms.Button();
             this.btnViewAll = new System.Windows.Forms.Button();
             this.btnInfo = new System.Windows.Forms.Button();
-            this.btnChangePin = new System.Windows.Forms.Button();
+            this.btnManageAdminUsers = new System.Windows.Forms.Button();
             this.btnEditMenu = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.lblLogin = new System.Windows.Forms.Label();
@@ -210,18 +210,18 @@ namespace TableFindBackend.Forms
             this.flpPrevious.Size = new System.Drawing.Size(222, 282);
             this.flpPrevious.TabIndex = 8;
             // 
-            // btnEditor
+            // btnEnableAdmin
             // 
-            this.btnEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.btnEditor.Enabled = false;
-            this.btnEditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnEditor.Location = new System.Drawing.Point(59, 190);
-            this.btnEditor.Name = "btnEditor";
-            this.btnEditor.Size = new System.Drawing.Size(111, 39);
-            this.btnEditor.TabIndex = 7;
-            this.btnEditor.Text = "Enable Admin Mode";
-            this.btnEditor.UseVisualStyleBackColor = false;
-            this.btnEditor.Click += new System.EventHandler(this.btnAdmin_Click);
+            this.btnEnableAdmin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnEnableAdmin.Enabled = false;
+            this.btnEnableAdmin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.btnEnableAdmin.Location = new System.Drawing.Point(59, 190);
+            this.btnEnableAdmin.Name = "btnEnableAdmin";
+            this.btnEnableAdmin.Size = new System.Drawing.Size(111, 39);
+            this.btnEnableAdmin.TabIndex = 7;
+            this.btnEnableAdmin.Text = "Enable Admin Mode";
+            this.btnEnableAdmin.UseVisualStyleBackColor = false;
+            this.btnEnableAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
             // 
             // pboxLoading
             // 
@@ -247,8 +247,8 @@ namespace TableFindBackend.Forms
             this.panel2.Controls.Add(this.btnChangeLoad);
             this.panel2.Controls.Add(this.btnViewAll);
             this.panel2.Controls.Add(this.btnInfo);
-            this.panel2.Controls.Add(this.btnChangePin);
-            this.panel2.Controls.Add(this.btnEditor);
+            this.panel2.Controls.Add(this.btnManageAdminUsers);
+            this.panel2.Controls.Add(this.btnEnableAdmin);
             this.panel2.Controls.Add(this.btnEditMenu);
             this.panel2.Controls.Add(this.btnLogout);
             this.panel2.Controls.Add(this.lblLogin);
@@ -300,17 +300,17 @@ namespace TableFindBackend.Forms
             this.btnInfo.UseVisualStyleBackColor = false;
             this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
             // 
-            // btnChangePin
+            // btnManageAdminUsers
             // 
-            this.btnChangePin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.btnChangePin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnChangePin.Location = new System.Drawing.Point(59, 240);
-            this.btnChangePin.Name = "btnChangePin";
-            this.btnChangePin.Size = new System.Drawing.Size(111, 39);
-            this.btnChangePin.TabIndex = 12;
-            this.btnChangePin.Text = "Manage Admin Users";
-            this.btnChangePin.UseVisualStyleBackColor = false;
-            this.btnChangePin.Click += new System.EventHandler(this.btnChangePin_Click);
+            this.btnManageAdminUsers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnManageAdminUsers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.btnManageAdminUsers.Location = new System.Drawing.Point(59, 240);
+            this.btnManageAdminUsers.Name = "btnManageAdminUsers";
+            this.btnManageAdminUsers.Size = new System.Drawing.Size(111, 39);
+            this.btnManageAdminUsers.TabIndex = 12;
+            this.btnManageAdminUsers.Text = "Manage Admin Users";
+            this.btnManageAdminUsers.UseVisualStyleBackColor = false;
+            this.btnManageAdminUsers.Click += new System.EventHandler(this.btnChangePin_Click);
             // 
             // btnEditMenu
             // 
@@ -450,7 +450,7 @@ namespace TableFindBackend.Forms
             // 
             // MainForm
             // 
-            this.AcceptButton = this.btnEditor;
+            this.AcceptButton = this.btnEnableAdmin;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1124, 681);
@@ -492,7 +492,7 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.Button btnReloadAll;
-        private System.Windows.Forms.Button btnEditor;
+        private System.Windows.Forms.Button btnEnableAdmin;
         private System.Windows.Forms.PictureBox pboxLoading;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnEditRestaurant;
@@ -500,7 +500,7 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.TextBox tbxPass;
         private System.Windows.Forms.Label lblLogin;
         private System.Windows.Forms.Button btnEditMenu;
-        private System.Windows.Forms.Button btnChangePin;
+        private System.Windows.Forms.Button btnManageAdminUsers;
         private System.Windows.Forms.Button btnInfo;
         private System.Windows.Forms.Button btnViewAll;
         private System.Windows.Forms.Label lblDoubleClick;

@@ -197,6 +197,7 @@ namespace TableFindBackend.Forms
             // 
             // btnUpload
             // 
+            this.btnUpload.Enabled = false;
             this.btnUpload.Location = new System.Drawing.Point(166, 276);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(93, 28);

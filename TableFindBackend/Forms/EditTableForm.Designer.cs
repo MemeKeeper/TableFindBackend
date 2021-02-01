@@ -61,7 +61,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(329, 43);
+            this.panel1.Size = new System.Drawing.Size(321, 43);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -72,7 +72,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnClose.Location = new System.Drawing.Point(282, 0);
+            this.btnClose.Location = new System.Drawing.Point(274, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(47, 43);
             this.btnClose.TabIndex = 1;
@@ -175,7 +175,7 @@
             this.panel2.Controls.Add(this.spnSeating);
             this.panel2.Controls.Add(this.edtName);
             this.panel2.Controls.Add(this.lblInfoTitle);
-            this.panel2.Location = new System.Drawing.Point(12, 59);
+            this.panel2.Location = new System.Drawing.Point(7, 52);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(307, 388);
             this.panel2.TabIndex = 9;
@@ -239,7 +239,7 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.btnCancel);
             this.panel3.Controls.Add(this.btnSave);
-            this.panel3.Location = new System.Drawing.Point(12, 453);
+            this.panel3.Location = new System.Drawing.Point(7, 446);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(307, 75);
             this.panel3.TabIndex = 10;
@@ -248,7 +248,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 540);
+            this.ClientSize = new System.Drawing.Size(321, 530);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);

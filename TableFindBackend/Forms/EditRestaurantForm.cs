@@ -118,6 +118,7 @@ namespace TableFindBackend.Forms
                     tbxMenu.Text = ofdMenuBrowse.FileName;
                     size = text.Length / 1024;
                     lblSize.Text = "File size: " + size+ "KB";
+                    btnUpload.Enabled = true;
                 }
                 catch (IOException)
                 {

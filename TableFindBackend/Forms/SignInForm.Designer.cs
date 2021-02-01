@@ -37,9 +37,10 @@
             this.lblRegisterTitle = new System.Windows.Forms.Label();
             this.tcLoginRegister = new System.Windows.Forms.TabControl();
             this.tpLogin = new System.Windows.Forms.TabPage();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
+            this.lblEnterEmailForRecovery = new System.Windows.Forms.Label();
             this.pbxLogo = new System.Windows.Forms.PictureBox();
             this.cbxStaySignedIn = new System.Windows.Forms.CheckBox();
-            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.tpRegister = new System.Windows.Forms.TabPage();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlPersonal = new System.Windows.Forms.Panel();
@@ -53,11 +54,10 @@
             this.tbEmailAddress = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
             this.lblX2 = new System.Windows.Forms.Label();
-            this.lblEnterEmailForRecovery = new System.Windows.Forms.Label();
             this.tcLoginRegister.SuspendLayout();
             this.tpLogin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).BeginInit();
             this.tpRegister.SuspendLayout();
             this.pnlPersonal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoadingFS)).BeginInit();
@@ -163,6 +163,27 @@
             this.tpLogin.Text = "Login";
             this.tpLogin.UseVisualStyleBackColor = true;
             // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
+            this.pbxLoading.Location = new System.Drawing.Point(135, 357);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(91, 78);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 3;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
+            // 
+            // lblEnterEmailForRecovery
+            // 
+            this.lblEnterEmailForRecovery.Location = new System.Drawing.Point(142, 343);
+            this.lblEnterEmailForRecovery.Name = "lblEnterEmailForRecovery";
+            this.lblEnterEmailForRecovery.Size = new System.Drawing.Size(77, 108);
+            this.lblEnterEmailForRecovery.TabIndex = 7;
+            this.lblEnterEmailForRecovery.Text = "Please enter an Email Address";
+            this.lblEnterEmailForRecovery.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblEnterEmailForRecovery.Visible = false;
+            // 
             // pbxLogo
             // 
             this.pbxLogo.Image = global::TableFindBackend.Properties.Resources.Logo;
@@ -182,17 +203,6 @@
             this.cbxStaySignedIn.TabIndex = 2;
             this.cbxStaySignedIn.Text = "Keep me signed in";
             this.cbxStaySignedIn.UseVisualStyleBackColor = true;
-            // 
-            // pbxLoading
-            // 
-            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(135, 357);
-            this.pbxLoading.Name = "pbxLoading";
-            this.pbxLoading.Size = new System.Drawing.Size(91, 78);
-            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxLoading.TabIndex = 3;
-            this.pbxLoading.TabStop = false;
-            this.pbxLoading.Visible = false;
             // 
             // tpRegister
             // 
@@ -327,18 +337,9 @@
             this.lblX2.Text = "X";
             this.lblX2.Click += new System.EventHandler(this.label1_Click);
             // 
-            // lblEnterEmailForRecovery
-            // 
-            this.lblEnterEmailForRecovery.Location = new System.Drawing.Point(142, 343);
-            this.lblEnterEmailForRecovery.Name = "lblEnterEmailForRecovery";
-            this.lblEnterEmailForRecovery.Size = new System.Drawing.Size(77, 108);
-            this.lblEnterEmailForRecovery.TabIndex = 7;
-            this.lblEnterEmailForRecovery.Text = "Please enter an Email Address";
-            this.lblEnterEmailForRecovery.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblEnterEmailForRecovery.Visible = false;
-            // 
             // SignInForm
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(372, 482);
@@ -352,8 +353,8 @@
             this.tcLoginRegister.ResumeLayout(false);
             this.tpLogin.ResumeLayout(false);
             this.tpLogin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).EndInit();
             this.tpRegister.ResumeLayout(false);
             this.tpRegister.PerformLayout();
             this.pnlPersonal.ResumeLayout(false);

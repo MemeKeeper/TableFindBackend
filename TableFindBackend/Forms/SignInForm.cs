@@ -51,7 +51,7 @@ namespace TableFindBackend.Forms
                                         SelectRestaurantForm selectForm = new SelectRestaurantForm((List<Restaurant>)foundRestaurant);
                                         selectForm.ShowDialog();
 
-                                        OwnerStorage.ThisRestaurant=selectForm.selected;
+                                        OwnerStorage.ThisRestaurant = selectForm.selected;
                                     }
                                     else
                                     {
@@ -121,8 +121,6 @@ namespace TableFindBackend.Forms
 
             Backendless.UserService.IsValidLogin(callback);
 
-
-
             SendMessage(tbEmail.Handle, 0x1501, 1, "  Please enter E-mail");
             SendMessage(tbPassword.Handle, 0x1501, 1, "  Please enter password");
             SendMessage(tbEmailAddress.Handle, 0x1501, 1, "  Enter E-mail address");
@@ -166,21 +164,21 @@ namespace TableFindBackend.Forms
                 pbxLoading.Visible = false;
                 lblEnterEmailForRecovery.Visible = true;
                 //MessageBox.Show("Invalid email has been entered. Please make sure your email format is correct e.g wizerd@oz.com");
-            
+
             }
             else
-            
-            
-                {
+
+
+            {
                 AsyncCallback<Object> pwRecoveryCallback = new AsyncCallback<Object>(
                 user =>
                 {
-                Invoke(new Action(() =>
-                {
-                    pbxLoading.Visible = false;
-                    MessageBox.Show("Password recovery email has been sent");
-                }));
-                    },
+                    Invoke(new Action(() =>
+                    {
+                        pbxLoading.Visible = false;
+                        MessageBox.Show("Password recovery email has been sent");
+                    }));
+                },
                     fault =>
                     {
                         Invoke(new Action(() =>
@@ -189,8 +187,8 @@ namespace TableFindBackend.Forms
                             MessageBox.Show(this, "Error: " + fault.Message);
                         }));
                     });
-                    Backendless.UserService.RestorePassword(userEmail, pwRecoveryCallback);
-                
+                Backendless.UserService.RestorePassword(userEmail, pwRecoveryCallback);
+
             }
         }
 
@@ -206,7 +204,7 @@ namespace TableFindBackend.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            
+
             pbxLoading.Visible = true;
             string userEmail = tbEmail.Text;
             string password = tbPassword.Text;
@@ -215,7 +213,7 @@ namespace TableFindBackend.Forms
             {
                 pbxLoading.Visible = false;
                 MessageBox.Show("Invalid email has been entered. Please make sure your email format is correct e.g wizerd@oz.com");
-                
+
             }
             else
             {
@@ -271,17 +269,17 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
-                    Backendless.Data.Of<Restaurant>().Find(queryBuilder, getRestaurantCallback);                    
+                    Backendless.Data.Of<Restaurant>().Find(queryBuilder, getRestaurantCallback);
                 },
                 fault =>
                 {
                     Invoke(new Action(() =>
                     {
                         pbxLoading.Visible = false;
-                        MessageBox.Show(this, "Error: " + fault.Message);                        
+                        MessageBox.Show(this, "Error: " + fault.Message);
                     }));
                 });
-                Backendless.UserService.Login(userEmail, password, callback,cbxStaySignedIn.Checked?true:false);
+                Backendless.UserService.Login(userEmail, password, callback, cbxStaySignedIn.Checked ? true : false);
             }
         }
 
@@ -311,7 +309,7 @@ namespace TableFindBackend.Forms
             {
                 ToggleLoading(false);
                 MessageBox.Show("Please be sure to fill in all fields");
-            }            
+            }
             else
             {
                 ToggleLoading(true);
@@ -326,29 +324,29 @@ namespace TableFindBackend.Forms
                     if (PasswordValidater(password))
                     {
                         if (password == cPassword)
-                        {                            
-                                AsyncCallback<BackendlessUser> callbackRegister = new AsyncCallback<BackendlessUser>(
-                                user =>
-                                {   
-                                        Invoke(new Action(() =>
-                                        {
-                                            tcLoginRegister.SelectedTab = tpLogin;
-                                            MessageBox.Show(this, "A verification email has been sent to the specified email address. Please follow the link which is provided in the email");
-                                            ToggleLoading(false);
-                                        }));
-                                },
-                                fault =>
-                                {
-                                    Invoke(new Action(() =>
+                        {
+                            AsyncCallback<BackendlessUser> callbackRegister = new AsyncCallback<BackendlessUser>(
+                            user =>
+                            {
+                                Invoke(new Action(() =>
                                     {
-                                        MessageBox.Show(this, "Error: " + fault.Message);
+                                        tcLoginRegister.SelectedTab = tpLogin;
+                                        MessageBox.Show(this, "A verification email has been sent to the specified email address. Please follow the link which is provided in the email");
                                         ToggleLoading(false);
                                     }));
-                                });
+                            },
+                            fault =>
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    MessageBox.Show(this, "Error: " + fault.Message);
+                                    ToggleLoading(false);
+                                }));
+                            });
 
                             BackendlessUser newUser = new BackendlessUser();
-                            newUser.Password=password;
-                            newUser.Email= email;
+                            newUser.Password = password;
+                            newUser.Email = email;
                             newUser.SetProperty("FirstName", firstName);
                             newUser.SetProperty("LastName", lastName);
                             newUser.SetProperty("isOwner", true);
@@ -372,9 +370,9 @@ namespace TableFindBackend.Forms
                     ToggleLoading(false);
                     MessageBox.Show("Invalid email has been entered. Please make sure your email format is correct e.g wizerd@oz.com");
                 }
-            
 
-        }
+
+            }
         }
         private void ToggleLoading(bool toggle)
         {
@@ -398,9 +396,9 @@ namespace TableFindBackend.Forms
             bool valid = false;
             var correct = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$");
 
-            if(correct.IsMatch(password))
+            if (correct.IsMatch(password))
             {
-                valid =true;
+                valid = true;
             }
             return valid;
         }
