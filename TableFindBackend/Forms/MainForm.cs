@@ -667,8 +667,6 @@ namespace TableFindBackend.Forms
                    tempTable = ti;
                 }
             }
-            if (flag == false)
-            {
                 if (OwnerStorage.AdminMode == true)
                 {
                     EditTableForm editor = new EditTableForm(tempTable, this);
@@ -747,11 +745,6 @@ namespace TableFindBackend.Forms
                     ReservationsForm reservationsForm = new ReservationsForm(tempTable, this);
                     reservationsForm.ShowDialog();
                 }
-            }
-            else
-            {
-                MessageBox.Show(this, "No Table View (Icon on the main Panel) could be located matching the selected ID. Please refresh the restaurant");
-            }
         }
         private void MyControl_MouseUp(object sender, MouseEventArgs e)
         {
