@@ -218,11 +218,13 @@ namespace TableFindBackend.Forms
         public void RemoveOneReservationView(Reservation oldR, Reservation newR)
         {
             ReservationView tempReservation = null;
+            bool flag = false;
             foreach (ReservationView view in flpItems.Controls)
             {
 
                 if (view.Tag.ToString() == oldR.objectId.ToString())
                 {
+                    flag = true;
                     tempReservation = view;
                     Invoke(new Action(() =>
                     {
@@ -237,7 +239,14 @@ namespace TableFindBackend.Forms
                         flpItems.Controls.Remove(tempReservation);
                     }));
                 }
+                if(flag ==false)
+                {
+                    OwnerStorage.FileWriter.WriteLineToFile("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel", true);
+                    OwnerStorage.LogInfo.Add("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel");
+                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                }
             }
+
 
         }    
         public void AddOneReservationView(Reservation r) // Controller for ReservationView
@@ -317,11 +326,12 @@ namespace TableFindBackend.Forms
 
             Panel templabel = (Panel)sender;
             ReservationView tempReservationView = (ReservationView)templabel.Parent;
+            bool flag = false;
             foreach(ReservationView views in flpItems.Controls)
             {
                     if (views.Tag == tempReservationView.Tag)
                     {
-
+                    flag = true;
                             views.Selected();
                             BackendlessUser tempUser = null;
                             foreach (BackendlessUser user in OwnerStorage.AllUsers)
@@ -352,17 +362,24 @@ namespace TableFindBackend.Forms
                             views.Deselected();                             
                     }
             }
+            if (flag==false)
+            {
+                OwnerStorage.FileWriter.WriteLineToFile("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel", true);
+                OwnerStorage.LogInfo.Add("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel");
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+            }
         }
         private void pastReservation_Click(object sender, MouseEventArgs e)
         {
 
             Panel templabel = (Panel)sender;
             ReservationView tempReservationView = (ReservationView)templabel.Parent;
+            bool flag = false;
             foreach (ReservationView views in flpPrevious.Controls)
             {
                 if (views.Tag == tempReservationView.Tag)
                 {
-
+                    flag = true;
                     views.Selected();
                     BackendlessUser tempUser = null;
                     foreach (BackendlessUser user in OwnerStorage.AllUsers)
@@ -392,6 +409,12 @@ namespace TableFindBackend.Forms
                     details.ShowDialog();
                     views.Deselected();
                 }
+            }
+            if(flag==false)
+            {
+                OwnerStorage.FileWriter.WriteLineToFile("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel", true);
+                OwnerStorage.LogInfo.Add("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel");
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }
         }
 
@@ -488,6 +511,8 @@ namespace TableFindBackend.Forms
                     {
                         ShowLoading(false);
                         OwnerStorage.FileWriter.WriteLineToFile("No Reservations to download", true);
+                        OwnerStorage.LogInfo.Add("No Reservations To Download");
+                        OwnerStorage.LogTimes.Add("blank");
                         btnApply.Enabled = true;
                         btnChangePin.Enabled = true;
                         btnViewAll.Enabled = true;
@@ -496,7 +521,9 @@ namespace TableFindBackend.Forms
             },
             error =>
             {
-                System.Console.WriteLine("Server returned an error " + error.Message);
+                OwnerStorage.FileWriter.WriteLineToFile("Server returned an error " + error.Message, true);
+                OwnerStorage.LogInfo.Add("Server returned an error " + error.Message);
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             });
 
             Backendless.Data.Of<Reservation>().Find(queryBuilder,getContactsCallback);
@@ -564,6 +591,8 @@ namespace TableFindBackend.Forms
                           {
                               MessageBox.Show(this, "Error: " + error.Message);
                               OwnerStorage.FileWriter.WriteLineToFile("Tables downloading failed", true);
+                              OwnerStorage.LogInfo.Add("Tables downloading failed");
+                              OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                               ShowLoading(false);
                           }));
                       });
@@ -622,98 +651,106 @@ namespace TableFindBackend.Forms
             else
             {
                 tempItem = (RestaurantTableView)sender;
-            }
+            }                
+            RestaurantTable tempTable = null;                
+            OwnerStorage.FileWriter.WriteLineToFile("Editing a Table", true);
+            OwnerStorage.FileWriter.WriteLineToFile("Name:  " + tempItem.Label, false);
+            OwnerStorage.LogInfo.Add("Editing a Table\nName:  " + tempItem.Label);
+            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
-                
-                RestaurantTable tempTable = null;                
-                OwnerStorage.FileWriter.WriteLineToFile("Editing a Table", true);
-                OwnerStorage.FileWriter.WriteLineToFile("Name:  " + tempItem.Label, false);
-
-                foreach (RestaurantTable ti in OwnerStorage.RestaurantTables)
-                {
-                if (ti.objectId == tempItem.Tag)
-                    {
-                        tempTable = ti;
-                    }
-
-                }
-            if (OwnerStorage.AdminMode == true)
+            bool flag = false;
+            foreach (RestaurantTable ti in OwnerStorage.RestaurantTables)
             {
-                EditTableForm editor = new EditTableForm(tempTable,this);
-                DialogResult result = editor.ShowDialog();
-                tempTable =editor.RetreiveEditedTable();
-
-                if (result == DialogResult.Yes) //Removes the Table
+                if (ti.objectId == tempItem.Tag)
                 {
-                    OwnerStorage.RestaurantTables.Remove(tempTable);
-                    if(sender is Label)
-                    {
-                        Label tempLabel = (Label)sender;
-                        pnlMain.Controls.Remove((RestaurantTableView)tempLabel.Parent);
-                    }
-                    else
-                    pnlMain.Controls.Remove((RestaurantTableView)sender);
+                    flag = true;
+                   tempTable = ti;
                 }
-                if (result == DialogResult.Cancel) //When the user creates a new table but cancels the process
+            }
+            if (flag == false)
+            {
+                if (OwnerStorage.AdminMode == true)
                 {
-                    if(tempTable.objectId==null)
+                    EditTableForm editor = new EditTableForm(tempTable, this);
+                    DialogResult result = editor.ShowDialog();
+                    tempTable = editor.RetreiveEditedTable();
+
+                    if (result == DialogResult.Yes) //Removes the Table
                     {
-                        pnlMain.Controls.Remove(tempItem);
                         OwnerStorage.RestaurantTables.Remove(tempTable);
+                        if (sender is Label)
+                        {
+                            Label tempLabel = (Label)sender;
+                            pnlMain.Controls.Remove((RestaurantTableView)tempLabel.Parent);
+                        }
+                        else
+                            pnlMain.Controls.Remove((RestaurantTableView)sender);
+                    }
+                    if (result == DialogResult.Cancel) //When the user creates a new table but cancels the process
+                    {
+                        if (tempTable.objectId == null)
+                        {
+                            pnlMain.Controls.Remove(tempItem);
+                            OwnerStorage.RestaurantTables.Remove(tempTable);
+                        }
+                    }
+                    if (result == DialogResult.OK) //Updates the Table
+                    {
+                        OwnerStorage.RestaurantTables.Remove(tempTable);
+                        Point tempPoint = new Point(0, 0);
+                        if (sender is Label)
+                        {
+                            Label tempLabel = (Label)sender;
+                            RestaurantTableView tempSenderView = (RestaurantTableView)tempLabel.Parent;
+                            foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
+                            {
+                                if (t.Tag == tempSenderView.Tag)
+                                {
+                                    tempPoint = t.Location;
+                                }
+                            }
+                            pnlMain.Controls.Remove(tempSenderView);
+                        }
+                        else
+                        {
+                            foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
+                            {
+                                if (t.Tag == ((RestaurantTableView)sender).Tag)
+                                {
+                                    tempPoint = t.Location;
+                                }
+                            }
+                            pnlMain.Controls.Remove((RestaurantTableView)sender);
+                        }
+
+                        RestaurantTableView tempView = new RestaurantTableView();
+
+                        tempView.Tag = tempTable.objectId;
+                        tempView.Label = tempTable.Name;
+                        tempView.Seating = tempTable.Capacity;
+                        tempView.Availability = tempTable.Available;
+
+                        pnlMain.Controls.Add(tempView);
+                        pnlMain.Controls[pnlMain.Controls.Count - 1].Location = tempPoint;
+                        //pnlMain.Controls[pnlMain.Controls.Count-1].Location = new Point(Convert.ToInt32(tempTable.XPos * pnlMain.Width), Convert.ToInt32(tempTable.YPos * pnlMain.Height));
+
+                        OwnerStorage.RestaurantTables.Add(tempTable);
+
+                        AddControl(tempView);
+
+                        OwnerStorage.FileWriter.WriteLineToFile("User Updated Table", true);
+                        OwnerStorage.FileWriter.WriteLineToFile("Name:  " + tempView.Label, false);
                     }
                 }
-                if (result == DialogResult.OK) //Updates the Table
+                else
                 {
-                    OwnerStorage.RestaurantTables.Remove(tempTable);
-                    Point tempPoint = new Point(0,0);
-                    if (sender is Label)
-                    {
-                        Label tempLabel = (Label)sender;
-                        RestaurantTableView tempSenderView = (RestaurantTableView)tempLabel.Parent;                        
-                        foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
-                        {
-                            if (t.Tag == tempSenderView.Tag)
-                            {
-                                tempPoint = t.Location;
-                            }
-                        }
-                        pnlMain.Controls.Remove(tempSenderView);                        
-                    }
-                    else
-                    {
-                        foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
-                        {
-                            if (t.Tag == ((RestaurantTableView)sender).Tag)
-                            {
-                                tempPoint = t.Location;
-                            }
-                        }
-                        pnlMain.Controls.Remove((RestaurantTableView)sender);
-                    }
-
-                    RestaurantTableView tempView = new RestaurantTableView();
-
-                    tempView.Tag = tempTable.objectId;
-                    tempView.Label = tempTable.Name;
-                    tempView.Seating = tempTable.Capacity;
-                    tempView.Availability = tempTable.Available;
-
-                    pnlMain.Controls.Add(tempView);
-                    pnlMain.Controls[pnlMain.Controls.Count - 1].Location = tempPoint;
-                    //pnlMain.Controls[pnlMain.Controls.Count-1].Location = new Point(Convert.ToInt32(tempTable.XPos * pnlMain.Width), Convert.ToInt32(tempTable.YPos * pnlMain.Height));
-
-                    OwnerStorage.RestaurantTables.Add(tempTable);
-
-                    AddControl(tempView);
-
-                    OwnerStorage.FileWriter.WriteLineToFile("User Updated Table", true);
-                    OwnerStorage.FileWriter.WriteLineToFile("Name:  " + tempView.Label, false);
+                    ReservationsForm reservationsForm = new ReservationsForm(tempTable, this);
+                    reservationsForm.ShowDialog();
                 }
             }
             else
             {
-                ReservationsForm reservationsForm = new ReservationsForm(tempTable,this);
-                reservationsForm.ShowDialog();
+                MessageBox.Show(this, "No Table View (Icon on the main Panel) could be located matching the selected ID. Please refresh the restaurant");
             }
         }
         private void MyControl_MouseUp(object sender, MouseEventArgs e)
