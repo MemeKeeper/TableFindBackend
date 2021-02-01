@@ -492,7 +492,7 @@ namespace TableFindBackend.Forms
                                     OwnerStorage.FileWriter.WriteLineToFile("All Reservations has been downloaded", true);
                                     btnViewAll.Enabled = true;
                                     btnApply.Enabled = true;
-                                    btnChangePin.Enabled = true;
+                                    btnManageAdminUsers.Enabled = true;
                                     PerformReservationViewListPopulation((List<Reservation>)foundReservations);
                                 }));
                             else
@@ -515,7 +515,7 @@ namespace TableFindBackend.Forms
                         OwnerStorage.LogInfo.Add("No Reservations To Download");
                         OwnerStorage.LogTimes.Add("blank");
                         btnApply.Enabled = true;
-                        btnChangePin.Enabled = true;
+                        btnManageAdminUsers.Enabled = true;
                         btnViewAll.Enabled = true;
                     }));
                 }                
@@ -533,7 +533,7 @@ namespace TableFindBackend.Forms
         {
             btnViewAll.Enabled = false;
             btnApply.Enabled = false;
-            btnChangePin.Enabled = false;
+            btnManageAdminUsers.Enabled = false;
             OwnerStorage.RestaurantTables.Clear();
             pnlMain.Controls.Clear();
             pnlMain.Controls.Clear();
@@ -968,8 +968,8 @@ namespace TableFindBackend.Forms
                 btnEditRestaurant.Visible = true;
                 tbxPass.Visible = false;
                 lblLogin.Visible = false;
-                btnEditor.Visible = false;
-                btnChangePin.Visible = false;
+                btnEnableAdmin.Visible = false;
+                btnManageAdminUsers.Visible = false;
                 btnEditMenu.Visible = true;
                 OwnerStorage.AdminMode = true;
 
@@ -990,8 +990,8 @@ namespace TableFindBackend.Forms
                     btnReloadAll.Visible = false;
                     tbxPass.Visible = true;
                     lblLogin.Visible = true;
-                    btnEditor.Visible = true;
-                    btnChangePin.Visible = true;
+                    btnEnableAdmin.Visible = true;
+                    btnManageAdminUsers.Visible = true;
                     btnEditMenu.Visible = false;
                     OwnerStorage.AdminMode = false;
 
@@ -1099,9 +1099,9 @@ namespace TableFindBackend.Forms
         private void tbxPass_TextChanged(object sender, EventArgs e)
         {
             if (tbxPass.Text != "")
-                btnEditor.Enabled = true;
+                btnEnableAdmin.Enabled = true;
             else
-                btnEditor.Enabled = false;
+                btnEnableAdmin.Enabled = false;
         }
 
         private void btnChangeLoad_Click(object sender, EventArgs e)
