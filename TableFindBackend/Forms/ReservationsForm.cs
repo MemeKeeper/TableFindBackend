@@ -53,7 +53,7 @@ namespace TableFindBackend.Forms
             lvBookings.Columns.Add("Contact Number", 170);
             lvBookings.Columns.Add("Table", 170);
 
-            lblTitle.Text = "All reservations";
+            lblTitle.Text = "All Reservations";
 
             populateList(false);
         }

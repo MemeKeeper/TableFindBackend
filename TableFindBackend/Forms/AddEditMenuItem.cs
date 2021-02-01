@@ -21,6 +21,7 @@ namespace TableFindBackend.Forms
             this.transferedItem = item;
             if (transferedItem != null)
             {
+                lblTitle.Text = "Editing Menu Item";
                 tbxDescription.Text = item.Ingredients;
                 tbxName.Text = item.Name;
                 cbxType.Text = item.Type;
