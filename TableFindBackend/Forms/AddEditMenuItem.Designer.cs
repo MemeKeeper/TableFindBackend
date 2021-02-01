@@ -32,7 +32,6 @@ namespace TableFindBackend.Forms
             this.pnlPanel = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblPriceTitle = new System.Windows.Forms.Label();
-            this.tbxPrice = new System.Windows.Forms.TextBox();
             this.lblDescriptionTitle = new System.Windows.Forms.Label();
             this.lblTypeTitle = new System.Windows.Forms.Label();
             this.lblNameTitle = new System.Windows.Forms.Label();
@@ -45,9 +44,11 @@ namespace TableFindBackend.Forms
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.nudPrice = new System.Windows.Forms.NumericUpDown();
             this.pnlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlPanel
@@ -56,9 +57,9 @@ namespace TableFindBackend.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPanel.Controls.Add(this.nudPrice);
             this.pnlPanel.Controls.Add(this.pictureBox1);
             this.pnlPanel.Controls.Add(this.lblPriceTitle);
-            this.pnlPanel.Controls.Add(this.tbxPrice);
             this.pnlPanel.Controls.Add(this.lblDescriptionTitle);
             this.pnlPanel.Controls.Add(this.lblTypeTitle);
             this.pnlPanel.Controls.Add(this.lblNameTitle);
@@ -91,17 +92,6 @@ namespace TableFindBackend.Forms
             this.lblPriceTitle.Size = new System.Drawing.Size(93, 17);
             this.lblPriceTitle.TabIndex = 10;
             this.lblPriceTitle.Text = "Price on Item";
-            // 
-            // tbxPrice
-            // 
-            this.tbxPrice.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPrice.Location = new System.Drawing.Point(47, 166);
-            this.tbxPrice.Name = "tbxPrice";
-            this.tbxPrice.Size = new System.Drawing.Size(301, 27);
-            this.tbxPrice.TabIndex = 2;
-            this.tbxPrice.Tag = "0";
-            this.tbxPrice.TextChanged += new System.EventHandler(this.tbxPrice_TextChanged);
-            this.tbxPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPrice_KeyPress);
             // 
             // lblDescriptionTitle
             // 
@@ -244,6 +234,16 @@ namespace TableFindBackend.Forms
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Add New Menu Item";
             // 
+            // nudPrice
+            // 
+            this.nudPrice.DecimalPlaces = 2;
+            this.nudPrice.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice.Location = new System.Drawing.Point(67, 164);
+            this.nudPrice.Name = "nudPrice";
+            this.nudPrice.Size = new System.Drawing.Size(281, 27);
+            this.nudPrice.TabIndex = 12;
+            this.nudPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudPrice_KeyPress);
+            // 
             // AddEditMenuItem
             // 
             this.AcceptButton = this.btnSave;
@@ -267,6 +267,7 @@ namespace TableFindBackend.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -283,10 +284,10 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Label lblTypeTitle;
         private System.Windows.Forms.Label lblNameTitle;
         private System.Windows.Forms.Label lblPriceTitle;
-        private System.Windows.Forms.TextBox tbxPrice;
         private System.Windows.Forms.Label lblR;
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.NumericUpDown nudPrice;
     }
 }
