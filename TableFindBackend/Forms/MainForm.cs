@@ -423,7 +423,7 @@ namespace TableFindBackend.Forms
             String whereClause = "restaurantID = '" + OwnerStorage.ThisRestaurant.objectId + "'";
             BackendlessAPI.Persistence.DataQueryBuilder queryBuilder = BackendlessAPI.Persistence.DataQueryBuilder.Create();
             queryBuilder.SetWhereClause(whereClause);
-            queryBuilder.SetPageSize(200);
+            queryBuilder.SetPageSize(100);
 
             AsyncCallback<IList<RestaurantMenuItem>> getBookingCallback = new AsyncCallback<IList<RestaurantMenuItem>>(
 
