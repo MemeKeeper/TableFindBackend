@@ -57,8 +57,8 @@ namespace TableFindBackend.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPanel.Controls.Add(this.nudPrice);
             this.pnlPanel.Controls.Add(this.pictureBox1);
+            this.pnlPanel.Controls.Add(this.nudPrice);
             this.pnlPanel.Controls.Add(this.lblPriceTitle);
             this.pnlPanel.Controls.Add(this.lblDescriptionTitle);
             this.pnlPanel.Controls.Add(this.lblTypeTitle);
