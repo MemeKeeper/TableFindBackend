@@ -31,7 +31,7 @@ namespace TableFindBackend.Forms
             dtpOpen.Value = OwnerStorage.ThisRestaurant.Open;
             dtpClose.Value = OwnerStorage.ThisRestaurant.Close;
 
-            if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
+            if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
                 try
                 {
                     btnDefault.Enabled = true;                 
@@ -66,15 +66,15 @@ namespace TableFindBackend.Forms
                 {
                     string text = File.ReadAllText(file);
                     lblLayout.Text = ofdLayoutBrowse.FileName;
-                    if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
+                    if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
                         try
                         {
                             _master.DisableLayoutImage();
-                            File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
+                            File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
                         }
                         catch (IOException)
                         { }
-                    File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
+                    File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
                 }
                 else
                 {
@@ -82,7 +82,7 @@ namespace TableFindBackend.Forms
                     try
                     {
                         _master.DisableLayoutImage();
-                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");                        
+                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");                        
                     }
                     catch(IOException)
                     {

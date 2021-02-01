@@ -24,7 +24,7 @@ namespace TableFindBackend.Forms
                 tbxDescription.Text = item.Ingredients;
                 tbxName.Text = item.Name;
                 cbxType.Text = item.Type;
-                tbxPrice.Text = item.Price.ToString("N2");
+                nudPrice.Text = item.Price.ToString("N2");
             }           
         }
 
@@ -57,7 +57,7 @@ namespace TableFindBackend.Forms
                 MessageBox.Show(this, "The Description can not be empty", tbxName.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                    if (tbxPrice.Text == "")
+                    if (nudPrice.Text == "")
                     {
                     MessageBox.Show(this, "The Price can not be empty", tbxName.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -90,7 +90,7 @@ namespace TableFindBackend.Forms
                                 newItem.Ingredients = tbxDescription.Text;
                                 newItem.Type = cbxType.Text;
                                 newItem.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                                newItem.Price = Convert.ToDouble(tbxPrice.Text);
+                                newItem.Price = Convert.ToDouble(nudPrice.Text);
                                 newItem.OutOfStock = false;
                                 if (transferedItem!=null)
                                     newItem.objectId = transferedItem.objectId;
@@ -115,17 +115,17 @@ namespace TableFindBackend.Forms
         private void tbxPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-                // Verify that the pressed key isn't CTRL or any non-numeric digit
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-                {
-                    e.Handled = true;
-                }
+                //// Verify that the pressed key isn't CTRL or any non-numeric digit
+                //if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+                //{
+                //    e.Handled = true;
+                //}
 
-                // If you want, you can allow decimal (float) numbers
-                if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-                {
-                    e.Handled = true;
-                }
+                //// If you want, you can allow decimal (float) numbers
+                //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+                //{
+                //    e.Handled = true;
+                //}
             
         }
 
@@ -133,6 +133,16 @@ namespace TableFindBackend.Forms
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void nudPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar.Equals('.') || e.KeyChar.Equals(','))
+            {
+                e.KeyChar = ((System.Globalization.CultureInfo)System.Globalization.CultureInfo.CurrentCulture).NumberFormat.NumberDecimalSeparator.ToCharArray()[0];
+            }
+            
         }
     }
 }
