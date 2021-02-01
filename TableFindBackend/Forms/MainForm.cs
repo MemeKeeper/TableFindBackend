@@ -739,6 +739,8 @@ namespace TableFindBackend.Forms
 
                         OwnerStorage.FileWriter.WriteLineToFile("User Updated Table", true);
                         OwnerStorage.FileWriter.WriteLineToFile("Name:  " + tempView.Label, false);
+                        OwnerStorage.LogInfo.Add("User Updated Table\nName:  " + tempItem.Label);
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                     }
                 }
                 else
@@ -842,9 +844,7 @@ namespace TableFindBackend.Forms
                         OwnerStorage.FileWriter.WriteLineToFile("User Finilized changes to restaurant", true);
                         OwnerStorage.FileWriter.WriteLineToFile("User deactivated Admin Mode", true);
 
-                        OwnerStorage.LogInfo.Add("User made changes to restaurant floor plan");
-                        OwnerStorage.LogInfo.Add("User deactivated Admin mode");
-                        OwnerStorage.LogTimes.Add("blank");
+                        OwnerStorage.LogInfo.Add("User made changes to restaurant floor plan\nUser deactivated Admin Mode");
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                         ShowLoading(false);
