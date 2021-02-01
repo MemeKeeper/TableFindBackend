@@ -21,6 +21,7 @@ namespace TableFindBackend.Forms
             this.transferedItem = item;
             if (transferedItem != null)
             {
+                lblTitle.Text = "Editing Menu Item";
                 tbxDescription.Text = item.Ingredients;
                 tbxName.Text = item.Name;
                 cbxType.Text = item.Type;
@@ -62,7 +63,7 @@ namespace TableFindBackend.Forms
                     MessageBox.Show(this, "The Price can not be empty", tbxName.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
-                    if (tbxDescription.TextLength == 10)
+                    if (tbxDescription.TextLength < 10)
                     {
                         MessageBox.Show(this, "The Description must contain at least 10 characters", tbxName.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }

@@ -104,7 +104,7 @@ namespace TableFindBackend.Forms
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(118, 23);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Menu Editer";
+            this.lblTitle.Text = "Menu Editor";
             // 
             // pnlEdit
             // 
