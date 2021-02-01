@@ -120,8 +120,6 @@ namespace TableFindBackend.Forms
 
             Backendless.UserService.IsValidLogin(callback);
 
-
-
             SendMessage(tbEmail.Handle, 0x1501, 1, "  Please enter E-mail");
             SendMessage(tbPassword.Handle, 0x1501, 1, "  Please enter password");
             SendMessage(tbEmailAddress.Handle, 0x1501, 1, "  Enter E-mail address");
