@@ -40,11 +40,11 @@ namespace TableFindBackend.Forms
             this.label4 = new System.Windows.Forms.Label();
             this.pnlPanel = new System.Windows.Forms.Panel();
             this.lblSize = new System.Windows.Forms.Label();
-            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.lblContactNumber = new System.Windows.Forms.Label();
             this.tbxContactNumber = new System.Windows.Forms.TextBox();
             this.btnUpload = new System.Windows.Forms.Button();
             this.btnBrowse = new System.Windows.Forms.Button();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.btnBrowseLayout = new System.Windows.Forms.Button();
             this.lblLayout = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
@@ -58,12 +58,12 @@ namespace TableFindBackend.Forms
             this.lblTitle = new System.Windows.Forms.Label();
             this.ofdLayoutBrowse = new System.Windows.Forms.OpenFileDialog();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.dtpOpen = new System.Windows.Forms.DateTimePicker();
-            this.dtpClose = new System.Windows.Forms.DateTimePicker();
-            this.lblTimes = new System.Windows.Forms.Label();
-            this.lblOpen = new System.Windows.Forms.Label();
-            this.lblClosing = new System.Windows.Forms.Label();
             this.lblTo = new System.Windows.Forms.Label();
+            this.lblClosing = new System.Windows.Forms.Label();
+            this.lblOpen = new System.Windows.Forms.Label();
+            this.lblTimes = new System.Windows.Forms.Label();
+            this.dtpClose = new System.Windows.Forms.DateTimePicker();
+            this.dtpOpen = new System.Windows.Forms.DateTimePicker();
             this.pnlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -178,17 +178,6 @@ namespace TableFindBackend.Forms
             this.lblSize.Size = new System.Drawing.Size(0, 13);
             this.lblSize.TabIndex = 10;
             // 
-            // pbxLoading
-            // 
-            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(240, 175);
-            this.pbxLoading.Name = "pbxLoading";
-            this.pbxLoading.Size = new System.Drawing.Size(113, 113);
-            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxLoading.TabIndex = 12;
-            this.pbxLoading.TabStop = false;
-            this.pbxLoading.Visible = false;
-            // 
             // lblContactNumber
             // 
             this.lblContactNumber.AutoSize = true;
@@ -225,6 +214,17 @@ namespace TableFindBackend.Forms
             this.btnBrowse.Text = "...";
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
+            this.pbxLoading.Location = new System.Drawing.Point(240, 175);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(113, 113);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 12;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
             // 
             // btnBrowseLayout
             // 
@@ -346,23 +346,45 @@ namespace TableFindBackend.Forms
             this.panel4.Controls.Add(this.lblTimes);
             this.panel4.Controls.Add(this.dtpClose);
             this.panel4.Controls.Add(this.dtpOpen);
-            this.panel4.Location = new System.Drawing.Point(299, 149);
+            this.panel4.Location = new System.Drawing.Point(299, 156);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(281, 122);
             this.panel4.TabIndex = 21;
             // 
-            // dtpOpen
+            // lblTo
             // 
-            this.dtpOpen.CustomFormat = "HH:mm";
-            this.dtpOpen.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpOpen.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpOpen.Location = new System.Drawing.Point(39, 74);
-            this.dtpOpen.Name = "dtpOpen";
-            this.dtpOpen.ShowUpDown = true;
-            this.dtpOpen.Size = new System.Drawing.Size(65, 27);
-            this.dtpOpen.TabIndex = 0;
-            this.dtpOpen.Value = new System.DateTime(2021, 1, 29, 15, 37, 27, 0);
-            this.dtpOpen.ValueChanged += new System.EventHandler(this.dtpOpen_ValueChanged);
+            this.lblTo.AutoSize = true;
+            this.lblTo.Location = new System.Drawing.Point(128, 81);
+            this.lblTo.Name = "lblTo";
+            this.lblTo.Size = new System.Drawing.Size(19, 13);
+            this.lblTo.TabIndex = 24;
+            this.lblTo.Text = "To";
+            // 
+            // lblClosing
+            // 
+            this.lblClosing.AutoSize = true;
+            this.lblClosing.Location = new System.Drawing.Point(165, 54);
+            this.lblClosing.Name = "lblClosing";
+            this.lblClosing.Size = new System.Drawing.Size(73, 13);
+            this.lblClosing.TabIndex = 23;
+            this.lblClosing.Text = "Closing Time";
+            // 
+            // lblOpen
+            // 
+            this.lblOpen.AutoSize = true;
+            this.lblOpen.Location = new System.Drawing.Point(29, 54);
+            this.lblOpen.Name = "lblOpen";
+            this.lblOpen.Size = new System.Drawing.Size(80, 13);
+            this.lblOpen.TabIndex = 22;
+            this.lblOpen.Text = "Opening Time";
+            // 
+            // lblTimes
+            // 
+            this.lblTimes.Location = new System.Drawing.Point(29, 17);
+            this.lblTimes.Name = "lblTimes";
+            this.lblTimes.Size = new System.Drawing.Size(225, 21);
+            this.lblTimes.TabIndex = 21;
+            this.lblTimes.Text = "Change Restaurant Open and Close Times";
             // 
             // dtpClose
             // 
@@ -376,40 +398,18 @@ namespace TableFindBackend.Forms
             this.dtpClose.TabIndex = 1;
             this.dtpClose.ValueChanged += new System.EventHandler(this.dtpClose_ValueChanged);
             // 
-            // lblTimes
+            // dtpOpen
             // 
-            this.lblTimes.Location = new System.Drawing.Point(29, 17);
-            this.lblTimes.Name = "lblTimes";
-            this.lblTimes.Size = new System.Drawing.Size(225, 21);
-            this.lblTimes.TabIndex = 21;
-            this.lblTimes.Text = "Change Restaurant Open and Close Times";
-            // 
-            // lblOpen
-            // 
-            this.lblOpen.AutoSize = true;
-            this.lblOpen.Location = new System.Drawing.Point(29, 54);
-            this.lblOpen.Name = "lblOpen";
-            this.lblOpen.Size = new System.Drawing.Size(80, 13);
-            this.lblOpen.TabIndex = 22;
-            this.lblOpen.Text = "Opening Time";
-            // 
-            // lblClosing
-            // 
-            this.lblClosing.AutoSize = true;
-            this.lblClosing.Location = new System.Drawing.Point(165, 54);
-            this.lblClosing.Name = "lblClosing";
-            this.lblClosing.Size = new System.Drawing.Size(73, 13);
-            this.lblClosing.TabIndex = 23;
-            this.lblClosing.Text = "Closing Time";
-            // 
-            // lblTo
-            // 
-            this.lblTo.AutoSize = true;
-            this.lblTo.Location = new System.Drawing.Point(128, 81);
-            this.lblTo.Name = "lblTo";
-            this.lblTo.Size = new System.Drawing.Size(19, 13);
-            this.lblTo.TabIndex = 24;
-            this.lblTo.Text = "To";
+            this.dtpOpen.CustomFormat = "HH:mm";
+            this.dtpOpen.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpOpen.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpOpen.Location = new System.Drawing.Point(39, 74);
+            this.dtpOpen.Name = "dtpOpen";
+            this.dtpOpen.ShowUpDown = true;
+            this.dtpOpen.Size = new System.Drawing.Size(65, 27);
+            this.dtpOpen.TabIndex = 0;
+            this.dtpOpen.Value = new System.DateTime(2021, 1, 29, 15, 37, 27, 0);
+            this.dtpOpen.ValueChanged += new System.EventHandler(this.dtpOpen_ValueChanged);
             // 
             // EditRestaurantForm
             // 
