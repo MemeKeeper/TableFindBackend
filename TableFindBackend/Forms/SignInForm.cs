@@ -23,6 +23,7 @@ namespace TableFindBackend.Forms
         {
             InitializeComponent();
 
+
             pbxLoading.Visible = true;
 
             AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(

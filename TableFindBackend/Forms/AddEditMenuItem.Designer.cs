@@ -31,6 +31,7 @@ namespace TableFindBackend.Forms
         {
             this.pnlPanel = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.nudPrice = new System.Windows.Forms.NumericUpDown();
             this.lblPriceTitle = new System.Windows.Forms.Label();
             this.lblDescriptionTitle = new System.Windows.Forms.Label();
             this.lblTypeTitle = new System.Windows.Forms.Label();
@@ -44,11 +45,10 @@ namespace TableFindBackend.Forms
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.nudPrice = new System.Windows.Forms.NumericUpDown();
             this.pnlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
+            this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlPanel
@@ -83,6 +83,16 @@ namespace TableFindBackend.Forms
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
+            // 
+            // nudPrice
+            // 
+            this.nudPrice.DecimalPlaces = 2;
+            this.nudPrice.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice.Location = new System.Drawing.Point(67, 164);
+            this.nudPrice.Name = "nudPrice";
+            this.nudPrice.Size = new System.Drawing.Size(281, 27);
+            this.nudPrice.TabIndex = 12;
+            this.nudPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudPrice_KeyPress);
             // 
             // lblPriceTitle
             // 
@@ -234,19 +244,8 @@ namespace TableFindBackend.Forms
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Add New Menu Item";
             // 
-            // nudPrice
-            // 
-            this.nudPrice.DecimalPlaces = 2;
-            this.nudPrice.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudPrice.Location = new System.Drawing.Point(67, 164);
-            this.nudPrice.Name = "nudPrice";
-            this.nudPrice.Size = new System.Drawing.Size(281, 27);
-            this.nudPrice.TabIndex = 12;
-            this.nudPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudPrice_KeyPress);
-            // 
             // AddEditMenuItem
             // 
-            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
@@ -265,9 +264,9 @@ namespace TableFindBackend.Forms
             this.pnlPanel.ResumeLayout(false);
             this.pnlPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             this.ResumeLayout(false);
 
         }
