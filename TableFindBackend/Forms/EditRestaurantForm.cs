@@ -171,7 +171,7 @@ namespace TableFindBackend.Forms
                     });
 
                     FileStream fs = new FileStream(tbxMenu.Text, FileMode.Open, FileAccess.Read);
-                    BackendlessAPI.Backendless.Files.Upload(fs, "Menu", callback);
+                    BackendlessAPI.Backendless.Files.Upload(fs, "Menu/" + OwnerStorage.ThisRestaurant.objectId, callback);
                 },
 
                 fault =>
@@ -212,7 +212,7 @@ namespace TableFindBackend.Forms
                     BackendlessAPI.Backendless.Files.Upload(fs, "Menu", callback);
                 });
 
-                BackendlessAPI.Backendless.Files.Remove("Menu", deleteCallback);
+                BackendlessAPI.Backendless.Files.Remove("Menu/"+OwnerStorage.ThisRestaurant.objectId, deleteCallback);
                 
                 }
                 else
