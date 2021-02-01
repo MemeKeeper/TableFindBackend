@@ -89,12 +89,17 @@ namespace TableFindBackend.Forms
                   OwnerStorage.ListOfAdmins = (List<AdminPins>)foundObjects;
                   OwnerStorage.LogInfo.Add("Admin PINS have been retrieved.");
                   OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                  Invoke(new Action(() =>
+                  {
+                      tbxPass.Enabled = true;
+                  }));
                   CheckPin();
               },
               error =>
               {
                   OwnerStorage.LogInfo.Add("Failed to retrieve Admin PINS.");
                   OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                  CheckPin();
               });
 
             Backendless.Data.Of<AdminPins>().Find(queryBuilder, findCallback);
@@ -161,32 +166,6 @@ namespace TableFindBackend.Forms
                     error =>
                     {
                     });
-
-                    Backendless.Persistence.Of<Reservation>().Save(r, saveObjectCallback);
-
-
-
-                    //        AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
-                    //        savedReservation =>
-                    //        {
-                    //            TextFileWriter rtTextFileWriter = new TextFileWriter();
-
-                    //            AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(  //big no no
-                    //            deletionTime =>
-                    //            {
-                    //                OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  "+savedReservation.Name);
-                    //                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-
-                    //            },
-                    //            error =>
-                    //            {
-                    //            });
-                    //            Backendless.Persistence.Of<Reservation>().Remove(savedReservation, deleteObjectCallback);
-                    //        },
-                    //  error =>
-                    //  {
-                    //  }
-                    //);
 
                     Backendless.Persistence.Of<Reservation>().Save(r, saveObjectCallback);
                 }
@@ -1062,10 +1041,16 @@ namespace TableFindBackend.Forms
             DialogResult pinResult = NewPin.ShowDialog();
             if (pinResult == DialogResult.OK)
             {
-                OwnerStorage.FileWriter.WriteLineToFile("User Changed Manager PIN", true);
-                OwnerStorage.LogInfo.Add("User Changed Manager PIN");
+                OwnerStorage.FileWriter.WriteLineToFile("User Modified Manager PINs", true);
+                OwnerStorage.LogInfo.Add("User Modified Manager PINs");
                 OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }
+            if (OwnerStorage.ListOfAdmins.Count != 0)
+            {
+                tbxPass.Enabled = true;
+            }
+            else
+                tbxPass.Enabled = false;
         }
 
         private void btnInfo_Click(object sender, EventArgs e)

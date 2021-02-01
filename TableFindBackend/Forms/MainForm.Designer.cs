@@ -366,6 +366,7 @@ namespace TableFindBackend.Forms
             // 
             // tbxPass
             // 
+            this.tbxPass.Enabled = false;
             this.tbxPass.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxPass.Location = new System.Drawing.Point(24, 147);
             this.tbxPass.MaxLength = 10;
