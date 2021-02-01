@@ -309,6 +309,7 @@ namespace TableFindBackend.Forms
             // 
             // ChangePinForm
             // 
+            this.AcceptButton = this.btnConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 515);
