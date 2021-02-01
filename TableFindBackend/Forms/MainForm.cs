@@ -195,7 +195,7 @@ namespace TableFindBackend.Forms
 
         private void CheckLayoutImage()
         {
-            string file = @"layouts\" + OwnerStorage.ThisRestaurant.Name + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl";
+            string file = @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl";
             if (File.Exists(file) == true)
             {
 
