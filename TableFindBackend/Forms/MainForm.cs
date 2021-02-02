@@ -848,6 +848,8 @@ namespace TableFindBackend.Forms
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                         ShowLoading(false);
+                        createdListener.RemoveCreatedEventListener();
+                        deletedListener.RemoveDeletedEventListener();
                         PopulateTables();
                     }));
 
