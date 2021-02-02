@@ -28,6 +28,7 @@ namespace TableFindBackend.Models
         private DateTime open;
 
         private DateTime close;
+        private bool active;
 
         public string Name { get => name; set => name = value; }
         public string ownerId { get => OwnerId; set => OwnerId = value; }//Exception for Backendless
@@ -38,6 +39,7 @@ namespace TableFindBackend.Models
         public int MaxCapacity { get => maxCapacity; set => maxCapacity = value; }
         public DateTime Open { get => open; set => open = value; }
         public DateTime Close { get => close; set => close = value; }
+        public bool Active { get => active; set => active = value; }
 
         public void EditRestaurant()
         {

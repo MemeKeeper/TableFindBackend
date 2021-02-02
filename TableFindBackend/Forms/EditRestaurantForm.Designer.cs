@@ -64,6 +64,9 @@ namespace TableFindBackend.Forms
             this.lblTimes = new System.Windows.Forms.Label();
             this.dtpClose = new System.Windows.Forms.DateTimePicker();
             this.dtpOpen = new System.Windows.Forms.DateTimePicker();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lblDangerZone = new System.Windows.Forms.Label();
+            this.btnDeactivate = new System.Windows.Forms.Button();
             this.pnlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -71,6 +74,7 @@ namespace TableFindBackend.Forms
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbxLocation
@@ -219,7 +223,7 @@ namespace TableFindBackend.Forms
             // pbxLoading
             // 
             this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(240, 175);
+            this.pbxLoading.Location = new System.Drawing.Point(245, 198);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(113, 113);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -250,7 +254,7 @@ namespace TableFindBackend.Forms
             this.pnlButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlButtons.Controls.Add(this.btnSave);
             this.pnlButtons.Controls.Add(this.btnCancel);
-            this.pnlButtons.Location = new System.Drawing.Point(12, 373);
+            this.pnlButtons.Location = new System.Drawing.Point(12, 440);
             this.pnlButtons.Name = "pnlButtons";
             this.pnlButtons.Size = new System.Drawing.Size(568, 73);
             this.pnlButtons.TabIndex = 10;
@@ -259,17 +263,17 @@ namespace TableFindBackend.Forms
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.btnPrint);
-            this.panel1.Location = new System.Drawing.Point(299, 291);
+            this.panel1.Location = new System.Drawing.Point(12, 374);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 76);
+            this.panel1.Size = new System.Drawing.Size(281, 60);
             this.panel1.TabIndex = 11;
             // 
             // btnPrint
             // 
             this.btnPrint.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnPrint.Location = new System.Drawing.Point(21, 16);
+            this.btnPrint.Location = new System.Drawing.Point(19, 10);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(240, 44);
+            this.btnPrint.Size = new System.Drawing.Size(240, 38);
             this.btnPrint.TabIndex = 4;
             this.btnPrint.Text = "Open System Report Page";
             this.btnPrint.UseVisualStyleBackColor = false;
@@ -347,7 +351,7 @@ namespace TableFindBackend.Forms
             this.panel4.Controls.Add(this.lblTimes);
             this.panel4.Controls.Add(this.dtpClose);
             this.panel4.Controls.Add(this.dtpOpen);
-            this.panel4.Location = new System.Drawing.Point(299, 156);
+            this.panel4.Location = new System.Drawing.Point(299, 160);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(281, 122);
             this.panel4.TabIndex = 21;
@@ -412,12 +416,44 @@ namespace TableFindBackend.Forms
             this.dtpOpen.Value = new System.DateTime(2021, 1, 29, 15, 37, 27, 0);
             this.dtpOpen.ValueChanged += new System.EventHandler(this.dtpOpen_ValueChanged);
             // 
+            // panel5
+            // 
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.btnDeactivate);
+            this.panel5.Controls.Add(this.lblDangerZone);
+            this.panel5.Location = new System.Drawing.Point(299, 291);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(281, 142);
+            this.panel5.TabIndex = 25;
+            this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
+            // 
+            // lblDangerZone
+            // 
+            this.lblDangerZone.Location = new System.Drawing.Point(29, 17);
+            this.lblDangerZone.Name = "lblDangerZone";
+            this.lblDangerZone.Size = new System.Drawing.Size(225, 21);
+            this.lblDangerZone.TabIndex = 21;
+            this.lblDangerZone.Text = "Danger Zone";
+            this.lblDangerZone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnDeactivate
+            // 
+            this.btnDeactivate.BackColor = System.Drawing.Color.Coral;
+            this.btnDeactivate.Location = new System.Drawing.Point(51, 53);
+            this.btnDeactivate.Name = "btnDeactivate";
+            this.btnDeactivate.Size = new System.Drawing.Size(173, 48);
+            this.btnDeactivate.TabIndex = 5;
+            this.btnDeactivate.Text = "Deactivate Restaurant";
+            this.btnDeactivate.UseVisualStyleBackColor = false;
+            this.btnDeactivate.Click += new System.EventHandler(this.btnDeactivate_Click);
+            // 
             // EditRestaurantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 454);
+            this.ClientSize = new System.Drawing.Size(587, 521);
             this.Controls.Add(this.pbxLoading);
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -441,6 +477,7 @@ namespace TableFindBackend.Forms
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -480,5 +517,8 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.Label lblClosing;
         private System.Windows.Forms.Label lblOpen;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lblDangerZone;
+        private System.Windows.Forms.Button btnDeactivate;
     }
 }
