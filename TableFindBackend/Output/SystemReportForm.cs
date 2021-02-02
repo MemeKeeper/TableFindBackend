@@ -373,15 +373,16 @@ namespace TableFindBackend.Output
                 {
                     //Get the footer range and add the footer details.  
                     Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
+                    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
                     footerRange.Font.Size = 10;
                     footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "Footer text goes here";
+                    footerRange.Text = "System Report for " + System.DateTime.Now.ToString("D") + " as captured at " + System.DateTime.Now.ToString("t");
                 }
 
                 //adding text to document  
                 document.Content.SetRange(0, 0);
-                document.Content.Text = "This is test document " + Environment.NewLine;
+                
+                document.Content.Text = "random text goes here" + Environment.NewLine;
 
                 //Add paragraph with Heading 1 style  
                 Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
@@ -397,36 +398,54 @@ namespace TableFindBackend.Output
                 para2.Range.Text = "Para 2 text";
                 para2.Range.InsertParagraphAfter();
 
-                //Create a 5X5 table and insert some dummy record  
-                Microsoft.Office.Interop.Word.Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
-
+                //System Log output
+                #region
+                Microsoft.Office.Interop.Word.Table firstTable = document.Tables.Add(para1.Range, OwnerStorage.LogInfo.Count + 1, 2, ref missing, ref missing);
                 firstTable.Borders.Enable = 1;
-                foreach (Row row in firstTable.Rows)
-                {
-                    foreach (Cell cell in row.Cells)
-                    {
-                        //Header row  
-                        if (cell.RowIndex == 1)
-                        {
-                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
-                            cell.Range.Font.Bold = 1;
-                            //other format properties goes here  
-                            cell.Range.Font.Name = "verdana";
-                            cell.Range.Font.Size = 10;
-                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                              
-                            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            //Center alignment for the Header cells  
-                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                firstTable.Cell(1, 1).Range.Text = "Recorded Event";
+                firstTable.Cell(1, 2).Range.Text = "Recorded Time";
 
-                        }
-                        //Data row  
-                        else
-                        {
-                            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-                        }
-                    }
+                firstTable.Rows[1].Range.Font.Bold = 1;
+                firstTable.Rows[1].Range.Font.Name = "verdana";
+                firstTable.Rows[1].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                firstTable.Rows[1].Range.Font.Size = 10;
+                firstTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
+                {
+                    firstTable.Cell(i + 2, 1).Range.Text = OwnerStorage.LogInfo[i].ToString();
+                    firstTable.Cell(i + 2, 2).Range.Text = OwnerStorage.LogTimes[i].ToString();
                 }
+                #endregion
+
+                //Admin Log output
+                #region
+                Microsoft.Office.Interop.Word.Table adminTable = document.Tables.Add(para1.Range, OwnerStorage.ListOfAdmins.Count + 1, 2, ref missing, ref missing);
+                adminTable.Borders.Enable = 1;
+                adminTable.Cell(1, 1).Range.Text = "Admin User";
+                adminTable.Cell(1, 2).Range.Text = "Recorded Time";
+
+                adminTable.Rows[1].Range.Font.Bold = 1;
+                adminTable.Rows[1].Range.Font.Name = "verdana";
+                adminTable.Rows[1].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                adminTable.Rows[1].Range.Font.Size = 10;
+                adminTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
+                {
+                    adminTable.Cell(i + 2, 1).Range.Text = OwnerStorage.LogInfo[i].ToString();
+                    adminTable.Cell(i + 2, 2).Range.Text = OwnerStorage.LogTimes[i].ToString();
+                }
+
+                foreach(AdminPins a in OwnerStorage.ListOfAdmins )
+                {
+
+                }
+                #endregion
 
                 //Save the document  
                 string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
