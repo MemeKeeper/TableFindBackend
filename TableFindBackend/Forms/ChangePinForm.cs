@@ -49,16 +49,26 @@ namespace TableFindBackend.Forms
             AsyncCallback<BackendlessUser> callback = new AsyncCallback<BackendlessUser>(
             user =>
             {
-                Invoke(new Action(() =>
+                if (user.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                 {
-                    pbxLoading.Visible = false;
-                    System.Console.WriteLine("User logged in. Assigned ID - " + user.ObjectId);
-                    pnlPin.Enabled = true;
-                    pnlLogin.Enabled = false;
+                    Invoke(new Action(() =>
+                    {
+                        pbxLoading.Visible = false;
+                        System.Console.WriteLine("User logged in. Assigned ID - " + user.ObjectId);
+                        pnlPin.Enabled = true;
+                        pnlLogin.Enabled = false;
 
-                    OwnerStorage.FileWriter.WriteLineToFile("User logged in with valid login", true);
+                        OwnerStorage.FileWriter.WriteLineToFile("User logged in with valid login", true);
 
-                }));
+                    }));
+                }
+                else
+                {
+                    Invoke(new Action(() =>
+                    {
+                        MessageBox.Show(this, "You have logged in with another user's login credentials. Please login using your correct login credentials");
+                    }));
+                }
             },
             fault =>
             {

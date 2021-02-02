@@ -46,23 +46,41 @@ namespace TableFindBackend.Forms
                             {
                                 if (foundRestaurant.Count != 0)
                                 {
-                                    if (foundRestaurant.Count > 1)
+                                    List<Restaurant> tempList = new List<Restaurant>();
+                                    foreach (Restaurant r in foundRestaurant)
                                     {
-                                        SelectRestaurantForm selectForm = new SelectRestaurantForm((List<Restaurant>)foundRestaurant);
-                                        selectForm.ShowDialog();
-
-                                        OwnerStorage.ThisRestaurant = selectForm.selected;
+                                        if (r.Active == true)
+                                        {
+                                            tempList.Add(r);
+                                        }
+                                    }
+                                    if (tempList.Count != 0)
+                                    {
+                                        if (tempList.Count > 1)
+                                        {
+                                            SelectRestaurantForm selectForm = new SelectRestaurantForm(tempList);
+                                            selectForm.ShowDialog();
+                                            OwnerStorage.ThisRestaurant = selectForm.selected;
+                                        }
+                                        else
+                                        {
+                                            OwnerStorage.ThisRestaurant = tempList[0];
+                                        }
+                                        Invoke(new Action(() =>
+                                        {
+                                            DialogResult = DialogResult.OK;
+                                            this.Close();
+                                        }));
                                     }
                                     else
                                     {
-                                        OwnerStorage.ThisRestaurant = foundRestaurant[0];
+                                        Invoke(new Action(() =>
+                                        {
+                                            pbxLoading.Visible = false;
+                                            MessageBox.Show(this, "No Restaurants was located under these credentials. it may be that you deactivated your restaurant" +
+                                                " in the past. Please contact the TableFind Development Team to assist you in reactivating your restaurant"); //Fix later
+                                        }));
                                     }
-                                    Invoke(new Action(() =>
-                                    {
-                                        System.Console.WriteLine("User logged in. Assigned ID - " + success.ObjectId);
-                                        DialogResult = DialogResult.OK;
-                                        this.Close();
-                                    }));
                                 }
                                 else
                                 {
@@ -230,21 +248,41 @@ namespace TableFindBackend.Forms
                     {
                         if (foundRestaurant.Count != 0)
                         {
-                            if (foundRestaurant.Count > 1)
+                            List<Restaurant> tempList = new List<Restaurant>();
+                            foreach(Restaurant r in foundRestaurant)
                             {
-                                SelectRestaurantForm selectForm = new SelectRestaurantForm((List<Restaurant>)foundRestaurant);
-                                selectForm.ShowDialog();
-                                OwnerStorage.ThisRestaurant = selectForm.selected;
+                                if(r.Active==true)
+                                {
+                                    tempList.Add(r);
+                                }
+                            }
+                            if (tempList.Count != 0)
+                            {
+                                if (tempList.Count > 1)
+                                {
+                                    SelectRestaurantForm selectForm = new SelectRestaurantForm(tempList);
+                                    selectForm.ShowDialog();
+                                    OwnerStorage.ThisRestaurant = selectForm.selected;
+                                }
+                                else
+                                {
+                                    OwnerStorage.ThisRestaurant = tempList[0];
+                                }
+                                Invoke(new Action(() =>
+                                {
+                                    DialogResult = DialogResult.OK;
+                                    this.Close();
+                                }));
                             }
                             else
                             {
-                                OwnerStorage.ThisRestaurant = foundRestaurant[0];
+                                Invoke(new Action(() =>
+                                {
+                                    pbxLoading.Visible = false;
+                                    MessageBox.Show(this, "No Restaurants was located under these credentials. it may be that you deactivated your restaurant" +
+                                        " in the past. Please contact the TableFind Development Team to assist you in reactivating your restaurant"); //Fix later
+                                }));
                             }
-                            Invoke(new Action(() =>
-                            {
-                                DialogResult = DialogResult.OK;
-                                this.Close();
-                            }));
                         }
                         else
                         {

@@ -342,6 +342,12 @@
     <Compile Include="Forms\ChangePinForm.Designer.cs">
       <DependentUpon>ChangePinForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ConfirmRestaurantDeactivationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfirmRestaurantDeactivationForm.Designer.cs">
+      <DependentUpon>ConfirmRestaurantDeactivationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CustomerDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -465,6 +471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangePinForm.resx">
       <DependentUpon>ChangePinForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfirmRestaurantDeactivationForm.resx">
+      <DependentUpon>ConfirmRestaurantDeactivationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CustomerDetailsForm.resx">
       <DependentUpon>CustomerDetailsForm.cs</DependentUpon>

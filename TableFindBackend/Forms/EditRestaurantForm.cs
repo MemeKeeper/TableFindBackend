@@ -285,5 +285,23 @@ namespace TableFindBackend.Forms
         {
 
         }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+            Color color = Color.Red;
+            Panel panel = (Panel)sender;
+            float width = (float)4.0;
+            Pen pen = new Pen(color, width);
+            e.Graphics.DrawLine(pen, 0, 0, 0, panel.Height - 0);
+            e.Graphics.DrawLine(pen, 0, 0, panel.Width - 0, 0);
+            e.Graphics.DrawLine(pen, panel.Width - 1, panel.Height - 1, 0, panel.Height - 1);
+            e.Graphics.DrawLine(pen, panel.Width - 1, panel.Height - 1, panel.Width - 1, 0);
+        }
+
+        private void btnDeactivate_Click(object sender, EventArgs e)
+        {
+            ConfirmRestaurantDeactivationForm form = new ConfirmRestaurantDeactivationForm();
+            form.ShowDialog();
+        }
     }
 }
