@@ -929,7 +929,7 @@ namespace TableFindBackend.Forms
                     AdminPins flag = null;
                     foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                     {
-                        if (tbxPass.Text.Equals(a.PinCode.ToString())==true)
+                        if (tbxPass.Text.Equals(a.PinCode.ToString())==true&&a.Active==true)
                         {
                             flag = a;
                         }
