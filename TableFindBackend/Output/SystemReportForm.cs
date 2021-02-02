@@ -17,6 +17,9 @@ using Spire.Doc.Fields;
 using Spire.Doc;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Word = Microsoft.Office.Interop.Word;
+using System.Reflection;
+using Microsoft.Office.Interop.Word;
 
 namespace TableFindBackend.Output
 {
@@ -83,18 +86,18 @@ namespace TableFindBackend.Output
             backPanel.Height = 50;
             backPanel.BackColor = SystemColors.ControlDark;
             Label titleLabel = new Label();
-            titleLabel.Font = new Font("Century Gothic", 10);
+            titleLabel.Font = new System.Drawing.Font("Century Gothic", 10);
             titleLabel.Text = a.UserName;
             titleLabel.AutoSize = true;
-            titleLabel.Location = new Point(10, 10);
+            titleLabel.Location = new System.Drawing.Point(10, 10);
             backPanel.Controls.Add(titleLabel);
             System.Windows.Forms.TextBox tbxAmount = new System.Windows.Forms.TextBox();
             tbxAmount.Width = 180;
             tbxAmount.ReadOnly = true;
-            tbxAmount.Font = new Font("Century Gothic", 10);
+            tbxAmount.Font = new System.Drawing.Font("Century Gothic", 10);
             tbxAmount.BorderStyle = System.Windows.Forms.BorderStyle.None;
             tbxAmount.BackColor = SystemColors.ControlDark;
-            tbxAmount.Location = new Point(150, 10);
+            tbxAmount.Location = new System.Drawing.Point(150, 10);
             backPanel.Controls.Add(tbxAmount);
             if (log.Count == 1)
             {
@@ -119,7 +122,7 @@ namespace TableFindBackend.Output
                     backPanel.Height += 22;
                 }
                 dataGridView.Width = 150;
-                dataGridView.Location = new Point(150, 40);
+                dataGridView.Location = new System.Drawing.Point(150, 40);
                 dataGridView.AllowUserToAddRows = false;
                 dataGridView.AllowUserToOrderColumns = false;
                 dataGridView.AllowUserToAddRows = false;
@@ -139,13 +142,13 @@ namespace TableFindBackend.Output
             backPanel.Width = flpReservationTables.Width-10;
             backPanel.Height = 80;
             Label titleLabel = new Label();
-            titleLabel.Font=new Font("Century Gothic", 10);
+            titleLabel.Font=new System.Drawing.Font("Century Gothic", 10);
             titleLabel.Text = table.Name;
             titleLabel.AutoSize = true;
-            titleLabel.Location = new Point(10, 10);
+            titleLabel.Location = new System.Drawing.Point(10, 10);
             backPanel.Controls.Add(titleLabel);             
             DataGridView newView = new DataGridView();
-            newView.Location = new Point(5, 40);
+            newView.Location = new System.Drawing.Point(5, 40);
             newView.ReadOnly = true;
             newView.AllowUserToAddRows = false;
             newView.AllowUserToDeleteRows = false;
@@ -336,272 +339,200 @@ namespace TableFindBackend.Output
         }
         private void GenerateWordDoc(Boolean word)
         {
-            Document document = new Document();
-
-            Section section = document.AddSection();
-            HeaderFooter header = section.HeadersFooters.Header;
-            Paragraph headerParagraph = header.AddParagraph();
-            headerParagraph.Format.AfterSpacing = 10;
-            headerParagraph.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            TextRange headerText = headerParagraph.AppendText("TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.Name); 
-            headerText.CharacterFormat.Bold = true;
-
-
-            Paragraph p2 = section.AddParagraph();
-            p2.AppendText("System Report for " + System.DateTime.Now.ToString("D") + " as captured at " + System.DateTime.Now.ToString("t"));
-            p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-
-            Paragraph p4 = section.AddParagraph();
-            p4.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-
-            //PictureWatermark logo = new PictureWatermark();
-            //logo.Picture = Image.FromFile(TableFindBackend.Properties.Resources.Logo); <-- can't convert bitmap to string
-            //logo.Scaling = 100;
-            //logo.IsWashout = false;
-            //document.Watermark = logo;
-
-            DocPicture logo = p4.AppendPicture(TableFindBackend.Properties.Resources.Logo);
-            logo.Width = 100;
-            logo.Height = 100;
-
-            //active reservations displayed
-            Paragraph p5 = section.AddParagraph();
-            p5.AppendText("Active Reservations");
-            p5.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
-            p5.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-
-            if (OwnerStorage.ActiveReservations.Count != 0)
+            try
             {
-                foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+                //Create an instance for word app  
+                Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
+
+                //Set animation status for word application  
+                winword.ShowAnimation = false;
+
+                //Set status for word application is to be visible or not.  
+                winword.Visible = false;
+
+                //Create a missing variable for missing value  
+                object missing = System.Reflection.Missing.Value;
+
+                //Create a new document  
+                Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+
+                //Add header into the document  
+                foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
                 {
-                    List<Reservation> tempList = new List<Reservation>();
-                    foreach (Reservation r in OwnerStorage.ActiveReservations)
+                    //Get the header range and add the header details.  
+                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                    headerRange.Font.Size = 10;
+                    headerRange.Text = "TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.Name;
+                }
+
+                //Add the footers into the document  
+                foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
+                {
+                    //Get the footer range and add the footer details.  
+                    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
+                    footerRange.Font.Size = 10;
+                    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    footerRange.Text = "Footer text goes here";
+                }
+
+                //adding text to document  
+                document.Content.SetRange(0, 0);
+                document.Content.Text = "This is test document " + Environment.NewLine;
+
+                //Add paragraph with Heading 1 style  
+                Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                object styleHeading1 = "Heading 1";
+                para1.Range.set_Style(ref styleHeading1);
+                para1.Range.Text = "Para 1 text";
+                para1.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style  
+                Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+                object styleHeading2 = "Heading 2";
+                para2.Range.set_Style(ref styleHeading2);
+                para2.Range.Text = "Para 2 text";
+                para2.Range.InsertParagraphAfter();
+
+                //Create a 5X5 table and insert some dummy record  
+                Microsoft.Office.Interop.Word.Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
+
+                firstTable.Borders.Enable = 1;
+                foreach (Row row in firstTable.Rows)
+                {
+                    foreach (Cell cell in row.Cells)
                     {
-                        if (r.TableId == t.objectId)
+                        //Header row  
+                        if (cell.RowIndex == 1)
                         {
-                            tempList.Add(r);
+                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
+                            cell.Range.Font.Bold = 1;
+                            //other format properties goes here  
+                            cell.Range.Font.Name = "verdana";
+                            cell.Range.Font.Size = 10;
+                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                              
+                            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                            //Center alignment for the Header cells  
+                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
                         }
-                    }
-
-
-                    if (tempList.Count != 0)
-                    {
-                        Paragraph paragraph = section.AddParagraph();
-                        //paragraph.AppendText("Table Name: " + t.name);
-                        TextRange tableNames = paragraph.AppendText(t.Name);
-                        tableNames.CharacterFormat.Bold = true;
-                        paragraph.Format.BeforeSpacing = 5;
-                        paragraph.Format.AfterSpacing = 5;
-
-
-                        Table table = section.AddTable(true);
-                        table.TableFormat.HorizontalAlignment = RowAlignment.Center;
-
-                        String[] Header = { "Name", "Date Taken From", "Date Taken To", "Contact Number" };
-
-                        List<String[]> data = new List<string[]>();
-
-                        foreach (Reservation r in tempList)
+                        //Data row  
+                        else
                         {
-                            data.Add(new String[] { r.Name, r.TakenFrom.ToString(), r.TakenTo.ToString(), r.Number });
-                        }
-
-                        table.ResetCells(data.Count + 1, Header.Length);
-                        //Header Row
-                        TableRow FRow = table.Rows[0];
-                        FRow.IsHeader = true;
-                        //Row Height
-                        FRow.Height = 23;
-                        //Header Format
-                        FRow.RowFormat.BackColor = Color.AliceBlue;
-                        for (int i = 0; i < Header.Length; i++)
-                        {
-                            //Cell Alignment
-                            Paragraph p = FRow.Cells[i].AddParagraph();
-                            FRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                            p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                            //Data Format
-                            TextRange TR = p.AppendText(Header[i]);
-                            TR.CharacterFormat.FontName = "Calibri";
-                            TR.CharacterFormat.FontSize = 14;
-                            TR.CharacterFormat.TextColor = Color.Teal;
-                            TR.CharacterFormat.Bold = true;
-                        }
-
-                        //Data Row
-                        for (int r = 0; r < data.Count; r++)
-                        {
-                            TableRow DataRow = table.Rows[r + 1];
-
-                            //Row Height
-                            DataRow.Height = 20;
-
-                            //C Represents Column.
-                            for (int c = 0; c < data[r].Length; c++)
-                            {
-                                //Cell Alignment
-                                DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                                //Fill Data in Rows
-                                Paragraph p3 = DataRow.Cells[c].AddParagraph();
-                                TextRange TR2 = p3.AppendText(data[r][c]);
-                                //Format Cells
-                                p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                                TR2.CharacterFormat.FontName = "Calibri";
-                                TR2.CharacterFormat.FontSize = 12;
-                                TR2.CharacterFormat.TextColor = Color.Black;
-                            }
+                            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
                         }
                     }
                 }
 
+                //Save the document  
+                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
+                if (File.Exists(path) != true)
+                    Directory.CreateDirectory(path);
+
+                object filename = "SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx";
+                document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\" + filename);
+                document.Close(ref missing, ref missing, ref missing);
+                document = null;
+                winword.Quit(ref missing, ref missing, ref missing);
+                winword = null;
+                MessageBox.Show("Document created successfully !");
             }
-            else
+            catch (Exception ex)
             {
-                Paragraph empty = section.AddParagraph();
-                empty.AppendText("There are currently no reservations that expired in the current session");
-                empty.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                empty.Format.BeforeSpacing = 5;
-                empty.Format.AfterSpacing = 5;
+                MessageBox.Show(ex.Message);
             }
 
-            //past reservations displayed
+            #region
+            //Document document = new Document();
 
-            Paragraph p6 = section.AddParagraph();
-            p6.AppendText("Past Reservations");
-            p6.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
-            p6.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            p6.Format.BeforeSpacing = 20;
-
-            if (OwnerStorage.PastReservations.Count != 0)
-            {
-
-                foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
-                {
-                    List<Reservation> tempList1 = new List<Reservation>();
-                    foreach (Reservation r in OwnerStorage.PastReservations)
-                    {
-                        if (r.TableId == t.objectId)
-                        {
-                            tempList1.Add(r);
-                        }
-                    }
-
-                    if (tempList1.Count != 0)
-                    {
-                        Paragraph paragraph = section.AddParagraph();
-                        //paragraph.AppendText("Table Name: " + t.name);
-                        TextRange tableNames = paragraph.AppendText(t.Name);
-                        tableNames.CharacterFormat.Bold = true;
-                        paragraph.Format.BeforeSpacing = 5;
-                        paragraph.Format.AfterSpacing = 5;
+            //Section section = document.AddSection();
+            //HeaderFooter header = section.HeadersFooters.Header;
+            //Paragraph headerParagraph = header.AddParagraph();
+            //headerParagraph.Format.AfterSpacing = 10;
+            //headerParagraph.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //TextRange headerText = headerParagraph.AppendText("TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.Name); 
+            //headerText.CharacterFormat.Bold = true;
 
 
-                        Table table = section.AddTable(true);
-                        table.TableFormat.HorizontalAlignment = RowAlignment.Center;
+            //Paragraph p2 = section.AddParagraph();
+            //p2.AppendText("System Report for " + System.DateTime.Now.ToString("D") + " as captured at " + System.DateTime.Now.ToString("t"));
+            //p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
-                        String[] Header = { "Name", "Date Taken From", "Date Taken To", "Contact Number" };
+            //Paragraph p4 = section.AddParagraph();
+            //p4.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
-                        List<String[]> data = new List<string[]>();
+            ////PictureWatermark logo = new PictureWatermark();
+            ////logo.Picture = Image.FromFile(TableFindBackend.Properties.Resources.Logo); <-- can't convert bitmap to string
+            ////logo.Scaling = 100;
+            ////logo.IsWashout = false;
+            ////document.Watermark = logo;
 
-                        foreach (Reservation r in tempList1)
-                        {
-                            data.Add(new String[] { r.Name, r.TakenFrom.ToString(), r.TakenTo.ToString(), r.Number });
-                        }
+            //DocPicture logo = p4.AppendPicture(TableFindBackend.Properties.Resources.Logo);
+            //logo.Width = 100;
+            //logo.Height = 100;
 
-                        table.ResetCells(data.Count + 1, Header.Length);
-                        //Header Row
-                        TableRow FRow = table.Rows[0];
-                        FRow.IsHeader = true;
-                        //Row Height
-                        FRow.Height = 23;
-                        //Header Format
-                        FRow.RowFormat.BackColor = Color.AliceBlue;
-                        for (int i = 0; i < Header.Length; i++)
-                        {
-                            //Cell Alignment
-                            Paragraph p = FRow.Cells[i].AddParagraph();
-                            FRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                            p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                            //Data Format
-                            TextRange TR = p.AppendText(Header[i]);
-                            TR.CharacterFormat.FontName = "Calibri";
-                            TR.CharacterFormat.FontSize = 14;
-                            TR.CharacterFormat.TextColor = Color.Teal;
-                            TR.CharacterFormat.Bold = true;
-                        }
+            ////active reservations displayed
+            //Paragraph p5 = section.AddParagraph();
+            //p5.AppendText("Active Reservations");
+            //p5.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
+            //p5.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
-                        //Data Row
-                        for (int r = 0; r < data.Count; r++)
-                        {
-                            TableRow DataRow = table.Rows[r + 1];
-
-                            //Row Height
-                            DataRow.Height = 20;
-
-                            //C Represents Column.
-                            for (int c = 0; c < data[r].Length; c++)
-                            {
-                                //Cell Alignment
-                                DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                                //Fill Data in Rows
-                                Paragraph p3 = DataRow.Cells[c].AddParagraph();
-                                TextRange TR2 = p3.AppendText(data[r][c]);
-                                //Format Cells
-                                p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                                TR2.CharacterFormat.FontName = "Calibri";
-                                TR2.CharacterFormat.FontSize = 12;
-                                TR2.CharacterFormat.TextColor = Color.Black;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Paragraph empty = section.AddParagraph();
-                empty.AppendText("There are currently no reservations that expired in the current session");
-                empty.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                empty.Format.BeforeSpacing = 5;
-                empty.Format.AfterSpacing = 5;
-            }
-
-            ////Admin Users displayed
-            
-            //Paragraph p8 = section.AddParagraph();
-            //p8.AppendText("Admin Users");
-            //p8.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
-            //p8.Format.BeforeSpacing = 20;
-            //p8.Format.AfterSpacing = 5;
-            //p8.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-
-            //Table adminTable = section.AddTable(true);
-            //adminTable.TableFormat.HorizontalAlignment = RowAlignment.Center;
-
-            //String[] adminsHeader = { "Admin User", "Logins For This Session" };
-
-            //List<String[]> adminsData = new List<string[]>();
-            //for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
+            //if (OwnerStorage.ActiveReservations.Count != 0)
             //{
-            //    for (int inner = 0; inner < OwnerStorage.AdminLog.Count; inner++)
+            //    foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
             //    {
-            //        if (OwnerStorage.ListOfAdmins[i].objectId==OwnerStorage.AdminLog[inner][0])
+            //        List<Reservation> tempList = new List<Reservation>();
+            //        foreach (Reservation rE in OwnerStorage.ActiveReservations)
             //        {
-            //            adminTable.ResetCells(adminsData.Count + 1, adminsHeader.Length);
+            //            if (rE.TableId == t.objectId)
+            //            {
+            //                tempList.Add(rE);
+            //            }
+            //        }
+
+
+            //        if (tempList.Count != 0)
+            //        {
+            //            Paragraph paragraph = section.AddParagraph();
+            //            //paragraph.AppendText("Table Name: " + t.name);
+            //            TextRange tableNames = paragraph.AppendText(t.Name);
+            //            tableNames.CharacterFormat.Bold = true;
+            //            paragraph.Format.BeforeSpacing = 5;
+            //            paragraph.Format.AfterSpacing = 5;
+
+
+            //            Table table = section.AddTable(true);
+            //            table.TableFormat.HorizontalAlignment = RowAlignment.Center;
+
+            //            String[] Header = { "Name", "Date Taken From", "Date Taken To", "Contact Number" };
+
+            //            List<String[]> data = new List<string[]>();
+
+            //            foreach (Reservation rE in tempList)
+            //            {
+            //                data.Add(new String[] { rE.Name, rE.TakenFrom.ToString(), rE.TakenTo.ToString(), rE.Number });
+            //            }
+
+            //            table.ResetCells(data.Count + 1, Header.Length);
             //            //Header Row
-            //            TableRow FRowLogA = adminTable.Rows[0];
-            //            FRowLogA.IsHeader = true;
+            //            TableRow FRow = table.Rows[0];
+            //            FRow.IsHeader = true;
             //            //Row Height
-            //            FRowLogA.Height = 23;
+            //            FRow.Height = 23;
             //            //Header Format
-            //            FRowLogA.RowFormat.BackColor = Color.AliceBlue;
-            //            for (int iH = 0; iH < adminsHeader.Length; i++)
+            //            FRow.RowFormat.BackColor = Color.AliceBlue;
+            //            for (int i = 0; i < Header.Length; i++)
             //            {
             //                //Cell Alignment
-                           
-            //                FRowLogA.Cells[iH].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            //                Paragraph p = FRow.Cells[i].AddParagraph();
+            //                FRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
             //                p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
             //                //Data Format
-            //                TextRange TR = p.AppendText(adminsHeader[iH]);
+            //                TextRange TR = p.AppendText(Header[i]);
             //                TR.CharacterFormat.FontName = "Calibri";
             //                TR.CharacterFormat.FontSize = 14;
             //                TR.CharacterFormat.TextColor = Color.Teal;
@@ -609,21 +540,21 @@ namespace TableFindBackend.Output
             //            }
 
             //            //Data Row
-            //            for (int r = 0; r < adminsData.Count; r++)
+            //            for (int rE = 0; rE < data.Count; rE++)
             //            {
-            //                TableRow DataRow = adminTable.Rows[r + 1];
+            //                TableRow DataRow = table.Rows[rE + 1];
 
             //                //Row Height
             //                DataRow.Height = 20;
 
             //                //C Represents Column.
-            //                for (int c = 0; c < adminsData[r].Length; c++)
+            //                for (int cE = 0; cE < data[rE].Length; cE++)
             //                {
             //                    //Cell Alignment
-            //                    DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            //                    DataRow.Cells[cE].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
             //                    //Fill Data in Rows
-            //                    Paragraph p3 = DataRow.Cells[c].AddParagraph();
-            //                    TextRange TR2 = p3.AppendText(adminsData[r][c]);
+            //                    Paragraph p3 = DataRow.Cells[cE].AddParagraph();
+            //                    TextRange TR2 = p3.AppendText(data[rE][cE]);
             //                    //Format Cells
             //                    p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
             //                    TR2.CharacterFormat.FontName = "Calibri";
@@ -633,125 +564,306 @@ namespace TableFindBackend.Output
             //            }
             //        }
             //    }
-                
+
+            //}
+            //else
+            //{
+            //    Paragraph empty = section.AddParagraph();
+            //    empty.AppendText("There are currently no reservations that expired in the current session");
+            //    empty.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //    empty.Format.BeforeSpacing = 5;
+            //    empty.Format.AfterSpacing = 5;
             //}
 
+            ////past reservations displayed
+
+            //Paragraph p6 = section.AddParagraph();
+            //p6.AppendText("Past Reservations");
+            //p6.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
+            //p6.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //p6.Format.BeforeSpacing = 20;
+
+            //if (OwnerStorage.PastReservations.Count != 0)
+            //{
+
+            //    foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+            //    {
+            //        List<Reservation> tempList1 = new List<Reservation>();
+            //        foreach (Reservation rE in OwnerStorage.PastReservations)
+            //        {
+            //            if (rE.TableId == t.objectId)
+            //            {
+            //                tempList1.Add(rE);
+            //            }
+            //        }
+
+            //        if (tempList1.Count != 0)
+            //        {
+            //            Paragraph paragraph = section.AddParagraph();
+            //            //paragraph.AppendText("Table Name: " + t.name);
+            //            TextRange tableNames = paragraph.AppendText(t.Name);
+            //            tableNames.CharacterFormat.Bold = true;
+            //            paragraph.Format.BeforeSpacing = 5;
+            //            paragraph.Format.AfterSpacing = 5;
 
 
-            //System Log displayed
-            Paragraph p7 = section.AddParagraph();
-            p7.AppendText("System Log");
-            p7.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double; 
-            p7.Format.BeforeSpacing = 20;
-            p7.Format.AfterSpacing = 5;
-            p7.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //            Table table = section.AddTable(true);
+            //            table.TableFormat.HorizontalAlignment = RowAlignment.Center;
 
-            Table logTable = section.AddTable(true);
-            logTable.TableFormat.HorizontalAlignment = RowAlignment.Center;
+            //            String[] Header = { "Name", "Date Taken From", "Date Taken To", "Contact Number" };
 
-            String[] logHeader = { "Event Recorded", "Recorded Time" };
+            //            List<String[]> data = new List<string[]>();
 
-            List<String[]> logData = new List<string[]>();
-            for (int i = 0;i<OwnerStorage.LogInfo.Count;i++)
-            {
-                if(OwnerStorage.LogTimes[i]=="blank")
-                logData.Add(new String[] { OwnerStorage.LogInfo[i], "" });
-                else
-                    logData.Add(new String[] { OwnerStorage.LogInfo[i], OwnerStorage.LogTimes[i] });
-            }
+            //            foreach (Reservation rE in tempList1)
+            //            {
+            //                data.Add(new String[] { rE.Name, rE.TakenFrom.ToString(), rE.TakenTo.ToString(), rE.Number });
+            //            }
 
-            logTable.ResetCells(logData.Count + 1, logHeader.Length);
-            //Header Row
-            TableRow FRowLog = logTable.Rows[0];
-            FRowLog.IsHeader = true;
-            //Row Height
-            FRowLog.Height = 23;
-            //Header Format
-            FRowLog.RowFormat.BackColor = Color.AliceBlue;
-            for (int i = 0; i < logHeader.Length; i++)
-            {
-                //Cell Alignment
-                Paragraph p = FRowLog.Cells[i].AddParagraph();
-                FRowLog.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                //Data Format
-                TextRange TR = p.AppendText(logHeader[i]);
-                TR.CharacterFormat.FontName = "Calibri";
-                TR.CharacterFormat.FontSize = 14;
-                TR.CharacterFormat.TextColor = Color.Teal;
-                TR.CharacterFormat.Bold = true;
-            }
+            //            table.ResetCells(data.Count + 1, Header.Length);
+            //            //Header Row
+            //            TableRow FRow = table.Rows[0];
+            //            FRow.IsHeader = true;
+            //            //Row Height
+            //            FRow.Height = 23;
+            //            //Header Format
+            //            FRow.RowFormat.BackColor = Color.AliceBlue;
+            //            for (int i = 0; i < Header.Length; i++)
+            //            {
+            //                //Cell Alignment
+            //                Paragraph p = FRow.Cells[i].AddParagraph();
+            //                FRow.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            //                p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //                //Data Format
+            //                TextRange TR = p.AppendText(Header[i]);
+            //                TR.CharacterFormat.FontName = "Calibri";
+            //                TR.CharacterFormat.FontSize = 14;
+            //                TR.CharacterFormat.TextColor = Color.Teal;
+            //                TR.CharacterFormat.Bold = true;
+            //            }
 
-            //Data Row
-            for (int r = 0; r < logData.Count; r++)
-            {
-                TableRow DataRow = logTable.Rows[r + 1];
+            //            //Data Row
+            //            for (int rE = 0; rE < data.Count; rE++)
+            //            {
+            //                TableRow DataRow = table.Rows[rE + 1];
 
-                //Row Height
-                DataRow.Height = 20;
+            //                //Row Height
+            //                DataRow.Height = 20;
 
-                //C Represents Column.
-                for (int c = 0; c < logData[r].Length; c++)
-                {
-                    //Cell Alignment
-                    DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
-                    //Fill Data in Rows
-                    Paragraph p3 = DataRow.Cells[c].AddParagraph();
-                    TextRange TR2 = p3.AppendText(logData[r][c]);
-                    //Format Cells
-                    p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-                    TR2.CharacterFormat.FontName = "Calibri";
-                    TR2.CharacterFormat.FontSize = 12;
-                    TR2.CharacterFormat.TextColor = Color.Black;
-                }
-            }
+            //                //C Represents Column.
+            //                for (int cE = 0; cE < data[rE].Length; cE++)
+            //                {
+            //                    //Cell Alignment
+            //                    DataRow.Cells[cE].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            //                    //Fill Data in Rows
+            //                    Paragraph p3 = DataRow.Cells[cE].AddParagraph();
+            //                    TextRange TR2 = p3.AppendText(data[rE][cE]);
+            //                    //Format Cells
+            //                    p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //                    TR2.CharacterFormat.FontName = "Calibri";
+            //                    TR2.CharacterFormat.FontSize = 12;
+            //                    TR2.CharacterFormat.TextColor = Color.Black;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    Paragraph empty = section.AddParagraph();
+            //    empty.AppendText("There are currently no reservations that expired in the current session");
+            //    empty.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //    empty.Format.BeforeSpacing = 5;
+            //    empty.Format.AfterSpacing = 5;
+            //}
 
-            //where document is saved to
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
+            //////Admin Users displayed
+
+            ////Paragraph p8 = section.AddParagraph();
+            ////p8.AppendText("Admin Users");
+            ////p8.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double;
+            ////p8.Format.BeforeSpacing = 20;
+            ////p8.Format.AfterSpacing = 5;
+            ////p8.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+
+            ////Table adminTable = section.AddTable(true);
+            ////adminTable.TableFormat.HorizontalAlignment = RowAlignment.Center;
+
+            ////String[] adminsHeader = { "Admin User", "Logins For This Session" };
+
+            ////List<String[]> adminsData = new List<string[]>();
+            ////for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
+            ////{
+            ////    for (int inner = 0; inner < OwnerStorage.AdminLog.Count; inner++)
+            ////    {
+            ////        if (OwnerStorage.ListOfAdmins[i].objectId==OwnerStorage.AdminLog[inner][0])
+            ////        {
+            ////            adminTable.ResetCells(adminsData.Count + 1, adminsHeader.Length);
+            ////            //Header Row
+            ////            TableRow FRowLogA = adminTable.Rows[0];
+            ////            FRowLogA.IsHeader = true;
+            ////            //Row Height
+            ////            FRowLogA.Height = 23;
+            ////            //Header Format
+            ////            FRowLogA.RowFormat.BackColor = Color.AliceBlue;
+            ////            for (int iH = 0; iH < adminsHeader.Length; i++)
+            ////            {
+            ////                //Cell Alignment
+
+            ////                FRowLogA.Cells[iH].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            ////                p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            ////                //Data Format
+            ////                TextRange TR = p.AppendText(adminsHeader[iH]);
+            ////                TR.CharacterFormat.FontName = "Calibri";
+            ////                TR.CharacterFormat.FontSize = 14;
+            ////                TR.CharacterFormat.TextColor = Color.Teal;
+            ////                TR.CharacterFormat.Bold = true;
+            ////            }
+
+            ////            //Data Row
+            ////            for (int r = 0; r < adminsData.Count; r++)
+            ////            {
+            ////                TableRow DataRow = adminTable.Rows[r + 1];
+
+            ////                //Row Height
+            ////                DataRow.Height = 20;
+
+            ////                //C Represents Column.
+            ////                for (int c = 0; c < adminsData[r].Length; c++)
+            ////                {
+            ////                    //Cell Alignment
+            ////                    DataRow.Cells[c].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            ////                    //Fill Data in Rows
+            ////                    Paragraph p3 = DataRow.Cells[c].AddParagraph();
+            ////                    TextRange TR2 = p3.AppendText(adminsData[r][c]);
+            ////                    //Format Cells
+            ////                    p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            ////                    TR2.CharacterFormat.FontName = "Calibri";
+            ////                    TR2.CharacterFormat.FontSize = 12;
+            ////                    TR2.CharacterFormat.TextColor = Color.Black;
+            ////                }
+            ////            }
+            ////        }
+            ////    }
+
+            ////}
 
 
-            if (File.Exists(path) != true)
-                Directory.CreateDirectory(path);
 
-            //Kills the word document if it is already open
+            ////System Log displayed
+            //Paragraph p7 = section.AddParagraph();
+            //p7.AppendText("System Log");
+            //p7.Format.Borders.BorderType = Spire.Doc.Documents.BorderStyle.Double; 
+            //p7.Format.BeforeSpacing = 20;
+            //p7.Format.AfterSpacing = 5;
+            //p7.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
 
-            FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+            //Table logTable = section.AddTable(true);
+            //logTable.TableFormat.HorizontalAlignment = RowAlignment.Center;
 
-            if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx") != true)
-            {
-                    document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
-            }
+            //String[] logHeader = { "Event Recorded", "Recorded Time" };
 
-            //launches document
-            if (word == true)
-            {
-                if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx")==true)
-                {
-                    if (IsFileLocked(fInfo) == true)//means file is still open
-                    {
-                        MessageBox.Show("The Document is already open in one instance of Word. Please close that document and try again", "Document already open", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else
-                    {
-                        try
-                        {
-                            System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                        }
-                        catch { }
-                        document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
-                    }
-                }
-                else
-                {
-                    document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
-                    try
-                    {
-                        System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                    }
-                    catch { }
-                    
-                }
-            }
+            //List<String[]> logData = new List<string[]>();
+            //for (int i = 0;i<OwnerStorage.LogInfo.Count;i++)
+            //{
+            //    if(OwnerStorage.LogTimes[i]=="blank")
+            //    logData.Add(new String[] { OwnerStorage.LogInfo[i], "" });
+            //    else
+            //        logData.Add(new String[] { OwnerStorage.LogInfo[i], OwnerStorage.LogTimes[i] });
+            //}
+
+            //logTable.ResetCells(logData.Count + 1, logHeader.Length);
+            ////Header Row
+            //TableRow FRowLog = logTable.Rows[0];
+            //FRowLog.IsHeader = true;
+            ////Row Height
+            //FRowLog.Height = 23;
+            ////Header Format
+            //FRowLog.RowFormat.BackColor = Color.AliceBlue;
+            //for (int i = 0; i < logHeader.Length; i++)
+            //{
+            //    //Cell Alignment
+            //    Paragraph p = FRowLog.Cells[i].AddParagraph();
+            //    FRowLog.Cells[i].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            //    p.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //    //Data Format
+            //    TextRange TR = p.AppendText(logHeader[i]);
+            //    TR.CharacterFormat.FontName = "Calibri";
+            //    TR.CharacterFormat.FontSize = 14;
+            //    TR.CharacterFormat.TextColor = Color.Teal;
+            //    TR.CharacterFormat.Bold = true;
+            //}
+
+            ////Data Row
+            //for (int rE = 0; rE < logData.Count; rE++)
+            //{
+            //    TableRow DataRow = logTable.Rows[rE + 1];
+
+            //    //Row Height
+            //    DataRow.Height = 20;
+
+            //    //C Represents Column.
+            //    for (int cE = 0; cE < logData[rE].Length; cE++)
+            //    {
+            //        //Cell Alignment
+            //        DataRow.Cells[cE].CellFormat.VerticalAlignment = VerticalAlignment.Middle;
+            //        //Fill Data in Rows
+            //        Paragraph p3 = DataRow.Cells[cE].AddParagraph();
+            //        TextRange TR2 = p3.AppendText(logData[rE][cE]);
+            //        //Format Cells
+            //        p2.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
+            //        TR2.CharacterFormat.FontName = "Calibri";
+            //        TR2.CharacterFormat.FontSize = 12;
+            //        TR2.CharacterFormat.TextColor = Color.Black;
+            //    }
+            //}
+
+            ////where document is saved to
+            //string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
+
+
+            //if (File.Exists(path) != true)
+            //    Directory.CreateDirectory(path);
+
+            ////Kills the word document if it is already open
+
+            //FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+
+            //if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx") != true)
+            //{
+            //        document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+            //}
+
+            ////launches document
+            //if (word == true)
+            //{
+            //    if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx")==true)
+            //    {
+            //        if (IsFileLocked(fInfo) == true)//means file is still open
+            //        {
+            //            MessageBox.Show("The Document is already open in one instance of Word. Please close that document and try again", "Document already open", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        }
+            //        else
+            //        {
+            //            try
+            //            {
+            //                System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+            //            }
+            //            catch { }
+            //            document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+            //        try
+            //        {
+            //            System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+            //        }
+            //        catch { }
+
+            //    }
+            //}
+            #endregion
         }
         protected virtual bool IsFileLocked(FileInfo file)
         {
@@ -782,19 +894,19 @@ namespace TableFindBackend.Output
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            GenerateWordDoc(false);
+            //GenerateWordDoc(false);
 
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
+            //string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
 
-            //load document
-            Document document = new Document();
-            document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+            ////load document
+            //Document document = new Document();
+            //document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
 
-            //convert to PDF
-            document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
+            ////convert to PDF
+            //document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
 
-            //launch document
-            System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
+            ////launch document
+            //System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
 
 
 
