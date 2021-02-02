@@ -36,7 +36,7 @@ namespace TableFindBackend.Forms
             this.pnlNewAdmin = new System.Windows.Forms.Panel();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnRemoveAdmin = new System.Windows.Forms.Button();
+            this.btnRemoveDeactivate = new System.Windows.Forms.Button();
             this.btnCreateNewAdmin = new System.Windows.Forms.Button();
             this.lblConfirmPinTitle = new System.Windows.Forms.Label();
             this.tbxConfirmPin = new System.Windows.Forms.TextBox();
@@ -99,7 +99,7 @@ namespace TableFindBackend.Forms
             this.pnlNewAdmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlNewAdmin.Controls.Add(this.pbxLoading);
             this.pnlNewAdmin.Controls.Add(this.btnCancel);
-            this.pnlNewAdmin.Controls.Add(this.btnRemoveAdmin);
+            this.pnlNewAdmin.Controls.Add(this.btnRemoveDeactivate);
             this.pnlNewAdmin.Controls.Add(this.btnCreateNewAdmin);
             this.pnlNewAdmin.Controls.Add(this.lblConfirmPinTitle);
             this.pnlNewAdmin.Controls.Add(this.tbxConfirmPin);
@@ -137,16 +137,16 @@ namespace TableFindBackend.Forms
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnRemoveAdmin
+            // btnRemoveDeactivate
             // 
-            this.btnRemoveAdmin.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.btnRemoveAdmin.Location = new System.Drawing.Point(166, 468);
-            this.btnRemoveAdmin.Name = "btnRemoveAdmin";
-            this.btnRemoveAdmin.Size = new System.Drawing.Size(140, 48);
-            this.btnRemoveAdmin.TabIndex = 26;
-            this.btnRemoveAdmin.Text = "Remove Admin";
-            this.btnRemoveAdmin.UseVisualStyleBackColor = true;
-            this.btnRemoveAdmin.Click += new System.EventHandler(this.btnRemoveAdmin_Click);
+            this.btnRemoveDeactivate.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveDeactivate.Location = new System.Drawing.Point(166, 468);
+            this.btnRemoveDeactivate.Name = "btnRemoveDeactivate";
+            this.btnRemoveDeactivate.Size = new System.Drawing.Size(140, 48);
+            this.btnRemoveDeactivate.TabIndex = 26;
+            this.btnRemoveDeactivate.Text = "Deactivate Admin";
+            this.btnRemoveDeactivate.UseVisualStyleBackColor = true;
+            this.btnRemoveDeactivate.Click += new System.EventHandler(this.btnRemoveAdmin_Click);
             // 
             // btnCreateNewAdmin
             // 
@@ -288,7 +288,7 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel pnlNewAdmin;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnRemoveAdmin;
+        private System.Windows.Forms.Button btnRemoveDeactivate;
         private System.Windows.Forms.Button btnCreateNewAdmin;
         private System.Windows.Forms.Label lblConfirmPinTitle;
         private System.Windows.Forms.TextBox tbxConfirmPin;

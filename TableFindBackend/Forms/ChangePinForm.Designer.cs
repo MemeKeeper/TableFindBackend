@@ -53,6 +53,13 @@ namespace TableFindBackend.Forms
             this.btnAddNewAdmin = new System.Windows.Forms.Button();
             this.lblPinTitle = new System.Windows.Forms.Label();
             this.adminPinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tcAdmins = new System.Windows.Forms.TabControl();
+            this.tpActive = new System.Windows.Forms.TabPage();
+            this.tpUnActive = new System.Windows.Forms.TabPage();
+            this.dgvUnactive = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlHeader.SuspendLayout();
             this.pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
@@ -60,6 +67,10 @@ namespace TableFindBackend.Forms
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).BeginInit();
             this.pnlDescription.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).BeginInit();
+            this.tcAdmins.SuspendLayout();
+            this.tpActive.SuspendLayout();
+            this.tpUnActive.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUnactive)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -204,7 +215,7 @@ namespace TableFindBackend.Forms
             // pnlPin
             // 
             this.pnlPin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPin.Controls.Add(this.dgvAdmins);
+            this.pnlPin.Controls.Add(this.tcAdmins);
             this.pnlPin.Controls.Add(this.pnlDescription);
             this.pnlPin.Controls.Add(this.btnAddNewAdmin);
             this.pnlPin.Controls.Add(this.lblPinTitle);
@@ -227,7 +238,8 @@ namespace TableFindBackend.Forms
             this.userName,
             this.contactNumber,
             this.ObjectId});
-            this.dgvAdmins.Location = new System.Drawing.Point(15, 215);
+            this.dgvAdmins.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvAdmins.Location = new System.Drawing.Point(3, 3);
             this.dgvAdmins.MultiSelect = false;
             this.dgvAdmins.Name = "dgvAdmins";
             this.dgvAdmins.ReadOnly = true;
@@ -237,7 +249,7 @@ namespace TableFindBackend.Forms
             this.dgvAdmins.ShowCellToolTips = false;
             this.dgvAdmins.ShowEditingIcon = false;
             this.dgvAdmins.ShowRowErrors = false;
-            this.dgvAdmins.Size = new System.Drawing.Size(284, 150);
+            this.dgvAdmins.Size = new System.Drawing.Size(270, 125);
             this.dgvAdmins.TabIndex = 9;
             this.dgvAdmins.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAdmins_CellDoubleClick);
             // 
@@ -284,10 +296,10 @@ namespace TableFindBackend.Forms
             // 
             // btnAddNewAdmin
             // 
-            this.btnAddNewAdmin.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddNewAdmin.Location = new System.Drawing.Point(83, 386);
+            this.btnAddNewAdmin.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddNewAdmin.Location = new System.Drawing.Point(85, 386);
             this.btnAddNewAdmin.Name = "btnAddNewAdmin";
-            this.btnAddNewAdmin.Size = new System.Drawing.Size(157, 48);
+            this.btnAddNewAdmin.Size = new System.Drawing.Size(131, 48);
             this.btnAddNewAdmin.TabIndex = 8;
             this.btnAddNewAdmin.Text = "Add New Admin";
             this.btnAddNewAdmin.UseVisualStyleBackColor = true;
@@ -306,6 +318,88 @@ namespace TableFindBackend.Forms
             // adminPinsBindingSource
             // 
             this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
+            // 
+            // tcAdmins
+            // 
+            this.tcAdmins.Controls.Add(this.tpActive);
+            this.tcAdmins.Controls.Add(this.tpUnActive);
+            this.tcAdmins.ItemSize = new System.Drawing.Size(140, 21);
+            this.tcAdmins.Location = new System.Drawing.Point(15, 220);
+            this.tcAdmins.Name = "tcAdmins";
+            this.tcAdmins.SelectedIndex = 0;
+            this.tcAdmins.Size = new System.Drawing.Size(284, 160);
+            this.tcAdmins.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tcAdmins.TabIndex = 13;
+            // 
+            // tpActive
+            // 
+            this.tpActive.Controls.Add(this.dgvAdmins);
+            this.tpActive.Location = new System.Drawing.Point(4, 25);
+            this.tpActive.Name = "tpActive";
+            this.tpActive.Padding = new System.Windows.Forms.Padding(3);
+            this.tpActive.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tpActive.Size = new System.Drawing.Size(276, 131);
+            this.tpActive.TabIndex = 0;
+            this.tpActive.Text = "Active Admin Users";
+            this.tpActive.UseVisualStyleBackColor = true;
+            // 
+            // tpUnActive
+            // 
+            this.tpUnActive.Controls.Add(this.dgvUnactive);
+            this.tpUnActive.Location = new System.Drawing.Point(4, 25);
+            this.tpUnActive.Name = "tpUnActive";
+            this.tpUnActive.Padding = new System.Windows.Forms.Padding(3);
+            this.tpUnActive.Size = new System.Drawing.Size(276, 131);
+            this.tpUnActive.TabIndex = 1;
+            this.tpUnActive.Text = "Unactive Admin Users";
+            this.tpUnActive.UseVisualStyleBackColor = true;
+            // 
+            // dgvUnactive
+            // 
+            this.dgvUnactive.AllowUserToAddRows = false;
+            this.dgvUnactive.AllowUserToDeleteRows = false;
+            this.dgvUnactive.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvUnactive.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvUnactive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUnactive.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3});
+            this.dgvUnactive.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvUnactive.Location = new System.Drawing.Point(3, 3);
+            this.dgvUnactive.MultiSelect = false;
+            this.dgvUnactive.Name = "dgvUnactive";
+            this.dgvUnactive.ReadOnly = true;
+            this.dgvUnactive.RowHeadersVisible = false;
+            this.dgvUnactive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvUnactive.ShowCellErrors = false;
+            this.dgvUnactive.ShowCellToolTips = false;
+            this.dgvUnactive.ShowEditingIcon = false;
+            this.dgvUnactive.ShowRowErrors = false;
+            this.dgvUnactive.Size = new System.Drawing.Size(270, 125);
+            this.dgvUnactive.TabIndex = 10;
+            this.dgvUnactive.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUnactive_CellDoubleClick);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "User Name";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Contact Number";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "ObjectId";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Visible = false;
             // 
             // ChangePinForm
             // 
@@ -332,6 +426,10 @@ namespace TableFindBackend.Forms
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).EndInit();
             this.pnlDescription.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).EndInit();
+            this.tcAdmins.ResumeLayout(false);
+            this.tpActive.ResumeLayout(false);
+            this.tpUnActive.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUnactive)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -360,5 +458,12 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn userName;
         private System.Windows.Forms.DataGridViewTextBoxColumn contactNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn ObjectId;
+        private System.Windows.Forms.TabControl tcAdmins;
+        private System.Windows.Forms.TabPage tpActive;
+        private System.Windows.Forms.TabPage tpUnActive;
+        private System.Windows.Forms.DataGridView dgvUnactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }

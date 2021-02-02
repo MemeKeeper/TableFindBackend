@@ -25,9 +25,13 @@ namespace TableFindBackend.Forms
         private void PopulateList()
         {
             dgvAdmins.Rows.Clear();
+            dgvUnactive.Rows.Clear();
             foreach (AdminPins a in OwnerStorage.ListOfAdmins)
             {
-                dgvAdmins.Rows.Add(a.UserName, a.ContactNumber, a.objectId);
+                if (a.Active == true)
+                    dgvAdmins.Rows.Add(a.UserName, a.ContactNumber, a.objectId);
+                else
+                    dgvUnactive.Rows.Add(a.UserName, a.ContactNumber, a.objectId);
             }
         }
 
@@ -107,17 +111,63 @@ namespace TableFindBackend.Forms
                 string selected;
                 selected = dgvAdmins.CurrentRow.Cells[2].Value.ToString();
                 AdminPins temp =null;
+                bool flag = false;
                 foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                 {
                     if (a.objectId == selected)
+                    {
                         temp = a;
+                        flag = true;
+                    }
                 }
-                AddEditNewAdminForm newPin = new AddEditNewAdminForm(temp);
-                DialogResult result = newPin.ShowDialog();
-
-                if (result == DialogResult.OK)
+                if (flag == false)
                 {
-                    PopulateList();
+                    MessageBox.Show(this, "No Admin User could be found. Please reopen the form and try again.", "No Admin Found");
+                }
+                else
+                {
+                    AddEditNewAdminForm newPin = new AddEditNewAdminForm(temp);
+                    DialogResult result = newPin.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        PopulateList();
+                    }
+                }
+
+
+            }
+        }
+
+        private void dgvUnactive_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= -1)
+            {
+                string selected;
+                selected = dgvUnactive.CurrentRow.Cells[2].Value.ToString();
+                AdminPins temp = null;
+                bool flag = false;
+                foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                {
+                    if (a.objectId == selected)
+                    {
+                        temp = a;
+                        flag = true;
+                    }
+                }
+                if(flag==false)
+                {
+                    MessageBox.Show(this, "No Admin User could be found. Please reopen the form and try again.", "No Admin Found");
+                }
+                else
+                {
+                    AddEditNewAdminForm newPin = new AddEditNewAdminForm(temp);
+                    DialogResult result = newPin.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        PopulateList();
+                    }
                 }
 
             }
