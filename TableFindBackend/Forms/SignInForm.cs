@@ -78,7 +78,7 @@ namespace TableFindBackend.Forms
                                         {
                                             pbxLoading.Visible = false;
                                             MessageBox.Show(this, "No Restaurants was located under these credentials. it may be that you deactivated your restaurant" +
-                                                " in the past. Please contact the TableFind Development Team to assist you in reactivating your restaurant"); //Fix later
+                                                " in the past. Please contact the TableFind Development Team via email to assist you in reactivating your restaurant"); //Fix later
                                         }));
                                     }
                                 }
@@ -280,7 +280,7 @@ namespace TableFindBackend.Forms
                                 {
                                     pbxLoading.Visible = false;
                                     MessageBox.Show(this, "No Restaurants was located under these credentials. it may be that you deactivated your restaurant" +
-                                        " in the past. Please contact the TableFind Development Team to assist you in reactivating your restaurant"); //Fix later
+                                        " in the past. Please contact the TableFind Development Team via email to assist you in reactivating your restaurant"); //Fix later
                                 }));
                             }
                         }

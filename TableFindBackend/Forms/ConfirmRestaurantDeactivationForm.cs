@@ -1,5 +1,6 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.Async;
+using BackendlessAPI.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -82,8 +83,24 @@ namespace TableFindBackend.Forms
                                         Properties.Settings.Default.Save();
                                     }));
 
-                                    Application.Restart();
-                                    Environment.Exit(0);
+                                    AsyncCallback<MessageStatus> responder = new AsyncCallback<MessageStatus>(
+                                      result =>
+                                      {
+                                          Application.Restart();
+                                          Environment.Exit(0);
+                                      },
+
+                                      fault =>
+                                      {
+                                          System.Console.WriteLine("Error - " + fault);
+                                      });
+
+                                    // async request. Plain text message to one recipient
+
+                                    List<String> recipients = new List<String>();
+                                    recipients.Add(OwnerStorage.CurrentlyLoggedIn.Email);
+                                    Backendless.Messaging.SendTextEmail(OwnerStorage.ThisRestaurant.Name+" restaurant Deactivation", "This Email has been sent to confirm that you recently deactivated your "+ OwnerStorage.ThisRestaurant.Name + " restaurant in "+ OwnerStorage.ThisRestaurant.LocationString + "." +
+                                        "\nIf you are seeing this and you did not intentionally deactivated this restaurant please contact the TableFind Development Team.\n\nPlease use RST-" + OwnerStorage.ThisRestaurant.objectId+" as your reference.\n\nRegards,\nThe TableFind Development Team.", recipients, responder);
                                 },
                                 error =>
                                 {
