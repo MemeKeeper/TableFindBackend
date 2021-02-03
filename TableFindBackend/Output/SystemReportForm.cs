@@ -461,7 +461,119 @@ namespace TableFindBackend.Output
                     adminTable.Cell(i + 2, 3).Range.Text = times;
                 }
 
+                Microsoft.Office.Interop.Word.Paragraph para4 = document.Content.Paragraphs.Add(ref missing);
+                Microsoft.Office.Interop.Word.Paragraph para5 = document.Content.Paragraphs.Add(ref missing);
+
+                #endregion
+
+                //Active Reservations output
+                #region
                 
+                if (OwnerStorage.ActiveReservations.Count != 0)
+                {
+                    foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+                    {
+                        List<Reservation> tempList = new List<Reservation>();
+                        foreach (Reservation r in OwnerStorage.ActiveReservations)
+                        {
+                            if (r.TableId == t.objectId)
+                            {
+                                tempList.Add(r);
+                            }
+
+                        }
+
+                        if (tempList.Count != 0)
+                        {
+                            Microsoft.Office.Interop.Word.Table activeTable = document.Tables.Add(para5.Range, tempList.Count + 2, 4, ref missing, ref missing);
+                            activeTable.Borders.Enable = 1;
+                            activeTable.Rows[1].Cells[1].Merge(activeTable.Rows[1].Cells[4]);
+                            activeTable.Cell(1, 1).Range.Text = t.Name.ToString();
+                            //format merged heading
+                            activeTable.Cell(1,1).Range.Font.Bold = 1;
+                            activeTable.Cell(1, 1).Range.Font.Name = "verdana";
+                            activeTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                            activeTable.Cell(1, 1).Range.Font.Size = 10;
+                            activeTable.Cell(1, 1).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                            //format secondary headings
+                            activeTable.Rows[2].Range.Font.Bold = 1;
+                            activeTable.Rows[2].Range.Font.Name = "verdana";
+                            activeTable.Rows[2].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                            activeTable.Rows[2].Range.Font.Size = 10;
+                            activeTable.Rows[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                            activeTable.Cell(2, 1).Range.Text = "Name";
+                            activeTable.Cell(2, 2).Range.Text = "Contact Nr.";
+                            activeTable.Cell(2, 3).Range.Text = "Taken From";
+                            activeTable.Cell(2, 4).Range.Text = "Taken To";
+
+                            for(int i = 0; i < tempList.Count; i++)
+                            {
+                                activeTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
+                                activeTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
+                                activeTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
+                                activeTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
+                            }
+                        }
+                    }
+                }
+
+                Microsoft.Office.Interop.Word.Paragraph para6 = document.Content.Paragraphs.Add(ref missing);
+                Microsoft.Office.Interop.Word.Paragraph para7 = document.Content.Paragraphs.Add(ref missing);
+                #endregion
+
+                //Past Reservations displayed
+                #region
+                if (OwnerStorage.PastReservations.Count != 0)
+                {
+                    foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+                    {
+                        List<Reservation> tempList = new List<Reservation>();
+                        foreach (Reservation r in OwnerStorage.PastReservations)
+                        {
+                            if (r.TableId == t.objectId)
+                            {
+                                tempList.Add(r);
+                            }
+
+                        }
+
+                        if (tempList.Count != 0)
+                        {
+                            Microsoft.Office.Interop.Word.Table pastTable = document.Tables.Add(para5.Range, tempList.Count + 2, 4, ref missing, ref missing);
+                            pastTable.Borders.Enable = 1;
+                            pastTable.Rows[1].Cells[1].Merge(pastTable.Rows[1].Cells[4]);
+                            pastTable.Cell(1, 1).Range.Text = t.Name.ToString();
+                            //format merged heading
+                            pastTable.Cell(1, 1).Range.Font.Bold = 1;
+                            pastTable.Cell(1, 1).Range.Font.Name = "verdana";
+                            pastTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                            pastTable.Cell(1, 1).Range.Font.Size = 10;
+                            pastTable.Cell(1, 1).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                            //format secondary headings
+                            pastTable.Rows[2].Range.Font.Bold = 1;
+                            pastTable.Rows[2].Range.Font.Name = "verdana";
+                            pastTable.Rows[2].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                            pastTable.Rows[2].Range.Font.Size = 10;
+                            pastTable.Rows[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                            pastTable.Cell(2, 1).Range.Text = "Name";
+                            pastTable.Cell(2, 2).Range.Text = "Contact Nr.";
+                            pastTable.Cell(2, 3).Range.Text = "Taken From";
+                            pastTable.Cell(2, 4).Range.Text = "Taken To";
+
+                            for (int i = 0; i < tempList.Count; i++)
+                            {
+                                pastTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
+                                pastTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
+                                pastTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
+                                pastTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
+                            }
+                        }
+                    }
+                }
                 #endregion
 
                 //Save the document  
