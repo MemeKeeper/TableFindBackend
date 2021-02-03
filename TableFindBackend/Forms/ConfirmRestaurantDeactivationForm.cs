@@ -92,7 +92,12 @@ namespace TableFindBackend.Forms
 
                                       fault =>
                                       {
-                                          System.Console.WriteLine("Error - " + fault);
+                                          Invoke(new Action(() =>
+                                          {
+                                              MessageBox.Show(fault.Message.ToString());
+                                          }));
+                                          Application.Restart();
+                                          Environment.Exit(0);
                                       });
 
                                     // async request. Plain text message to one recipient
