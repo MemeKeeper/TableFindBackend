@@ -133,7 +133,7 @@ namespace TableFindBackend.Forms
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(129, 62);
             this.btnRemove.TabIndex = 9;
-            this.btnRemove.Text = "Delete Booking";
+            this.btnRemove.Text = "Remove Reservation";
             this.btnRemove.UseVisualStyleBackColor = false;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 

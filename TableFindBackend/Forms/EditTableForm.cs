@@ -111,90 +111,90 @@ namespace TableFindBackend.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult result;
-            if (table.objectId!=null)
+            List<Reservation> rList = new List<Reservation>();
+            foreach(Reservation r in OwnerStorage.ActiveReservations)
             {
-                result = MessageBox.Show(this, "Are you sure you would like to delete '" + table.Name + "'? All reservations made under this table by customers will be lost!", "Delete '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                result = MessageBox.Show(this, "Are you sure you would like to delete '" + table.Name + "'?", "Delete '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            }
-            
-            if (result == DialogResult.Yes)
-            {
-                showLoading(true);
-
-                AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
-                deletionTime =>
+                if(r.TableId == table.objectId)
                 {
-                    Invoke(new Action(() =>
-                    {
-                        OwnerStorage.FileWriter.WriteLineToFile("User deleted table ", true);
-                        OwnerStorage.FileWriter.WriteLineToFile("Name:  " + table.Name, false);             
-                    }));
-                    if (table.objectId != null)
-                    {
-                        string whereClause = "tableId = '" + table.objectId + "'";
+                    rList.Add(r);
+                }
+            }
+            if(availability == false && rList.Count == 0)
+            {
+                
+                DialogResult result;
+                result = MessageBox.Show(this, "Are you sure you would like to remove '" + table.Name + "'?", "Remove '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                
+                if (result == DialogResult.Yes)
+                {
+                    showLoading(true);
 
-                        AsyncCallback<int> deleteReservationsCallback = new AsyncCallback<int>(
-                        objectsDeleted =>
+                    AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
+                    deletionTime =>
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            OwnerStorage.FileWriter.WriteLineToFile("User removed table ", true);
+                            OwnerStorage.FileWriter.WriteLineToFile("Name:  " + table.Name, false);
+                        }));
+                        if (table.objectId != null) //table exists in database
+                        {
+
+                            Invoke(new Action(() =>
+                            {
+                                showLoading(false);
+                                MessageBox.Show(this, table.Name + " has been removed");
+                                DialogResult = DialogResult.Yes;
+                                this.Close();
+                            }));
+                            
+                        }
+                        else
                         {
                             Invoke(new Action(() =>
                             {
                                 showLoading(false);
-                                MessageBox.Show(this, table.Name + " has been removed, along with "+ objectsDeleted.ToString()+" reservations");
-                                OwnerStorage.FileWriter.WriteLineToFile("User deleted "+objectsDeleted.ToString() + " reservations",false);
+                                MessageBox.Show(this, table.Name + " has been removed");
                                 DialogResult = DialogResult.Yes;
                                 this.Close();
                             }));
-                        },
-                        error =>
-                        {
-                            System.Console.WriteLine("Server returned an error " + error.Message);
-                        });
+                        }
 
-                        Backendless.Data.Of<Reservation>().Remove(whereClause, deleteReservationsCallback);
-                    }
-                    else
+                    },
+                    error =>
                     {
                         Invoke(new Action(() =>
                         {
                             showLoading(false);
-                            MessageBox.Show(this, table.Name + " has been removed");                        
-                            DialogResult = DialogResult.Yes;
-                            this.Close();
+                            MessageBox.Show(this, "Error: " + error.Message);
                         }));
-                    }
+                    });
 
-                },
-                error =>
-                {
-                    Invoke(new Action(() =>
-                    {
-                        showLoading(false);
-                        MessageBox.Show(this, "Error: " + error.Message);
-                    }));
-                });
-
-                AsyncCallback<RestaurantTable> saveObjectCallback = new AsyncCallback<RestaurantTable>(
-                  savedTable =>
-                  {
-
-                      Backendless.Persistence.Of<RestaurantTable>().Remove(savedTable, deleteObjectCallback);
-                  },
-                  error =>
-                  {
-                      Invoke(new Action(() =>
+                    AsyncCallback<RestaurantTable> saveObjectCallback = new AsyncCallback<RestaurantTable>(
+                      savedTable =>
                       {
-                          showLoading(false);
-                          MessageBox.Show(this, "Error: " + error.Message);
-                      }));
-                  }
-                );
 
-                Backendless.Persistence.Of<RestaurantTable>().Save(table, saveObjectCallback);
+                          Backendless.Persistence.Of<RestaurantTable>().Remove(savedTable, deleteObjectCallback);
+                      },
+                      error =>
+                      {
+                          Invoke(new Action(() =>
+                          {
+                              showLoading(false);
+                              MessageBox.Show(this, "Error: " + error.Message);
+                          }));
+                      }
+                    );
+
+                    Backendless.Persistence.Of<RestaurantTable>().Save(table, saveObjectCallback);
+                }
             }
+            else
+            {
+                MessageBox.Show("The table has to be made unavailable and have no reservations under it in order to remove this table from the restaurant. Please make these changes before trying again.");
+            }
+            
+            
         }
 
         private void lblTitle_Click(object sender, EventArgs e)

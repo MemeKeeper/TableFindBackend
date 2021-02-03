@@ -220,7 +220,7 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(90, 52);
             this.btnDelete.TabIndex = 5;
-            this.btnDelete.Text = "Delete Table";
+            this.btnDelete.Text = "Remove Table";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
