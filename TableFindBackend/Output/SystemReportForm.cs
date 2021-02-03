@@ -179,11 +179,12 @@ namespace TableFindBackend.Output
             try
             {
                 Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-                app.SheetsInNewWorkbook = 4;
+                app.SheetsInNewWorkbook = 5;
                 Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
                 Microsoft.Office.Interop.Excel._Worksheet wsTables = null;
                 Microsoft.Office.Interop.Excel.Range range;
 
+                #region //restaurant Tables
                 //Setup for Sheet1
                 wsTables = workbook.Sheets["Sheet1"];
                 wsTables = workbook.ActiveSheet;
@@ -207,7 +208,8 @@ namespace TableFindBackend.Output
                 range.Rows.AutoFit();
                 range.Columns.AutoFit();
 
-
+                #endregion
+                #region //System Log
                 //Setup for Sheet2
                 wsTables = workbook.Sheets["Sheet2"];
                 wsTables.Name = "System Log";     
@@ -229,7 +231,8 @@ namespace TableFindBackend.Output
                 range = wsTables.get_Range("A1", "H1000");
                 range.Rows.AutoFit();
                 range.Columns.AutoFit();
-
+                #endregion
+                #region//Reservations
                 //setup for Sheet3
                 wsTables = workbook.Sheets["Sheet3"];
                 wsTables.Name = "Reservations";
@@ -275,7 +278,8 @@ namespace TableFindBackend.Output
                 range = wsTables.get_Range("A1", "H1000");
                 range.Rows.AutoFit();
                 range.Columns.AutoFit();
-
+                #endregion
+                #region//Expired Reservations
                 //setup for sheet4
                 wsTables = workbook.Sheets["Sheet4"];
                 wsTables.Name = "Expired Reservations";
@@ -321,7 +325,60 @@ namespace TableFindBackend.Output
                 range = wsTables.get_Range("A1", "H1000");
                 range.Rows.AutoFit();
                 range.Columns.AutoFit();
-                app.Visible = true;
+                #endregion
+                #region//Admin Log
+
+                //setup for sheet5 
+                wsTables = workbook.Sheets["Sheet5"];
+                wsTables.Name = "Admin Log";
+                rowHeadingIndex = 0;
+                for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
+                {
+                    List<String> tempList = new List<String>();
+                    for(int inner = 0; inner < OwnerStorage.AdminLog.Count; inner++)
+                    {
+                        if (OwnerStorage.AdminLog[inner][0] == OwnerStorage.ListOfAdmins[i].objectId)
+                            tempList.Add(OwnerStorage.AdminLog[inner][1]);
+                    }
+
+                        rowHeadingIndex += 1;
+                        wsTables.Cells[rowHeadingIndex, 1] = OwnerStorage.ListOfAdmins[i].UserName;
+                        wsTables.Cells[rowHeadingIndex+1, 1] = "Total Times Logged in during session";
+                        wsTables.Cells[rowHeadingIndex+1, 2] = tempList.Count;
+                        wsTables.Cells[rowHeadingIndex, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.Cells[rowHeadingIndex + 1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.Cells[rowHeadingIndex + 1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString()).Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenterAcrossSelection;
+                        wsTables.Range[wsTables.Cells[rowHeadingIndex, 1], wsTables.Cells[rowHeadingIndex, 2]].Merge();
+
+
+                    if (tempList.Count != 0)
+                    {
+
+
+                        wsTables.Cells[rowHeadingIndex + 2, 1] = "Recorded Time";
+                        wsTables.Cells[rowHeadingIndex + 2, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.Cells[rowHeadingIndex+2, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                        wsTables.Range[wsTables.Cells[rowHeadingIndex+2, 1], wsTables.Cells[rowHeadingIndex+2, 2]].Merge();
+                        range = wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString(), "D" + (rowHeadingIndex + 1).ToString());
+                        range.Font.Color = System.Drawing.Color.FromName("White");
+                        for (int inner = 0; inner < tempList.Count; inner++)
+                        {
+                            wsTables.Cells[rowHeadingIndex + inner + 3, 1] = tempList[inner];
+                        }
+                        rowHeadingIndex += tempList.Count + 3;
+                    }
+                    else
+                    {
+                        rowHeadingIndex += 2;
+                    }
+                }
+                range = wsTables.get_Range("A1", "A1000");
+                range.Rows.AutoFit();
+                range.Columns.AutoFit();
+                #endregion
+
+               app.Visible = true;
 
                 string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId);
                 if (File.Exists(path) != true)
