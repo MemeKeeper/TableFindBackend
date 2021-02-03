@@ -78,6 +78,8 @@ namespace TableFindBackend.Output
             }
         }
 
+        
+
         private void AddAdminUserLoginTable(List<string> log, AdminPins a)
         {
             Panel backPanel = new Panel();
@@ -418,14 +420,18 @@ namespace TableFindBackend.Output
                     firstTable.Cell(i + 2, 1).Range.Text = OwnerStorage.LogInfo[i].ToString();
                     firstTable.Cell(i + 2, 2).Range.Text = OwnerStorage.LogTimes[i].ToString();
                 }
+
+                Microsoft.Office.Interop.Word.Paragraph para3 = document.Content.Paragraphs.Add(ref missing);
+                
                 #endregion
 
                 //Admin Log output
                 #region
-                Microsoft.Office.Interop.Word.Table adminTable = document.Tables.Add(para1.Range, OwnerStorage.ListOfAdmins.Count + 1, 2, ref missing, ref missing);
+                Microsoft.Office.Interop.Word.Table adminTable = document.Tables.Add(para2.Range, OwnerStorage.ListOfAdmins.Count + 1, 3, ref missing, ref missing);
                 adminTable.Borders.Enable = 1;
                 adminTable.Cell(1, 1).Range.Text = "Admin User";
-                adminTable.Cell(1, 2).Range.Text = "Recorded Time";
+                adminTable.Cell(1, 2).Range.Text = "Login Count";
+                adminTable.Cell(1, 3).Range.Text = "Login Times";
 
                 adminTable.Rows[1].Range.Font.Bold = 1;
                 adminTable.Rows[1].Range.Font.Name = "verdana";
@@ -435,16 +441,27 @@ namespace TableFindBackend.Output
 
                 //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
 
-                for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
+                for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
                 {
-                    adminTable.Cell(i + 2, 1).Range.Text = OwnerStorage.LogInfo[i].ToString();
-                    adminTable.Cell(i + 2, 2).Range.Text = OwnerStorage.LogTimes[i].ToString();
+                    int counter = 0;
+                    string times = "";
+                    foreach (string[] s in OwnerStorage.AdminLog)
+                    {
+                        if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
+                        {
+                            counter++;
+                            if(counter == OwnerStorage.ListOfAdmins.Count)
+                                times = times + s[1];
+                            else
+                            times = times + s[1] + "\n";
+                        }
+                    }
+                    adminTable.Cell(i + 2, 1).Range.Text = OwnerStorage.ListOfAdmins[i].UserName.ToString();
+                    adminTable.Cell(i + 2, 2).Range.Text = counter.ToString() + " logins during this session.";
+                    adminTable.Cell(i + 2, 3).Range.Text = times;
                 }
 
-                foreach(AdminPins a in OwnerStorage.ListOfAdmins )
-                {
-
-                }
+                
                 #endregion
 
                 //Save the document  
