@@ -140,6 +140,7 @@ namespace TableFindBackend.Forms
                                     TempAdmin.ContactNumber = tbxContact.Text;
                                     TempAdmin.PinCode = Convert.ToInt32(tbxPinCode.Text);
                                     TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                                    TempAdmin.Active = true;
                                     Backendless.Data.Of<AdminPins>().Save(TempAdmin, callback);
                                 }
                                 else
@@ -357,6 +358,7 @@ namespace TableFindBackend.Forms
         }
         private void btnRemoveAdmin_Click(object sender, EventArgs e)
         {
+            showLoading(true);
             if (TempAdmin.Active == false)
             {
                 DialogResult result = MessageBox.Show(this, "Are you sure you wish permanently remove " + TempAdmin.UserName + " as administrator?", "Removing Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
