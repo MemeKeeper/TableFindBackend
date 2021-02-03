@@ -34,14 +34,14 @@ namespace TableFindBackend.Forms
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlBackground = new System.Windows.Forms.Panel();
-            this.lblInfo = new System.Windows.Forms.Label();
-            this.tbxEmail = new System.Windows.Forms.TextBox();
-            this.tbxPassword = new System.Windows.Forms.TextBox();
-            this.lblEmailLogin = new System.Windows.Forms.Label();
-            this.lblPasswordLogin = new System.Windows.Forms.Label();
-            this.lblConfirm = new System.Windows.Forms.Label();
-            this.tbxConfirm = new System.Windows.Forms.TextBox();
             this.btnConfirm = new System.Windows.Forms.Button();
+            this.tbxConfirm = new System.Windows.Forms.TextBox();
+            this.lblConfirm = new System.Windows.Forms.Label();
+            this.lblPasswordLogin = new System.Windows.Forms.Label();
+            this.lblEmailLogin = new System.Windows.Forms.Label();
+            this.tbxPassword = new System.Windows.Forms.TextBox();
+            this.tbxEmail = new System.Windows.Forms.TextBox();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.pnlBackground.SuspendLayout();
             this.SuspendLayout();
@@ -103,52 +103,25 @@ namespace TableFindBackend.Forms
             this.pnlBackground.TabIndex = 23;
             this.pnlBackground.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlBackground_Paint);
             // 
-            // lblInfo
+            // btnConfirm
             // 
-            this.lblInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblInfo.Location = new System.Drawing.Point(4, 3);
-            this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(272, 102);
-            this.lblInfo.TabIndex = 0;
-            this.lblInfo.Text = resources.GetString("lblInfo.Text");
-            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnConfirm.Enabled = false;
+            this.btnConfirm.Location = new System.Drawing.Point(39, 335);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(199, 42);
+            this.btnConfirm.TabIndex = 7;
+            this.btnConfirm.Text = "Deactivate";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
-            // tbxEmail
+            // tbxConfirm
             // 
-            this.tbxEmail.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxEmail.Location = new System.Drawing.Point(4, 147);
-            this.tbxEmail.Name = "tbxEmail";
-            this.tbxEmail.Size = new System.Drawing.Size(272, 27);
-            this.tbxEmail.TabIndex = 1;
-            // 
-            // tbxPassword
-            // 
-            this.tbxPassword.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPassword.Location = new System.Drawing.Point(4, 212);
-            this.tbxPassword.Name = "tbxPassword";
-            this.tbxPassword.PasswordChar = '•';
-            this.tbxPassword.Size = new System.Drawing.Size(272, 27);
-            this.tbxPassword.TabIndex = 2;
-            // 
-            // lblEmailLogin
-            // 
-            this.lblEmailLogin.AutoSize = true;
-            this.lblEmailLogin.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmailLogin.Location = new System.Drawing.Point(4, 127);
-            this.lblEmailLogin.Name = "lblEmailLogin";
-            this.lblEmailLogin.Size = new System.Drawing.Size(96, 17);
-            this.lblEmailLogin.TabIndex = 3;
-            this.lblEmailLogin.Text = "Email Address";
-            // 
-            // lblPasswordLogin
-            // 
-            this.lblPasswordLogin.AutoSize = true;
-            this.lblPasswordLogin.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPasswordLogin.Location = new System.Drawing.Point(4, 192);
-            this.lblPasswordLogin.Name = "lblPasswordLogin";
-            this.lblPasswordLogin.Size = new System.Drawing.Size(69, 17);
-            this.lblPasswordLogin.TabIndex = 4;
-            this.lblPasswordLogin.Text = "Password";
+            this.tbxConfirm.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxConfirm.Location = new System.Drawing.Point(4, 292);
+            this.tbxConfirm.Name = "tbxConfirm";
+            this.tbxConfirm.Size = new System.Drawing.Size(272, 27);
+            this.tbxConfirm.TabIndex = 6;
+            this.tbxConfirm.TextChanged += new System.EventHandler(this.tbxConfirm_TextChanged);
             // 
             // lblConfirm
             // 
@@ -160,25 +133,52 @@ namespace TableFindBackend.Forms
             this.lblConfirm.TabIndex = 5;
             this.lblConfirm.Text = "Please Type:";
             // 
-            // tbxConfirm
+            // lblPasswordLogin
             // 
-            this.tbxConfirm.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxConfirm.Location = new System.Drawing.Point(4, 292);
-            this.tbxConfirm.Name = "tbxConfirm";
-            this.tbxConfirm.Size = new System.Drawing.Size(272, 27);
-            this.tbxConfirm.TabIndex = 6;
-            this.tbxConfirm.TextChanged += new System.EventHandler(this.tbxConfirm_TextChanged);
+            this.lblPasswordLogin.AutoSize = true;
+            this.lblPasswordLogin.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPasswordLogin.Location = new System.Drawing.Point(4, 192);
+            this.lblPasswordLogin.Name = "lblPasswordLogin";
+            this.lblPasswordLogin.Size = new System.Drawing.Size(69, 17);
+            this.lblPasswordLogin.TabIndex = 4;
+            this.lblPasswordLogin.Text = "Password";
             // 
-            // btnConfirm
+            // lblEmailLogin
             // 
-            this.btnConfirm.Enabled = false;
-            this.btnConfirm.Location = new System.Drawing.Point(39, 335);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(199, 42);
-            this.btnConfirm.TabIndex = 7;
-            this.btnConfirm.Text = "Deactivate";
-            this.btnConfirm.UseVisualStyleBackColor = true;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            this.lblEmailLogin.AutoSize = true;
+            this.lblEmailLogin.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmailLogin.Location = new System.Drawing.Point(4, 127);
+            this.lblEmailLogin.Name = "lblEmailLogin";
+            this.lblEmailLogin.Size = new System.Drawing.Size(96, 17);
+            this.lblEmailLogin.TabIndex = 3;
+            this.lblEmailLogin.Text = "Email Address";
+            // 
+            // tbxPassword
+            // 
+            this.tbxPassword.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPassword.Location = new System.Drawing.Point(4, 212);
+            this.tbxPassword.Name = "tbxPassword";
+            this.tbxPassword.PasswordChar = '•';
+            this.tbxPassword.Size = new System.Drawing.Size(272, 27);
+            this.tbxPassword.TabIndex = 2;
+            // 
+            // tbxEmail
+            // 
+            this.tbxEmail.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxEmail.Location = new System.Drawing.Point(4, 147);
+            this.tbxEmail.Name = "tbxEmail";
+            this.tbxEmail.Size = new System.Drawing.Size(272, 27);
+            this.tbxEmail.TabIndex = 1;
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblInfo.Location = new System.Drawing.Point(4, 3);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(272, 102);
+            this.lblInfo.TabIndex = 0;
+            this.lblInfo.Text = resources.GetString("lblInfo.Text");
+            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ConfirmRestaurantDeactivationForm
             // 
