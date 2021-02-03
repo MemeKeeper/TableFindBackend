@@ -64,15 +64,19 @@ namespace TableFindBackend.Models
             }
             else
             {
-                pnlPanel.Visible = false;
-                DateTime tempTime = dtpTakenFrom.Value.AddHours(2);   //<-- +2:00 time zone
-                tempTime.AddHours(Convert.ToInt32(spnDuration.Value));             
+                if((dtpTakenFrom.Value.Hour>OwnerStorage.ThisRestaurant.Open.Hour)&& ((dtpTakenFrom.Value.Hour+spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
+                {
+
+
+                    pnlPanel.Visible = false;
+                    DateTime tempTime = dtpTakenFrom.Value.AddHours(2);   //<-- +2:00 time zone
+                    tempTime.AddHours(Convert.ToInt32(spnDuration.Value));
 
                     reservation.Number = tbxContact.Text;
                     reservation.Name = tbxName.Text;
                     reservation.TakenFrom = dtpTakenFrom.Value.AddHours(2);
                     reservation.TableId = thisTable.objectId;
-                    reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)+2);   //the +2:00 timezone
+                    reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value) + 2);   //the +2:00 timezone
                     reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
                     reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
                     reservation.Active = true;
@@ -104,7 +108,12 @@ namespace TableFindBackend.Models
                                             }));
                                         });
                     Backendless.Data.Of<Reservation>().Save(reservation, callback);
-             
+                }
+                else
+                {
+                    pnlPanel.Visible = true;
+                    MessageBox.Show(this, "This reservation is outside the restaurant's set open and close times, please select another time.");
+                }
                 //else
                 //{
                 //    pnlPanel.Visible = true;
