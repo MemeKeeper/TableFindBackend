@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblInfo.Text" xml:space="preserve">
-    <value>Are you sure you would like to deactivate your restaurant? Deactivating your restaurant will not permanently delete it. Users will be unable to see your restaurant after deactivation. In future should you wish to reactivate your restaurant please contact the TableFind Development Team. Please confirm the deactivation with a valid login and a security question.</value>
+    <value>Are you sure you would like to deactivate your restaurant? Deactivating your restaurant will not permanently delete it. Users will be unable to see your restaurant after deactivation. In future should you wish to reactivate your restaurant please contact the TableFind Development Team. Please confirm the deactivation with a valid login and a security question. You will receive a confirmation email upon deactivation.</value>
   </data>
 </root>
