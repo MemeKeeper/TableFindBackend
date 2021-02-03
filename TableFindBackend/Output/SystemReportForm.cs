@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
 using Microsoft.Office.Interop.Word;
+using Document = Spire.Doc.Document;
 
 namespace TableFindBackend.Output
 {
@@ -525,7 +526,6 @@ namespace TableFindBackend.Output
 
                 //Active Reservations output
                 #region
-                
                 if (OwnerStorage.ActiveReservations.Count != 0)
                 {
                     foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
@@ -542,6 +542,7 @@ namespace TableFindBackend.Output
 
                         if (tempList.Count != 0)
                         {
+                            
                             Microsoft.Office.Interop.Word.Table activeTable = document.Tables.Add(para5.Range, tempList.Count + 2, 4, ref missing, ref missing);
                             activeTable.Borders.Enable = 1;
                             activeTable.Rows[1].Cells[1].Merge(activeTable.Rows[1].Cells[4]);
@@ -572,12 +573,11 @@ namespace TableFindBackend.Output
                                 activeTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
                                 activeTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
                             }
+                            Microsoft.Office.Interop.Word.Paragraph spacePara1 = document.Content.Paragraphs.Add(ref missing);
+                            Microsoft.Office.Interop.Word.Paragraph spacePara2 = document.Content.Paragraphs.Add(ref missing);
                         }
                     }
                 }
-
-                Microsoft.Office.Interop.Word.Paragraph para6 = document.Content.Paragraphs.Add(ref missing);
-                Microsoft.Office.Interop.Word.Paragraph para7 = document.Content.Paragraphs.Add(ref missing);
                 #endregion
 
                 //Past Reservations displayed
@@ -628,23 +628,34 @@ namespace TableFindBackend.Output
                                 pastTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
                                 pastTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
                             }
+                            Microsoft.Office.Interop.Word.Paragraph spacePara1 = document.Content.Paragraphs.Add(ref missing);
+                            Microsoft.Office.Interop.Word.Paragraph spacePara2 = document.Content.Paragraphs.Add(ref missing);
                         }
                     }
                 }
                 #endregion
+
+
+                if (word == true)
+                {
+                    winword.Visible = true;
+                }
 
                 //Save the document  
                 string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
                 if (File.Exists(path) != true)
                     Directory.CreateDirectory(path);
 
+                
                 object filename = "SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx";
                 document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\" + filename);
-                document.Close(ref missing, ref missing, ref missing);
-                document = null;
-                winword.Quit(ref missing, ref missing, ref missing);
-                winword = null;
-                MessageBox.Show("Document created successfully !");
+                document.Save();
+                // document.Close(ref missing, ref missing, ref missing);
+                //document = null;
+                //winword.Quit(ref missing, ref missing, ref missing);
+                //winword = null;
+                
+
             }
             catch (Exception ex)
             {
@@ -1099,21 +1110,19 @@ namespace TableFindBackend.Output
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            //GenerateWordDoc(false);
+            GenerateWordDoc(false);
 
-            //string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
 
-            ////load document
-            //Document document = new Document();
-            //document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+            //load document
+            Document document = new Document();
+            document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
 
-            ////convert to PDF
-            //document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
+            //convert to PDF
+            document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
 
-            ////launch document
-            //System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
-
-
+            //launch document
+            System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
 
         }
     }
