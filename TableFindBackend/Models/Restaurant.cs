@@ -40,31 +40,5 @@ namespace TableFindBackend.Models
         public DateTime Open { get => open; set => open = value; }
         public DateTime Close { get => close; set => close = value; }
         public bool Active { get => active; set => active = value; }
-
-        public void EditRestaurant()
-        {
-            AsyncCallback<Restaurant> updateObjectCallback = new AsyncCallback<Restaurant>(
-            savedRestaurant =>
-            {
-                System.Console.WriteLine("Restaurant details has been updated");
-            },
-            error =>
-            {
-                //
-            });
-
-            AsyncCallback<Restaurant> saveObjectCallback = new AsyncCallback<Restaurant>(
-              savedRestaurant =>
-              {
-                  Backendless.Persistence.Of<Restaurant>().Save(savedRestaurant, updateObjectCallback);
-              },
-              error =>
-              {
-                  //
-              }
-            );
-
-            Backendless.Persistence.Of<Restaurant>().Save(OwnerStorage.ThisRestaurant, saveObjectCallback);
-        }
     }
 }

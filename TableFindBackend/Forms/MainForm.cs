@@ -211,9 +211,13 @@ namespace TableFindBackend.Forms
             if (enable == true)
             {
                 pboxLoading.Visible = true;
+                btnApply.Enabled = false;
             }
             else
+            {
                 pboxLoading.Visible = false;
+                btnApply.Enabled = true;
+            }
         }
         public void RemoveOneReservationView(Reservation oldR, Reservation newR)
         {

@@ -1,4 +1,5 @@
-﻿using BackendlessAPI.Async;
+﻿using BackendlessAPI;
+using BackendlessAPI.Async;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,10 +54,41 @@ namespace TableFindBackend.Forms
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
+        private void ShowLoading(bool toggle)
+        {
+            if(toggle ==true)
+            {
+                pbxLoading.Visible = true;
+                btnBrowse.Enabled = false;
+                btnSave.Enabled = false;
+                btnCancel.Enabled = false;
+                btnClose.Enabled = false;
+                btnUpload.Enabled = false;
+                btnBrowseLayout.Enabled = false;
+                btnPrint.Enabled = false;
+                btnDeactivate.Enabled = false;
+                btnDefault.Enabled = false;
+
+            }
+            else
+            {
+                pbxLoading.Visible = false;
+                btnBrowse.Enabled = true;
+                btnSave.Enabled = true;
+                btnCancel.Enabled = true;
+                btnClose.Enabled = true;
+                btnUpload.Enabled = true;
+                btnBrowseLayout.Enabled = true;
+                btnPrint.Enabled = true;
+                btnDeactivate.Enabled = true;
+                btnDefault.Enabled = true;
+            }
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             string file = ofdLayoutBrowse.FileName;
+            ShowLoading(true);
             try
             {
                 if (File.Exists("layouts") != true)
@@ -99,9 +131,44 @@ namespace TableFindBackend.Forms
             OwnerStorage.ThisRestaurant.LocationString = tbxLocation.Text;
             OwnerStorage.ThisRestaurant.Open = dtpOpen.Value;
             OwnerStorage.ThisRestaurant.Close = dtpClose.Value;
-            OwnerStorage.ThisRestaurant.EditRestaurant();
-            DialogResult = DialogResult.OK;
-            this.Close();
+
+            AsyncCallback<Restaurant> updateObjectCallback = new AsyncCallback<Restaurant>(
+            savedRestaurant =>
+            {
+                Invoke(new Action(() =>
+                {
+                    ShowLoading(false);
+                    DialogResult = DialogResult.OK;
+                    this.Close();
+                }));
+
+            },
+            error =>
+            {
+                Invoke(new Action(() =>
+                {
+                    ShowLoading(false);
+                    MessageBox.Show(error.Message.ToString());
+                }));
+            });
+
+            AsyncCallback<Restaurant> saveObjectCallback = new AsyncCallback<Restaurant>(
+              savedRestaurant =>
+              {
+                  Backendless.Persistence.Of<Restaurant>().Save(savedRestaurant, updateObjectCallback);
+              },
+              error =>
+              {
+                  Invoke(new Action(() =>
+                  {
+                      ShowLoading(false);
+                      MessageBox.Show(error.Message.ToString());
+                  }));
+              }
+            );
+
+            Backendless.Persistence.Of<Restaurant>().Save(OwnerStorage.ThisRestaurant, saveObjectCallback);
+
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)

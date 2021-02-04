@@ -510,7 +510,7 @@ namespace TableFindBackend.Output
                 adminTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
                 //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-
+                winword.Visible = true;
                 for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
                 {
                     int counter = 0;
@@ -519,14 +519,23 @@ namespace TableFindBackend.Output
                     {
                         if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
                         {
-
                             counter++;
-                            if (counter == OwnerStorage.ListOfAdmins.Count)
+                        }
+                    }
+                    int innerCounter = 0;
+                    foreach(string[] s in OwnerStorage.AdminLog)
+                    {
+
+                        if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
+                        {
+                            innerCounter++;
+                            if (counter == innerCounter)
                                 times = times + s[1];
                             else
                                 times = times + s[1] + "\n";
                         }
                     }
+
                     adminTable.Cell(i + 2, 1).Range.Text = OwnerStorage.ListOfAdmins[i].UserName.ToString();
                     adminTable.Cell(i + 2, 2).Range.Text = counter.ToString() + " logins during this session.";
                     adminTable.Cell(i + 2, 3).Range.Text = times;
