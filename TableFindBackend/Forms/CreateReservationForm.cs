@@ -64,12 +64,13 @@ namespace TableFindBackend.Models
             }
             else
             {
-                if((dtpTakenFrom.Value.Hour>OwnerStorage.ThisRestaurant.Open.Hour)&& ((dtpTakenFrom.Value.Hour+spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
+                if((dtpTakenFrom.Value.TimeOfDay>OwnerStorage.ThisRestaurant.Open.TimeOfDay)&& ((dtpTakenFrom.Value.TimeOfDay.Hours+spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
                 {
                     Reservation flag = null;
                     foreach(Reservation r in OwnerStorage.ActiveReservations)
                     {
-                        if((dtpTakenFrom.Value>r.TakenFrom && dtpTakenFrom.Value<r.TakenTo)||((dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)))>r.TakenFrom && (dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)))<r.TakenTo))
+                        if(r.TableId==thisTable.objectId&&((dtpTakenFrom.Value>r.TakenFrom && dtpTakenFrom.Value<r.TakenTo)||((dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)))>r.TakenFrom && (dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)))<r.TakenTo)
+                            ||dtpTakenFrom.Value<r.TakenFrom && dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value))>r.TakenTo))
                         {
                             flag = r;
                         }
