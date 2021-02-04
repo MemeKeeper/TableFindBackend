@@ -162,20 +162,22 @@ namespace TableFindBackend.Forms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            CreateReservationForm newReservation = new CreateReservationForm(thisTable);
-            DialogResult result =newReservation.ShowDialog();
-            if (result == DialogResult.OK)
+            if (OwnerStorage.AdminMode == true)
             {
-                Invoke(new Action(() =>
+                CreateReservationForm newReservation = new CreateReservationForm(thisTable);
+                DialogResult result = newReservation.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    CheckIfNew();                   
-                }));
-                //bottleneck = new System.Timers.Timer();
-                //bottleneck.Enabled = true;
-                //bottleneck.AutoReset = false;
-                //bottleneck.Interval = 4000;
-                //bottleneck.Elapsed += OnTimedEvent;                              
-            }           
+                    Invoke(new Action(() =>
+                    {
+                        CheckIfNew();
+                    }));                         
+                }
+            }
+            else
+            {
+                MessageBox.Show("This Table has been made unactive by an Admin User. Please login as Admin User to create a reservation for this table", "unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         private async void CheckIfNew()
             {
@@ -184,28 +186,7 @@ namespace TableFindBackend.Forms
                 populateList(true);
             else
                 populateList(false);
-        }
-        public void initializeTimer()
-        {
-            //bottleneck = new System.Timers.Timer();
-            //bottleneck.Enabled = true;
-            //bottleneck.AutoReset = false;
-            //bottleneck.Interval = 4000;
-            //bottleneck.Elapsed += OnTimedEvent;
-        }
-        public void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            if (Application.OpenForms.OfType<ReservationsForm>().Any())
-            {
-                //Invoke(new Action(() =>
-                //{
-                //    if (thisTable != null)
-                //        populateList(true);
-                //    else
-                //        populateList(false);
-                //}));
-            }
-        }
+        }       
         private void lvBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
 

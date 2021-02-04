@@ -64,74 +64,75 @@ namespace TableFindBackend.Models
             }
             else
             {
-                if((dtpTakenFrom.Value.Hour>OwnerStorage.ThisRestaurant.Open.Hour)&& ((dtpTakenFrom.Value.Hour+spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
-                {
-                    Reservation flag = null;
-                    foreach(Reservation r in OwnerStorage.ActiveReservations)
+                
+                    if ((dtpTakenFrom.Value.TimeOfDay > OwnerStorage.ThisRestaurant.Open.TimeOfDay) && ((dtpTakenFrom.Value.TimeOfDay.Hours + spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
                     {
-                        if((dtpTakenFrom.Value>r.TakenFrom && dtpTakenFrom.Value<r.TakenTo)||((dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)))>r.TakenFrom && (dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)))<r.TakenTo))
+                        Reservation flag = null;
+                        foreach (Reservation r in OwnerStorage.ActiveReservations)
                         {
-                            flag = r;
+                            if (r.TableId == thisTable.objectId && ((dtpTakenFrom.Value > r.TakenFrom && dtpTakenFrom.Value < r.TakenTo) || ((dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value))) > r.TakenFrom && (dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value))) < r.TakenTo)
+                                || dtpTakenFrom.Value < r.TakenFrom && dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)) > r.TakenTo))
+                            {
+                                flag = r;
+                            }
                         }
-                    }
 
-                    if (flag == null)
-                    {
-                        pnlPanel.Visible = false;
-                        DateTime tempTime = dtpTakenFrom.Value.AddHours(2);   //<-- +2:00 time zone
-                        tempTime.AddHours(Convert.ToInt32(spnDuration.Value));
+                        if (flag == null)
+                        {
+                            pnlPanel.Visible = false;
+                            DateTime tempTime = dtpTakenFrom.Value.AddHours(2);   //<-- +2:00 time zone
+                            tempTime.AddHours(Convert.ToInt32(spnDuration.Value));
 
-                        reservation.Number = tbxContact.Text;
-                        reservation.Name = tbxName.Text;
-                        reservation.TakenFrom = dtpTakenFrom.Value.AddHours(2);
-                        reservation.TableId = thisTable.objectId;
-                        reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value) + 2);   //the +2:00 timezone
-                        reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                        reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
-                        reservation.Active = true;
-                        reservation.ReasonForExpiration = "";
+                            reservation.Number = tbxContact.Text;
+                            reservation.Name = tbxName.Text;
+                            reservation.TakenFrom = dtpTakenFrom.Value.AddHours(2);
+                            reservation.TableId = thisTable.objectId;
+                            reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value) + 2);   //the +2:00 timezone
+                            reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                            reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
+                            reservation.Active = true;
+                            reservation.ReasonForExpiration = "";
 
-                        AsyncCallback<Reservation> callback = new AsyncCallback<Reservation>(
-                                            result =>
-                                            {
-                                                Invoke(new Action(() =>
+                            AsyncCallback<Reservation> callback = new AsyncCallback<Reservation>(
+                                                result =>
                                                 {
-                                                    pnlPanel.Visible = true;
-                                                    OwnerStorage.FileWriter.WriteLineToFile("User Created Manager Reservation", true);
-                                                    OwnerStorage.FileWriter.WriteLineToFile("Name:  " + reservation.Name, false);
+                                                    Invoke(new Action(() =>
+                                                    {
+                                                        pnlPanel.Visible = true;
+                                                        OwnerStorage.FileWriter.WriteLineToFile("User Created Manager Reservation", true);
+                                                        OwnerStorage.FileWriter.WriteLineToFile("Name:  " + reservation.Name, false);
 
-                                                    MessageBox.Show(this, "Reservation for " + reservation.Name + " is successfull");
-                                                    DialogResult = DialogResult.OK;
-                                                    this.Close();
-                                                }));
-                                            },
-                                            fault =>
-                                            {
-                                                Invoke(new Action(() =>
+                                                        MessageBox.Show(this, "Reservation for " + reservation.Name + " is successfull");
+                                                        DialogResult = DialogResult.OK;
+                                                        this.Close();
+                                                    }));
+                                                },
+                                                fault =>
                                                 {
-                                                    OwnerStorage.FileWriter.WriteLineToFile("Reservation failed", true);
+                                                    Invoke(new Action(() =>
+                                                    {
+                                                        OwnerStorage.FileWriter.WriteLineToFile("Reservation failed", true);
 
-                                                    OwnerStorage.FileWriter.WriteLineToFile("Error: " + fault.Message.ToString(), false);
+                                                        OwnerStorage.FileWriter.WriteLineToFile("Error: " + fault.Message.ToString(), false);
 
-                                                    MessageBox.Show(this, "Error: " + fault.Message);
-                                                }));
-                                            });
-                        Backendless.Data.Of<Reservation>().Save(reservation, callback);
+                                                        MessageBox.Show(this, "Error: " + fault.Message);
+                                                    }));
+                                                });
+                            Backendless.Data.Of<Reservation>().Save(reservation, callback);
+                        }
+                        else
+                        {
+                            {
+                                pnlPanel.Visible = true;
+                                MessageBox.Show(this, "this Reservation clashes with " + flag.Name + " reservation for " + flag.TakenFrom.ToString("HH:mm") + " to " + flag.TakenTo.ToString("HH:mm"));
+                            }
+                        }
                     }
                     else
                     {
-                        {
-                            pnlPanel.Visible = true;
-                            MessageBox.Show(this, "this Reservation clashes with " + flag.Name + " reservation for " + flag.TakenFrom.ToString("HH:mm") + " to " + flag.TakenTo.ToString("HH:mm"));
-                        }
+                        pnlPanel.Visible = true;
+                        MessageBox.Show(this, "This reservation is outside the restaurant's set open and close times, please select another time.");
                     }
-                }
-                else
-                {
-                    pnlPanel.Visible = true;
-                    MessageBox.Show(this, "This reservation is outside the restaurant's set open and close times, please select another time.");
-                }
-
             }
         }
 

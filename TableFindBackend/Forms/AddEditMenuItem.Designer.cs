@@ -30,7 +30,6 @@ namespace TableFindBackend.Forms
         private void InitializeComponent()
         {
             this.pnlPanel = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.nudPrice = new System.Windows.Forms.NumericUpDown();
             this.lblPriceTitle = new System.Windows.Forms.Label();
             this.lblDescriptionTitle = new System.Windows.Forms.Label();
@@ -45,10 +44,11 @@ namespace TableFindBackend.Forms
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
             this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlPanel
@@ -72,17 +72,6 @@ namespace TableFindBackend.Forms
             this.pnlPanel.Name = "pnlPanel";
             this.pnlPanel.Size = new System.Drawing.Size(379, 388);
             this.pnlPanel.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pictureBox1.Location = new System.Drawing.Point(138, 123);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(111, 101);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
             // 
             // nudPrice
             // 
@@ -244,6 +233,17 @@ namespace TableFindBackend.Forms
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Add New Menu Item";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
+            this.pictureBox1.Location = new System.Drawing.Point(138, 123);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(111, 101);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            // 
             // AddEditMenuItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -263,10 +263,10 @@ namespace TableFindBackend.Forms
             this.Load += new System.EventHandler(this.AddEditMenuItem_Load);
             this.pnlPanel.ResumeLayout(false);
             this.pnlPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
