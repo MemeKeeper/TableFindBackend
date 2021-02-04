@@ -171,12 +171,7 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         CheckIfNew();
-                    }));
-                    //bottleneck = new System.Timers.Timer();
-                    //bottleneck.Enabled = true;
-                    //bottleneck.AutoReset = false;
-                    //bottleneck.Interval = 4000;
-                    //bottleneck.Elapsed += OnTimedEvent;                              
+                    }));                         
                 }
             }
             else
@@ -191,28 +186,7 @@ namespace TableFindBackend.Forms
                 populateList(true);
             else
                 populateList(false);
-        }
-        public void initializeTimer()
-        {
-            //bottleneck = new System.Timers.Timer();
-            //bottleneck.Enabled = true;
-            //bottleneck.AutoReset = false;
-            //bottleneck.Interval = 4000;
-            //bottleneck.Elapsed += OnTimedEvent;
-        }
-        public void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            if (Application.OpenForms.OfType<ReservationsForm>().Any())
-            {
-                //Invoke(new Action(() =>
-                //{
-                //    if (thisTable != null)
-                //        populateList(true);
-                //    else
-                //        populateList(false);
-                //}));
-            }
-        }
+        }       
         private void lvBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
 

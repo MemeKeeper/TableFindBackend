@@ -844,7 +844,7 @@ namespace TableFindBackend.Forms
                         OwnerStorage.FileWriter.WriteLineToFile("User Finilized changes to restaurant", true);
                         OwnerStorage.FileWriter.WriteLineToFile("User deactivated Admin Mode", true);
 
-                        OwnerStorage.LogInfo.Add("User made changes to restaurant floor plan\nUser deactivated Admin Mode");
+                        OwnerStorage.LogInfo.Add("User Applied changes to restaurant layout \nUser deactivated Admin Mode");
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                         ShowLoading(false);
