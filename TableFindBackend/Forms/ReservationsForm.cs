@@ -162,20 +162,27 @@ namespace TableFindBackend.Forms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            CreateReservationForm newReservation = new CreateReservationForm(thisTable);
-            DialogResult result =newReservation.ShowDialog();
-            if (result == DialogResult.OK)
+            if (OwnerStorage.AdminMode == true)
             {
-                Invoke(new Action(() =>
+                CreateReservationForm newReservation = new CreateReservationForm(thisTable);
+                DialogResult result = newReservation.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    CheckIfNew();                   
-                }));
-                //bottleneck = new System.Timers.Timer();
-                //bottleneck.Enabled = true;
-                //bottleneck.AutoReset = false;
-                //bottleneck.Interval = 4000;
-                //bottleneck.Elapsed += OnTimedEvent;                              
-            }           
+                    Invoke(new Action(() =>
+                    {
+                        CheckIfNew();
+                    }));
+                    //bottleneck = new System.Timers.Timer();
+                    //bottleneck.Enabled = true;
+                    //bottleneck.AutoReset = false;
+                    //bottleneck.Interval = 4000;
+                    //bottleneck.Elapsed += OnTimedEvent;                              
+                }
+            }
+            else
+            {
+                MessageBox.Show("This Table has been made unactive by an Admin User. Please login as Admin User to create a reservation for this table", "unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         private async void CheckIfNew()
             {
