@@ -79,5 +79,15 @@ namespace TableFindBackend.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Wedges_3s_200px {
+            get {
+                object obj = ResourceManager.GetObject("Wedges_3s_200px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

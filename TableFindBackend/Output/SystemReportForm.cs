@@ -80,7 +80,23 @@ namespace TableFindBackend.Output
         }
 
         
-
+        private void ToggleLoading(bool toggle)
+        {
+                if (toggle == true)
+                {
+                    pbxLoading.Visible = true;
+                    btnExcel.Enabled = false;
+                    btnWord.Enabled = false;
+                    btnPDF.Enabled = false;
+                }
+                else
+                {
+                    pbxLoading.Visible = false;
+                    btnExcel.Enabled = true;
+                    btnWord.Enabled = true;
+                    btnPDF.Enabled = true;
+                }            
+        }
         private void AddAdminUserLoginTable(List<string> log, AdminPins a)
         {
             Panel backPanel = new Panel();
@@ -179,6 +195,7 @@ namespace TableFindBackend.Output
         }
         private void btnExcel_Click(object sender, EventArgs e)
         {
+            ToggleLoading(true);
             try
             {
                 Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
@@ -388,16 +405,19 @@ namespace TableFindBackend.Output
                     Directory.CreateDirectory(path);
 
                 workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
-                
+                ToggleLoading(false);
+
             }
             catch(Exception ex)
             {
                 MessageBox.Show("There was an error generating the workbook: " + ex.Message.ToString()) ;
+                ToggleLoading(false);
             }
 
         }
         private void GenerateWordDoc(Boolean word)
         {
+
             try
             {
                 //Create an instance for word app  
@@ -1086,12 +1106,18 @@ namespace TableFindBackend.Output
 
         private void btnWord_Click(object sender, EventArgs e)
         {
-            GenerateWordDoc(true);
+            ToggleLoading(true);
+            var t = System.Threading.Tasks.Task.Run(() => GenerateWordDoc(true));
+            t.Wait();
+            
+            ToggleLoading(false);
         }
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            GenerateWordDoc(false);
+            ToggleLoading(true);
+            var t = System.Threading.Tasks.Task.Run(() => GenerateWordDoc(false));
+            t.Wait();            
 
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
 
@@ -1104,6 +1130,7 @@ namespace TableFindBackend.Output
 
             //launch document
             System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
+            ToggleLoading(false);
 
         }
     }

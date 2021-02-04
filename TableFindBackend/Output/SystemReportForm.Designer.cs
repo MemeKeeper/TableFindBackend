@@ -30,6 +30,7 @@ namespace TableFindBackend.Output
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SystemReportForm));
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -46,11 +47,12 @@ namespace TableFindBackend.Output
             this.btnPDF = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
-            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
             this.pnl.SuspendLayout();
@@ -59,6 +61,7 @@ namespace TableFindBackend.Output
             this.tpSystemLog.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.pnlControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -203,10 +206,12 @@ namespace TableFindBackend.Output
             this.flpReservationTables.Name = "flpReservationTables";
             this.flpReservationTables.Size = new System.Drawing.Size(503, 403);
             this.flpReservationTables.TabIndex = 9;
+            this.flpReservationTables.Visible = false;
             // 
             // pnlControls
             // 
             this.pnlControls.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlControls.Controls.Add(this.pbxLoading);
             this.pnlControls.Controls.Add(this.btnPDF);
             this.pnlControls.Controls.Add(this.btnWord);
             this.pnlControls.Controls.Add(this.btnExcel);
@@ -255,9 +260,16 @@ namespace TableFindBackend.Output
             this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
-            // restaurantTableBindingSource
+            // pbxLoading
             // 
-            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
+            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
+            this.pbxLoading.Location = new System.Drawing.Point(635, -1);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(72, 61);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 3;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -290,6 +302,10 @@ namespace TableFindBackend.Output
             this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
             this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
+            // restaurantTableBindingSource
+            // 
+            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
+            // 
             // SystemReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -314,6 +330,7 @@ namespace TableFindBackend.Output
             this.tpSystemLog.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.pnlControls.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -342,5 +359,6 @@ namespace TableFindBackend.Output
         private System.Windows.Forms.DataGridViewTextBoxColumn capacityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tableInfoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn availableDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.PictureBox pbxLoading;
     }
 }
