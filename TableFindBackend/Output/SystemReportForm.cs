@@ -402,13 +402,9 @@ namespace TableFindBackend.Output
             {
                 //Create an instance for word app  
                 Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
-
-                //Set animation status for word application  
                 winword.ShowAnimation = false;
-
                 //Set status for word application is to be visible or not.  
                 winword.Visible = false;
-
                 //Create a missing variable for missing value  
                 object missing = System.Reflection.Missing.Value;
 
@@ -438,26 +434,19 @@ namespace TableFindBackend.Output
                     footerRange.Text = "System Report for " + System.DateTime.Now.ToString("D") + " as captured at " + System.DateTime.Now.ToString("t");
                 }
 
-                //adding text to document  
-                document.Content.SetRange(0, 0);
-                
-                document.Content.Text = "random text goes here" + Environment.NewLine;
+                //possibly add logo here
+
+                //System Log output
 
                 //Add paragraph with Heading 1 style  
                 Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                 object styleHeading1 = "Heading 1";
                 para1.Range.set_Style(ref styleHeading1);
-                para1.Range.Text = "Para 1 text";
+                para1.Range.Font.Bold = 1;
+                para1.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                para1.Range.Text = "System Log";
                 para1.Range.InsertParagraphAfter();
 
-                //Add paragraph with Heading 2 style  
-                Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading2 = "Heading 2";
-                para2.Range.set_Style(ref styleHeading2);
-                para2.Range.Text = "Para 2 text";
-                para2.Range.InsertParagraphAfter();
-
-                //System Log output
                 #region
                 Microsoft.Office.Interop.Word.Table firstTable = document.Tables.Add(para1.Range, OwnerStorage.LogInfo.Count + 1, 2, ref missing, ref missing);
                 firstTable.Borders.Enable = 1;
@@ -470,21 +459,25 @@ namespace TableFindBackend.Output
                 firstTable.Rows[1].Range.Font.Size = 10;
                 firstTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
-                //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-
                 for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
                 {
                     firstTable.Cell(i + 2, 1).Range.Text = OwnerStorage.LogInfo[i].ToString();
                     firstTable.Cell(i + 2, 2).Range.Text = OwnerStorage.LogTimes[i].ToString();
                 }
 
-                Microsoft.Office.Interop.Word.Paragraph para3 = document.Content.Paragraphs.Add(ref missing);
-                
+                Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+
                 #endregion
 
-                //Admin Log output
+                //Admin Log output  
+                Microsoft.Office.Interop.Word.Paragraph para3 = document.Content.Paragraphs.Add(ref missing);
+                para3.Range.set_Style(ref styleHeading1);
+                para3.Range.Font.Bold = 1;
+                para3.Range.Text = "Admin Log";
+                para3.Range.InsertParagraphAfter();
+
                 #region
-                Microsoft.Office.Interop.Word.Table adminTable = document.Tables.Add(para2.Range, OwnerStorage.ListOfAdmins.Count + 1, 3, ref missing, ref missing);
+                Microsoft.Office.Interop.Word.Table adminTable = document.Tables.Add(para3.Range, OwnerStorage.ListOfAdmins.Count + 1, 3, ref missing, ref missing);
                 adminTable.Borders.Enable = 1;
                 adminTable.Cell(1, 1).Range.Text = "Admin User";
                 adminTable.Cell(1, 2).Range.Text = "Login Count";
@@ -506,11 +499,12 @@ namespace TableFindBackend.Output
                     {
                         if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
                         {
+
                             counter++;
-                            if(counter == OwnerStorage.ListOfAdmins.Count)
+                            if (counter == OwnerStorage.ListOfAdmins.Count)
                                 times = times + s[1];
                             else
-                            times = times + s[1] + "\n";
+                                times = times + s[1] + "\n";
                         }
                     }
                     adminTable.Cell(i + 2, 1).Range.Text = OwnerStorage.ListOfAdmins[i].UserName.ToString();
@@ -519,14 +513,17 @@ namespace TableFindBackend.Output
                 }
 
                 Microsoft.Office.Interop.Word.Paragraph para4 = document.Content.Paragraphs.Add(ref missing);
-                Microsoft.Office.Interop.Word.Paragraph para5 = document.Content.Paragraphs.Add(ref missing);
-
                 #endregion
 
                 //Active Reservations output
-                #region
                 if (OwnerStorage.ActiveReservations.Count != 0)
                 {
+                    Microsoft.Office.Interop.Word.Paragraph para5 = document.Content.Paragraphs.Add(ref missing);
+                    para5.Range.set_Style(ref styleHeading1);
+                    para5.Range.Font.Bold = 1;
+                    para5.Range.Text = "Active Reservations";
+                    para5.Range.InsertParagraphAfter();
+
                     foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
                     {
                         List<Reservation> tempList = new List<Reservation>();
@@ -572,19 +569,70 @@ namespace TableFindBackend.Output
                                 activeTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
                                 activeTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
                             }
-                            Microsoft.Office.Interop.Word.Paragraph spacePara1 = document.Content.Paragraphs.Add(ref missing);
-                            Microsoft.Office.Interop.Word.Paragraph spacePara2 = document.Content.Paragraphs.Add(ref missing);
+                            Microsoft.Office.Interop.Word.Paragraph para6 = document.Content.Paragraphs.Add(ref missing);
+                            
                         }
                     }
                 }
-                #endregion
-
-                //Past Reservations displayed
                 
+                //Past Reservations displayed
+                if (OwnerStorage.PastReservations.Count != 0)
+                {
+                    Microsoft.Office.Interop.Word.Paragraph para7 = document.Content.Paragraphs.Add(ref missing);
+                    para7.Range.set_Style(ref styleHeading1);
+                    para7.Range.Font.Bold = 1;
+                    para7.Range.Text = "Past Reservations";
+                    para7.Range.InsertParagraphAfter();
 
+                    foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+                    {
+                        List<Reservation> tempList = new List<Reservation>();
+                        foreach (Reservation r in OwnerStorage.PastReservations)
+                        {
+                            if (r.TableId == t.objectId)
+                            {
+                                tempList.Add(r);
+                            }
 
+                        }
 
+                        if (tempList.Count != 0)
+                        {
 
+                            Microsoft.Office.Interop.Word.Table pastTable = document.Tables.Add(para7.Range, tempList.Count + 2, 4, ref missing, ref missing);
+                            pastTable.Borders.Enable = 1;
+                            pastTable.Rows[1].Cells[1].Merge(pastTable.Rows[1].Cells[4]);
+                            pastTable.Cell(1, 1).Range.Text = t.Name.ToString();
+                            //format merged heading
+                            pastTable.Cell(1, 1).Range.Font.Bold = 1;
+                            pastTable.Cell(1, 1).Range.Font.Name = "verdana";
+                            pastTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                            pastTable.Cell(1, 1).Range.Font.Size = 10;
+                            pastTable.Cell(1, 1).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                            //format secondary headings
+                            pastTable.Rows[2].Range.Font.Bold = 1;
+                            pastTable.Rows[2].Range.Font.Name = "verdana";
+                            pastTable.Rows[2].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                            pastTable.Rows[2].Range.Font.Size = 10;
+                            pastTable.Rows[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                            pastTable.Cell(2, 1).Range.Text = "Name";
+                            pastTable.Cell(2, 2).Range.Text = "Contact Nr.";
+                            pastTable.Cell(2, 3).Range.Text = "Taken From";
+                            pastTable.Cell(2, 4).Range.Text = "Taken To";
+
+                            for (int i = 0; i < tempList.Count; i++)
+                            {
+                                pastTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
+                                pastTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
+                                pastTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
+                                pastTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
+                            }
+                        }
+                    }
+                }
+                
                 //Save the directory  
                 string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
                 if (File.Exists(path) != true)
