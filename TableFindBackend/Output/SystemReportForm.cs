@@ -594,7 +594,6 @@ namespace TableFindBackend.Output
                         }
                     }
                 }
-                
                 //Past Reservations displayed
                 if (OwnerStorage.PastReservations.Count != 0)
                 {
@@ -649,6 +648,7 @@ namespace TableFindBackend.Output
                                 pastTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
                                 pastTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
                             }
+                            Microsoft.Office.Interop.Word.Paragraph paraSpace = document.Content.Paragraphs.Add(ref missing);
                         }
                     }
                 }
@@ -681,15 +681,7 @@ namespace TableFindBackend.Output
                     {
                         if (IsFileLocked(fInfo) == true)//means file is still open
                         {
-                            MessageBox.Show("The Document is already open in one instance of Word. Please close that document and try again", "Document already open", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
-                        else
-                        {
-                            try
-                            {
-                                System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                            }
-                            catch { }                           
+                            winword.Visible = true;
                         }
                     }
                     else
@@ -704,6 +696,9 @@ namespace TableFindBackend.Output
                 }
                 else
                 {
+                    document.Close(false);
+                    winword.Quit(false);
+                    
                 }
             }
             catch (Exception ex)
