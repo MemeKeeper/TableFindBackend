@@ -388,7 +388,6 @@ namespace TableFindBackend.Output
                     Directory.CreateDirectory(path);
 
                 workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
-                workbook.Save();
                 
             }
             catch(Exception ex)
@@ -581,81 +580,63 @@ namespace TableFindBackend.Output
                 #endregion
 
                 //Past Reservations displayed
-                #region
-                if (OwnerStorage.PastReservations.Count != 0)
-                {
-                    foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
-                    {
-                        List<Reservation> tempList = new List<Reservation>();
-                        foreach (Reservation r in OwnerStorage.PastReservations)
-                        {
-                            if (r.TableId == t.objectId)
-                            {
-                                tempList.Add(r);
-                            }
-
-                        }
-
-                        if (tempList.Count != 0)
-                        {
-                            Microsoft.Office.Interop.Word.Table pastTable = document.Tables.Add(para5.Range, tempList.Count + 2, 4, ref missing, ref missing);
-                            pastTable.Borders.Enable = 1;
-                            pastTable.Rows[1].Cells[1].Merge(pastTable.Rows[1].Cells[4]);
-                            pastTable.Cell(1, 1).Range.Text = t.Name.ToString();
-                            //format merged heading
-                            pastTable.Cell(1, 1).Range.Font.Bold = 1;
-                            pastTable.Cell(1, 1).Range.Font.Name = "verdana";
-                            pastTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            pastTable.Cell(1, 1).Range.Font.Size = 10;
-                            pastTable.Cell(1, 1).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                            //format secondary headings
-                            pastTable.Rows[2].Range.Font.Bold = 1;
-                            pastTable.Rows[2].Range.Font.Name = "verdana";
-                            pastTable.Rows[2].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            pastTable.Rows[2].Range.Font.Size = 10;
-                            pastTable.Rows[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                            pastTable.Cell(2, 1).Range.Text = "Name";
-                            pastTable.Cell(2, 2).Range.Text = "Contact Nr.";
-                            pastTable.Cell(2, 3).Range.Text = "Taken From";
-                            pastTable.Cell(2, 4).Range.Text = "Taken To";
-
-                            for (int i = 0; i < tempList.Count; i++)
-                            {
-                                pastTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
-                                pastTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
-                                pastTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
-                                pastTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
-                            }
-                            Microsoft.Office.Interop.Word.Paragraph spacePara1 = document.Content.Paragraphs.Add(ref missing);
-                            Microsoft.Office.Interop.Word.Paragraph spacePara2 = document.Content.Paragraphs.Add(ref missing);
-                        }
-                    }
-                }
-                #endregion
+                
 
 
-                if (word == true)
-                {
-                    winword.Visible = true;
-                }
 
-                //Save the document  
+
+                //Save the directory  
                 string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
                 if (File.Exists(path) != true)
                     Directory.CreateDirectory(path);
 
-                
-                object filename = "SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx";
-                document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\" + filename);
-                document.Save();
-                // document.Close(ref missing, ref missing, ref missing);
-                //document = null;
-                //winword.Quit(ref missing, ref missing, ref missing);
-                //winword = null;
-                
+              
+                //launches document
 
+
+                if (File.Exists(path) != true)
+                    Directory.CreateDirectory(path);
+
+                //Kills the word document if it is already open
+
+                FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+
+                if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx") != true)
+                {
+                    document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                }
+
+                //launches document
+                if (word == true)
+                {
+                    if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx") == true)
+                    {
+                        if (IsFileLocked(fInfo) == true)//means file is still open
+                        {
+                            MessageBox.Show("The Document is already open in one instance of Word. Please close that document and try again", "Document already open", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else
+                        {
+                            try
+                            {
+                                System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                            }
+                            catch { }                           
+                        }
+                    }
+                    else
+                    {
+                        document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                        try
+                        {
+                            System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                        }
+                        catch { }
+                    }
+                }
+                else
+                {
+                }
             }
             catch (Exception ex)
             {
