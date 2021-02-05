@@ -40,6 +40,31 @@ namespace TableFindBackend.Forms
                         {
                             Invoke(new Action(() =>
                             {
+                                switch(tbrCapacity.Value)
+                                {
+                                    case 0:
+                                        {
+                                            OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant capacity status to 'Not Busy'", true);
+                                            OwnerStorage.LogInfo.Add("User changed the restaurant capacity status to 'Not Busy'");
+                                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                                            break;
+                                        }
+                                    case 1:
+                                        {
+                                            OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant capacity status to 'Medium Load'", true);
+                                            OwnerStorage.LogInfo.Add("User changed the restaurant capacity status to 'Medium Load'");
+                                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant capacity status to 'Very Busy'", true);
+                                            OwnerStorage.LogInfo.Add("User changed the restaurant capacity status to 'Very Busy'");
+                                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                                            break;
+                                        }
+                                }
+
                                 pbxLoading.Visible=false;
                                 DialogResult = DialogResult.OK;
                                 this.Close();

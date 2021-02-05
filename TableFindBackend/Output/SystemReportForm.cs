@@ -510,7 +510,7 @@ namespace TableFindBackend.Output
                 adminTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
                 //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                winword.Visible = true;
+                
                 for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
                 {
                     int counter = 0;
@@ -688,10 +688,14 @@ namespace TableFindBackend.Output
                 {
                     if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx") == true)
                     {
-                        if (IsFileLocked(fInfo) == true)//means file is still open
-                        {
+                        //if (IsFileLocked(fInfo) == true)//means file is still open
+                        //{
                             winword.Visible = true;
-                        }
+                        //}
+                        //else
+                        //{
+                        //    System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                        //}
                     }
                     else
                     {

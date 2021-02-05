@@ -1118,8 +1118,6 @@ namespace TableFindBackend.Forms
             if(result==DialogResult.OK)
             {
                 UpdateCapacityLabel();
-                OwnerStorage.LogInfo.Add("User Toggled Capacity Level to "+lblCapacity.Text);
-                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }
         }
 
