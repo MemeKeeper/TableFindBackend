@@ -107,6 +107,9 @@ namespace TableFindBackend.Forms
                         catch (IOException)
                         { }
                     File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
+                    OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant layout image", true);
+                    OwnerStorage.LogInfo.Add("User changed the restaurant layout image");
+                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                 }
                 else
                 {
@@ -114,7 +117,10 @@ namespace TableFindBackend.Forms
                     try
                     {
                         _master.DisableLayoutImage();
-                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");                        
+                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
+                        OwnerStorage.FileWriter.WriteLineToFile("User cleared the restaurant layout image", true);
+                        OwnerStorage.LogInfo.Add("User cleared the restaurant layout image");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                     }
                     catch(IOException)
                     {
@@ -140,7 +146,11 @@ namespace TableFindBackend.Forms
                     ShowLoading(false);
                     DialogResult = DialogResult.OK;
                     this.Close();
+
                 }));
+                OwnerStorage.FileWriter.WriteLineToFile("User made changes to the restaurant settings", true);
+                OwnerStorage.LogInfo.Add("User made changes to the restaurant settings");
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
             },
             error =>
@@ -217,7 +227,8 @@ namespace TableFindBackend.Forms
                         Invoke(new Action(() =>
                         {
                             OwnerStorage.FileWriter.WriteLineToFile("User Uploaded new menu pdf", true);
-
+                            OwnerStorage.LogInfo.Add("User Uploaded new menu pdf");
+                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                             pbxLoading.Visible = false;
                             lblSize.Text = "Upload completed";
@@ -255,7 +266,8 @@ namespace TableFindBackend.Forms
                         Invoke(new Action(() =>
                         {
                             OwnerStorage.FileWriter.WriteLineToFile("User Uploaded new menu pdf", true);
-
+                            OwnerStorage.LogInfo.Add("User Uploaded new menu pdf");
+                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                             pbxLoading.Visible = false;
                             lblSize.Text = "Upload completed";
