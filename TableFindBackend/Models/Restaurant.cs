@@ -19,8 +19,6 @@ namespace TableFindBackend.Models
 
         private string locationString;
 
-        private string menuLink;
-
         private string contactNumber;
 
         private int maxCapacity;
@@ -34,7 +32,6 @@ namespace TableFindBackend.Models
         public string ownerId { get => OwnerId; set => OwnerId = value; }//Exception for Backendless
         public string LocationString { get => locationString; set => locationString = value; }
         public string objectId { get => ObjectId; set => ObjectId = value; }//Exception for Backendless
-        public string MenuLink { get => menuLink; set => menuLink = value; }
         public string ContactNumber { get => contactNumber; set => contactNumber = value; }
         public int MaxCapacity { get => maxCapacity; set => maxCapacity = value; }
         public DateTime Open { get => open; set => open = value; }

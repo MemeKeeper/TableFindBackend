@@ -31,24 +31,18 @@ namespace TableFindBackend.Forms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditRestaurantForm));
             this.tbxLocation = new System.Windows.Forms.TextBox();
-            this.tbxMenu = new System.Windows.Forms.TextBox();
             this.tbxName = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblRestaurantName = new System.Windows.Forms.Label();
             this.lblLocation = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.pnlPanel = new System.Windows.Forms.Panel();
-            this.lblSize = new System.Windows.Forms.Label();
             this.lblContactNumber = new System.Windows.Forms.Label();
             this.tbxContactNumber = new System.Windows.Forms.TextBox();
-            this.btnUpload = new System.Windows.Forms.Button();
-            this.btnBrowse = new System.Windows.Forms.Button();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.btnBrowseLayout = new System.Windows.Forms.Button();
             this.lblLayout = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.ofdMenuBrowse = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnPrint = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -65,8 +59,8 @@ namespace TableFindBackend.Forms
             this.dtpClose = new System.Windows.Forms.DateTimePicker();
             this.dtpOpen = new System.Windows.Forms.DateTimePicker();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.lblDangerZone = new System.Windows.Forms.Label();
             this.btnDeactivate = new System.Windows.Forms.Button();
+            this.lblDangerZone = new System.Windows.Forms.Label();
             this.pnlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -86,15 +80,6 @@ namespace TableFindBackend.Forms
             this.tbxLocation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbxLocation.Size = new System.Drawing.Size(242, 55);
             this.tbxLocation.TabIndex = 1;
-            // 
-            // tbxMenu
-            // 
-            this.tbxMenu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxMenu.Location = new System.Drawing.Point(17, 241);
-            this.tbxMenu.Name = "tbxMenu";
-            this.tbxMenu.ReadOnly = true;
-            this.tbxMenu.Size = new System.Drawing.Size(199, 29);
-            this.tbxMenu.TabIndex = 2;
             // 
             // tbxName
             // 
@@ -143,44 +128,22 @@ namespace TableFindBackend.Forms
             this.lblLocation.TabIndex = 7;
             this.lblLocation.Text = "Restaurant Location";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 225);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Upload new Menu";
-            // 
             // pnlPanel
             // 
             this.pnlPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPanel.Controls.Add(this.lblSize);
             this.pnlPanel.Controls.Add(this.lblContactNumber);
             this.pnlPanel.Controls.Add(this.tbxContactNumber);
-            this.pnlPanel.Controls.Add(this.btnUpload);
-            this.pnlPanel.Controls.Add(this.btnBrowse);
             this.pnlPanel.Controls.Add(this.lblRestaurantName);
-            this.pnlPanel.Controls.Add(this.label4);
             this.pnlPanel.Controls.Add(this.lblLocation);
             this.pnlPanel.Controls.Add(this.tbxName);
             this.pnlPanel.Controls.Add(this.tbxLocation);
-            this.pnlPanel.Controls.Add(this.tbxMenu);
             this.pnlPanel.Location = new System.Drawing.Point(12, 49);
             this.pnlPanel.Name = "pnlPanel";
-            this.pnlPanel.Size = new System.Drawing.Size(281, 318);
+            this.pnlPanel.Size = new System.Drawing.Size(281, 222);
             this.pnlPanel.TabIndex = 9;
-            // 
-            // lblSize
-            // 
-            this.lblSize.AutoSize = true;
-            this.lblSize.Location = new System.Drawing.Point(31, 284);
-            this.lblSize.Name = "lblSize";
-            this.lblSize.Size = new System.Drawing.Size(0, 13);
-            this.lblSize.TabIndex = 10;
             // 
             // lblContactNumber
             // 
@@ -199,31 +162,10 @@ namespace TableFindBackend.Forms
             this.tbxContactNumber.Size = new System.Drawing.Size(242, 29);
             this.tbxContactNumber.TabIndex = 15;
             // 
-            // btnUpload
-            // 
-            this.btnUpload.Enabled = false;
-            this.btnUpload.Location = new System.Drawing.Point(166, 276);
-            this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(93, 28);
-            this.btnUpload.TabIndex = 11;
-            this.btnUpload.Text = "Upload";
-            this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
-            // 
-            // btnBrowse
-            // 
-            this.btnBrowse.Location = new System.Drawing.Point(223, 241);
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(36, 29);
-            this.btnBrowse.TabIndex = 9;
-            this.btnBrowse.Text = "...";
-            this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
-            // 
             // pbxLoading
             // 
             this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(245, 198);
+            this.pbxLoading.Location = new System.Drawing.Point(239, 199);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(113, 113);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -254,7 +196,7 @@ namespace TableFindBackend.Forms
             this.pnlButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlButtons.Controls.Add(this.btnSave);
             this.pnlButtons.Controls.Add(this.btnCancel);
-            this.pnlButtons.Location = new System.Drawing.Point(12, 440);
+            this.pnlButtons.Location = new System.Drawing.Point(12, 376);
             this.pnlButtons.Name = "pnlButtons";
             this.pnlButtons.Size = new System.Drawing.Size(568, 73);
             this.pnlButtons.TabIndex = 10;
@@ -263,7 +205,7 @@ namespace TableFindBackend.Forms
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.btnPrint);
-            this.panel1.Location = new System.Drawing.Point(12, 374);
+            this.panel1.Location = new System.Drawing.Point(299, 310);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(281, 60);
             this.panel1.TabIndex = 11;
@@ -285,7 +227,7 @@ namespace TableFindBackend.Forms
             this.panel2.Controls.Add(this.btnDefault);
             this.panel2.Controls.Add(this.lblLayout);
             this.panel2.Controls.Add(this.btnBrowseLayout);
-            this.panel2.Location = new System.Drawing.Point(299, 50);
+            this.panel2.Location = new System.Drawing.Point(12, 277);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(281, 93);
             this.panel2.TabIndex = 20;
@@ -351,7 +293,7 @@ namespace TableFindBackend.Forms
             this.panel4.Controls.Add(this.lblTimes);
             this.panel4.Controls.Add(this.dtpClose);
             this.panel4.Controls.Add(this.dtpOpen);
-            this.panel4.Location = new System.Drawing.Point(299, 160);
+            this.panel4.Location = new System.Drawing.Point(299, 49);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(281, 122);
             this.panel4.TabIndex = 21;
@@ -421,20 +363,11 @@ namespace TableFindBackend.Forms
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.btnDeactivate);
             this.panel5.Controls.Add(this.lblDangerZone);
-            this.panel5.Location = new System.Drawing.Point(299, 291);
+            this.panel5.Location = new System.Drawing.Point(299, 177);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(281, 142);
+            this.panel5.Size = new System.Drawing.Size(281, 126);
             this.panel5.TabIndex = 25;
             this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
-            // 
-            // lblDangerZone
-            // 
-            this.lblDangerZone.Location = new System.Drawing.Point(29, 17);
-            this.lblDangerZone.Name = "lblDangerZone";
-            this.lblDangerZone.Size = new System.Drawing.Size(225, 21);
-            this.lblDangerZone.TabIndex = 21;
-            this.lblDangerZone.Text = "Danger Zone";
-            this.lblDangerZone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnDeactivate
             // 
@@ -447,11 +380,20 @@ namespace TableFindBackend.Forms
             this.btnDeactivate.UseVisualStyleBackColor = false;
             this.btnDeactivate.Click += new System.EventHandler(this.btnDeactivate_Click);
             // 
+            // lblDangerZone
+            // 
+            this.lblDangerZone.Location = new System.Drawing.Point(29, 17);
+            this.lblDangerZone.Name = "lblDangerZone";
+            this.lblDangerZone.Size = new System.Drawing.Size(225, 21);
+            this.lblDangerZone.TabIndex = 21;
+            this.lblDangerZone.Text = "Danger Zone";
+            this.lblDangerZone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // EditRestaurantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 521);
+            this.ClientSize = new System.Drawing.Size(587, 456);
             this.Controls.Add(this.pbxLoading);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
@@ -484,19 +426,13 @@ namespace TableFindBackend.Forms
 
         #endregion
         private System.Windows.Forms.TextBox tbxLocation;
-        private System.Windows.Forms.TextBox tbxMenu;
         private System.Windows.Forms.TextBox tbxName;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblRestaurantName;
         private System.Windows.Forms.Label lblLocation;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel pnlPanel;
-        private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Panel pnlButtons;
-        private System.Windows.Forms.OpenFileDialog ofdMenuBrowse;
-        private System.Windows.Forms.Label lblSize;
-        private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.PictureBox pbxLoading;
         private System.Windows.Forms.Label lblContactNumber;
         private System.Windows.Forms.TextBox tbxContactNumber;
