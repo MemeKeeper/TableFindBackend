@@ -456,11 +456,11 @@ namespace TableFindBackend.Forms
             }));
             OwnerStorage.ActiveReservations.Clear();
             OwnerStorage.PastReservations.Clear();
-            //OwnerStorage.AllUsers.Clear();
             String whereClause = "restaurantId = '" + OwnerStorage.ThisRestaurant.objectId + "'";
             BackendlessAPI.Persistence.DataQueryBuilder queryBuilder = BackendlessAPI.Persistence.DataQueryBuilder.Create();
             queryBuilder.SetWhereClause(whereClause);
             queryBuilder.SetPageSize(100);
+            queryBuilder.AddSortBy("takenFrom asc");
 
             AsyncCallback<IList<Reservation>> getContactsCallback = new AsyncCallback<IList<Reservation>>(
             foundReservations =>

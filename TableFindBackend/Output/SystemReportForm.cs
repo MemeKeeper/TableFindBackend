@@ -661,57 +661,24 @@ namespace TableFindBackend.Output
                         }
                     }
                 }
-                
+
+
                 //Save the directory  
                 string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
                 if (File.Exists(path) != true)
                     Directory.CreateDirectory(path);
 
-              
-                //launches document
-
-
-                if (File.Exists(path) != true)
-                    Directory.CreateDirectory(path);
-
-                //Kills the word document if it is already open
-
                 FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
 
-                if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx") != true)
+                if (IsFileLocked(fInfo) != true)
                 {
                     document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                }
-
-                //launches document
-                if (word == true)
-                {
-                    if (File.Exists(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx") == true)
-                    {
-                        //if (IsFileLocked(fInfo) == true)//means file is still open
-                        //{
-                            winword.Visible = true;
-                        //}
-                        //else
-                        //{
-                        //    System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                        //}
-                    }
-                    else
-                    {
-                        document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                        try
-                        {
-                            System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                        }
-                        catch { }
-                    }
-                }
-                else
-                {
                     document.Close(false);
                     winword.Quit(false);
-                    
+                }
+                if (word == true)
+                {             
+                    System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
                 }
             }
             catch (Exception ex)
