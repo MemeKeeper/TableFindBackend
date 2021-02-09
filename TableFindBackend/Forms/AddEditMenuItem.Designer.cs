@@ -90,7 +90,7 @@ namespace TableFindBackend.Forms
             this.nudPrice.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudPrice.Location = new System.Drawing.Point(67, 164);
             this.nudPrice.Maximum = new decimal(new int[] {
-            1000,
+            50000,
             0,
             0,
             0});
