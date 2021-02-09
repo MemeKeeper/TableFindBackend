@@ -670,15 +670,23 @@ namespace TableFindBackend.Output
 
                 FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
 
-                if (IsFileLocked(fInfo) != true)
+
+                if (word == true)
                 {
                     document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
                     document.Close(false);
                     winword.Quit(false);
-                }
-                if (word == true)
-                {             
                     System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                }
+                else
+                {
+                    if (IsFileLocked(fInfo) != true)
+                    {
+                        document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                        document.Close(false);
+                        winword.Quit(false);
+                    }
+
                 }
             }
             catch (Exception ex)
