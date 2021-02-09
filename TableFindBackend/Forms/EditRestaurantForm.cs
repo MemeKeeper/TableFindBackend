@@ -65,7 +65,8 @@ namespace TableFindBackend.Forms
                 btnPrint.Enabled = false;
                 btnDeactivate.Enabled = false;
                 btnDefault.Enabled = false;
-
+                pnlRestaurantDetails.Enabled = false;
+                pnlRestaurantTimes.Enabled = false;
             }
             else
             {
@@ -77,6 +78,8 @@ namespace TableFindBackend.Forms
                 btnPrint.Enabled = true;
                 btnDeactivate.Enabled = true;
                 btnDefault.Enabled = true;
+                pnlRestaurantDetails.Enabled = true;
+                pnlRestaurantTimes.Enabled = true;
             }
         }
 

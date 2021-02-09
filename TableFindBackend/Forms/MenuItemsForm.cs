@@ -101,11 +101,12 @@ namespace TableFindBackend.Forms
         private void AddOrEdit(RestaurantMenuItem temp) // Controller for RestaurantMenuItem
         {
             AddEditMenuItem newForm = new AddEditMenuItem(temp);
-            
+
             
                 if (newForm.ShowDialog() == DialogResult.OK)
                 {
-                    AsyncCallback<RestaurantMenuItem> callback = new AsyncCallback<RestaurantMenuItem>(
+                ShowLoading(true);
+                AsyncCallback<RestaurantMenuItem> callback = new AsyncCallback<RestaurantMenuItem>(
                         result =>
                         {
                             Invoke(new Action(() =>
@@ -143,13 +144,16 @@ namespace TableFindBackend.Forms
                                     newView.MouseClick += new MouseEventHandler(MenuItem_Click);
                                     flpItems.Controls.Add(newView);
                                 }
-                        }));
+                                ShowLoading(false);
+                            }));
+
                         },
                         fault =>
                         {
                             Invoke(new Action(() =>
                             {
                                 MessageBox.Show(this, "Error: " + fault.Message);
+                                ShowLoading(false);
                             }));
                         });
                     Backendless.Data.Of<RestaurantMenuItem>().Save(newForm.transferedItem, callback);
@@ -187,6 +191,7 @@ namespace TableFindBackend.Forms
 
         private void cbxEnabled_Click(object sender, EventArgs e)
         {
+            ShowLoading(true);
             selectedItem.OutOfStock = cbxEnabled.Checked ? false : true;
             AsyncCallback<RestaurantMenuItem> updateObjectCallback = new AsyncCallback<RestaurantMenuItem>(
             savedRestaurantMenuItem =>
@@ -197,6 +202,7 @@ namespace TableFindBackend.Forms
                     populateMenu();
                     SortRefresh();
                     SelectItemHighLight(selectedItem.objectId);
+                    ShowLoading(false);
                 }));
             },
             error =>
@@ -204,6 +210,7 @@ namespace TableFindBackend.Forms
                 Invoke(new Action(() =>
                 {
                     MessageBox.Show(this, "Error: " + error.Message);
+                    ShowLoading(false);
                 }));
             });
 
@@ -217,6 +224,7 @@ namespace TableFindBackend.Forms
                   Invoke(new Action(() =>
                   {
                       MessageBox.Show(this, "Error: " + error.Message);
+                      ShowLoading(false);
                   }));
               }
             );
@@ -224,14 +232,28 @@ namespace TableFindBackend.Forms
             Backendless.Persistence.Of<RestaurantMenuItem>().Save(selectedItem, saveObjectCallback);
 
         }
-
+        private void ShowLoading(bool toggle)
+        {
+            if(toggle==true)
+            {
+                pbxLoading.Visible = true;
+                btnClose.Enabled = false;
+                btnExit.Enabled = false;
+            }
+            else
+            {
+                pbxLoading.Visible = false;
+                btnClose.Enabled = true;
+                btnExit.Enabled = true;
+            }
+        }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             RestaurantMenuItem tempItem = selectedItem;
             DialogResult dialogResult = MessageBox.Show("Are you sure you would like to delete "+ tempItem.Name+"?", tempItem.Name, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                pbxLoading.Visible = true;
+                ShowLoading(true);
 
                 
                 AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
@@ -251,7 +273,7 @@ namespace TableFindBackend.Forms
                         OwnerStorage.MenuItems.Remove(tempItem);
                         populateMenu();
                         pnlEdit.Enabled = false;
-                        pbxLoading.Visible=false;
+                        ShowLoading(false);
                         lblStatus.Text=selectedItem.Name + " has been removed";
                     }));
                 },
@@ -259,8 +281,8 @@ namespace TableFindBackend.Forms
                 {
                     Invoke(new Action(() =>
                     {
-                        pbxLoading.Visible = false;
-                    lblStatus.Text= "Error: " + error.Message;
+                        ShowLoading(false);
+                        lblStatus.Text= "Error: " + error.Message;
                     }));
                 });
 
@@ -274,7 +296,7 @@ namespace TableFindBackend.Forms
                     {
                         Invoke(new Action(() =>
                           {
-                              pbxLoading.Visible = false;
+                              ShowLoading(false);
                               lblStatus.Text = "Error: " + error.Message;
                           }));
                     }

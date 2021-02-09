@@ -102,10 +102,29 @@ namespace TableFindBackend.Forms
             if (activate == true)
             {
                 pbxLoading.Visible = true;
+                btnCancel.Enabled = false;
+                btnClose.Enabled = false;
+                btnDelete.Enabled = false;
+                btnSave.Enabled = false;
+                btnViewDetails.Enabled = false;
+                btnDisable.Enabled = false;
+                edtName.Enabled = false;
+                spnSeating.Enabled = false;
+                rtbInfo.Enabled = false;
+
             }
             else
             {
                 pbxLoading.Visible = false;
+                btnCancel.Enabled = true;
+                btnClose.Enabled = true;
+                btnDelete.Enabled = true;
+                btnSave.Enabled = true;
+                btnViewDetails.Enabled = true;
+                btnDisable.Enabled = true;
+                edtName.Enabled = true;
+                spnSeating.Enabled = true;
+                rtbInfo.Enabled = true;
             }
         }
 

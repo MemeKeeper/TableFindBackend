@@ -36,7 +36,7 @@ namespace TableFindBackend.Forms
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblRestaurantName = new System.Windows.Forms.Label();
             this.lblLocation = new System.Windows.Forms.Label();
-            this.pnlPanel = new System.Windows.Forms.Panel();
+            this.pnlRestaurantDetails = new System.Windows.Forms.Panel();
             this.lblContactNumber = new System.Windows.Forms.Label();
             this.tbxContactNumber = new System.Windows.Forms.TextBox();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
@@ -51,7 +51,7 @@ namespace TableFindBackend.Forms
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.ofdLayoutBrowse = new System.Windows.Forms.OpenFileDialog();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.pnlRestaurantTimes = new System.Windows.Forms.Panel();
             this.lblTo = new System.Windows.Forms.Label();
             this.lblClosing = new System.Windows.Forms.Label();
             this.lblOpen = new System.Windows.Forms.Label();
@@ -61,13 +61,13 @@ namespace TableFindBackend.Forms
             this.panel5 = new System.Windows.Forms.Panel();
             this.btnDeactivate = new System.Windows.Forms.Button();
             this.lblDangerZone = new System.Windows.Forms.Label();
-            this.pnlPanel.SuspendLayout();
+            this.pnlRestaurantDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlButtons.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.pnlRestaurantTimes.SuspendLayout();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,22 +128,22 @@ namespace TableFindBackend.Forms
             this.lblLocation.TabIndex = 7;
             this.lblLocation.Text = "Restaurant Location";
             // 
-            // pnlPanel
+            // pnlRestaurantDetails
             // 
-            this.pnlPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlRestaurantDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPanel.Controls.Add(this.lblContactNumber);
-            this.pnlPanel.Controls.Add(this.tbxContactNumber);
-            this.pnlPanel.Controls.Add(this.lblRestaurantName);
-            this.pnlPanel.Controls.Add(this.lblLocation);
-            this.pnlPanel.Controls.Add(this.tbxName);
-            this.pnlPanel.Controls.Add(this.tbxLocation);
-            this.pnlPanel.Location = new System.Drawing.Point(12, 49);
-            this.pnlPanel.Name = "pnlPanel";
-            this.pnlPanel.Size = new System.Drawing.Size(281, 222);
-            this.pnlPanel.TabIndex = 9;
+            this.pnlRestaurantDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlRestaurantDetails.Controls.Add(this.lblContactNumber);
+            this.pnlRestaurantDetails.Controls.Add(this.tbxContactNumber);
+            this.pnlRestaurantDetails.Controls.Add(this.lblRestaurantName);
+            this.pnlRestaurantDetails.Controls.Add(this.lblLocation);
+            this.pnlRestaurantDetails.Controls.Add(this.tbxName);
+            this.pnlRestaurantDetails.Controls.Add(this.tbxLocation);
+            this.pnlRestaurantDetails.Location = new System.Drawing.Point(12, 49);
+            this.pnlRestaurantDetails.Name = "pnlRestaurantDetails";
+            this.pnlRestaurantDetails.Size = new System.Drawing.Size(281, 222);
+            this.pnlRestaurantDetails.TabIndex = 9;
             // 
             // lblContactNumber
             // 
@@ -284,19 +284,19 @@ namespace TableFindBackend.Forms
             // 
             this.ofdLayoutBrowse.FileName = "openFileDialog1";
             // 
-            // panel4
+            // pnlRestaurantTimes
             // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.lblTo);
-            this.panel4.Controls.Add(this.lblClosing);
-            this.panel4.Controls.Add(this.lblOpen);
-            this.panel4.Controls.Add(this.lblTimes);
-            this.panel4.Controls.Add(this.dtpClose);
-            this.panel4.Controls.Add(this.dtpOpen);
-            this.panel4.Location = new System.Drawing.Point(299, 49);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(281, 122);
-            this.panel4.TabIndex = 21;
+            this.pnlRestaurantTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlRestaurantTimes.Controls.Add(this.lblTo);
+            this.pnlRestaurantTimes.Controls.Add(this.lblClosing);
+            this.pnlRestaurantTimes.Controls.Add(this.lblOpen);
+            this.pnlRestaurantTimes.Controls.Add(this.lblTimes);
+            this.pnlRestaurantTimes.Controls.Add(this.dtpClose);
+            this.pnlRestaurantTimes.Controls.Add(this.dtpOpen);
+            this.pnlRestaurantTimes.Location = new System.Drawing.Point(299, 49);
+            this.pnlRestaurantTimes.Name = "pnlRestaurantTimes";
+            this.pnlRestaurantTimes.Size = new System.Drawing.Size(281, 122);
+            this.pnlRestaurantTimes.TabIndex = 21;
             // 
             // lblTo
             // 
@@ -396,12 +396,12 @@ namespace TableFindBackend.Forms
             this.ClientSize = new System.Drawing.Size(587, 456);
             this.Controls.Add(this.pbxLoading);
             this.Controls.Add(this.panel5);
-            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.pnlRestaurantTimes);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlButtons);
-            this.Controls.Add(this.pnlPanel);
+            this.Controls.Add(this.pnlRestaurantDetails);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -409,16 +409,16 @@ namespace TableFindBackend.Forms
             this.Name = "EditRestaurantForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "-";
-            this.pnlPanel.ResumeLayout(false);
-            this.pnlPanel.PerformLayout();
+            this.pnlRestaurantDetails.ResumeLayout(false);
+            this.pnlRestaurantDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             this.pnlButtons.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.pnlRestaurantTimes.ResumeLayout(false);
+            this.pnlRestaurantTimes.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -431,7 +431,7 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblRestaurantName;
         private System.Windows.Forms.Label lblLocation;
-        private System.Windows.Forms.Panel pnlPanel;
+        private System.Windows.Forms.Panel pnlRestaurantDetails;
         private System.Windows.Forms.Panel pnlButtons;
         private System.Windows.Forms.PictureBox pbxLoading;
         private System.Windows.Forms.Label lblContactNumber;
@@ -446,7 +446,7 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.OpenFileDialog ofdLayoutBrowse;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel pnlRestaurantTimes;
         private System.Windows.Forms.Label lblTimes;
         private System.Windows.Forms.DateTimePicker dtpClose;
         private System.Windows.Forms.DateTimePicker dtpOpen;
