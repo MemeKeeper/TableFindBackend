@@ -99,7 +99,7 @@ namespace TableFindBackend.Forms
 
                                             OwnerStorage.CurrentlyLoggedIn.SetProperty("userStatus", "DISABLED");
                                             Backendless.UserService.Update(OwnerStorage.CurrentlyLoggedIn, updateCallback);
-                                            //Backendless.UserService.
+                                           // BackendlessAPI.BackendlessUser
                                         }
                                         else
                                         {
