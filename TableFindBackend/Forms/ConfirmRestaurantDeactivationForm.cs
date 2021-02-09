@@ -77,10 +77,39 @@ namespace TableFindBackend.Forms
                                 {
                                     Invoke(new Action(() =>
                                     {
-                                        OwnerStorage.FileWriter.WriteLineToFile("Restaurant object has been deactivated", false);
-                                        OwnerStorage.FileWriter.FormShutDown();
-                                        Properties.Settings.Default.defaultRestaurant = -1;
-                                        Properties.Settings.Default.Save();
+                                        if(cbxDeactivateAccount.Checked==true)
+                                        {
+                                            AsyncCallback<BackendlessUser> updateCallback = new AsyncCallback<BackendlessUser>(
+                                            deactivatedUser =>
+                                            {
+                                                OwnerStorage.FileWriter.WriteLineToFile("Restaurant AND user account has been deactivated", false);
+                                                OwnerStorage.FileWriter.FormShutDown();
+                                                Properties.Settings.Default.defaultRestaurant = -1;
+                                                Properties.Settings.Default.Save();
+                                            },
+                                           fault =>
+                                            {
+                                                Invoke(new Action(() =>
+                                                {
+                                                    MessageBox.Show(fault.Message.ToString());
+                                                }));
+                                                Application.Restart();
+                                                Environment.Exit(0);
+                                            });
+
+                                            OwnerStorage.CurrentlyLoggedIn.SetProperty("userStatus", "DISABLED");
+                                            Backendless.UserService.Update(OwnerStorage.CurrentlyLoggedIn, updateCallback);
+                                           // BackendlessAPI.BackendlessUser
+                                        }
+                                        else
+                                        {
+                                            OwnerStorage.FileWriter.WriteLineToFile("Restaurant has been deactivated", false);
+                                            OwnerStorage.FileWriter.FormShutDown();
+                                            Properties.Settings.Default.defaultRestaurant = -1;
+                                            Properties.Settings.Default.Save();
+                                        }
+                                        
+
                                     }));
 
                                     AsyncCallback<MessageStatus> responder = new AsyncCallback<MessageStatus>(
@@ -104,8 +133,9 @@ namespace TableFindBackend.Forms
 
                                     List<String> recipients = new List<String>();
                                     recipients.Add(OwnerStorage.CurrentlyLoggedIn.Email);
-                                    Backendless.Messaging.SendTextEmail(OwnerStorage.ThisRestaurant.Name+" restaurant Deactivation", "This Email has been sent to confirm that you recently deactivated your "+ OwnerStorage.ThisRestaurant.Name + " restaurant in "+ OwnerStorage.ThisRestaurant.LocationString + "." +
-                                        "\nIf you are seeing this and you did not intentionally deactivated this restaurant please contact the TableFind Development Team.\n\nPlease use RST-" + OwnerStorage.ThisRestaurant.objectId+" as your reference.\n\nRegards,\nThe TableFind Development Team.", recipients, responder);
+                                    Backendless.Messaging.SendTextEmail(OwnerStorage.ThisRestaurant.Name + " restaurant Deactivation", "This Email has been sent to confirm that you recently deactivated your " + OwnerStorage.ThisRestaurant.Name + " restaurant in " + OwnerStorage.ThisRestaurant.LocationString + "." +
+                                               "\nIf you are seeing this and you did not intentionally deactivated this restaurant please contact the TableFind Development Team.\n\nPlease use RST-" + OwnerStorage.ThisRestaurant.objectId + " as your restaurant reference and USR-" + OwnerStorage.CurrentlyLoggedIn.ObjectId + " as" +
+                                               " your user account reference.\n\nRegards,\nThe TableFind Development Team.", recipients, responder);
                                 },
                                 error =>
                                 {
@@ -151,6 +181,12 @@ namespace TableFindBackend.Forms
                     Backendless.UserService.Login(login, password, callback);
                 }
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
         }
     }
 }
