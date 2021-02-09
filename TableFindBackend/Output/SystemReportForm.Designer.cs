@@ -35,6 +35,11 @@ namespace TableFindBackend.Output
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.dgvTables = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnl = new System.Windows.Forms.Panel();
             this.tcTables = new System.Windows.Forms.TabControl();
             this.tpTables = new System.Windows.Forms.TabPage();
@@ -44,17 +49,13 @@ namespace TableFindBackend.Output
             this.flpAdminLog = new System.Windows.Forms.FlowLayoutPanel();
             this.flpReservationTables = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlControls = new System.Windows.Forms.Panel();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.btnPDF = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
-            this.pbxLoading = new System.Windows.Forms.PictureBox();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.pnl.SuspendLayout();
             this.tcTables.SuspendLayout();
             this.tpTables.SuspendLayout();
@@ -62,7 +63,6 @@ namespace TableFindBackend.Output
             this.tabPage1.SuspendLayout();
             this.pnlControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -124,6 +124,41 @@ namespace TableFindBackend.Output
             this.dgvTables.ReadOnly = true;
             this.dgvTables.Size = new System.Drawing.Size(363, 358);
             this.dgvTables.TabIndex = 7;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // capacityDataGridViewTextBoxColumn
+            // 
+            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.HeaderText = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
+            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
+            this.capacityDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // tableInfoDataGridViewTextBoxColumn
+            // 
+            this.tableInfoDataGridViewTextBoxColumn.DataPropertyName = "TableInfo";
+            this.tableInfoDataGridViewTextBoxColumn.HeaderText = "TableInfo";
+            this.tableInfoDataGridViewTextBoxColumn.Name = "tableInfoDataGridViewTextBoxColumn";
+            this.tableInfoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // availableDataGridViewCheckBoxColumn
+            // 
+            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "Available";
+            this.availableDataGridViewCheckBoxColumn.HeaderText = "Available";
+            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
+            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // restaurantTableBindingSource
+            // 
+            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
             // 
             // pnl
             // 
@@ -206,7 +241,6 @@ namespace TableFindBackend.Output
             this.flpReservationTables.Name = "flpReservationTables";
             this.flpReservationTables.Size = new System.Drawing.Size(503, 403);
             this.flpReservationTables.TabIndex = 9;
-            this.flpReservationTables.Visible = false;
             // 
             // pnlControls
             // 
@@ -220,6 +254,17 @@ namespace TableFindBackend.Output
             this.pnlControls.Name = "pnlControls";
             this.pnlControls.Size = new System.Drawing.Size(902, 61);
             this.pnlControls.TabIndex = 10;
+            // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
+            this.pbxLoading.Location = new System.Drawing.Point(635, -1);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(72, 61);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 3;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
             // 
             // btnPDF
             // 
@@ -260,52 +305,6 @@ namespace TableFindBackend.Output
             this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
-            // pbxLoading
-            // 
-            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(635, -1);
-            this.pbxLoading.Name = "pbxLoading";
-            this.pbxLoading.Size = new System.Drawing.Size(72, 61);
-            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxLoading.TabIndex = 3;
-            this.pbxLoading.TabStop = false;
-            this.pbxLoading.Visible = false;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 60;
-            // 
-            // capacityDataGridViewTextBoxColumn
-            // 
-            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.HeaderText = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
-            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
-            this.capacityDataGridViewTextBoxColumn.Width = 60;
-            // 
-            // tableInfoDataGridViewTextBoxColumn
-            // 
-            this.tableInfoDataGridViewTextBoxColumn.DataPropertyName = "TableInfo";
-            this.tableInfoDataGridViewTextBoxColumn.HeaderText = "TableInfo";
-            this.tableInfoDataGridViewTextBoxColumn.Name = "tableInfoDataGridViewTextBoxColumn";
-            this.tableInfoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // availableDataGridViewCheckBoxColumn
-            // 
-            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "Available";
-            this.availableDataGridViewCheckBoxColumn.HeaderText = "Available";
-            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
-            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // restaurantTableBindingSource
-            // 
-            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
-            // 
             // SystemReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,6 +323,7 @@ namespace TableFindBackend.Output
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.pnl.ResumeLayout(false);
             this.tcTables.ResumeLayout(false);
             this.tpTables.ResumeLayout(false);
@@ -331,7 +331,6 @@ namespace TableFindBackend.Output
             this.tabPage1.ResumeLayout(false);
             this.pnlControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
