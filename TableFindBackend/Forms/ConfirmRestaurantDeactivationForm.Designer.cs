@@ -42,6 +42,9 @@ namespace TableFindBackend.Forms
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.tbxEmail = new System.Windows.Forms.TextBox();
             this.lblInfo = new System.Windows.Forms.Label();
+            this.cbxDeactivateAccount = new System.Windows.Forms.CheckBox();
+            this.lblUserAccountDeactivation = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.pnlBackground.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +57,7 @@ namespace TableFindBackend.Forms
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(296, 43);
+            this.panel3.Size = new System.Drawing.Size(388, 43);
             this.panel3.TabIndex = 22;
             // 
             // btnClose
@@ -64,10 +67,10 @@ namespace TableFindBackend.Forms
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnClose.Location = new System.Drawing.Point(249, 0);
+            this.btnClose.Location = new System.Drawing.Point(341, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(47, 43);
-            this.btnClose.TabIndex = 1;
+            this.btnClose.TabIndex = 7;
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -89,6 +92,9 @@ namespace TableFindBackend.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlBackground.Controls.Add(this.btnCancel);
+            this.pnlBackground.Controls.Add(this.lblUserAccountDeactivation);
+            this.pnlBackground.Controls.Add(this.cbxDeactivateAccount);
             this.pnlBackground.Controls.Add(this.btnConfirm);
             this.pnlBackground.Controls.Add(this.tbxConfirm);
             this.pnlBackground.Controls.Add(this.lblConfirm);
@@ -99,17 +105,17 @@ namespace TableFindBackend.Forms
             this.pnlBackground.Controls.Add(this.lblInfo);
             this.pnlBackground.Location = new System.Drawing.Point(7, 49);
             this.pnlBackground.Name = "pnlBackground";
-            this.pnlBackground.Size = new System.Drawing.Size(282, 393);
+            this.pnlBackground.Size = new System.Drawing.Size(374, 471);
             this.pnlBackground.TabIndex = 23;
             this.pnlBackground.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlBackground_Paint);
             // 
             // btnConfirm
             // 
             this.btnConfirm.Enabled = false;
-            this.btnConfirm.Location = new System.Drawing.Point(39, 335);
+            this.btnConfirm.Location = new System.Drawing.Point(50, 415);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(199, 42);
-            this.btnConfirm.TabIndex = 7;
+            this.btnConfirm.TabIndex = 5;
             this.btnConfirm.Text = "Deactivate";
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
@@ -117,17 +123,17 @@ namespace TableFindBackend.Forms
             // tbxConfirm
             // 
             this.tbxConfirm.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxConfirm.Location = new System.Drawing.Point(4, 292);
+            this.tbxConfirm.Location = new System.Drawing.Point(50, 372);
             this.tbxConfirm.Name = "tbxConfirm";
             this.tbxConfirm.Size = new System.Drawing.Size(272, 27);
-            this.tbxConfirm.TabIndex = 6;
+            this.tbxConfirm.TabIndex = 4;
             this.tbxConfirm.TextChanged += new System.EventHandler(this.tbxConfirm_TextChanged);
             // 
             // lblConfirm
             // 
             this.lblConfirm.AutoSize = true;
             this.lblConfirm.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblConfirm.Location = new System.Drawing.Point(3, 272);
+            this.lblConfirm.Location = new System.Drawing.Point(49, 352);
             this.lblConfirm.Name = "lblConfirm";
             this.lblConfirm.Size = new System.Drawing.Size(85, 17);
             this.lblConfirm.TabIndex = 5;
@@ -137,7 +143,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblPasswordLogin.AutoSize = true;
             this.lblPasswordLogin.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPasswordLogin.Location = new System.Drawing.Point(4, 192);
+            this.lblPasswordLogin.Location = new System.Drawing.Point(50, 173);
             this.lblPasswordLogin.Name = "lblPasswordLogin";
             this.lblPasswordLogin.Size = new System.Drawing.Size(69, 17);
             this.lblPasswordLogin.TabIndex = 4;
@@ -147,7 +153,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblEmailLogin.AutoSize = true;
             this.lblEmailLogin.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmailLogin.Location = new System.Drawing.Point(4, 127);
+            this.lblEmailLogin.Location = new System.Drawing.Point(50, 108);
             this.lblEmailLogin.Name = "lblEmailLogin";
             this.lblEmailLogin.Size = new System.Drawing.Size(96, 17);
             this.lblEmailLogin.TabIndex = 3;
@@ -156,7 +162,7 @@ namespace TableFindBackend.Forms
             // tbxPassword
             // 
             this.tbxPassword.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPassword.Location = new System.Drawing.Point(4, 212);
+            this.tbxPassword.Location = new System.Drawing.Point(50, 193);
             this.tbxPassword.Name = "tbxPassword";
             this.tbxPassword.PasswordChar = '•';
             this.tbxPassword.Size = new System.Drawing.Size(272, 27);
@@ -165,7 +171,7 @@ namespace TableFindBackend.Forms
             // tbxEmail
             // 
             this.tbxEmail.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxEmail.Location = new System.Drawing.Point(4, 147);
+            this.tbxEmail.Location = new System.Drawing.Point(50, 128);
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(272, 27);
             this.tbxEmail.TabIndex = 1;
@@ -175,16 +181,47 @@ namespace TableFindBackend.Forms
             this.lblInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblInfo.Location = new System.Drawing.Point(4, 3);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(272, 111);
+            this.lblInfo.Size = new System.Drawing.Size(365, 97);
             this.lblInfo.TabIndex = 0;
             this.lblInfo.Text = resources.GetString("lblInfo.Text");
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cbxDeactivateAccount
+            // 
+            this.cbxDeactivateAccount.AutoSize = true;
+            this.cbxDeactivateAccount.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxDeactivateAccount.Location = new System.Drawing.Point(50, 226);
+            this.cbxDeactivateAccount.Name = "cbxDeactivateAccount";
+            this.cbxDeactivateAccount.Size = new System.Drawing.Size(244, 21);
+            this.cbxDeactivateAccount.TabIndex = 3;
+            this.cbxDeactivateAccount.Text = "Deactivate user account as well?";
+            this.cbxDeactivateAccount.UseVisualStyleBackColor = true;
+            // 
+            // lblUserAccountDeactivation
+            // 
+            this.lblUserAccountDeactivation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblUserAccountDeactivation.Location = new System.Drawing.Point(4, 250);
+            this.lblUserAccountDeactivation.Name = "lblUserAccountDeactivation";
+            this.lblUserAccountDeactivation.Size = new System.Drawing.Size(365, 87);
+            this.lblUserAccountDeactivation.TabIndex = 9;
+            this.lblUserAccountDeactivation.Text = resources.GetString("lblUserAccountDeactivation.Text");
+            this.lblUserAccountDeactivation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(255, 415);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(67, 42);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // ConfirmRestaurantDeactivationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(296, 450);
+            this.ClientSize = new System.Drawing.Size(388, 528);
             this.Controls.Add(this.pnlBackground);
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -213,5 +250,8 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.TextBox tbxConfirm;
         private System.Windows.Forms.Label lblConfirm;
+        private System.Windows.Forms.CheckBox cbxDeactivateAccount;
+        private System.Windows.Forms.Label lblUserAccountDeactivation;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

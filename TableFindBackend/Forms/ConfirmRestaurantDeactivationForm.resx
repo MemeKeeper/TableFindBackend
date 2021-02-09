@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblUserAccountDeactivation.Text" xml:space="preserve">
+    <value>Selecting to deactivate your account is completely optional. Selecting to deactivate your account will not permanently remove it and the user will still have to option to reactivate it when the user wishes to do so. To reactivate your user account, please contact the TableFind Developer Team using the reference email sent to your configured email address.</value>
+  </data>
   <data name="lblInfo.Text" xml:space="preserve">
     <value>Are you sure you would like to deactivate your restaurant? Deactivating your restaurant will not permanently delete it. Users will be unable to see your restaurant after deactivation. In future should you wish to reactivate your restaurant please contact the TableFind Development Team. Please confirm the deactivation with a valid login and a security question. You will receive a confirmation email upon deactivation.</value>
   </data>
