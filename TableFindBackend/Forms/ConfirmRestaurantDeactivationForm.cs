@@ -77,39 +77,11 @@ namespace TableFindBackend.Forms
                                 {
                                     Invoke(new Action(() =>
                                     {
-                                        if(cbxDeactivateAccount.Checked==true)
-                                        {
-                                            AsyncCallback<BackendlessUser> updateCallback = new AsyncCallback<BackendlessUser>(
-                                            deactivatedUser =>
-                                            {
-                                                OwnerStorage.FileWriter.WriteLineToFile("Restaurant AND user account has been deactivated", false);
-                                                OwnerStorage.FileWriter.FormShutDown();
-                                                Properties.Settings.Default.defaultRestaurant = -1;
-                                                Properties.Settings.Default.Save();
-                                            },
-                                           fault =>
-                                            {
-                                                Invoke(new Action(() =>
-                                                {
-                                                    MessageBox.Show(fault.Message.ToString());
-                                                }));
-                                                Application.Restart();
-                                                Environment.Exit(0);
-                                            });
 
-                                            OwnerStorage.CurrentlyLoggedIn.SetProperty("userStatus", "DISABLED");
-                                            Backendless.UserService.Update(OwnerStorage.CurrentlyLoggedIn, updateCallback);
-                                           // BackendlessAPI.BackendlessUser
-                                        }
-                                        else
-                                        {
                                             OwnerStorage.FileWriter.WriteLineToFile("Restaurant has been deactivated", false);
                                             OwnerStorage.FileWriter.FormShutDown();
                                             Properties.Settings.Default.defaultRestaurant = -1;
                                             Properties.Settings.Default.Save();
-                                        }
-                                        
-
                                     }));
 
                                     AsyncCallback<MessageStatus> responder = new AsyncCallback<MessageStatus>(
