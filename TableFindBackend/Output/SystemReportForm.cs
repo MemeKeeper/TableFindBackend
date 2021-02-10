@@ -438,6 +438,7 @@ namespace TableFindBackend.Output
                     Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                     headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
                     headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    headerRange.Font.Name = "verdana";
                     headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
                     headerRange.Font.Size = 10;
                     headerRange.Text = "TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.Name;
@@ -448,6 +449,7 @@ namespace TableFindBackend.Output
                 {
                     //Get the footer range and add the footer details.  
                     Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    footerRange.Font.Name = "verdana";
                     footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
                     footerRange.Font.Size = 10;
                     footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
@@ -455,7 +457,14 @@ namespace TableFindBackend.Output
                 }
 
                 //possibly add logo here
+                Range docRange = document.Range();
+                var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+                string filePath = Path.Combine(projectPath, "Resources\\Logo_small.png");
 
+                Word.Paragraph imageParagraph = document.Content.Paragraphs.Add(ref missing);
+                imageParagraph.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                imageParagraph.Range.InlineShapes.AddPicture(filePath);
+                
                 //System Log output
 
                 //Add paragraph with Heading 1 style  
@@ -691,7 +700,7 @@ namespace TableFindBackend.Output
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
 
             #region

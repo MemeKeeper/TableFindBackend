@@ -83,6 +83,16 @@ namespace TableFindBackend.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Logo_small {
+            get {
+                object obj = ResourceManager.GetObject("Logo_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Wedges_3s_200px {
             get {
                 object obj = ResourceManager.GetObject("Wedges_3s_200px", resourceCulture);
