@@ -455,7 +455,14 @@ namespace TableFindBackend.Output
                 }
 
                 //possibly add logo here
+                Range docRange = document.Range();
+                var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+                string filePath = Path.Combine(projectPath, "Resources\\Logo_small.png");
 
+                Word.Paragraph imageParagraph = document.Content.Paragraphs.Add(ref missing);
+                imageParagraph.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                imageParagraph.Range.InlineShapes.AddPicture(filePath);
+                
                 //System Log output
 
                 //Add paragraph with Heading 1 style  
@@ -691,7 +698,7 @@ namespace TableFindBackend.Output
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
 
             #region

@@ -581,6 +581,7 @@
   <ItemGroup>
     <Content Include="logo_Wly_icon.ico" />
     <None Include="Resources\Wedges-3s-200px.gif" />
+    <None Include="Resources\Logo_small.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
