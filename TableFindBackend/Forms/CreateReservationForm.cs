@@ -46,6 +46,23 @@ namespace TableFindBackend.Models
             this.Close();
         }
 
+        private void ShowLoading(bool toggle)
+        {
+            if(toggle==true)
+            {
+                pbxLoading.Visible = true;
+                btnCancel.Enabled = false;
+                btnCreate.Enabled = false;
+                btnExit.Enabled = false;
+            }
+            else
+            {
+                pbxLoading.Visible = false;
+                btnCancel.Enabled = true;
+                btnCreate.Enabled = true;
+                btnExit.Enabled = true;
+            }
+        }
         private void btnCreate_Click(object sender, EventArgs e)
         {
             Reservation reservation = new Reservation();
@@ -79,8 +96,8 @@ namespace TableFindBackend.Models
 
                         if (flag == null)
                         {
-                            pnlPanel.Visible = false;
-                            DateTime tempTime = dtpTakenFrom.Value.AddHours(2);   //<-- +2:00 time zone
+                        ShowLoading(true);
+                        DateTime tempTime = dtpTakenFrom.Value.AddHours(2);   //<-- +2:00 time zone
                             tempTime.AddHours(Convert.ToInt32(spnDuration.Value));
 
                             reservation.Number = tbxContact.Text;
@@ -123,15 +140,15 @@ namespace TableFindBackend.Models
                         else
                         {
                             {
-                                pnlPanel.Visible = true;
+                            ShowLoading(false);
                                 MessageBox.Show(this, "this Reservation clashes with " + flag.Name + " reservation for " + flag.TakenFrom.ToString("HH:mm") + " to " + flag.TakenTo.ToString("HH:mm"));
                             }
                         }
                     }
                     else
                     {
-                        pnlPanel.Visible = true;
-                        MessageBox.Show(this, "This reservation is outside the restaurant's set open and close times, please select another time.");
+                    ShowLoading(false);
+                    MessageBox.Show(this, "This reservation is outside the restaurant's set open and close times, please select another time.");
                     }
             }
         }

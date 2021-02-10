@@ -351,19 +351,33 @@ namespace TableFindBackend.Forms
         }
         private void showLoading(bool toggle)
         {
-            if(toggle==true)
-            pbxLoading.Visible = true;
+            if (toggle == true)
+            {
+                pbxLoading.Visible = true;
+                btnCancel.Enabled = false;
+                btnExit.Enabled = false;
+                btnCreateNewAdmin.Enabled = false;
+                btnRemoveDeactivate.Enabled = false;
+            }
             else
-            pbxLoading.Visible = false;
+            {
+                pbxLoading.Visible = false;
+                btnCancel.Enabled = true;
+                btnExit.Enabled = true;
+                btnCreateNewAdmin.Enabled = true;
+                btnRemoveDeactivate.Enabled = true;
+            }
+            
         }
         private void btnRemoveAdmin_Click(object sender, EventArgs e)
         {
-            showLoading(true);
+            
             if (TempAdmin.Active == false)
             {
                 DialogResult result = MessageBox.Show(this, "Are you sure you wish permanently remove " + TempAdmin.UserName + " as administrator?", "Removing Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
+                    showLoading(true);
                     AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
                     deletionTime =>
                     {
@@ -412,9 +426,11 @@ namespace TableFindBackend.Forms
             }
             else
             {
+
                 DialogResult result = MessageBox.Show(this, "Are you sure you wish to deactivate " + TempAdmin.UserName + "?", "Deactivating Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result==DialogResult.Yes)
                 {
+                    showLoading(true);
                     AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
                     savedAdminPins =>
                     {
