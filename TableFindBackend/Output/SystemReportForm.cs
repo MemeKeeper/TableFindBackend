@@ -82,20 +82,22 @@ namespace TableFindBackend.Output
         
         private void ToggleLoading(bool toggle)
         {
-                if (toggle == true)
-                {
-                    pbxLoading.Visible = true;
-                    btnExcel.Enabled = false;
-                    btnWord.Enabled = false;
-                    btnPDF.Enabled = false;
-                }
-                else
-                {
-                    pbxLoading.Visible = false;
-                    btnExcel.Enabled = true;
-                    btnWord.Enabled = true;
-                    btnPDF.Enabled = true;
-                }            
+            if (toggle == true)
+            {
+                pbxLoading.Visible = true;
+                btnExcel.Enabled = false;
+                btnExit.Enabled = false;
+                btnWord.Enabled = false;
+                btnPDF.Enabled = false;
+            }
+            else
+            {
+                pbxLoading.Visible = false;
+                btnExcel.Enabled = true;
+                btnExit.Enabled = true;
+                btnWord.Enabled = true;
+                btnPDF.Enabled = true;
+            }            
         }
         private void AddAdminUserLoginTable(List<string> log, AdminPins a)
         {
@@ -193,10 +195,11 @@ namespace TableFindBackend.Output
         {
             this.Close();
         }
-        private void btnExcel_Click(object sender, EventArgs e)
+        private async void btnExcel_Click(object sender, EventArgs e)
         {
             ToggleLoading(true);
-            try
+            await System.Threading.Tasks.Task.Run(() => {
+                try
             {
                 Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
                 app.SheetsInNewWorkbook = 5;
@@ -405,19 +408,27 @@ namespace TableFindBackend.Output
                     Directory.CreateDirectory(path);
 
                 workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
-                ToggleLoading(false);
+                
 
             }
             catch(Exception ex)
             {
-                MessageBox.Show("There was an error generating the workbook: " + ex.Message.ToString()) ;
-                ToggleLoading(false);
+                    if ((uint)ex.HResult != 0x800A03EC )//exception for this error code because when the user decides to not save the worksheet it sends an exception
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            MessageBox.Show("There was an error generating the workbook: " + ex.Message.ToString());
+                            ToggleLoading(false);
+                        }));
+                    }
             }
-
+            });
+            ToggleLoading(false);
         }
-        private void GenerateWordDoc(Boolean word)
+        private async void GenerateWordDoc(Boolean word)
         {
-
+            ToggleLoading(true);
+            await System.Threading.Tasks.Task.Run(() => { 
             try
             {
                 //Create an instance for word app  
@@ -464,7 +475,7 @@ namespace TableFindBackend.Output
                 Word.Paragraph imageParagraph = document.Content.Paragraphs.Add(ref missing);
                 imageParagraph.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 imageParagraph.Range.InlineShapes.AddPicture(filePath);
-                
+
                 //System Log output
 
                 //Add paragraph with Heading 1 style  
@@ -519,7 +530,7 @@ namespace TableFindBackend.Output
                 adminTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
                 //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                
+
                 for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
                 {
                     int counter = 0;
@@ -532,7 +543,7 @@ namespace TableFindBackend.Output
                         }
                     }
                     int innerCounter = 0;
-                    foreach(string[] s in OwnerStorage.AdminLog)
+                    foreach (string[] s in OwnerStorage.AdminLog)
                     {
 
                         if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
@@ -576,13 +587,13 @@ namespace TableFindBackend.Output
 
                         if (tempList.Count != 0)
                         {
-                            
+
                             Microsoft.Office.Interop.Word.Table activeTable = document.Tables.Add(para5.Range, tempList.Count + 2, 4, ref missing, ref missing);
                             activeTable.Borders.Enable = 1;
                             activeTable.Rows[1].Cells[1].Merge(activeTable.Rows[1].Cells[4]);
                             activeTable.Cell(1, 1).Range.Text = t.Name.ToString();
                             //format merged heading
-                            activeTable.Cell(1,1).Range.Font.Bold = 1;
+                            activeTable.Cell(1, 1).Range.Font.Bold = 1;
                             activeTable.Cell(1, 1).Range.Font.Name = "verdana";
                             activeTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
                             activeTable.Cell(1, 1).Range.Font.Size = 10;
@@ -600,7 +611,7 @@ namespace TableFindBackend.Output
                             activeTable.Cell(2, 3).Range.Text = "Taken From";
                             activeTable.Cell(2, 4).Range.Text = "Taken To";
 
-                            for(int i = 0; i < tempList.Count; i++)
+                            for (int i = 0; i < tempList.Count; i++)
                             {
                                 activeTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
                                 activeTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
@@ -608,7 +619,7 @@ namespace TableFindBackend.Output
                                 activeTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
                             }
                             Microsoft.Office.Interop.Word.Paragraph para6 = document.Content.Paragraphs.Add(ref missing);
-                            
+
                         }
                     }
                 }
@@ -692,7 +703,7 @@ namespace TableFindBackend.Output
                 {
                     //if (IsFileLocked(fInfo) == true)
                     //{
-                        document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                    document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
                     //}
                     document.Close(false);
                     winword.Quit(false);
@@ -700,9 +711,14 @@ namespace TableFindBackend.Output
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                    Invoke(new Action(() =>
+                    {
+                        ToggleLoading(false);
+                        MessageBox.Show(ex.Message);
+                    }));
             }
-
+            });
+            ToggleLoading(false);
             #region
             //Document document = new Document();
 
@@ -1142,27 +1158,25 @@ namespace TableFindBackend.Output
 
             //file is not locked
             return false;
+            
         }
 
         private void btnWord_Click(object sender, EventArgs e)
         {
-            ToggleLoading(true);
-            var t = System.Threading.Tasks.Task.Run(() => GenerateWordDoc(true));
-            t.Wait();
-            
-            ToggleLoading(false);
+            GenerateWordDoc(true);                       
         }
 
-        private void btnPDF_Click(object sender, EventArgs e)
+        private async void btnPDF_Click(object sender, EventArgs e)
         {
-            ToggleLoading(true);
-            var t = System.Threading.Tasks.Task.Run(() => GenerateWordDoc(false));
-            t.Wait();            
+            GenerateWordDoc(false);          
 
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
 
-            try
+            ToggleLoading(true);
+            await System.Threading.Tasks.Task.Run(() => {
+                try
             {
+                    
                 //load document
                 Document document = new Document();
                 document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
@@ -1172,13 +1186,18 @@ namespace TableFindBackend.Output
 
                 //launch document
                 System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
-                ToggleLoading(false);
-            }
+                    
+                }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                    Invoke(new Action(() =>
+                    {
+                        ToggleLoading(false);
+                        MessageBox.Show(ex.Message);
+                    }));
             }
-            
+            });
+            ToggleLoading(false);
 
         }
     }
