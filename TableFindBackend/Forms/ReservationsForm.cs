@@ -162,7 +162,7 @@ namespace TableFindBackend.Forms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (OwnerStorage.AdminMode == true)
+            if (thisTable.Available == true || OwnerStorage.AdminMode==true)
             {
                 CreateReservationForm newReservation = new CreateReservationForm(thisTable);
                 DialogResult result = newReservation.ShowDialog();
