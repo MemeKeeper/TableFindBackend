@@ -217,8 +217,8 @@ namespace TableFindBackend.Forms
                     Reservation tempReservation = rList[index];
 
                     AsyncCallback<Reservation> updateObjectCallback = new AsyncCallback<Reservation>(
-               savedReservation =>
-               {
+                savedReservation =>
+                {
                    Invoke(new Action(() =>
                    {
                        lvBookings.Items.RemoveAt(index);
@@ -230,16 +230,16 @@ namespace TableFindBackend.Forms
                        _master.RemoveOneReservationView(tempReservation, savedReservation);
                        CheckIfNew();
                    }));
-               },
-               error =>
-               {
+                },
+                error =>
+                {
                    Invoke(new Action(() =>
                    {
                        MessageBox.Show(this, "Error: " + error.Message);
                        pbxLoading.Visible = true;
                        this.Enabled = false;
                    }));
-               });
+                });
 
                     AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
                     savedReservation =>

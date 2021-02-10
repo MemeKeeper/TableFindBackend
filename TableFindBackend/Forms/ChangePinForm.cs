@@ -46,10 +46,26 @@ namespace TableFindBackend.Forms
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
+        private void ShowLoading(bool toggle)
+        {
+            if(toggle==true)
+            {
+                pbxLoading.Visible = true;
+                btnCancel.Enabled = false;
+                btnConfirm.Enabled = false;
+                btnExit.Enabled = false;
+            }
+            else
+            {
+                pbxLoading.Visible = false;
+                btnCancel.Enabled = true;
+                btnConfirm.Enabled = true;
+                btnExit.Enabled = true;
+            }
+        }
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            pbxLoading.Visible = true;
+            ShowLoading(true);
             AsyncCallback<BackendlessUser> callback = new AsyncCallback<BackendlessUser>(
             user =>
             {
@@ -57,7 +73,7 @@ namespace TableFindBackend.Forms
                 {
                     Invoke(new Action(() =>
                     {
-                        pbxLoading.Visible = false;
+                        ShowLoading(false);
                         System.Console.WriteLine("User logged in. Assigned ID - " + user.ObjectId);
                         pnlPin.Enabled = true;
                         pnlLogin.Enabled = false;
@@ -70,7 +86,8 @@ namespace TableFindBackend.Forms
                 {
                     Invoke(new Action(() =>
                     {
-                        MessageBox.Show(this, "You have logged in with another user's login credentials. Please login using your correct login credentials");
+                        ShowLoading(false);
+                        MessageBox.Show(this, "You have logged in with another user's login credentials. Please login using your correct login credentials");                        
                     }));
                 }
             },
@@ -78,8 +95,8 @@ namespace TableFindBackend.Forms
             {
                 Invoke(new Action(() =>
                 {
-                    MessageBox.Show(this, "Error: " + fault.Message);
-                    pbxLoading.Visible = false;
+                    ShowLoading(false);
+                    MessageBox.Show(this, "Error: " + fault.Message);                    
                 }));
                 System.Console.WriteLine(fault.ToString());
                 
