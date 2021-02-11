@@ -254,49 +254,7 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
-                    Backendless.Persistence.Of<Reservation>().Save(tempReservation, saveObjectCallback);
-
-                    //AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
-                    //  savedReservation =>
-                    //  {
-
-
-                    //      AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
-                    //        deletionTime =>
-                    //        {
-                    //            Invoke(new Action(() =>
-                    //            {
-                    //                pbxLoading.Visible = false;
-                    //                this.Enabled = true;
-                    //                MessageBox.Show(this, "reservation for " + rList[index].Name + " has been removed");
-                    //                lvBookings.Items.RemoveAt(index);
-                    //                OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + rList[index].Name);
-                    //                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                    //            }));
-                    //        },
-                    //        error =>
-                    //        {
-                    //            Invoke(new Action(() =>
-                    //            {
-                    //                pbxLoading.Visible = false;
-                    //                this.Enabled = true;
-                    //                MessageBox.Show(this, "Error: " + error.Message);
-                    //            }));
-                    //        });
-                    //      Backendless.Persistence.Of<Reservation>().Remove(savedReservation, deleteObjectCallback);
-                    //  },
-                    //  error =>
-                    //  {
-                    //      Invoke(new Action(() =>
-                    //      {
-                    //          pbxLoading.Visible = false;
-                    //          this.Enabled = true;
-                    //          MessageBox.Show(this, "Error: " + error.Message);
-                    //      }));
-                    //  }
-                    //);
-
-                    //Backendless.Persistence.Of<Reservation>().Save(tempReservation, saveObjectCallback);
+                    Backendless.Persistence.Of<Reservation>().Save(tempReservation, saveObjectCallback);                    
                 }
                 else
                 {
