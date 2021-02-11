@@ -35,11 +35,6 @@ namespace TableFindBackend.Output
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.dgvTables = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnl = new System.Windows.Forms.Panel();
             this.tcTables = new System.Windows.Forms.TabControl();
             this.tpTables = new System.Windows.Forms.TabPage();
@@ -53,9 +48,17 @@ namespace TableFindBackend.Output
             this.btnPDF = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
+            this.tcReservations = new System.Windows.Forms.TabControl();
+            this.tpCurrentReservations = new System.Windows.Forms.TabPage();
+            this.tpPast = new System.Windows.Forms.TabPage();
+            this.flpPastReservations = new System.Windows.Forms.FlowLayoutPanel();
+            this.restaurantTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.availableDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.pnl.SuspendLayout();
             this.tcTables.SuspendLayout();
             this.tpTables.SuspendLayout();
@@ -63,6 +66,10 @@ namespace TableFindBackend.Output
             this.tabPage1.SuspendLayout();
             this.pnlControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
+            this.tcReservations.SuspendLayout();
+            this.tpCurrentReservations.SuspendLayout();
+            this.tpPast.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -124,41 +131,6 @@ namespace TableFindBackend.Output
             this.dgvTables.ReadOnly = true;
             this.dgvTables.Size = new System.Drawing.Size(363, 358);
             this.dgvTables.TabIndex = 7;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 60;
-            // 
-            // capacityDataGridViewTextBoxColumn
-            // 
-            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.HeaderText = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
-            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
-            this.capacityDataGridViewTextBoxColumn.Width = 60;
-            // 
-            // tableInfoDataGridViewTextBoxColumn
-            // 
-            this.tableInfoDataGridViewTextBoxColumn.DataPropertyName = "TableInfo";
-            this.tableInfoDataGridViewTextBoxColumn.HeaderText = "TableInfo";
-            this.tableInfoDataGridViewTextBoxColumn.Name = "tableInfoDataGridViewTextBoxColumn";
-            this.tableInfoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // availableDataGridViewCheckBoxColumn
-            // 
-            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "Available";
-            this.availableDataGridViewCheckBoxColumn.HeaderText = "Available";
-            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
-            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // restaurantTableBindingSource
-            // 
-            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
             // 
             // pnl
             // 
@@ -236,10 +208,11 @@ namespace TableFindBackend.Output
             // 
             this.flpReservationTables.AutoScroll = true;
             this.flpReservationTables.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flpReservationTables.Location = new System.Drawing.Point(405, 51);
+            this.flpReservationTables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpReservationTables.Location = new System.Drawing.Point(3, 3);
             this.flpReservationTables.Margin = new System.Windows.Forms.Padding(5);
             this.flpReservationTables.Name = "flpReservationTables";
-            this.flpReservationTables.Size = new System.Drawing.Size(503, 403);
+            this.flpReservationTables.Size = new System.Drawing.Size(493, 371);
             this.flpReservationTables.TabIndex = 9;
             // 
             // pnlControls
@@ -305,14 +278,93 @@ namespace TableFindBackend.Output
             this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
+            // tcReservations
+            // 
+            this.tcReservations.Controls.Add(this.tpCurrentReservations);
+            this.tcReservations.Controls.Add(this.tpPast);
+            this.tcReservations.Location = new System.Drawing.Point(403, 51);
+            this.tcReservations.Name = "tcReservations";
+            this.tcReservations.SelectedIndex = 0;
+            this.tcReservations.Size = new System.Drawing.Size(507, 403);
+            this.tcReservations.TabIndex = 0;
+            // 
+            // tpCurrentReservations
+            // 
+            this.tpCurrentReservations.BackColor = System.Drawing.Color.Silver;
+            this.tpCurrentReservations.Controls.Add(this.flpReservationTables);
+            this.tpCurrentReservations.Location = new System.Drawing.Point(4, 22);
+            this.tpCurrentReservations.Name = "tpCurrentReservations";
+            this.tpCurrentReservations.Padding = new System.Windows.Forms.Padding(3);
+            this.tpCurrentReservations.Size = new System.Drawing.Size(499, 377);
+            this.tpCurrentReservations.TabIndex = 0;
+            this.tpCurrentReservations.Text = "Active Reservations";
+            // 
+            // tpPast
+            // 
+            this.tpPast.BackColor = System.Drawing.Color.DarkGray;
+            this.tpPast.Controls.Add(this.flpPastReservations);
+            this.tpPast.Location = new System.Drawing.Point(4, 22);
+            this.tpPast.Name = "tpPast";
+            this.tpPast.Padding = new System.Windows.Forms.Padding(3);
+            this.tpPast.Size = new System.Drawing.Size(499, 377);
+            this.tpPast.TabIndex = 1;
+            this.tpPast.Text = "Past Reservations";
+            // 
+            // flpPastReservations
+            // 
+            this.flpPastReservations.AutoScroll = true;
+            this.flpPastReservations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flpPastReservations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpPastReservations.Location = new System.Drawing.Point(3, 3);
+            this.flpPastReservations.Margin = new System.Windows.Forms.Padding(5);
+            this.flpPastReservations.Name = "flpPastReservations";
+            this.flpPastReservations.Size = new System.Drawing.Size(493, 371);
+            this.flpPastReservations.TabIndex = 10;
+            // 
+            // restaurantTableBindingSource
+            // 
+            this.restaurantTableBindingSource.DataSource = typeof(TableFindBackend.Models.RestaurantTable);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // capacityDataGridViewTextBoxColumn
+            // 
+            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.HeaderText = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
+            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
+            this.capacityDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // tableInfoDataGridViewTextBoxColumn
+            // 
+            this.tableInfoDataGridViewTextBoxColumn.DataPropertyName = "TableInfo";
+            this.tableInfoDataGridViewTextBoxColumn.HeaderText = "TableInfo";
+            this.tableInfoDataGridViewTextBoxColumn.Name = "tableInfoDataGridViewTextBoxColumn";
+            this.tableInfoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // availableDataGridViewCheckBoxColumn
+            // 
+            this.availableDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.availableDataGridViewCheckBoxColumn.DataPropertyName = "Available";
+            this.availableDataGridViewCheckBoxColumn.HeaderText = "Available";
+            this.availableDataGridViewCheckBoxColumn.Name = "availableDataGridViewCheckBoxColumn";
+            this.availableDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
             // SystemReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(117)))), ((int)(((byte)(117)))));
             this.ClientSize = new System.Drawing.Size(922, 533);
+            this.Controls.Add(this.tcReservations);
             this.Controls.Add(this.pnlControls);
-            this.Controls.Add(this.flpReservationTables);
             this.Controls.Add(this.pnl);
             this.Controls.Add(this.pnlHeader);
             this.DoubleBuffered = true;
@@ -323,7 +375,6 @@ namespace TableFindBackend.Output
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.pnl.ResumeLayout(false);
             this.tcTables.ResumeLayout(false);
             this.tpTables.ResumeLayout(false);
@@ -331,6 +382,10 @@ namespace TableFindBackend.Output
             this.tabPage1.ResumeLayout(false);
             this.pnlControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
+            this.tcReservations.ResumeLayout(false);
+            this.tpCurrentReservations.ResumeLayout(false);
+            this.tpPast.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantTableBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -354,10 +409,14 @@ namespace TableFindBackend.Output
         private System.Windows.Forms.Button btnWord;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.FlowLayoutPanel flpAdminLog;
+        private System.Windows.Forms.PictureBox pbxLoading;
+        private System.Windows.Forms.TabControl tcReservations;
+        private System.Windows.Forms.TabPage tpCurrentReservations;
+        private System.Windows.Forms.TabPage tpPast;
+        private System.Windows.Forms.FlowLayoutPanel flpPastReservations;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn capacityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tableInfoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn availableDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.PictureBox pbxLoading;
     }
 }
