@@ -931,28 +931,39 @@ namespace TableFindBackend.Forms
 
                 Invoke(new Action(() =>
                 {
-                    AdminPins flag = null;
-                    foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                    if (tbxPass.Text != "")
                     {
-                        if (tbxPass.Text.Equals(a.PinCode.ToString()) == true && a.Active == true)
+                        AdminPins flag = null;
+                        foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                         {
-                            flag = a;
+                            if (tbxPass.Text.Equals(a.PinCode.ToString()) == true)
+                            {
+                                flag = a;
+                            }
                         }
+
+                        if (flag != null && flag.Active == true)
+                        {
+                            toggleAdminMode(true);
+
+                            OwnerStorage.AdminLog.Add(new string[] { flag.objectId, System.DateTime.Now.ToString("HH:mm:ss") });
+
+                            OwnerStorage.FileWriter.WriteLineToFile(flag.UserName + " Toggled Admin Mode", true);
+                            OwnerStorage.LogInfo.Add(flag.UserName + " activated elevated privileges");
+                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+
+                        }
+                        else
+                        {
+                            lblMessage.Visible = true;
+                            if (flag != null)
+                                lblMessage.Text = "This user PIN has been deactivated.\nPlease contact the restaurant manager.";
+                            else
+                                lblMessage.Text = "No user with that PIN could be found.\nPlease try again.";
+                        }
+                        tbxPass.Text = "";
+                        tbxPass.Focus();
                     }
-
-                    if (flag != null)
-                    {
-                        toggleAdminMode(true);
-
-                        OwnerStorage.AdminLog.Add(new string[] { flag.objectId, System.DateTime.Now.ToString("HH:mm:ss") });
-
-                        OwnerStorage.FileWriter.WriteLineToFile(flag.UserName + " Toggled Admin Mode", true);
-                        OwnerStorage.LogInfo.Add(flag.UserName + " activated elevated privileges");
-                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-
-                    }
-                    tbxPass.Text = "";
-                    tbxPass.Focus();
                 }));
             }
         }
@@ -976,6 +987,7 @@ namespace TableFindBackend.Forms
                 btnEnableAdmin.Visible = false;
                 btnManageAdminUsers.Visible = false;
                 btnEditMenu.Visible = true;
+                lblMessage.Visible = false;
                 OwnerStorage.AdminMode = true;
 
                 foreach (RestaurantTableView v in pnlMain.Controls)
