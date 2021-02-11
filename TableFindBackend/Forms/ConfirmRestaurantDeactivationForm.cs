@@ -44,7 +44,23 @@ namespace TableFindBackend.Forms
             else
                 btnConfirm.Enabled = false;
         }
-
+        private void ShowLoading(bool toggle)
+        {
+            if (toggle==true)
+            {
+                pbxLoading.Visible = true;
+                btnCancel.Enabled = false;
+                btnClose.Enabled = false;
+                btnConfirm.Enabled = false;
+            }
+            else
+            {
+                pbxLoading.Visible = false;
+                btnCancel.Enabled = true;
+                btnClose.Enabled = true;
+                btnConfirm.Enabled = true;
+            }
+        }
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             if (tbxEmail.Text == "")
@@ -61,6 +77,7 @@ namespace TableFindBackend.Forms
                 }
                 else
                 {
+                    ShowLoading(true);
                     AsyncCallback<BackendlessUser> callback = new AsyncCallback<BackendlessUser>(
                     user =>
                     {
@@ -82,7 +99,12 @@ namespace TableFindBackend.Forms
                                     AsyncCallback<MessageStatus> responder = new AsyncCallback<MessageStatus>(
                                       result =>
                                       {
-                                          MessageBox.Show(this, "An email has been sent to your provided email as confirmation of your restaurant being made deactivated. Please use RST-" + OwnerStorage.ThisRestaurant.objectId + " as your restaurant reference and USR-" + OwnerStorage.CurrentlyLoggedIn.ObjectId + " as your user account reference.", "restaurant successfully deactivated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                          Invoke(new Action(() =>
+                                          {
+                                              ShowLoading(false);
+                                              MessageBox.Show(this, "An email has been sent to your provided email as confirmation of your restaurant being made deactivated. Please use RST-" + OwnerStorage.ThisRestaurant.objectId + " as your restaurant reference and USR-" + OwnerStorage.CurrentlyLoggedIn.ObjectId + " as your user account reference.", "restaurant successfully deactivated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                          }));
+                                          
                                           Application.Restart();
                                           Environment.Exit(0);
                                       },
@@ -91,6 +113,7 @@ namespace TableFindBackend.Forms
                                       {
                                           Invoke(new Action(() =>
                                           {
+                                              ShowLoading(false);
                                               MessageBox.Show(fault.Message.ToString());
                                           }));
                                           Application.Restart();
@@ -109,6 +132,7 @@ namespace TableFindBackend.Forms
                                 {
                                     Invoke(new Action(() =>
                                     {
+                                        ShowLoading(false);
                                         MessageBox.Show(error.Message.ToString());
                                     }));
                                 });
@@ -122,6 +146,7 @@ namespace TableFindBackend.Forms
                               {
                                   Invoke(new Action(() =>
                                   {
+                                      ShowLoading(false);
                                       MessageBox.Show(error.Message.ToString());
                                   }));
                               });
@@ -132,6 +157,7 @@ namespace TableFindBackend.Forms
                         {
                             Invoke(new Action(() =>
                             {
+                                ShowLoading(false);
                                 MessageBox.Show(this, "You have logged in with another user's login credentials. Please login using your correct login credentials");
                             }));
                         }
@@ -140,6 +166,7 @@ namespace TableFindBackend.Forms
                     {
                         Invoke(new Action(() =>
                         {
+                            ShowLoading(false);
                             MessageBox.Show(fault.Message.ToString());
                         }));
                     });

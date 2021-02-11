@@ -35,6 +35,8 @@ namespace TableFindBackend.Forms
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlBackground = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.lblUserAccountDeactivation = new System.Windows.Forms.Label();
+            this.cbxDeactivateAccount = new System.Windows.Forms.CheckBox();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.tbxConfirm = new System.Windows.Forms.TextBox();
             this.lblConfirm = new System.Windows.Forms.Label();
@@ -43,10 +45,10 @@ namespace TableFindBackend.Forms
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.tbxEmail = new System.Windows.Forms.TextBox();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.lblUserAccountDeactivation = new System.Windows.Forms.Label();
-            this.cbxDeactivateAccount = new System.Windows.Forms.CheckBox();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.panel3.SuspendLayout();
             this.pnlBackground.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -92,6 +94,7 @@ namespace TableFindBackend.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlBackground.Controls.Add(this.pbxLoading);
             this.pnlBackground.Controls.Add(this.btnCancel);
             this.pnlBackground.Controls.Add(this.lblUserAccountDeactivation);
             this.pnlBackground.Controls.Add(this.cbxDeactivateAccount);
@@ -118,6 +121,29 @@ namespace TableFindBackend.Forms
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // lblUserAccountDeactivation
+            // 
+            this.lblUserAccountDeactivation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblUserAccountDeactivation.Location = new System.Drawing.Point(4, 250);
+            this.lblUserAccountDeactivation.Name = "lblUserAccountDeactivation";
+            this.lblUserAccountDeactivation.Size = new System.Drawing.Size(102, 87);
+            this.lblUserAccountDeactivation.TabIndex = 9;
+            this.lblUserAccountDeactivation.Text = resources.GetString("lblUserAccountDeactivation.Text");
+            this.lblUserAccountDeactivation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblUserAccountDeactivation.Visible = false;
+            // 
+            // cbxDeactivateAccount
+            // 
+            this.cbxDeactivateAccount.AutoSize = true;
+            this.cbxDeactivateAccount.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxDeactivateAccount.Location = new System.Drawing.Point(-85, 226);
+            this.cbxDeactivateAccount.Name = "cbxDeactivateAccount";
+            this.cbxDeactivateAccount.Size = new System.Drawing.Size(244, 21);
+            this.cbxDeactivateAccount.TabIndex = 3;
+            this.cbxDeactivateAccount.Text = "Deactivate user account as well?";
+            this.cbxDeactivateAccount.UseVisualStyleBackColor = true;
+            this.cbxDeactivateAccount.Visible = false;
             // 
             // btnConfirm
             // 
@@ -196,28 +222,16 @@ namespace TableFindBackend.Forms
             this.lblInfo.Text = resources.GetString("lblInfo.Text");
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblUserAccountDeactivation
+            // pbxLoading
             // 
-            this.lblUserAccountDeactivation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblUserAccountDeactivation.Location = new System.Drawing.Point(4, 250);
-            this.lblUserAccountDeactivation.Name = "lblUserAccountDeactivation";
-            this.lblUserAccountDeactivation.Size = new System.Drawing.Size(102, 87);
-            this.lblUserAccountDeactivation.TabIndex = 9;
-            this.lblUserAccountDeactivation.Text = resources.GetString("lblUserAccountDeactivation.Text");
-            this.lblUserAccountDeactivation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblUserAccountDeactivation.Visible = false;
-            // 
-            // cbxDeactivateAccount
-            // 
-            this.cbxDeactivateAccount.AutoSize = true;
-            this.cbxDeactivateAccount.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxDeactivateAccount.Location = new System.Drawing.Point(-85, 226);
-            this.cbxDeactivateAccount.Name = "cbxDeactivateAccount";
-            this.cbxDeactivateAccount.Size = new System.Drawing.Size(244, 21);
-            this.cbxDeactivateAccount.TabIndex = 3;
-            this.cbxDeactivateAccount.Text = "Deactivate user account as well?";
-            this.cbxDeactivateAccount.UseVisualStyleBackColor = true;
-            this.cbxDeactivateAccount.Visible = false;
+            this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
+            this.pbxLoading.Location = new System.Drawing.Point(88, 105);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(192, 185);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 10;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
             // 
             // ConfirmRestaurantDeactivationForm
             // 
@@ -234,6 +248,7 @@ namespace TableFindBackend.Forms
             this.panel3.PerformLayout();
             this.pnlBackground.ResumeLayout(false);
             this.pnlBackground.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -255,5 +270,6 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblUserAccountDeactivation;
         private System.Windows.Forms.CheckBox cbxDeactivateAccount;
+        private System.Windows.Forms.PictureBox pbxLoading;
     }
 }
