@@ -690,8 +690,6 @@ namespace TableFindBackend.Output
 
                 FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
 
-
-
                 if (word == true)
                 {
                     document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
@@ -701,20 +699,51 @@ namespace TableFindBackend.Output
                 }
                 else
                 {
-                    //if (IsFileLocked(fInfo) == true)
-                    //{
-                    document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                    //if (IsFileLocked(fInfo) != true)
+                    //}
+                        document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
                     //}
                     document.Close(false);
                     winword.Quit(false);
+
+                        //load document
+                    Document pdfDocument = new Document();
+                    pdfDocument.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+
+                        //convert to PDF
+                    pdfDocument.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
+                        
+                        //launch document
+                    System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
+
+
+                    //Invoke(new Action(() =>
+                    //{
+                    //    ToggleLoading(false);
+                    //    MessageBox.Show(ex.Message);
+                    //}));
+                    
                 }
             }
             catch (Exception ex)
             {
+                    if(word==false)
+                    {
+                        string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
+                        Document pdfDocument = new Document();
+                        pdfDocument.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+
+                        //convert to PDF
+                        pdfDocument.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
+
+                        //launch document
+                        System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
+                    }
+                    
                     Invoke(new Action(() =>
                     {
                         ToggleLoading(false);
-                        MessageBox.Show(ex.Message);
+                      //  MessageBox.Show(ex.Message);
                     }));
             }
             });
@@ -1166,38 +1195,11 @@ namespace TableFindBackend.Output
             GenerateWordDoc(true);                       
         }
 
-        private async void btnPDF_Click(object sender, EventArgs e)
+        private void btnPDF_Click(object sender, EventArgs e)
         {
             GenerateWordDoc(false);          
 
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
-
-            ToggleLoading(true);
-            await System.Threading.Tasks.Task.Run(() => {
-                try
-            {
-                    
-                //load document
-                Document document = new Document();
-                document.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
-
-                //convert to PDF
-                document.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
-
-                //launch document
-                System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
-                    
-                }
-            catch(Exception ex)
-            {
-                    Invoke(new Action(() =>
-                    {
-                        ToggleLoading(false);
-                        MessageBox.Show(ex.Message);
-                    }));
-            }
-            });
-            ToggleLoading(false);
+            
 
         }
     }
