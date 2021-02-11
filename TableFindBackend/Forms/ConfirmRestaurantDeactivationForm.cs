@@ -82,6 +82,7 @@ namespace TableFindBackend.Forms
                                     AsyncCallback<MessageStatus> responder = new AsyncCallback<MessageStatus>(
                                       result =>
                                       {
+                                          MessageBox.Show(this, "An email has been sent to your provided email as confirmation of your restaurant being made deactivated. Please use RST-" + OwnerStorage.ThisRestaurant.objectId + " as your restaurant reference and USR-" + OwnerStorage.CurrentlyLoggedIn.ObjectId + " as your user account reference.", "restaurant successfully deactivated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                           Application.Restart();
                                           Environment.Exit(0);
                                       },

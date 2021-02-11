@@ -28,7 +28,21 @@ namespace TableFindBackend.Output
                 }
                 if (tempList.Count != 0)
                 {
-                    AddRestaurantReservationTable(table, tempList);
+                    AddRestaurantReservationTable(table, tempList,flpReservationTables);
+                }
+            }
+            foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
+            {
+                List<Reservation> tempList = new List<Reservation>();
+                foreach (Reservation reservation in OwnerStorage.PastReservations)
+                {
+                    if (reservation.TableId == table.objectId)
+                        tempList.Add(reservation);
+
+                }
+                if (tempList.Count != 0)
+                {
+                    AddRestaurantReservationTable(table, tempList, flpPastReservations);
                 }
             }
 
@@ -143,12 +157,12 @@ namespace TableFindBackend.Output
         }
 
         //displays reservations under each table (right-hand side panel)
-        private void AddRestaurantReservationTable(RestaurantTable table, List<Reservation> list)
+        private void AddRestaurantReservationTable(RestaurantTable table, List<Reservation> list,FlowLayoutPanel pnl)
         {
 
             Panel backPanel = new Panel();
             backPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            backPanel.Width = flpReservationTables.Width - 10;
+            backPanel.Width = pnl.Width - 10;
             backPanel.Height = 80;
             Label titleLabel = new Label();
             titleLabel.Font = new System.Drawing.Font("Century Gothic", 10);
@@ -175,7 +189,7 @@ namespace TableFindBackend.Output
             }
             backPanel.Controls.Add(newView);
 
-            flpReservationTables.Controls.Add(backPanel);
+            pnl.Controls.Add(backPanel);
         }
 
 
