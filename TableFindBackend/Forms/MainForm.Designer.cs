@@ -62,6 +62,7 @@ namespace TableFindBackend.Forms
             this.btnCreate = new System.Windows.Forms.Button();
             this.lblCapacity = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.tbcReservationHolder.SuspendLayout();
             this.tpCurrent.SuspendLayout();
@@ -215,7 +216,7 @@ namespace TableFindBackend.Forms
             this.btnEnableAdmin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnEnableAdmin.Enabled = false;
             this.btnEnableAdmin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnEnableAdmin.Location = new System.Drawing.Point(59, 190);
+            this.btnEnableAdmin.Location = new System.Drawing.Point(59, 212);
             this.btnEnableAdmin.Name = "btnEnableAdmin";
             this.btnEnableAdmin.Size = new System.Drawing.Size(111, 39);
             this.btnEnableAdmin.TabIndex = 7;
@@ -244,6 +245,7 @@ namespace TableFindBackend.Forms
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.BackgroundImage = global::TableFindBackend.Properties.Resources.Logo;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel2.Controls.Add(this.lblMessage);
             this.panel2.Controls.Add(this.btnChangeLoad);
             this.panel2.Controls.Add(this.btnViewAll);
             this.panel2.Controls.Add(this.btnInfo);
@@ -304,7 +306,7 @@ namespace TableFindBackend.Forms
             // 
             this.btnManageAdminUsers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnManageAdminUsers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnManageAdminUsers.Location = new System.Drawing.Point(59, 240);
+            this.btnManageAdminUsers.Location = new System.Drawing.Point(59, 253);
             this.btnManageAdminUsers.Name = "btnManageAdminUsers";
             this.btnManageAdminUsers.Size = new System.Drawing.Size(111, 39);
             this.btnManageAdminUsers.TabIndex = 12;
@@ -344,7 +346,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblLogin.AutoSize = true;
             this.lblLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.lblLogin.Location = new System.Drawing.Point(56, 114);
+            this.lblLogin.Location = new System.Drawing.Point(56, 110);
             this.lblLogin.Name = "lblLogin";
             this.lblLogin.Size = new System.Drawing.Size(116, 30);
             this.lblLogin.TabIndex = 11;
@@ -368,7 +370,7 @@ namespace TableFindBackend.Forms
             // 
             this.tbxPass.Enabled = false;
             this.tbxPass.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPass.Location = new System.Drawing.Point(24, 147);
+            this.tbxPass.Location = new System.Drawing.Point(24, 143);
             this.tbxPass.MaxLength = 10;
             this.tbxPass.Name = "tbxPass";
             this.tbxPass.PasswordChar = '*';
@@ -448,6 +450,17 @@ namespace TableFindBackend.Forms
             this.lblStatus.Size = new System.Drawing.Size(0, 15);
             this.lblStatus.TabIndex = 10;
             // 
+            // lblMessage
+            // 
+            this.lblMessage.ForeColor = System.Drawing.Color.Maroon;
+            this.lblMessage.Location = new System.Drawing.Point(4, 180);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(228, 32);
+            this.lblMessage.TabIndex = 16;
+            this.lblMessage.Text = "Message Displayed here";
+            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMessage.Visible = false;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.btnEnableAdmin;
@@ -513,6 +526,7 @@ namespace TableFindBackend.Forms
         private Label lblCapacity;
         private Button btnChangeLoad;
         private Label lblStatus;
+        private Label lblMessage;
     }
 }
 
