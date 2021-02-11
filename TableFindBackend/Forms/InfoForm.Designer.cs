@@ -327,7 +327,7 @@ namespace TableFindBackend.Forms
             this.rtbEnableAdmin.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtbEnableAdmin.Size = new System.Drawing.Size(529, 268);
             this.rtbEnableAdmin.TabIndex = 10;
-            this.rtbEnableAdmin.Text = "This allows the user to access more functionality as an Elevated user. \n";
+            this.rtbEnableAdmin.Text = "This allows the user to access more functionality as an Admin user. \n";
             // 
             // tpChangePIN
             // 
@@ -337,7 +337,7 @@ namespace TableFindBackend.Forms
             this.tpChangePIN.Padding = new System.Windows.Forms.Padding(3);
             this.tpChangePIN.Size = new System.Drawing.Size(535, 274);
             this.tpChangePIN.TabIndex = 4;
-            this.tpChangePIN.Text = "Change PIN";
+            this.tpChangePIN.Text = "Manage Admin Users";
             this.tpChangePIN.UseVisualStyleBackColor = true;
             // 
             // rtbChangePIN
@@ -426,9 +426,9 @@ namespace TableFindBackend.Forms
             this.rtcElevatedOverview.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtcElevatedOverview.Size = new System.Drawing.Size(529, 268);
             this.rtcElevatedOverview.TabIndex = 9;
-            this.rtcElevatedOverview.Text = "As an Elevated user, the user will now be able to see additional buttons - Add Ne" +
-    "w Table, Finish, Restaurant Options, Edit Menu Items, Refresh, Logout, and Check" +
-    " for Updates.";
+            this.rtcElevatedOverview.Text = "As an Admin user, the user will now be able to see additional buttons - Add New T" +
+    "able, Finish, Restaurant Options, Edit Menu Items, Refresh, Logout, and Check fo" +
+    "r Updates.";
             // 
             // tpAddNewTable
             // 
@@ -497,7 +497,7 @@ namespace TableFindBackend.Forms
             this.tpEditMenu.Padding = new System.Windows.Forms.Padding(3);
             this.tpEditMenu.Size = new System.Drawing.Size(535, 274);
             this.tpEditMenu.TabIndex = 3;
-            this.tpEditMenu.Text = "Edit Menu Items";
+            this.tpEditMenu.Text = "Menu Items";
             this.tpEditMenu.UseVisualStyleBackColor = true;
             // 
             // rtbMenuItems
@@ -605,9 +605,9 @@ namespace TableFindBackend.Forms
             this.rtbUpdate.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtbUpdate.Size = new System.Drawing.Size(529, 268);
             this.rtbUpdate.TabIndex = 17;
-            this.rtbUpdate.Text = "This will end the Elevated user session and revert the user back to a General use" +
-    "r. The user will then have to enable Admin mode again to access Admin functional" +
-    "ity.";
+            this.rtbUpdate.Text = "This will end the Admin user session and revert the user back to a General user. " +
+    "The user will then have to enable Admin mode again to access Admin functionality" +
+    ".";
             // 
             // tpReservations
             // 
