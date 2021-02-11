@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TableFindBackend
@@ -30,15 +25,15 @@ namespace TableFindBackend
         public string Label
         {
             get { return name; }
-            set { name = value ; lblName.Text = value; }
+            set { name = value; lblName.Text = value; }
         }
         [Category("Custom Props")]
         public bool Availability
         {
             get { return availability; }
-            set 
-            { 
-                availability = value; 
+            set
+            {
+                availability = value;
 
                 if (value == true)
                 {
@@ -56,13 +51,13 @@ namespace TableFindBackend
             {
                 removable = value;
 
-                if (value == true && availability==true)
+                if (value == true && availability == true)
                 {
                     this.BackColor = Color.FromName("InactiveCaption");
                 }
                 else
                 {
-                    if (availability==false)
+                    if (availability == false)
                         this.BackColor = Color.FromName("Info");
                     else
                         this.BackColor = Color.FromName("ActiveCaption");
@@ -73,7 +68,7 @@ namespace TableFindBackend
         public int Seating
         {
             get { return seating; }
-            set { seating = value; lblMax.Text = "Max Seating: "+Convert.ToString(value); }
+            set { seating = value; lblMax.Text = "Max Seating: " + Convert.ToString(value); }
         }
         #endregion
 

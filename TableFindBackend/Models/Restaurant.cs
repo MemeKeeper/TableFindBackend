@@ -1,11 +1,4 @@
-﻿using BackendlessAPI;
-using BackendlessAPI.Async;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TableFindBackend.Global_Variables;
+﻿using System;
 
 namespace TableFindBackend.Models
 {

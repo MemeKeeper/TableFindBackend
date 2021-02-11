@@ -1,26 +1,14 @@
-﻿using System;
-using Syncfusion.XlsIO;
+﻿using Microsoft.Office.Interop.Word;
+using Spire.Doc;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
-
-using System.IO;
-using Spire.Doc.Documents;
-using Spire.Doc.Fields;
-using Spire.Doc;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using Word = Microsoft.Office.Interop.Word;
-using System.Reflection;
-using Microsoft.Office.Interop.Word;
 using Document = Spire.Doc.Document;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace TableFindBackend.Output
 {
@@ -38,7 +26,7 @@ namespace TableFindBackend.Output
                         tempList.Add(reservation);
 
                 }
-                if (tempList.Count!=0)
+                if (tempList.Count != 0)
                 {
                     AddRestaurantReservationTable(table, tempList);
                 }
@@ -48,11 +36,11 @@ namespace TableFindBackend.Output
             //rtbLog.Lines = OwnerStorage.Log.ToArray();
 
             //displays system log info (system log tab)
-            for (int i = 0;i<OwnerStorage.LogInfo.Count;i++)
+            for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
             {
-                if (OwnerStorage.LogTimes[i]=="blank")
+                if (OwnerStorage.LogTimes[i] == "blank")
                 {
-                    rtbLog.Text += OwnerStorage.LogInfo[i]+"\n";
+                    rtbLog.Text += OwnerStorage.LogInfo[i] + "\n";
                 }
                 else
                 {
@@ -79,7 +67,7 @@ namespace TableFindBackend.Output
             }
         }
 
-        
+
         private void ToggleLoading(bool toggle)
         {
             if (toggle == true)
@@ -97,7 +85,7 @@ namespace TableFindBackend.Output
                 btnExit.Enabled = true;
                 btnWord.Enabled = true;
                 btnPDF.Enabled = true;
-            }            
+            }
         }
         private void AddAdminUserLoginTable(List<string> log, AdminPins a)
         {
@@ -126,9 +114,9 @@ namespace TableFindBackend.Output
             }
             else
             {
-                tbxAmount.Text = log.Count.ToString() + " logins during this session";                               
+                tbxAmount.Text = log.Count.ToString() + " logins during this session";
             }
-            if(log.Count !=0)
+            if (log.Count != 0)
             {
                 flpAdminLog.Controls.Add(backPanel);
                 DataGridView dataGridView = new DataGridView();
@@ -151,23 +139,23 @@ namespace TableFindBackend.Output
                 dataGridView.AllowUserToDeleteRows = false;
                 dataGridView.RowHeadersVisible = false;
                 backPanel.Controls.Add(dataGridView);
-            }            
+            }
         }
 
         //displays reservations under each table (right-hand side panel)
-        private void AddRestaurantReservationTable(RestaurantTable table,List<Reservation> list)
+        private void AddRestaurantReservationTable(RestaurantTable table, List<Reservation> list)
         {
 
             Panel backPanel = new Panel();
             backPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            backPanel.Width = flpReservationTables.Width-10;
+            backPanel.Width = flpReservationTables.Width - 10;
             backPanel.Height = 80;
             Label titleLabel = new Label();
-            titleLabel.Font=new System.Drawing.Font("Century Gothic", 10);
+            titleLabel.Font = new System.Drawing.Font("Century Gothic", 10);
             titleLabel.Text = table.Name;
             titleLabel.AutoSize = true;
             titleLabel.Location = new System.Drawing.Point(10, 10);
-            backPanel.Controls.Add(titleLabel);             
+            backPanel.Controls.Add(titleLabel);
             DataGridView newView = new DataGridView();
             newView.Location = new System.Drawing.Point(5, 40);
             newView.ReadOnly = true;
@@ -175,7 +163,7 @@ namespace TableFindBackend.Output
             newView.AllowUserToDeleteRows = false;
             newView.Width = 460;
             newView.Height = 27;
-            newView.Columns.Add("name","Name for Reservation");
+            newView.Columns.Add("name", "Name for Reservation");
             newView.Columns.Add("takenFrom", "Taken From");
             newView.Columns.Add("takenTo", "Taken To");
             newView.Columns.Add("contactNumber", "Contact number");
@@ -190,7 +178,7 @@ namespace TableFindBackend.Output
             flpReservationTables.Controls.Add(backPanel);
         }
 
-        
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -198,176 +186,177 @@ namespace TableFindBackend.Output
         private async void btnExcel_Click(object sender, EventArgs e)
         {
             ToggleLoading(true);
-            await System.Threading.Tasks.Task.Run(() => {
-                try
+            await System.Threading.Tasks.Task.Run(() =>
             {
-                Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-                app.SheetsInNewWorkbook = 5;
-                Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-                Microsoft.Office.Interop.Excel._Worksheet wsTables = null;
-                Microsoft.Office.Interop.Excel.Range range;
-
-                #region //restaurant Tables
-                //Setup for Sheet1
-                wsTables = workbook.Sheets["Sheet1"];
-                wsTables = workbook.ActiveSheet;
-                wsTables.Name = "Restaurant Tables";
-                range = wsTables.get_Range("A1","D1");
-                range.Font.Color = System.Drawing.Color.FromName("White");
-                for (int i = 1; i < dgvTables.Columns.Count + 1; i++)
-                {                    
-                    wsTables.Cells[1, i] = dgvTables.Columns[i - 1].HeaderText;
-                    wsTables.Cells[1, i].Interior.Color = System.Drawing.Color.FromName("Silver");                    
-                }
-                for (int i = 0; i < dgvTables.Rows.Count - 1; i++)
+                try
                 {
-                    for (int j = 0; j < dgvTables.Columns.Count; j++)
-                    {
-                        wsTables.Cells[i + 2, j + 1] = dgvTables.Rows[i].Cells[j].Value.ToString();
+                    Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+                    app.SheetsInNewWorkbook = 5;
+                    Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+                    Microsoft.Office.Interop.Excel._Worksheet wsTables = null;
+                    Microsoft.Office.Interop.Excel.Range range;
 
+                    #region //restaurant Tables
+                    //Setup for Sheet1
+                    wsTables = workbook.Sheets["Sheet1"];
+                    wsTables = workbook.ActiveSheet;
+                    wsTables.Name = "Restaurant Tables";
+                    range = wsTables.get_Range("A1", "D1");
+                    range.Font.Color = System.Drawing.Color.FromName("White");
+                    for (int i = 1; i < dgvTables.Columns.Count + 1; i++)
+                    {
+                        wsTables.Cells[1, i] = dgvTables.Columns[i - 1].HeaderText;
+                        wsTables.Cells[1, i].Interior.Color = System.Drawing.Color.FromName("Silver");
                     }
-                }
-                range = wsTables.get_Range("A1", "H1000");
-                range.Rows.AutoFit();
-                range.Columns.AutoFit();
-
-                #endregion
-                #region //System Log
-                //Setup for Sheet2
-                wsTables = workbook.Sheets["Sheet2"];
-                wsTables.Name = "System Log";     
-                wsTables.Cells[1, 1] = "System Events";
-                wsTables.Cells[1, 2] = "Recorded Time";
-                wsTables.Cells[1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
-                wsTables.Cells[1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
-                range = wsTables.get_Range("A1", "B1");
-                range.Font.Color = System.Drawing.Color.FromName("White");
-
-                for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
-                {
-                    wsTables.Cells[i + 2, 1] = OwnerStorage.LogInfo[i];
-                    if (OwnerStorage.LogTimes[i] != "blank")
+                    for (int i = 0; i < dgvTables.Rows.Count - 1; i++)
                     {
-                        wsTables.Cells[i+2, 2] = OwnerStorage.LogTimes[i];
-                    }
-                }
-                range = wsTables.get_Range("A1", "H1000");
-                range.Rows.AutoFit();
-                range.Columns.AutoFit();
-                #endregion
-                #region//Reservations
-                //setup for Sheet3
-                wsTables = workbook.Sheets["Sheet3"];
-                wsTables.Name = "Reservations";
-                int rowHeadingIndex = 0;
-                for (int i = 0; i < OwnerStorage.RestaurantTables.Count;i++) 
-                {
-                    List<Reservation> tempList = new List<Reservation>();
-                    foreach (Reservation reservation in OwnerStorage.ActiveReservations)
-                    {
-                        if (reservation.TableId == OwnerStorage.RestaurantTables[i].objectId)
-                            tempList.Add(reservation);
-                    }
-                    if (tempList.Count != 0)
-                    {
-                        rowHeadingIndex += 1;
-
-                        wsTables.Range[wsTables.Cells[rowHeadingIndex , 1], wsTables.Cells[rowHeadingIndex , 4]].Merge();
-                        wsTables.Cells[rowHeadingIndex , 1] = OwnerStorage.RestaurantTables[i].Name;
-
-                        wsTables.Cells[rowHeadingIndex , 1].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString()).Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenterAcrossSelection;
-
-                        wsTables.Cells[rowHeadingIndex + 1, 1] ="Name";
-                        wsTables.Cells[rowHeadingIndex + 1, 2] = "Date Taken From";
-                        wsTables.Cells[rowHeadingIndex + 1, 3] = "Date Taken To";
-                        wsTables.Cells[rowHeadingIndex + 1, 4] = "Contact Number";
-                        wsTables.Cells[rowHeadingIndex + 1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.Cells[rowHeadingIndex + 1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.Cells[rowHeadingIndex + 1, 3].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.Cells[rowHeadingIndex + 1, 4].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        range = wsTables.get_Range("A"+ (rowHeadingIndex + 1).ToString(), "D" + (rowHeadingIndex + 1).ToString());
-                        range.Font.Color = System.Drawing.Color.FromName("White");
-                        for (int inner = 0; inner< tempList.Count; inner++)
+                        for (int j = 0; j < dgvTables.Columns.Count; j++)
                         {
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].Name;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].TakenFrom;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].TakenTo;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].Number;                            
+                            wsTables.Cells[i + 2, j + 1] = dgvTables.Rows[i].Cells[j].Value.ToString();
+
                         }
-                        rowHeadingIndex += tempList.Count+2;
                     }
-                }
-                range = wsTables.get_Range("A1", "H1000");
-                range.Rows.AutoFit();
-                range.Columns.AutoFit();
-                #endregion
-                #region//Expired Reservations
-                //setup for sheet4
-                wsTables = workbook.Sheets["Sheet4"];
-                wsTables.Name = "Expired Reservations";
-                rowHeadingIndex = 0;
-                for (int i = 0; i < OwnerStorage.RestaurantTables.Count; i++)
-                {
-                    List<Reservation> tempList = new List<Reservation>();
-                    foreach (Reservation reservation in OwnerStorage.PastReservations)
+                    range = wsTables.get_Range("A1", "H1000");
+                    range.Rows.AutoFit();
+                    range.Columns.AutoFit();
+
+                    #endregion
+                    #region //System Log
+                    //Setup for Sheet2
+                    wsTables = workbook.Sheets["Sheet2"];
+                    wsTables.Name = "System Log";
+                    wsTables.Cells[1, 1] = "System Events";
+                    wsTables.Cells[1, 2] = "Recorded Time";
+                    wsTables.Cells[1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                    wsTables.Cells[1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
+                    range = wsTables.get_Range("A1", "B1");
+                    range.Font.Color = System.Drawing.Color.FromName("White");
+
+                    for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
                     {
-                        if (reservation.TableId == OwnerStorage.RestaurantTables[i].objectId)
-                            tempList.Add(reservation);
-                    }
-                    if (tempList.Count != 0)
-                    {
-                        rowHeadingIndex += 1;
-
-                        wsTables.Range[wsTables.Cells[rowHeadingIndex, 1], wsTables.Cells[rowHeadingIndex, 4]].Merge();
-                        wsTables.Cells[rowHeadingIndex, 1] = OwnerStorage.RestaurantTables[i].Name;
-
-                        wsTables.Cells[rowHeadingIndex, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString()).Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenterAcrossSelection;
-
-                        wsTables.Cells[rowHeadingIndex + 1, 1] = "Name";
-                        wsTables.Cells[rowHeadingIndex + 1, 2] = "Date Taken From";
-                        wsTables.Cells[rowHeadingIndex + 1, 3] = "Date Taken To";
-                        wsTables.Cells[rowHeadingIndex + 1, 4] = "Contact Number";
-                        wsTables.Cells[rowHeadingIndex + 1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.Cells[rowHeadingIndex + 1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.Cells[rowHeadingIndex + 1, 3].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.Cells[rowHeadingIndex + 1, 4].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        range = wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString(), "D" + (rowHeadingIndex + 1).ToString());
-                        range.Font.Color = System.Drawing.Color.FromName("White");
-                        for (int inner = 0; inner < tempList.Count; inner++)
+                        wsTables.Cells[i + 2, 1] = OwnerStorage.LogInfo[i];
+                        if (OwnerStorage.LogTimes[i] != "blank")
                         {
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].Name;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].TakenFrom;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].TakenTo;
-                            wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].Number;
+                            wsTables.Cells[i + 2, 2] = OwnerStorage.LogTimes[i];
                         }
-                        rowHeadingIndex += tempList.Count + 2;
                     }
-                }
-                range = wsTables.get_Range("A1", "H1000");
-                range.Rows.AutoFit();
-                range.Columns.AutoFit();
-                #endregion
-                #region//Admin Log
-
-                //setup for sheet5 
-                wsTables = workbook.Sheets["Sheet5"];
-                wsTables.Name = "Admin Log";
-                rowHeadingIndex = 0;
-                for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
-                {
-                    List<String> tempList = new List<String>();
-                    for(int inner = 0; inner < OwnerStorage.AdminLog.Count; inner++)
+                    range = wsTables.get_Range("A1", "H1000");
+                    range.Rows.AutoFit();
+                    range.Columns.AutoFit();
+                    #endregion
+                    #region//Reservations
+                    //setup for Sheet3
+                    wsTables = workbook.Sheets["Sheet3"];
+                    wsTables.Name = "Reservations";
+                    int rowHeadingIndex = 0;
+                    for (int i = 0; i < OwnerStorage.RestaurantTables.Count; i++)
                     {
-                        if (OwnerStorage.AdminLog[inner][0] == OwnerStorage.ListOfAdmins[i].objectId)
-                            tempList.Add(OwnerStorage.AdminLog[inner][1]);
+                        List<Reservation> tempList = new List<Reservation>();
+                        foreach (Reservation reservation in OwnerStorage.ActiveReservations)
+                        {
+                            if (reservation.TableId == OwnerStorage.RestaurantTables[i].objectId)
+                                tempList.Add(reservation);
+                        }
+                        if (tempList.Count != 0)
+                        {
+                            rowHeadingIndex += 1;
+
+                            wsTables.Range[wsTables.Cells[rowHeadingIndex, 1], wsTables.Cells[rowHeadingIndex, 4]].Merge();
+                            wsTables.Cells[rowHeadingIndex, 1] = OwnerStorage.RestaurantTables[i].Name;
+
+                            wsTables.Cells[rowHeadingIndex, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString()).Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenterAcrossSelection;
+
+                            wsTables.Cells[rowHeadingIndex + 1, 1] = "Name";
+                            wsTables.Cells[rowHeadingIndex + 1, 2] = "Date Taken From";
+                            wsTables.Cells[rowHeadingIndex + 1, 3] = "Date Taken To";
+                            wsTables.Cells[rowHeadingIndex + 1, 4] = "Contact Number";
+                            wsTables.Cells[rowHeadingIndex + 1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.Cells[rowHeadingIndex + 1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.Cells[rowHeadingIndex + 1, 3].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.Cells[rowHeadingIndex + 1, 4].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            range = wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString(), "D" + (rowHeadingIndex + 1).ToString());
+                            range.Font.Color = System.Drawing.Color.FromName("White");
+                            for (int inner = 0; inner < tempList.Count; inner++)
+                            {
+                                wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].Name;
+                                wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].TakenFrom;
+                                wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].TakenTo;
+                                wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].Number;
+                            }
+                            rowHeadingIndex += tempList.Count + 2;
+                        }
                     }
+                    range = wsTables.get_Range("A1", "H1000");
+                    range.Rows.AutoFit();
+                    range.Columns.AutoFit();
+                    #endregion
+                    #region//Expired Reservations
+                    //setup for sheet4
+                    wsTables = workbook.Sheets["Sheet4"];
+                    wsTables.Name = "Expired Reservations";
+                    rowHeadingIndex = 0;
+                    for (int i = 0; i < OwnerStorage.RestaurantTables.Count; i++)
+                    {
+                        List<Reservation> tempList = new List<Reservation>();
+                        foreach (Reservation reservation in OwnerStorage.PastReservations)
+                        {
+                            if (reservation.TableId == OwnerStorage.RestaurantTables[i].objectId)
+                                tempList.Add(reservation);
+                        }
+                        if (tempList.Count != 0)
+                        {
+                            rowHeadingIndex += 1;
+
+                            wsTables.Range[wsTables.Cells[rowHeadingIndex, 1], wsTables.Cells[rowHeadingIndex, 4]].Merge();
+                            wsTables.Cells[rowHeadingIndex, 1] = OwnerStorage.RestaurantTables[i].Name;
+
+                            wsTables.Cells[rowHeadingIndex, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString()).Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenterAcrossSelection;
+
+                            wsTables.Cells[rowHeadingIndex + 1, 1] = "Name";
+                            wsTables.Cells[rowHeadingIndex + 1, 2] = "Date Taken From";
+                            wsTables.Cells[rowHeadingIndex + 1, 3] = "Date Taken To";
+                            wsTables.Cells[rowHeadingIndex + 1, 4] = "Contact Number";
+                            wsTables.Cells[rowHeadingIndex + 1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.Cells[rowHeadingIndex + 1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.Cells[rowHeadingIndex + 1, 3].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.Cells[rowHeadingIndex + 1, 4].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            range = wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString(), "D" + (rowHeadingIndex + 1).ToString());
+                            range.Font.Color = System.Drawing.Color.FromName("White");
+                            for (int inner = 0; inner < tempList.Count; inner++)
+                            {
+                                wsTables.Cells[rowHeadingIndex + inner + 2, 1] = tempList[inner].Name;
+                                wsTables.Cells[rowHeadingIndex + inner + 2, 2] = tempList[inner].TakenFrom;
+                                wsTables.Cells[rowHeadingIndex + inner + 2, 3] = tempList[inner].TakenTo;
+                                wsTables.Cells[rowHeadingIndex + inner + 2, 4] = tempList[inner].Number;
+                            }
+                            rowHeadingIndex += tempList.Count + 2;
+                        }
+                    }
+                    range = wsTables.get_Range("A1", "H1000");
+                    range.Rows.AutoFit();
+                    range.Columns.AutoFit();
+                    #endregion
+                    #region//Admin Log
+
+                    //setup for sheet5 
+                    wsTables = workbook.Sheets["Sheet5"];
+                    wsTables.Name = "Admin Log";
+                    rowHeadingIndex = 0;
+                    for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
+                    {
+                        List<String> tempList = new List<String>();
+                        for (int inner = 0; inner < OwnerStorage.AdminLog.Count; inner++)
+                        {
+                            if (OwnerStorage.AdminLog[inner][0] == OwnerStorage.ListOfAdmins[i].objectId)
+                                tempList.Add(OwnerStorage.AdminLog[inner][1]);
+                        }
 
                         rowHeadingIndex += 1;
                         wsTables.Cells[rowHeadingIndex, 1] = OwnerStorage.ListOfAdmins[i].UserName;
-                        wsTables.Cells[rowHeadingIndex+1, 1] = "Total Times Logged in during session";
-                        wsTables.Cells[rowHeadingIndex+1, 2] = tempList.Count;
+                        wsTables.Cells[rowHeadingIndex + 1, 1] = "Total Times Logged in during session";
+                        wsTables.Cells[rowHeadingIndex + 1, 2] = tempList.Count;
                         wsTables.Cells[rowHeadingIndex, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
                         wsTables.Cells[rowHeadingIndex + 1, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
                         wsTables.Cells[rowHeadingIndex + 1, 2].Interior.Color = System.Drawing.Color.FromName("Silver");
@@ -375,45 +364,45 @@ namespace TableFindBackend.Output
                         wsTables.Range[wsTables.Cells[rowHeadingIndex, 1], wsTables.Cells[rowHeadingIndex, 2]].Merge();
 
 
-                    if (tempList.Count != 0)
-                    {
-
-
-                        wsTables.Cells[rowHeadingIndex + 2, 1] = "Recorded Time";
-                        wsTables.Cells[rowHeadingIndex + 2, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.Cells[rowHeadingIndex+2, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
-                        wsTables.Range[wsTables.Cells[rowHeadingIndex+2, 1], wsTables.Cells[rowHeadingIndex+2, 2]].Merge();
-                        range = wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString(), "D" + (rowHeadingIndex + 1).ToString());
-                        range.Font.Color = System.Drawing.Color.FromName("White");
-                        for (int inner = 0; inner < tempList.Count; inner++)
+                        if (tempList.Count != 0)
                         {
-                            wsTables.Cells[rowHeadingIndex + inner + 3, 1] = tempList[inner];
+
+
+                            wsTables.Cells[rowHeadingIndex + 2, 1] = "Recorded Time";
+                            wsTables.Cells[rowHeadingIndex + 2, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.Cells[rowHeadingIndex + 2, 1].Interior.Color = System.Drawing.Color.FromName("Silver");
+                            wsTables.Range[wsTables.Cells[rowHeadingIndex + 2, 1], wsTables.Cells[rowHeadingIndex + 2, 2]].Merge();
+                            range = wsTables.get_Range("A" + (rowHeadingIndex + 1).ToString(), "D" + (rowHeadingIndex + 1).ToString());
+                            range.Font.Color = System.Drawing.Color.FromName("White");
+                            for (int inner = 0; inner < tempList.Count; inner++)
+                            {
+                                wsTables.Cells[rowHeadingIndex + inner + 3, 1] = tempList[inner];
+                            }
+                            rowHeadingIndex += tempList.Count + 3;
                         }
-                        rowHeadingIndex += tempList.Count + 3;
+                        else
+                        {
+                            rowHeadingIndex += 2;
+                        }
                     }
-                    else
-                    {
-                        rowHeadingIndex += 2;
-                    }
+                    range = wsTables.get_Range("A1", "A1000");
+                    range.Rows.AutoFit();
+                    range.Columns.AutoFit();
+                    #endregion
+
+                    app.Visible = true;
+
+                    string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
+                    if (File.Exists(path) != true)
+                        Directory.CreateDirectory(path);
+
+                    workbook.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+
+
                 }
-                range = wsTables.get_Range("A1", "A1000");
-                range.Rows.AutoFit();
-                range.Columns.AutoFit();
-                #endregion
-
-               app.Visible = true;
-
-                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId);
-                if (File.Exists(path) != true)
-                    Directory.CreateDirectory(path);
-
-                workbook.SaveAs("TableFindBackend\\System Reports\\"+OwnerStorage.ThisRestaurant.Name+@"\"+OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_"+System.DateTime.Now.ToString("dd-MM-yyyy")+ ".xlsx", Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
-                
-
-            }
-            catch(Exception ex)
-            {
-                    if ((uint)ex.HResult != 0x800A03EC )//exception for this error code because when the user decides to not save the worksheet it sends an exception
+                catch (Exception ex)
+                {
+                    if ((uint)ex.HResult != 0x800A03EC)//exception for this error code because when the user decides to not save the worksheet it sends an exception
                     {
                         Invoke(new Action(() =>
                         {
@@ -421,313 +410,314 @@ namespace TableFindBackend.Output
                             ToggleLoading(false);
                         }));
                     }
-            }
+                }
             });
             ToggleLoading(false);
         }
         private async void GenerateWordDoc(Boolean word)
         {
             ToggleLoading(true);
-            await System.Threading.Tasks.Task.Run(() => { 
-            try
+            await System.Threading.Tasks.Task.Run(() =>
             {
-                //Create an instance for word app  
-                Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
-                winword.ShowAnimation = false;
-                //Set status for word application is to be visible or not.  
-                winword.Visible = false;
-                //Create a missing variable for missing value  
-                object missing = System.Reflection.Missing.Value;
-
-                //Create a new document  
-                Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-
-                //Add header into the document  
-                foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                try
                 {
-                    //Get the header range and add the header details.  
-                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.Name = "verdana";
-                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                    headerRange.Font.Size = 10;
-                    headerRange.Text = "TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.Name;
-                }
+                    //Create an instance for word app  
+                    Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
+                    winword.ShowAnimation = false;
+                    //Set status for word application is to be visible or not.  
+                    winword.Visible = false;
+                    //Create a missing variable for missing value  
+                    object missing = System.Reflection.Missing.Value;
 
-                //Add the footers into the document  
-                foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
-                {
-                    //Get the footer range and add the footer details.  
-                    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    footerRange.Font.Name = "verdana";
-                    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                    footerRange.Font.Size = 10;
-                    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "System Report for " + System.DateTime.Now.ToString("D") + " as captured at " + System.DateTime.Now.ToString("t");
-                }
+                    //Create a new document  
+                    Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
 
-                //possibly add logo here
-                Range docRange = document.Range();
-                var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-                string filePath = Path.Combine(projectPath, "Resources\\Logo_small.png");
-
-                Word.Paragraph imageParagraph = document.Content.Paragraphs.Add(ref missing);
-                imageParagraph.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                imageParagraph.Range.InlineShapes.AddPicture(filePath);
-
-                //System Log output
-
-                //Add paragraph with Heading 1 style  
-                Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading1 = "Heading 1";
-                para1.Range.set_Style(ref styleHeading1);
-                para1.Range.Font.Bold = 1;
-                para1.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                para1.Range.Text = "System Log";
-                para1.Range.InsertParagraphAfter();
-
-                #region
-                Microsoft.Office.Interop.Word.Table firstTable = document.Tables.Add(para1.Range, OwnerStorage.LogInfo.Count + 1, 2, ref missing, ref missing);
-                firstTable.Borders.Enable = 1;
-                firstTable.Cell(1, 1).Range.Text = "Recorded Event";
-                firstTable.Cell(1, 2).Range.Text = "Recorded Time";
-
-                firstTable.Rows[1].Range.Font.Bold = 1;
-                firstTable.Rows[1].Range.Font.Name = "verdana";
-                firstTable.Rows[1].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                firstTable.Rows[1].Range.Font.Size = 10;
-                firstTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
-                {
-                    firstTable.Cell(i + 2, 1).Range.Text = OwnerStorage.LogInfo[i].ToString();
-                    firstTable.Cell(i + 2, 2).Range.Text = OwnerStorage.LogTimes[i].ToString();
-                }
-
-                Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-
-                #endregion
-
-                //Admin Log output  
-                Microsoft.Office.Interop.Word.Paragraph para3 = document.Content.Paragraphs.Add(ref missing);
-                para3.Range.set_Style(ref styleHeading1);
-                para3.Range.Font.Bold = 1;
-                para3.Range.Text = "Admin Log";
-                para3.Range.InsertParagraphAfter();
-
-                #region
-                Microsoft.Office.Interop.Word.Table adminTable = document.Tables.Add(para3.Range, OwnerStorage.ListOfAdmins.Count + 1, 3, ref missing, ref missing);
-                adminTable.Borders.Enable = 1;
-                adminTable.Cell(1, 1).Range.Text = "Admin User";
-                adminTable.Cell(1, 2).Range.Text = "Login Count";
-                adminTable.Cell(1, 3).Range.Text = "Login Times";
-
-                adminTable.Rows[1].Range.Font.Bold = 1;
-                adminTable.Rows[1].Range.Font.Name = "verdana";
-                adminTable.Rows[1].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                adminTable.Rows[1].Range.Font.Size = 10;
-                adminTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-
-                for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
-                {
-                    int counter = 0;
-                    string times = "";
-                    foreach (string[] s in OwnerStorage.AdminLog)
+                    //Add header into the document  
+                    foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
                     {
-                        if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
-                        {
-                            counter++;
-                        }
-                    }
-                    int innerCounter = 0;
-                    foreach (string[] s in OwnerStorage.AdminLog)
-                    {
-
-                        if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
-                        {
-                            innerCounter++;
-                            if (counter == innerCounter)
-                                times = times + s[1];
-                            else
-                                times = times + s[1] + "\n";
-                        }
+                        //Get the header range and add the header details.  
+                        Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                        headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                        headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                        headerRange.Font.Name = "verdana";
+                        headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                        headerRange.Font.Size = 10;
+                        headerRange.Text = "TableFindBackend System Report for " + OwnerStorage.ThisRestaurant.Name;
                     }
 
-                    adminTable.Cell(i + 2, 1).Range.Text = OwnerStorage.ListOfAdmins[i].UserName.ToString();
-                    adminTable.Cell(i + 2, 2).Range.Text = counter.ToString() + " logins during this session.";
-                    adminTable.Cell(i + 2, 3).Range.Text = times;
-                }
-
-                Microsoft.Office.Interop.Word.Paragraph para4 = document.Content.Paragraphs.Add(ref missing);
-                #endregion
-
-                //Active Reservations output
-                if (OwnerStorage.ActiveReservations.Count != 0)
-                {
-                    Microsoft.Office.Interop.Word.Paragraph para5 = document.Content.Paragraphs.Add(ref missing);
-                    para5.Range.set_Style(ref styleHeading1);
-                    para5.Range.Font.Bold = 1;
-                    para5.Range.Text = "Active Reservations";
-                    para5.Range.InsertParagraphAfter();
-
-                    foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+                    //Add the footers into the document  
+                    foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
                     {
-                        List<Reservation> tempList = new List<Reservation>();
-                        foreach (Reservation r in OwnerStorage.ActiveReservations)
-                        {
-                            if (r.TableId == t.objectId)
-                            {
-                                tempList.Add(r);
-                            }
+                        //Get the footer range and add the footer details.  
+                        Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                        footerRange.Font.Name = "verdana";
+                        footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                        footerRange.Font.Size = 10;
+                        footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                        footerRange.Text = "System Report for " + System.DateTime.Now.ToString("D") + " as captured at " + System.DateTime.Now.ToString("t");
+                    }
 
+                    //possibly add logo here
+                    Range docRange = document.Range();
+                    var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+                    string filePath = Path.Combine(projectPath, "Resources\\Logo_small.png");
+
+                    Word.Paragraph imageParagraph = document.Content.Paragraphs.Add(ref missing);
+                    imageParagraph.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                    imageParagraph.Range.InlineShapes.AddPicture(filePath);
+
+                    //System Log output
+
+                    //Add paragraph with Heading 1 style  
+                    Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                    object styleHeading1 = "Heading 1";
+                    para1.Range.set_Style(ref styleHeading1);
+                    para1.Range.Font.Bold = 1;
+                    para1.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                    para1.Range.Text = "System Log";
+                    para1.Range.InsertParagraphAfter();
+
+                    #region
+                    Microsoft.Office.Interop.Word.Table firstTable = document.Tables.Add(para1.Range, OwnerStorage.LogInfo.Count + 1, 2, ref missing, ref missing);
+                    firstTable.Borders.Enable = 1;
+                    firstTable.Cell(1, 1).Range.Text = "Recorded Event";
+                    firstTable.Cell(1, 2).Range.Text = "Recorded Time";
+
+                    firstTable.Rows[1].Range.Font.Bold = 1;
+                    firstTable.Rows[1].Range.Font.Name = "verdana";
+                    firstTable.Rows[1].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                    firstTable.Rows[1].Range.Font.Size = 10;
+                    firstTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                    for (int i = 0; i < OwnerStorage.LogInfo.Count; i++)
+                    {
+                        firstTable.Cell(i + 2, 1).Range.Text = OwnerStorage.LogInfo[i].ToString();
+                        firstTable.Cell(i + 2, 2).Range.Text = OwnerStorage.LogTimes[i].ToString();
+                    }
+
+                    Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+
+                    #endregion
+
+                    //Admin Log output  
+                    Microsoft.Office.Interop.Word.Paragraph para3 = document.Content.Paragraphs.Add(ref missing);
+                    para3.Range.set_Style(ref styleHeading1);
+                    para3.Range.Font.Bold = 1;
+                    para3.Range.Text = "Admin Log";
+                    para3.Range.InsertParagraphAfter();
+
+                    #region
+                    Microsoft.Office.Interop.Word.Table adminTable = document.Tables.Add(para3.Range, OwnerStorage.ListOfAdmins.Count + 1, 3, ref missing, ref missing);
+                    adminTable.Borders.Enable = 1;
+                    adminTable.Cell(1, 1).Range.Text = "Admin User";
+                    adminTable.Cell(1, 2).Range.Text = "Login Count";
+                    adminTable.Cell(1, 3).Range.Text = "Login Times";
+
+                    adminTable.Rows[1].Range.Font.Bold = 1;
+                    adminTable.Rows[1].Range.Font.Name = "verdana";
+                    adminTable.Rows[1].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                    adminTable.Rows[1].Range.Font.Size = 10;
+                    adminTable.Rows[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                    //cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                    for (int i = 0; i < OwnerStorage.ListOfAdmins.Count; i++)
+                    {
+                        int counter = 0;
+                        string times = "";
+                        foreach (string[] s in OwnerStorage.AdminLog)
+                        {
+                            if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
+                            {
+                                counter++;
+                            }
+                        }
+                        int innerCounter = 0;
+                        foreach (string[] s in OwnerStorage.AdminLog)
+                        {
+
+                            if (s[0] == OwnerStorage.ListOfAdmins[i].objectId)
+                            {
+                                innerCounter++;
+                                if (counter == innerCounter)
+                                    times = times + s[1];
+                                else
+                                    times = times + s[1] + "\n";
+                            }
                         }
 
-                        if (tempList.Count != 0)
+                        adminTable.Cell(i + 2, 1).Range.Text = OwnerStorage.ListOfAdmins[i].UserName.ToString();
+                        adminTable.Cell(i + 2, 2).Range.Text = counter.ToString() + " logins during this session.";
+                        adminTable.Cell(i + 2, 3).Range.Text = times;
+                    }
+
+                    Microsoft.Office.Interop.Word.Paragraph para4 = document.Content.Paragraphs.Add(ref missing);
+                    #endregion
+
+                    //Active Reservations output
+                    if (OwnerStorage.ActiveReservations.Count != 0)
+                    {
+                        Microsoft.Office.Interop.Word.Paragraph para5 = document.Content.Paragraphs.Add(ref missing);
+                        para5.Range.set_Style(ref styleHeading1);
+                        para5.Range.Font.Bold = 1;
+                        para5.Range.Text = "Active Reservations";
+                        para5.Range.InsertParagraphAfter();
+
+                        foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
                         {
-
-                            Microsoft.Office.Interop.Word.Table activeTable = document.Tables.Add(para5.Range, tempList.Count + 2, 4, ref missing, ref missing);
-                            activeTable.Borders.Enable = 1;
-                            activeTable.Rows[1].Cells[1].Merge(activeTable.Rows[1].Cells[4]);
-                            activeTable.Cell(1, 1).Range.Text = t.Name.ToString();
-                            //format merged heading
-                            activeTable.Cell(1, 1).Range.Font.Bold = 1;
-                            activeTable.Cell(1, 1).Range.Font.Name = "verdana";
-                            activeTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            activeTable.Cell(1, 1).Range.Font.Size = 10;
-                            activeTable.Cell(1, 1).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                            //format secondary headings
-                            activeTable.Rows[2].Range.Font.Bold = 1;
-                            activeTable.Rows[2].Range.Font.Name = "verdana";
-                            activeTable.Rows[2].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            activeTable.Rows[2].Range.Font.Size = 10;
-                            activeTable.Rows[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                            activeTable.Cell(2, 1).Range.Text = "Name";
-                            activeTable.Cell(2, 2).Range.Text = "Contact Nr.";
-                            activeTable.Cell(2, 3).Range.Text = "Taken From";
-                            activeTable.Cell(2, 4).Range.Text = "Taken To";
-
-                            for (int i = 0; i < tempList.Count; i++)
+                            List<Reservation> tempList = new List<Reservation>();
+                            foreach (Reservation r in OwnerStorage.ActiveReservations)
                             {
-                                activeTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
-                                activeTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
-                                activeTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
-                                activeTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
-                            }
-                            Microsoft.Office.Interop.Word.Paragraph para6 = document.Content.Paragraphs.Add(ref missing);
+                                if (r.TableId == t.objectId)
+                                {
+                                    tempList.Add(r);
+                                }
 
+                            }
+
+                            if (tempList.Count != 0)
+                            {
+
+                                Microsoft.Office.Interop.Word.Table activeTable = document.Tables.Add(para5.Range, tempList.Count + 2, 4, ref missing, ref missing);
+                                activeTable.Borders.Enable = 1;
+                                activeTable.Rows[1].Cells[1].Merge(activeTable.Rows[1].Cells[4]);
+                                activeTable.Cell(1, 1).Range.Text = t.Name.ToString();
+                                //format merged heading
+                                activeTable.Cell(1, 1).Range.Font.Bold = 1;
+                                activeTable.Cell(1, 1).Range.Font.Name = "verdana";
+                                activeTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                                activeTable.Cell(1, 1).Range.Font.Size = 10;
+                                activeTable.Cell(1, 1).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                                //format secondary headings
+                                activeTable.Rows[2].Range.Font.Bold = 1;
+                                activeTable.Rows[2].Range.Font.Name = "verdana";
+                                activeTable.Rows[2].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                                activeTable.Rows[2].Range.Font.Size = 10;
+                                activeTable.Rows[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                                activeTable.Cell(2, 1).Range.Text = "Name";
+                                activeTable.Cell(2, 2).Range.Text = "Contact Nr.";
+                                activeTable.Cell(2, 3).Range.Text = "Taken From";
+                                activeTable.Cell(2, 4).Range.Text = "Taken To";
+
+                                for (int i = 0; i < tempList.Count; i++)
+                                {
+                                    activeTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
+                                    activeTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
+                                    activeTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
+                                    activeTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
+                                }
+                                Microsoft.Office.Interop.Word.Paragraph para6 = document.Content.Paragraphs.Add(ref missing);
+
+                            }
                         }
                     }
-                }
-                //Past Reservations displayed
-                if (OwnerStorage.PastReservations.Count != 0)
-                {
-                    Microsoft.Office.Interop.Word.Paragraph para7 = document.Content.Paragraphs.Add(ref missing);
-                    para7.Range.set_Style(ref styleHeading1);
-                    para7.Range.Font.Bold = 1;
-                    para7.Range.Text = "Past Reservations";
-                    para7.Range.InsertParagraphAfter();
-
-                    foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
+                    //Past Reservations displayed
+                    if (OwnerStorage.PastReservations.Count != 0)
                     {
-                        List<Reservation> tempList = new List<Reservation>();
-                        foreach (Reservation r in OwnerStorage.PastReservations)
+                        Microsoft.Office.Interop.Word.Paragraph para7 = document.Content.Paragraphs.Add(ref missing);
+                        para7.Range.set_Style(ref styleHeading1);
+                        para7.Range.Font.Bold = 1;
+                        para7.Range.Text = "Past Reservations";
+                        para7.Range.InsertParagraphAfter();
+
+                        foreach (RestaurantTable t in OwnerStorage.RestaurantTables)
                         {
-                            if (r.TableId == t.objectId)
+                            List<Reservation> tempList = new List<Reservation>();
+                            foreach (Reservation r in OwnerStorage.PastReservations)
                             {
-                                tempList.Add(r);
+                                if (r.TableId == t.objectId)
+                                {
+                                    tempList.Add(r);
+                                }
+
                             }
 
-                        }
-
-                        if (tempList.Count != 0)
-                        {
-
-                            Microsoft.Office.Interop.Word.Table pastTable = document.Tables.Add(para7.Range, tempList.Count + 2, 4, ref missing, ref missing);
-                            pastTable.Borders.Enable = 1;
-                            pastTable.Rows[1].Cells[1].Merge(pastTable.Rows[1].Cells[4]);
-                            pastTable.Cell(1, 1).Range.Text = t.Name.ToString();
-                            //format merged heading
-                            pastTable.Cell(1, 1).Range.Font.Bold = 1;
-                            pastTable.Cell(1, 1).Range.Font.Name = "verdana";
-                            pastTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            pastTable.Cell(1, 1).Range.Font.Size = 10;
-                            pastTable.Cell(1, 1).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                            //format secondary headings
-                            pastTable.Rows[2].Range.Font.Bold = 1;
-                            pastTable.Rows[2].Range.Font.Name = "verdana";
-                            pastTable.Rows[2].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            pastTable.Rows[2].Range.Font.Size = 10;
-                            pastTable.Rows[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                            pastTable.Cell(2, 1).Range.Text = "Name";
-                            pastTable.Cell(2, 2).Range.Text = "Contact Nr.";
-                            pastTable.Cell(2, 3).Range.Text = "Taken From";
-                            pastTable.Cell(2, 4).Range.Text = "Taken To";
-
-                            for (int i = 0; i < tempList.Count; i++)
+                            if (tempList.Count != 0)
                             {
-                                pastTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
-                                pastTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
-                                pastTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
-                                pastTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
+
+                                Microsoft.Office.Interop.Word.Table pastTable = document.Tables.Add(para7.Range, tempList.Count + 2, 4, ref missing, ref missing);
+                                pastTable.Borders.Enable = 1;
+                                pastTable.Rows[1].Cells[1].Merge(pastTable.Rows[1].Cells[4]);
+                                pastTable.Cell(1, 1).Range.Text = t.Name.ToString();
+                                //format merged heading
+                                pastTable.Cell(1, 1).Range.Font.Bold = 1;
+                                pastTable.Cell(1, 1).Range.Font.Name = "verdana";
+                                pastTable.Cell(1, 1).Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                                pastTable.Cell(1, 1).Range.Font.Size = 10;
+                                pastTable.Cell(1, 1).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                                //format secondary headings
+                                pastTable.Rows[2].Range.Font.Bold = 1;
+                                pastTable.Rows[2].Range.Font.Name = "verdana";
+                                pastTable.Rows[2].Range.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                                pastTable.Rows[2].Range.Font.Size = 10;
+                                pastTable.Rows[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                                pastTable.Cell(2, 1).Range.Text = "Name";
+                                pastTable.Cell(2, 2).Range.Text = "Contact Nr.";
+                                pastTable.Cell(2, 3).Range.Text = "Taken From";
+                                pastTable.Cell(2, 4).Range.Text = "Taken To";
+
+                                for (int i = 0; i < tempList.Count; i++)
+                                {
+                                    pastTable.Cell(i + 3, 1).Range.Text = tempList[i].Name.ToString();
+                                    pastTable.Cell(i + 3, 2).Range.Text = tempList[i].Number.ToString();
+                                    pastTable.Cell(i + 3, 3).Range.Text = tempList[i].TakenFrom.ToString();
+                                    pastTable.Cell(i + 3, 4).Range.Text = tempList[i].TakenTo.ToString();
+                                }
+                                Microsoft.Office.Interop.Word.Paragraph paraSpace = document.Content.Paragraphs.Add(ref missing);
                             }
-                            Microsoft.Office.Interop.Word.Paragraph paraSpace = document.Content.Paragraphs.Add(ref missing);
                         }
                     }
-                }
 
 
-                //Save the directory  
-                string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
-                if (File.Exists(path) != true)
-                    Directory.CreateDirectory(path);
+                    //Save the directory  
+                    string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
+                    if (File.Exists(path) != true)
+                        Directory.CreateDirectory(path);
 
-                FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                    FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
 
-                if (word == true)
-                {
-                    document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                    document.Close(false);
-                    winword.Quit(false);
-                    System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                }
-                else
-                {
-                    //if (IsFileLocked(fInfo) != true)
-                    //}
+                    if (word == true)
+                    {
                         document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                    //}
-                    document.Close(false);
-                    winword.Quit(false);
+                        document.Close(false);
+                        winword.Quit(false);
+                        System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                    }
+                    else
+                    {
+                        //if (IsFileLocked(fInfo) != true)
+                        //}
+                        document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
+                        //}
+                        document.Close(false);
+                        winword.Quit(false);
 
                         //load document
-                    Document pdfDocument = new Document();
-                    pdfDocument.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
+                        Document pdfDocument = new Document();
+                        pdfDocument.LoadFromFileInReadMode(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx", FileFormat.Docx);
 
                         //convert to PDF
-                    pdfDocument.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
-                        
+                        pdfDocument.SaveToFile(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileFormat.PDF);
+
                         //launch document
-                    System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
+                        System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
 
 
-                    //Invoke(new Action(() =>
-                    //{
-                    //    ToggleLoading(false);
-                    //    MessageBox.Show(ex.Message);
-                    //}));
-                    
+                        //Invoke(new Action(() =>
+                        //{
+                        //    ToggleLoading(false);
+                        //    MessageBox.Show(ex.Message);
+                        //}));
+
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                    if(word==false)
+                catch (Exception ex)
+                {
+                    if (word == false)
                     {
                         string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), @"TableFindBackend\System Reports\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId);
                         Document pdfDocument = new Document();
@@ -739,13 +729,13 @@ namespace TableFindBackend.Output
                         //launch document
                         System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
                     }
-                    
+
                     Invoke(new Action(() =>
                     {
                         ToggleLoading(false);
-                      //  MessageBox.Show(ex.Message);
+                        //  MessageBox.Show(ex.Message);
                     }));
-            }
+                }
             });
             ToggleLoading(false);
             #region
@@ -1187,19 +1177,19 @@ namespace TableFindBackend.Output
 
             //file is not locked
             return false;
-            
+
         }
 
         private void btnWord_Click(object sender, EventArgs e)
         {
-            GenerateWordDoc(true);                       
+            GenerateWordDoc(true);
         }
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            GenerateWordDoc(false);          
+            GenerateWordDoc(false);
 
-            
+
 
         }
     }

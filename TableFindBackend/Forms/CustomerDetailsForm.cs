@@ -1,12 +1,5 @@
 ﻿using BackendlessAPI;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -33,7 +26,7 @@ namespace TableFindBackend.Forms
                 lblTitle.Text = "Reservation details for " + user.GetProperty("FirstName").ToString();
             }
 
-            
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)

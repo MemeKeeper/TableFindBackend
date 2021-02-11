@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TableFindBackend.Logging
@@ -11,27 +7,27 @@ namespace TableFindBackend.Logging
     public class TextFileWriter
     {
         private String textFile;
-        public TextFileWriter() 
+        public TextFileWriter()
         {
-            textFile = @"Logs\Log_" + System.DateTime.Now.Date.ToString("dd-MM-yyyy")+".txt";
+            textFile = @"Logs\Log_" + System.DateTime.Now.Date.ToString("dd-MM-yyyy") + ".txt";
 
             bool flag = false;
             int number = -1;
 
-            while (flag==false)
+            while (flag == false)
             {
-                if (File.Exists(textFile)==true)
+                if (File.Exists(textFile) == true)
                 {
                     number++;
-                    textFile = @"Logs\Log_" + System.DateTime.Now.Date.ToString("dd-MM-yyyy") +"_" + number+".txt";
+                    textFile = @"Logs\Log_" + System.DateTime.Now.Date.ToString("dd-MM-yyyy") + "_" + number + ".txt";
                 }
                 else
                 {
                     flag = true;
                 }
             }
-            if(File.Exists("Logs")!=true)
-            Directory.CreateDirectory("Logs");
+            if (File.Exists("Logs") != true)
+                Directory.CreateDirectory("Logs");
 
             StreamWriter writer = new StreamWriter(textFile);
 
@@ -50,18 +46,18 @@ namespace TableFindBackend.Logging
 
         public void WriteLineToFile(String text, bool timeOfDay)
         {
-            StreamWriter writer = new StreamWriter(textFile,true); 
+            StreamWriter writer = new StreamWriter(textFile, true);
             try
             {
-                if (timeOfDay==true)
+                if (timeOfDay == true)
                     writer.WriteLine(text + "\t" + System.DateTime.Now.TimeOfDay.ToString());
                 else
                     writer.WriteLine(text);
                 writer.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                MessageBox.Show("Failed to write to log file: "+e.Message.ToString());
+                MessageBox.Show("Failed to write to log file: " + e.Message.ToString());
             }
         }
 
@@ -70,7 +66,7 @@ namespace TableFindBackend.Logging
             StreamWriter writer = new StreamWriter(textFile, true);
 
             try
-            {              
+            {
                 writer.WriteLine("<><><><><><><><><><><><><><><><><><><><><><><><><><><><>");
                 writer.WriteLine("");
                 writer.WriteLine("End of Log.\t" + System.DateTime.Now.TimeOfDay.ToString());

@@ -1,17 +1,16 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.Async;
+using SharpUpdate;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
-using TableFindBackend.Models;
-using TableFindBackend.Global_Variables;
-using SharpUpdate;
-using System.Reflection;
 using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
+using TableFindBackend.Global_Variables;
 using TableFindBackend.Logging;
+using TableFindBackend.Models;
 using TableFindBackend.RT_Database_Listeneres;
-using System.Threading;
 using TableFindBackend.ViewModels;
 
 
@@ -44,7 +43,7 @@ namespace TableFindBackend.Forms
                 System.Environment.Exit(1); //completely closes the application
                 OwnerStorage.FileWriter.WriteLineToFile("User Failed to Login", false);
                 OwnerStorage.FileWriter.FormShutDown();
-                
+
             }
 
             OwnerStorage.AdminMode = false;
@@ -55,7 +54,7 @@ namespace TableFindBackend.Forms
             OwnerStorage.AllUsers = new List<BackendlessUser>();
             OwnerStorage.AdminLog = new List<String[]>();
             OwnerStorage.ListOfAdmins = new List<AdminPins>();
-            
+
 
             this.Hide();
             InitializeComponent();
@@ -72,7 +71,7 @@ namespace TableFindBackend.Forms
 
             updater = new SharpUpdater(Assembly.GetExecutingAssembly(), this, new Uri("https://backendlessappcontent.com/6D59291D-64B4-B4E5-FFCD-43BA19198A00/3DD4C6AA-9D71-4111-A769-45F6DEE35B62/files/Update/update.xml"));  //<------ Domain on which we host the update for the program
 
-            typeof(Panel).InvokeMember("DoubleBuffered",BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlMain, new object[] { true });
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlMain, new object[] { true });
 
         }
 
@@ -149,7 +148,7 @@ namespace TableFindBackend.Forms
                     {
                         OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  " + savedReservation.Name);
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                        RemoveOneReservationView(r,savedReservation);
+                        RemoveOneReservationView(r, savedReservation);
                     },
                     error =>
                     {
@@ -189,13 +188,13 @@ namespace TableFindBackend.Forms
         }
         public void DisableLayoutImage()
         {
-            if (pnlMain.BackgroundImage!=null)
-            pnlMain.BackgroundImage.Dispose();
+            if (pnlMain.BackgroundImage != null)
+                pnlMain.BackgroundImage.Dispose();
         }
         private double[] CalcPanelRes()
         {
             double[] result;
-            result = new double []{pnlMain.Bounds.Width,pnlMain.Bounds.Height};
+            result = new double[] { pnlMain.Bounds.Width, pnlMain.Bounds.Height };
 
             return result;
         }
@@ -243,7 +242,7 @@ namespace TableFindBackend.Forms
                         flpItems.Controls.Remove(tempReservation);
                     }));
                 }
-                if(flag ==false)
+                if (flag == false)
                 {
                     OwnerStorage.FileWriter.WriteLineToFile("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel", true);
                     OwnerStorage.LogInfo.Add("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel");
@@ -252,7 +251,7 @@ namespace TableFindBackend.Forms
             }
 
 
-        }    
+        }
         public void AddOneReservationView(Reservation r) // Controller for ReservationView
         {
             ReservationView reservation = new ReservationView();
@@ -270,7 +269,7 @@ namespace TableFindBackend.Forms
             reservation.TableName = "Table: " + table.Name;
             reservation.ObjectId = r.objectId;
             reservation.Date = r.TakenFrom.ToString("ddd, dd / MM");
-            reservation.FromToTime = r.TakenFrom.ToString("HH:mm") + " to " + r.TakenTo.ToString("HH:mm");            
+            reservation.FromToTime = r.TakenFrom.ToString("HH:mm") + " to " + r.TakenTo.ToString("HH:mm");
 
             reservation.pnlContact.MouseClick += new MouseEventHandler(activeReservation_Click);
             reservation.pnlReservation.MouseClick += new MouseEventHandler(activeReservation_Click);
@@ -281,7 +280,7 @@ namespace TableFindBackend.Forms
                 reservation.New();
             }));
 
-            
+
         }
         private void PerformReservationViewListPopulation(List<Reservation> list)
         {
@@ -289,7 +288,7 @@ namespace TableFindBackend.Forms
             flpItems.Controls.Clear();
             flpPrevious.Controls.Clear();
 
-            foreach(Reservation r in list)
+            foreach (Reservation r in list)
             {
                 ReservationView reservation = new ReservationView();
                 RestaurantTable table = new RestaurantTable();
@@ -331,42 +330,42 @@ namespace TableFindBackend.Forms
             Panel templabel = (Panel)sender;
             ReservationView tempReservationView = (ReservationView)templabel.Parent;
             bool flag = false;
-            foreach(ReservationView views in flpItems.Controls)
+            foreach (ReservationView views in flpItems.Controls)
             {
-                    if (views.Tag == tempReservationView.Tag)
-                    {
+                if (views.Tag == tempReservationView.Tag)
+                {
                     flag = true;
-                            views.Selected();
-                            BackendlessUser tempUser = null;
-                            foreach (BackendlessUser user in OwnerStorage.AllUsers)
-                            {
-                                if (user.ObjectId == views.UObjectId)
-                                {
-                                    tempUser = user;
-                                }
-                            }
-                        Reservation tempReservation = null;
-                        foreach (Reservation reservation in OwnerStorage.ActiveReservations)
+                    views.Selected();
+                    BackendlessUser tempUser = null;
+                    foreach (BackendlessUser user in OwnerStorage.AllUsers)
+                    {
+                        if (user.ObjectId == views.UObjectId)
                         {
-                            if (reservation.objectId == views.Tag.ToString())
-                            {
-                                tempReservation = reservation;
-                            }
+                            tempUser = user;
                         }
-                        RestaurantTable tempTable = null;
-                        foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
-                        {
-                            if (table.objectId == tempReservation.TableId)
-                            {
-                                tempTable = table;
-                            }
-                        }
-                        ReservationDetailsForm details = new ReservationDetailsForm(tempReservation,tempUser,tempTable,true,this);
-                            details.ShowDialog();
-                            views.Deselected();                             
                     }
+                    Reservation tempReservation = null;
+                    foreach (Reservation reservation in OwnerStorage.ActiveReservations)
+                    {
+                        if (reservation.objectId == views.Tag.ToString())
+                        {
+                            tempReservation = reservation;
+                        }
+                    }
+                    RestaurantTable tempTable = null;
+                    foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
+                    {
+                        if (table.objectId == tempReservation.TableId)
+                        {
+                            tempTable = table;
+                        }
+                    }
+                    ReservationDetailsForm details = new ReservationDetailsForm(tempReservation, tempUser, tempTable, true, this);
+                    details.ShowDialog();
+                    views.Deselected();
+                }
             }
-            if (flag==false)
+            if (flag == false)
             {
                 OwnerStorage.FileWriter.WriteLineToFile("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel", true);
                 OwnerStorage.LogInfo.Add("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel");
@@ -409,12 +408,12 @@ namespace TableFindBackend.Forms
                             tempTable = table;
                         }
                     }
-                    ReservationDetailsForm details = new ReservationDetailsForm(tempReservation, tempUser, tempTable, false,this);
+                    ReservationDetailsForm details = new ReservationDetailsForm(tempReservation, tempUser, tempTable, false, this);
                     details.ShowDialog();
                     views.Deselected();
                 }
             }
-            if(flag==false)
+            if (flag == false)
             {
                 OwnerStorage.FileWriter.WriteLineToFile("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel", true);
                 OwnerStorage.LogInfo.Add("No Reservation View (Icon of the reservation) matching the given ID could be found on the panel");
@@ -445,7 +444,7 @@ namespace TableFindBackend.Forms
                 }));
             });
 
-            Backendless.Data.Of<RestaurantMenuItem>().Find(queryBuilder, getBookingCallback);       
+            Backendless.Data.Of<RestaurantMenuItem>().Find(queryBuilder, getBookingCallback);
         }
 
         private void PerformBackgroundReservationPopulation()
@@ -467,9 +466,9 @@ namespace TableFindBackend.Forms
             {
                 InitializeTimer();
 
-                foreach(Reservation r in foundReservations)
+                foreach (Reservation r in foundReservations)
                 {
-                    if(r.Active==true)
+                    if (r.Active == true)
                     {
                         OwnerStorage.ActiveReservations.Add(r);
                     }
@@ -487,7 +486,7 @@ namespace TableFindBackend.Forms
                         AsyncCallback<BackendlessUser> loadContactCallback = new AsyncCallback<BackendlessUser>(
                         foundContact =>
                         {
-                            
+
                             OwnerStorage.AllUsers.Add(foundContact);
                             if (i == foundReservations.Count)
                                 Invoke(new Action(() =>
@@ -522,7 +521,7 @@ namespace TableFindBackend.Forms
                         btnManageAdminUsers.Enabled = true;
                         btnViewAll.Enabled = true;
                     }));
-                }                
+                }
             },
             error =>
             {
@@ -531,7 +530,7 @@ namespace TableFindBackend.Forms
                 OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             });
 
-            Backendless.Data.Of<Reservation>().Find(queryBuilder,getContactsCallback);
+            Backendless.Data.Of<Reservation>().Find(queryBuilder, getContactsCallback);
         }
         private void PopulateTables() // Controller for RestaurantTableView
         {
@@ -543,7 +542,7 @@ namespace TableFindBackend.Forms
             pnlMain.Controls.Clear();
             ShowLoading(true);
 
-            String whereClause = "restaurantId = '" + OwnerStorage.ThisRestaurant.objectId+"'";
+            String whereClause = "restaurantId = '" + OwnerStorage.ThisRestaurant.objectId + "'";
             BackendlessAPI.Persistence.DataQueryBuilder queryBuilder = BackendlessAPI.Persistence.DataQueryBuilder.Create();
             queryBuilder.SetWhereClause(whereClause);
             queryBuilder.SetPageSize(100);
@@ -557,37 +556,37 @@ namespace TableFindBackend.Forms
                           deletedListener = new ReservationDeletedEventListener(this);
                           PerformBackgroundReservationPopulation();
                           int i = 0;
-                          Invoke (new Action(() =>
-                              {
-                                  lblPnlSize.Text = "Recommended floor layout image size: "+CalcPanelRes()[0]+" x " + CalcPanelRes()[1];
-                              }));
+                          Invoke(new Action(() =>
+                             {
+                                 lblPnlSize.Text = "Recommended floor layout image size: " + CalcPanelRes()[0] + " x " + CalcPanelRes()[1];
+                             }));
 
                           foreach (RestaurantTable tb in OwnerStorage.RestaurantTables)
                           {
 
                               Invoke(new Action(() =>
-                              {                        
+                              {
                                   RestaurantTableView newItem = new RestaurantTableView();
-                                  
+
                                   newItem.Tag = tb.objectId;
                                   newItem.Label = tb.Name;
                                   newItem.Seating = tb.Capacity;
                                   newItem.Availability = tb.Available;
 
                                   pnlMain.Controls.Add(newItem);
-                                  if (tb.YPos>pnlMain.Height ||tb.XPos>pnlMain.Width)
+                                  if (tb.YPos > pnlMain.Height || tb.XPos > pnlMain.Width)
                                   {
-                                      pnlMain.Controls[i].Location = new Point(pnlMain.Width-73, pnlMain.Height - 38);
+                                      pnlMain.Controls[i].Location = new Point(pnlMain.Width - 73, pnlMain.Height - 38);
                                   }
                                   else
-                                      pnlMain.Controls[i].Location = new Point(Convert.ToInt32(tb.XPos* pnlMain.Width), Convert.ToInt32(tb.YPos * pnlMain.Height));
+                                      pnlMain.Controls[i].Location = new Point(Convert.ToInt32(tb.XPos * pnlMain.Width), Convert.ToInt32(tb.YPos * pnlMain.Height));
 
                                   this.AddControl(newItem);
 
                                   if (OwnerStorage.AdminMode == true)
                                       newItem.Removable = true;
                               }));
-                              i++;                              
+                              i++;
                           }
                       },
                       error =>
@@ -602,14 +601,14 @@ namespace TableFindBackend.Forms
                           }));
                       });
 
-                  Backendless.Data.Of<RestaurantTable>().Find(queryBuilder,getTableItemCallback);
+            Backendless.Data.Of<RestaurantTable>().Find(queryBuilder, getTableItemCallback);
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
             RestaurantTable newTable = new RestaurantTable();
 
-            newTable.Name = "Tbl #"+Convert.ToString(OwnerStorage.RestaurantTables.Count+1);
+            newTable.Name = "Tbl #" + Convert.ToString(OwnerStorage.RestaurantTables.Count + 1);
             newTable.Capacity = 1; //<-- min value
             newTable.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
 
@@ -620,21 +619,21 @@ namespace TableFindBackend.Forms
             newView.Location = new Point(0, 0);
             newView.Seating = newTable.Capacity;
             newView.Label = newTable.Name;
-            newView.Availability = newTable.Available;            
+            newView.Availability = newTable.Available;
 
             AddControl(newView);
             MyControl_DoubleClick(newView, e);
 
             OwnerStorage.FileWriter.WriteLineToFile("User created a new Table.", true);
             OwnerStorage.FileWriter.WriteLineToFile("Name:  " + newTable.Name, false);
-            OwnerStorage.LogInfo.Add("User added a new Restaurant Table\nName:  "+ newTable.Name);
+            OwnerStorage.LogInfo.Add("User added a new Restaurant Table\nName:  " + newTable.Name);
             OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
         }
         private void AddControl(RestaurantTableView item)
         {
             pnlMain.Controls.Add(item);
-            item.lblName.MouseDoubleClick+= new MouseEventHandler(MyControl_DoubleClick);
+            item.lblName.MouseDoubleClick += new MouseEventHandler(MyControl_DoubleClick);
             item.lblName.MouseDown += new MouseEventHandler(MyControl_MouseDown);
             item.lblName.MouseMove += new MouseEventHandler(MyControl_MouseMove);
             item.lblName.MouseUp += new MouseEventHandler(MyControl_MouseUp);
@@ -644,7 +643,7 @@ namespace TableFindBackend.Forms
             item.MouseMove += new MouseEventHandler(MyControl_MouseMove);
             item.MouseUp += new MouseEventHandler(MyControl_MouseUp);
         }
-      
+
         private void MyControl_DoubleClick(object sender, EventArgs e)
         {
             RestaurantTableView tempItem;
@@ -656,8 +655,8 @@ namespace TableFindBackend.Forms
             else
             {
                 tempItem = (RestaurantTableView)sender;
-            }                
-            RestaurantTable tempTable = null;                
+            }
+            RestaurantTable tempTable = null;
             OwnerStorage.FileWriter.WriteLineToFile("Editing a Table", true);
             OwnerStorage.FileWriter.WriteLineToFile("Name:  " + tempItem.Label, false);
             OwnerStorage.LogInfo.Add("Editing a Table\nName:  " + tempItem.Label);
@@ -669,89 +668,89 @@ namespace TableFindBackend.Forms
                 if (ti.objectId == tempItem.Tag)
                 {
                     flag = true;
-                   tempTable = ti;
+                    tempTable = ti;
                 }
             }
-                if (OwnerStorage.AdminMode == true)
+            if (OwnerStorage.AdminMode == true)
+            {
+                EditTableForm editor = new EditTableForm(tempTable, this);
+                DialogResult result = editor.ShowDialog();
+                tempTable = editor.RetreiveEditedTable();
+
+                if (result == DialogResult.Yes) //Removes the Table
                 {
-                    EditTableForm editor = new EditTableForm(tempTable, this);
-                    DialogResult result = editor.ShowDialog();
-                    tempTable = editor.RetreiveEditedTable();
-
-                    if (result == DialogResult.Yes) //Removes the Table
+                    OwnerStorage.RestaurantTables.Remove(tempTable);
+                    if (sender is Label)
                     {
-                        OwnerStorage.RestaurantTables.Remove(tempTable);
-                        if (sender is Label)
-                        {
-                            Label tempLabel = (Label)sender;
-                            pnlMain.Controls.Remove((RestaurantTableView)tempLabel.Parent);
-                        }
-                        else
-                            pnlMain.Controls.Remove((RestaurantTableView)sender);
+                        Label tempLabel = (Label)sender;
+                        pnlMain.Controls.Remove((RestaurantTableView)tempLabel.Parent);
                     }
-                    if (result == DialogResult.Cancel) //When the user creates a new table but cancels the process
+                    else
+                        pnlMain.Controls.Remove((RestaurantTableView)sender);
+                }
+                if (result == DialogResult.Cancel) //When the user creates a new table but cancels the process
+                {
+                    if (tempTable.objectId == null)
                     {
-                        if (tempTable.objectId == null)
-                        {
-                            pnlMain.Controls.Remove(tempItem);
-                            OwnerStorage.RestaurantTables.Remove(tempTable);
-                        }
-                    }
-                    if (result == DialogResult.OK) //Updates the Table
-                    {
+                        pnlMain.Controls.Remove(tempItem);
                         OwnerStorage.RestaurantTables.Remove(tempTable);
-                        Point tempPoint = new Point(0, 0);
-                        if (sender is Label)
-                        {
-                            Label tempLabel = (Label)sender;
-                            RestaurantTableView tempSenderView = (RestaurantTableView)tempLabel.Parent;
-                            foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
-                            {
-                                if (t.Tag == tempSenderView.Tag)
-                                {
-                                    tempPoint = t.Location;
-                                }
-                            }
-                            pnlMain.Controls.Remove(tempSenderView);
-                        }
-                        else
-                        {
-                            foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
-                            {
-                                if (t.Tag == ((RestaurantTableView)sender).Tag)
-                                {
-                                    tempPoint = t.Location;
-                                }
-                            }
-                            pnlMain.Controls.Remove((RestaurantTableView)sender);
-                        }
-
-                        RestaurantTableView tempView = new RestaurantTableView();
-
-                        tempView.Tag = tempTable.objectId;
-                        tempView.Label = tempTable.Name;
-                        tempView.Seating = tempTable.Capacity;
-                        tempView.Availability = tempTable.Available;
-
-                        pnlMain.Controls.Add(tempView);
-                        pnlMain.Controls[pnlMain.Controls.Count - 1].Location = tempPoint;
-                        //pnlMain.Controls[pnlMain.Controls.Count-1].Location = new Point(Convert.ToInt32(tempTable.XPos * pnlMain.Width), Convert.ToInt32(tempTable.YPos * pnlMain.Height));
-
-                        OwnerStorage.RestaurantTables.Add(tempTable);
-
-                        AddControl(tempView);
-
-                        OwnerStorage.FileWriter.WriteLineToFile("User Updated Table", true);
-                        OwnerStorage.FileWriter.WriteLineToFile("Name:  " + tempView.Label, false);
-                        OwnerStorage.LogInfo.Add("User Updated Table\nName:  " + tempItem.Label);
-                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                     }
                 }
-                else
+                if (result == DialogResult.OK) //Updates the Table
                 {
-                    ReservationsForm reservationsForm = new ReservationsForm(tempTable, this);
-                    reservationsForm.ShowDialog();
+                    OwnerStorage.RestaurantTables.Remove(tempTable);
+                    Point tempPoint = new Point(0, 0);
+                    if (sender is Label)
+                    {
+                        Label tempLabel = (Label)sender;
+                        RestaurantTableView tempSenderView = (RestaurantTableView)tempLabel.Parent;
+                        foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
+                        {
+                            if (t.Tag == tempSenderView.Tag)
+                            {
+                                tempPoint = t.Location;
+                            }
+                        }
+                        pnlMain.Controls.Remove(tempSenderView);
+                    }
+                    else
+                    {
+                        foreach (RestaurantTableView t in pnlMain.Controls) //foreach to iterate through the code to capture the location of the control being edited
+                        {
+                            if (t.Tag == ((RestaurantTableView)sender).Tag)
+                            {
+                                tempPoint = t.Location;
+                            }
+                        }
+                        pnlMain.Controls.Remove((RestaurantTableView)sender);
+                    }
+
+                    RestaurantTableView tempView = new RestaurantTableView();
+
+                    tempView.Tag = tempTable.objectId;
+                    tempView.Label = tempTable.Name;
+                    tempView.Seating = tempTable.Capacity;
+                    tempView.Availability = tempTable.Available;
+
+                    pnlMain.Controls.Add(tempView);
+                    pnlMain.Controls[pnlMain.Controls.Count - 1].Location = tempPoint;
+                    //pnlMain.Controls[pnlMain.Controls.Count-1].Location = new Point(Convert.ToInt32(tempTable.XPos * pnlMain.Width), Convert.ToInt32(tempTable.YPos * pnlMain.Height));
+
+                    OwnerStorage.RestaurantTables.Add(tempTable);
+
+                    AddControl(tempView);
+
+                    OwnerStorage.FileWriter.WriteLineToFile("User Updated Table", true);
+                    OwnerStorage.FileWriter.WriteLineToFile("Name:  " + tempView.Label, false);
+                    OwnerStorage.LogInfo.Add("User Updated Table\nName:  " + tempItem.Label);
+                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                 }
+            }
+            else
+            {
+                ReservationsForm reservationsForm = new ReservationsForm(tempTable, this);
+                reservationsForm.ShowDialog();
+            }
         }
         private void MyControl_MouseUp(object sender, MouseEventArgs e)
         {
@@ -832,49 +831,34 @@ namespace TableFindBackend.Forms
             int i = 0;
             foreach (RestaurantTable tb in OwnerStorage.RestaurantTables)
             {
-                tb.YPos = pnlMain.Controls[i].Location.Y/ Convert.ToDouble(pnlMain.Height);
-                tb.XPos = pnlMain.Controls[i].Location.X/ Convert.ToDouble(pnlMain.Width);
+                tb.YPos = pnlMain.Controls[i].Location.Y / Convert.ToDouble(pnlMain.Height);
+                tb.XPos = pnlMain.Controls[i].Location.X / Convert.ToDouble(pnlMain.Width);
                 i++;
             }
 
-                AsyncCallback<int> bulkDeleteCallback = new AsyncCallback<int>(
-            objectsDeleted =>
+            AsyncCallback<int> bulkDeleteCallback = new AsyncCallback<int>(
+        objectsDeleted =>
+        {
+            AsyncCallback<IList<string>> bulkCreateCallback = new AsyncCallback<IList<string>>(
+            result =>
             {
-                AsyncCallback<IList<string>> bulkCreateCallback = new AsyncCallback<IList<string>>(
-                result =>
+                Invoke(new Action(() =>
                 {
-                    Invoke(new Action(() =>
-                    {
-                        OwnerStorage.FileWriter.WriteLineToFile("User Finilized changes to restaurant", true);
-                        OwnerStorage.FileWriter.WriteLineToFile("User deactivated Admin Mode", true);
+                    OwnerStorage.FileWriter.WriteLineToFile("User Finilized changes to restaurant", true);
+                    OwnerStorage.FileWriter.WriteLineToFile("User deactivated Admin Mode", true);
 
-                        OwnerStorage.LogInfo.Add("User Applied changes to restaurant layout \nUser deactivated Admin Mode");
-                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                    OwnerStorage.LogInfo.Add("User Applied changes to restaurant layout \nUser deactivated Admin Mode");
+                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
-                        ShowLoading(false);
-                        createdListener.RemoveCreatedEventListener();
-                        deletedListener.RemoveDeletedEventListener();
-                        PopulateTables();
-                    }));
+                    ShowLoading(false);
+                    createdListener.RemoveCreatedEventListener();
+                    deletedListener.RemoveDeletedEventListener();
+                    PopulateTables();
+                }));
 
-                    toggleAdminMode(false);
-                },
-                error =>                                                                          //Save as a list
-                {
-                    Invoke(new Action(() =>
-                    {
-                        OwnerStorage.FileWriter.WriteLineToFile("Changes were not saved", true);
-                        OwnerStorage.FileWriter.WriteLineToFile("Error: " + error.Message, false);
-                        OwnerStorage.LogInfo.Add("Error: " + error.Message);
-                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                        ShowLoading(false);
-                        MessageBox.Show(this, "Error: " + error.Message);
-                    }));
-                });
-
-                Backendless.Data.Of<RestaurantTable>().Create(OwnerStorage.RestaurantTables, bulkCreateCallback);
+                toggleAdminMode(false);
             },
-            error =>
+            error =>                                                                          //Save as a list
             {
                 Invoke(new Action(() =>
                 {
@@ -884,12 +868,27 @@ namespace TableFindBackend.Forms
                     OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                     ShowLoading(false);
                     MessageBox.Show(this, "Error: " + error.Message);
-
                 }));
             });
 
-            Backendless.Data.Of<RestaurantTable>().Remove("restaurantId = '" + OwnerStorage.ThisRestaurant.objectId+"'", bulkDeleteCallback);
-            
+            Backendless.Data.Of<RestaurantTable>().Create(OwnerStorage.RestaurantTables, bulkCreateCallback);
+        },
+        error =>
+        {
+            Invoke(new Action(() =>
+            {
+                OwnerStorage.FileWriter.WriteLineToFile("Changes were not saved", true);
+                OwnerStorage.FileWriter.WriteLineToFile("Error: " + error.Message, false);
+                OwnerStorage.LogInfo.Add("Error: " + error.Message);
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                ShowLoading(false);
+                MessageBox.Show(this, "Error: " + error.Message);
+
+            }));
+        });
+
+            Backendless.Data.Of<RestaurantTable>().Remove("restaurantId = '" + OwnerStorage.ThisRestaurant.objectId + "'", bulkDeleteCallback);
+
         }
 
         private void btnReloadAll_Click(object sender, EventArgs e)
@@ -905,8 +904,8 @@ namespace TableFindBackend.Forms
         }
         private void CheckPin()
         {
-            
-            if(OwnerStorage.ListOfAdmins.Count == 0)
+
+            if (OwnerStorage.ListOfAdmins.Count == 0)
             {
                 Invoke(new Action(() =>
                 {
@@ -925,7 +924,7 @@ namespace TableFindBackend.Forms
                         OwnerStorage.FileWriter.WriteLineToFile("User Denied First-time Manager PIN Setup", true);
                     }
                 }));
-                
+
             }
             else
             {
@@ -935,7 +934,7 @@ namespace TableFindBackend.Forms
                     AdminPins flag = null;
                     foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                     {
-                        if (tbxPass.Text.Equals(a.PinCode.ToString())==true&&a.Active==true)
+                        if (tbxPass.Text.Equals(a.PinCode.ToString()) == true && a.Active == true)
                         {
                             flag = a;
                         }
@@ -947,19 +946,19 @@ namespace TableFindBackend.Forms
 
                         OwnerStorage.AdminLog.Add(new string[] { flag.objectId, System.DateTime.Now.ToString("HH:mm:ss") });
 
-                        OwnerStorage.FileWriter.WriteLineToFile(flag.UserName+" Toggled Admin Mode", true);
+                        OwnerStorage.FileWriter.WriteLineToFile(flag.UserName + " Toggled Admin Mode", true);
                         OwnerStorage.LogInfo.Add(flag.UserName + " activated elevated privileges");
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
                     }
                     tbxPass.Text = "";
                     tbxPass.Focus();
-                }));                
-            }                       
+                }));
+            }
         }
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-             CheckPin();
+            CheckPin();
         }
 
         private void toggleAdminMode(bool toggle)
@@ -979,7 +978,7 @@ namespace TableFindBackend.Forms
                 btnEditMenu.Visible = true;
                 OwnerStorage.AdminMode = true;
 
-                foreach(RestaurantTableView v in pnlMain.Controls)
+                foreach (RestaurantTableView v in pnlMain.Controls)
                 {
                     v.Removable = true;
                 }
@@ -989,7 +988,7 @@ namespace TableFindBackend.Forms
                 Invoke(new Action(() =>
                 {
                     btnApply.Visible = false;
-                    btnCreate.Visible = false;                    
+                    btnCreate.Visible = false;
                     btnUpdate.Visible = false;
                     btnLogout.Visible = false;
                     btnEditRestaurant.Visible = false;
@@ -1018,13 +1017,13 @@ namespace TableFindBackend.Forms
         private void btnEditRestaurant_Click(object sender, EventArgs e)
         {
             EditRestaurantForm editForm = new EditRestaurantForm(this);
-            DialogResult result =editForm.ShowDialog();
+            DialogResult result = editForm.ShowDialog();
             if (result == DialogResult.OK)
             {
                 OwnerStorage.FileWriter.WriteLineToFile("User Edited Restaurant Details", true);
                 OwnerStorage.LogInfo.Add("User Edited Restaurant Details");
                 OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-            }           
+            }
 
             CheckLayoutImage();
         }
@@ -1038,13 +1037,13 @@ namespace TableFindBackend.Forms
                 AsyncCallback<Object> logoutCallback = new AsyncCallback<Object>(
                 user =>
                 {
-                Invoke(new Action(() =>
-                {
-                    OwnerStorage.FileWriter.WriteLineToFile("User Logged out", false);
-                    OwnerStorage.FileWriter.FormShutDown();
-                    Properties.Settings.Default.defaultRestaurant = -1;
-                    Properties.Settings.Default.Save();
-                }));
+                    Invoke(new Action(() =>
+                    {
+                        OwnerStorage.FileWriter.WriteLineToFile("User Logged out", false);
+                        OwnerStorage.FileWriter.FormShutDown();
+                        Properties.Settings.Default.defaultRestaurant = -1;
+                        Properties.Settings.Default.Save();
+                    }));
 
                     Application.Restart();
                     Environment.Exit(0);
@@ -1059,16 +1058,16 @@ namespace TableFindBackend.Forms
         }
 
         private void btnEditMenu_Click(object sender, EventArgs e)
-        {            
+        {
             MenuItemsForm editer = new MenuItemsForm();
-            DialogResult result=editer.ShowDialog();
-            if (result==DialogResult.OK)
+            DialogResult result = editer.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 OwnerStorage.FileWriter.WriteLineToFile("User made changes to Restaurant Menu", true);
                 OwnerStorage.LogInfo.Add("User made changes to Restaurant Menu");
                 OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }
-            
+
         }
 
         private void btnChangePin_Click(object sender, EventArgs e)
@@ -1115,7 +1114,7 @@ namespace TableFindBackend.Forms
             RestaurantStatusForm changeStatus = new RestaurantStatusForm();
             DialogResult result = changeStatus.ShowDialog();
 
-            if(result==DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 UpdateCapacityLabel();
             }

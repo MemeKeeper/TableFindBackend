@@ -2,12 +2,7 @@
 using BackendlessAPI.Async;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -32,7 +27,7 @@ namespace TableFindBackend.Forms
             {
                 RestaurantMenuItemView newItem = new RestaurantMenuItemView();
                 newItem.Tag = item.objectId;
-                newItem.Active = item.OutOfStock?false:true;
+                newItem.Active = item.OutOfStock ? false : true;
                 newItem.Price = item.Price;
 
                 newItem.Type = item.Type;
@@ -82,10 +77,10 @@ namespace TableFindBackend.Forms
         }
         private void MenuLabel_Click(object sender, MouseEventArgs e)
         {
-            
+
             Label tempLabel = (Label)sender;
             RestaurantMenuItemView temp = (RestaurantMenuItemView)tempLabel.Parent;
-            MenuItem_Click(temp, e) ;
+            MenuItem_Click(temp, e);
         }
         private void MenuItem_Click(object sender, MouseEventArgs e)
         {
@@ -102,9 +97,9 @@ namespace TableFindBackend.Forms
         {
             AddEditMenuItem newForm = new AddEditMenuItem(temp);
 
-            
-                if (newForm.ShowDialog() == DialogResult.OK)
-                {
+
+            if (newForm.ShowDialog() == DialogResult.OK)
+            {
                 ShowLoading(true);
                 AsyncCallback<RestaurantMenuItem> callback = new AsyncCallback<RestaurantMenuItem>(
                         result =>
@@ -116,7 +111,7 @@ namespace TableFindBackend.Forms
                                     OwnerStorage.MenuItems.Insert(OwnerStorage.MenuItems.IndexOf(temp), newForm.transferedItem);
                                     OwnerStorage.MenuItems.Remove(temp);
 
-                                    foreach(RestaurantMenuItemView item in flpItems.Controls)
+                                    foreach (RestaurantMenuItemView item in flpItems.Controls)
                                     {
                                         if (item.Tag.Equals(temp.objectId))
                                         {
@@ -156,14 +151,14 @@ namespace TableFindBackend.Forms
                                 ShowLoading(false);
                             }));
                         });
-                    Backendless.Data.Of<RestaurantMenuItem>().Save(newForm.transferedItem, callback);
-                }
-            
+                Backendless.Data.Of<RestaurantMenuItem>().Save(newForm.transferedItem, callback);
+            }
+
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            RestaurantMenuItem temp= null;
+            RestaurantMenuItem temp = null;
             AddOrEdit(temp);
         }
 
@@ -181,7 +176,7 @@ namespace TableFindBackend.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             pnlEdit.Enabled = false;
-            populateMenu();            
+            populateMenu();
             clbSortOptions.ClearSelected();
             while (clbSortOptions.CheckedIndices.Count > 0)
             {
@@ -234,7 +229,7 @@ namespace TableFindBackend.Forms
         }
         private void ShowLoading(bool toggle)
         {
-            if(toggle==true)
+            if (toggle == true)
             {
                 pbxLoading.Visible = true;
                 btnClose.Enabled = false;
@@ -250,12 +245,12 @@ namespace TableFindBackend.Forms
         private void btnDelete_Click(object sender, EventArgs e)
         {
             RestaurantMenuItem tempItem = selectedItem;
-            DialogResult dialogResult = MessageBox.Show("Are you sure you would like to delete "+ tempItem.Name+"?", tempItem.Name, MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Are you sure you would like to delete " + tempItem.Name + "?", tempItem.Name, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 ShowLoading(true);
 
-                
+
                 AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
                 deletionTime =>
                 {
@@ -274,7 +269,7 @@ namespace TableFindBackend.Forms
                         populateMenu();
                         pnlEdit.Enabled = false;
                         ShowLoading(false);
-                        lblStatus.Text=selectedItem.Name + " has been removed";
+                        lblStatus.Text = selectedItem.Name + " has been removed";
                     }));
                 },
                 error =>
@@ -282,41 +277,41 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         ShowLoading(false);
-                        lblStatus.Text= "Error: " + error.Message;
+                        lblStatus.Text = "Error: " + error.Message;
                     }));
                 });
 
-                    AsyncCallback<RestaurantMenuItem> saveObjectCallback = new AsyncCallback<RestaurantMenuItem>(
-                    savedMenuItem =>
-                    {
+                AsyncCallback<RestaurantMenuItem> saveObjectCallback = new AsyncCallback<RestaurantMenuItem>(
+                savedMenuItem =>
+                {
 
-                        Backendless.Persistence.Of<RestaurantMenuItem>().Remove(savedMenuItem, deleteObjectCallback);
-                    },
-                    error =>
-                    {
-                        Invoke(new Action(() =>
-                          {
-                              ShowLoading(false);
-                              lblStatus.Text = "Error: " + error.Message;
-                          }));
-                    }
-                    );
+                    Backendless.Persistence.Of<RestaurantMenuItem>().Remove(savedMenuItem, deleteObjectCallback);
+                },
+                error =>
+                {
+                    Invoke(new Action(() =>
+                      {
+                          ShowLoading(false);
+                          lblStatus.Text = "Error: " + error.Message;
+                      }));
+                }
+                );
 
-                    Backendless.Persistence.Of<RestaurantMenuItem>().Save(tempItem, saveObjectCallback);
-            }         
+                Backendless.Persistence.Of<RestaurantMenuItem>().Save(tempItem, saveObjectCallback);
+            }
         }
         private void clbSortOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (clbSortOptions.SelectedIndex == 3)
             {
-                cbxType.Visible = true;                
+                cbxType.Visible = true;
             }
             else
             {
-                cbxType.Visible = false;                
+                cbxType.Visible = false;
             }
-            if(clbSortOptions.SelectedIndex!=-1)
-            clbSortOptions.SetItemChecked(clbSortOptions.SelectedIndex, true);
+            if (clbSortOptions.SelectedIndex != -1)
+                clbSortOptions.SetItemChecked(clbSortOptions.SelectedIndex, true);
 
         }
 
@@ -386,7 +381,7 @@ namespace TableFindBackend.Forms
                     }
                 case 2:
                     {
-                        foreach(RestaurantMenuItemView view in tempList)
+                        foreach (RestaurantMenuItemView view in tempList)
                         {
                             flpItems.Controls.Add(view);
                             view.BringToFront();

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TableFindBackend.Models
+﻿namespace TableFindBackend.Models
 {
     public class RestaurantTable
     {
@@ -29,25 +22,25 @@ namespace TableFindBackend.Models
             get { return available; }
             set { available = value; }
         }
-        
+
         public string Name
         {
             get { return name; }
             set { name = value; }
-        }        
+        }
 
         public int Capacity
         {
             get { return capacity; }
             set { capacity = value; }
         }
-       
+
         public double XPos
         {
             get { return xPos; }
             set { xPos = value; }
         }
-        
+
         public double YPos
         {
             get { return yPos; }
@@ -57,12 +50,12 @@ namespace TableFindBackend.Models
         public string RestaurantId
         {
             get => restaurantId;
-            set => restaurantId = value; 
+            set => restaurantId = value;
         }
-        public string TableInfo 
+        public string TableInfo
         {
-            get => tableInfo; 
-            set => tableInfo = value; 
+            get => tableInfo;
+            set => tableInfo = value;
         }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using BackendlessAPI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using TableFindBackend.Logging;
 using TableFindBackend.Models;
 
@@ -26,10 +21,10 @@ namespace TableFindBackend.Global_Variables
         private static List<String> logTimes;
         private static List<AdminPins> listOfAdmins;
         private static List<String[]> adminLog;
-        public static BackendlessUser CurrentlyLoggedIn 
+        public static BackendlessUser CurrentlyLoggedIn
         {
-            get => currentlyLoggedIn; 
-            set => currentlyLoggedIn = value; 
+            get => currentlyLoggedIn;
+            set => currentlyLoggedIn = value;
         }
         public static List<RestaurantTable> RestaurantTables { get => restaurantTables; set => restaurantTables = value; }
         public static Restaurant ThisRestaurant { get => thisRestaurant; set => thisRestaurant = value; }

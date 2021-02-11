@@ -1,13 +1,6 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.Async;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -23,24 +16,24 @@ namespace TableFindBackend.Forms
             InitializeComponent();
 
             TempAdmin = a;
-            if(a == null)
+            if (a == null)
             {
                 //Addinng New Admin User
-                btnRemoveDeactivate.Visible = false ;
+                btnRemoveDeactivate.Visible = false;
             }
-            else 
+            else
             {
                 lblTitle.Text = "Editing Admin User";
                 tbxName.Text = a.UserName;
                 tbxContact.Text = a.ContactNumber;
                 tbxPinCode.Text = a.PinCode.ToString();
-                
+
                 if (a.Active == true)
                 {
                     //Editing Existing Admin User
                     lblDescription.Text = "You can edit your Admin details below.\n \n Remember that the Admin PIN should only include numerical digits wih a minimum of at least 4 digits and a maximum of 10 digits.";
-                    btnCreateNewAdmin.Text = "Update";  
-                    
+                    btnCreateNewAdmin.Text = "Update";
+
                 }
                 else
                 {
@@ -52,7 +45,7 @@ namespace TableFindBackend.Forms
                     tbxPinCode.Enabled = false;
 
                     btnCreateNewAdmin.Text = "Reactivate";
-                    btnRemoveDeactivate.Text ="Delete";
+                    btnRemoveDeactivate.Text = "Delete";
                 }
             }
         }
@@ -220,22 +213,22 @@ namespace TableFindBackend.Forms
                     AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
                     savedAdminPin =>
                     {
-                    //good stuff
-                    Invoke(new Action(() =>
-                        {
-                            showLoading(false);
-                            MessageBox.Show(this, "Admin PIN has been updated");
-                            OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was Updated");
-                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                            this.DialogResult = DialogResult.OK;
-                        }));
+                        //good stuff
+                        Invoke(new Action(() =>
+                            {
+                                showLoading(false);
+                                MessageBox.Show(this, "Admin PIN has been updated");
+                                OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was Updated");
+                                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                                this.DialogResult = DialogResult.OK;
+                            }));
                     },
                     error =>
                     {
                         Invoke(new Action(() =>
                         {
-                        //server reported an error
-                        showLoading(false);
+                            //server reported an error
+                            showLoading(false);
                             MessageBox.Show(this, "error: " + error.Message);
                         }));
                     });
@@ -249,8 +242,8 @@ namespace TableFindBackend.Forms
                       {
                           Invoke(new Action(() =>
                           {
-                          //server reported an error
-                          showLoading(false);
+                              //server reported an error
+                              showLoading(false);
                               MessageBox.Show(this, "error: " + error.Message);
                           }));
                       });
@@ -367,11 +360,11 @@ namespace TableFindBackend.Forms
                 btnCreateNewAdmin.Enabled = true;
                 btnRemoveDeactivate.Enabled = true;
             }
-            
+
         }
         private void btnRemoveAdmin_Click(object sender, EventArgs e)
         {
-            
+
             if (TempAdmin.Active == false)
             {
                 DialogResult result = MessageBox.Show(this, "Are you sure you wish permanently remove " + TempAdmin.UserName + " as administrator?", "Removing Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -428,7 +421,7 @@ namespace TableFindBackend.Forms
             {
 
                 DialogResult result = MessageBox.Show(this, "Are you sure you wish to deactivate " + TempAdmin.UserName + "?", "Deactivating Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result==DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     showLoading(true);
                     AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(

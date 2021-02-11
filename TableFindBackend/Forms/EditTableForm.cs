@@ -1,14 +1,7 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.Async;
-using BackendlessAPI.Exception;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -20,7 +13,7 @@ namespace TableFindBackend.Forms
         RestaurantTable table;
         private bool availability;
         MainForm _master;
-        public EditTableForm(RestaurantTable item,MainForm _master)
+        public EditTableForm(RestaurantTable item, MainForm _master)
         {
             table = item;
             this._master = _master;
@@ -57,7 +50,7 @@ namespace TableFindBackend.Forms
             table.Name = edtName.Text;
             table.Capacity = Convert.ToInt32(spnSeating.Value);
             table.Available = availability;
-            table.TableInfo = rtbInfo.Text ;
+            table.TableInfo = rtbInfo.Text;
 
             AsyncCallback<RestaurantTable> updateObjectCallback = new AsyncCallback<RestaurantTable>(
               savedTable =>
@@ -68,7 +61,7 @@ namespace TableFindBackend.Forms
                       MessageBox.Show(this, table.Name + " has been updated!");
                       DialogResult = DialogResult.OK;
                       this.table.objectId = savedTable.objectId;
-                    //OwnerStorage.TempTable= table;
+                      //OwnerStorage.TempTable= table;
 
                       this.Close();
                   }));
@@ -131,19 +124,19 @@ namespace TableFindBackend.Forms
         private void btnDelete_Click(object sender, EventArgs e)
         {
             List<Reservation> rList = new List<Reservation>();
-            foreach(Reservation r in OwnerStorage.ActiveReservations)
+            foreach (Reservation r in OwnerStorage.ActiveReservations)
             {
-                if(r.TableId == table.objectId)
+                if (r.TableId == table.objectId)
                 {
                     rList.Add(r);
                 }
             }
-            if(availability == false && rList.Count == 0)
+            if (availability == false && rList.Count == 0)
             {
-                
+
                 DialogResult result;
                 result = MessageBox.Show(this, "Are you sure you would like to remove '" + table.Name + "'?", "Remove '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                
+
                 if (result == DialogResult.Yes)
                 {
                     showLoading(true);
@@ -166,7 +159,7 @@ namespace TableFindBackend.Forms
                                 DialogResult = DialogResult.Yes;
                                 this.Close();
                             }));
-                            
+
                         }
                         else
                         {
@@ -212,8 +205,8 @@ namespace TableFindBackend.Forms
             {
                 MessageBox.Show("The table has to be made unavailable and have no reservations under it in order to remove this table from the restaurant. Please make these changes before trying again.");
             }
-            
-            
+
+
         }
 
         private void lblTitle_Click(object sender, EventArgs e)
@@ -240,7 +233,7 @@ namespace TableFindBackend.Forms
                 btnDisable.Text = "Make Table Unavailable";
                 availability = true;
 
-                OwnerStorage.FileWriter.WriteLineToFile("User made table '"+table.Name+"' available", true);
+                OwnerStorage.FileWriter.WriteLineToFile("User made table '" + table.Name + "' available", true);
             }
             else
             {
@@ -259,5 +252,5 @@ namespace TableFindBackend.Forms
         {
             return table;
         }
-    }       
+    }
 }

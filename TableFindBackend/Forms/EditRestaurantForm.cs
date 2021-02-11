@@ -1,14 +1,8 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.Async;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -34,13 +28,13 @@ namespace TableFindBackend.Forms
             if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
                 try
                 {
-                    btnDefault.Enabled = true;                 
+                    btnDefault.Enabled = true;
                 }
                 catch (IOException)
-                { 
+                {
                 }
-                
-    }
+
+        }
 
         private void lblX_Click(object sender, EventArgs e)
         {
@@ -55,7 +49,7 @@ namespace TableFindBackend.Forms
         }
         private void ShowLoading(bool toggle)
         {
-            if(toggle ==true)
+            if (toggle == true)
             {
                 pbxLoading.Visible = true;
                 btnSave.Enabled = false;
@@ -92,7 +86,7 @@ namespace TableFindBackend.Forms
                 if (File.Exists("layouts") != true)
                     Directory.CreateDirectory("layouts");
 
-                if (file.Equals("")!=true )   //    <---Layout was chosen or left as is
+                if (file.Equals("") != true)   //    <---Layout was chosen or left as is
                 {
                     string text = File.ReadAllText(file);
                     lblLayout.Text = ofdLayoutBrowse.FileName;
@@ -120,7 +114,7 @@ namespace TableFindBackend.Forms
                         OwnerStorage.LogInfo.Add("User cleared the restaurant layout image");
                         OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                     }
-                    catch(IOException)
+                    catch (IOException)
                     {
 
                     }
@@ -208,7 +202,7 @@ namespace TableFindBackend.Forms
         //    { 
         //    pbxLoading.Visible = true;
         //        btnSave.Enabled = false;
-            
+
 
 
         //        lblSize.Text = "Removing Existing File...";
@@ -292,7 +286,7 @@ namespace TableFindBackend.Forms
         //        });
 
         //        BackendlessAPI.Backendless.Files.Remove("Menu/"+OwnerStorage.ThisRestaurant.objectId, deleteCallback);
-                
+
         //        }
         //        else
         //        {
@@ -304,7 +298,7 @@ namespace TableFindBackend.Forms
         {
             ofdLayoutBrowse.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG|TableFindBackend Layout files (*.tbl)|*.tbl";
             DialogResult result = ofdLayoutBrowse.ShowDialog(); // Show the dialog.
-            
+
             if (result == DialogResult.OK) // Test result.
             {
                 string file = ofdLayoutBrowse.FileName;
@@ -321,7 +315,7 @@ namespace TableFindBackend.Forms
 
         private void btnApplyImage_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void btnDefault_Click(object sender, EventArgs e)

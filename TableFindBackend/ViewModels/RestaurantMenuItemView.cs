@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TableFindBackend.ViewModels
@@ -24,22 +18,30 @@ namespace TableFindBackend.ViewModels
         private double price;
 
         [Category("Custom Props")]
-        public string Label { get => label; set 
+        public string Label
+        {
+            get => label; set
             {
                 label = value;
                 lblName.Text = value;
-            } }
+            }
+        }
         [Category("Custom Props")]
-        public bool Active { get => enabled; set 
+        public bool Active
+        {
+            get => enabled; set
             {
                 enabled = value;
                 this.BackColor = Color.FromName("ControlDark");
-            } }
+            }
+        }
         [Category("Custom Props")]
-        public string Type { get => type; set  
+        public string Type
+        {
+            get => type; set
             {
-                type = value; 
-                switch(value)
+                type = value;
+                switch (value)
                 {
                     case ("Hot beverage"):
                         {
@@ -109,7 +111,8 @@ namespace TableFindBackend.ViewModels
                             break;
                         }
                 }
-            } }
+            }
+        }
 
         public double Price { get => price; set => price = value; }
 

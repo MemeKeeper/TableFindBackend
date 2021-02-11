@@ -1,13 +1,6 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.Async;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 
@@ -48,7 +41,7 @@ namespace TableFindBackend.Models
 
         private void ShowLoading(bool toggle)
         {
-            if(toggle==true)
+            if (toggle == true)
             {
                 pbxLoading.Visible = true;
                 btnCancel.Enabled = false;
@@ -81,75 +74,75 @@ namespace TableFindBackend.Models
             }
             else
             {
-                
-                    if ((dtpTakenFrom.Value.TimeOfDay > OwnerStorage.ThisRestaurant.Open.TimeOfDay) && ((dtpTakenFrom.Value.TimeOfDay.Hours + spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
-                    {
-                        Reservation flag = null;
-                        foreach (Reservation r in OwnerStorage.ActiveReservations)
-                        {
-                            if (r.TableId == thisTable.objectId && ((dtpTakenFrom.Value > r.TakenFrom && dtpTakenFrom.Value < r.TakenTo) || ((dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value))) > r.TakenFrom && (dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value))) < r.TakenTo)
-                                || dtpTakenFrom.Value < r.TakenFrom && dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)) > r.TakenTo))
-                            {
-                                flag = r;
-                            }
-                        }
 
-                        if (flag == null)
+                if ((dtpTakenFrom.Value.TimeOfDay > OwnerStorage.ThisRestaurant.Open.TimeOfDay) && ((dtpTakenFrom.Value.TimeOfDay.Hours + spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
+                {
+                    Reservation flag = null;
+                    foreach (Reservation r in OwnerStorage.ActiveReservations)
+                    {
+                        if (r.TableId == thisTable.objectId && ((dtpTakenFrom.Value > r.TakenFrom && dtpTakenFrom.Value < r.TakenTo) || ((dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value))) > r.TakenFrom && (dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value))) < r.TakenTo)
+                            || dtpTakenFrom.Value < r.TakenFrom && dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value)) > r.TakenTo))
                         {
+                            flag = r;
+                        }
+                    }
+
+                    if (flag == null)
+                    {
                         ShowLoading(true);
                         DateTime tempTime = dtpTakenFrom.Value.AddHours(2);   //<-- +2:00 time zone
-                            tempTime.AddHours(Convert.ToInt32(spnDuration.Value));
+                        tempTime.AddHours(Convert.ToInt32(spnDuration.Value));
 
-                            reservation.Number = tbxContact.Text;
-                            reservation.Name = tbxName.Text;
-                            reservation.TakenFrom = dtpTakenFrom.Value.AddHours(2);
-                            reservation.TableId = thisTable.objectId;
-                            reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value) + 2);   //the +2:00 timezone
-                            reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                            reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
-                            reservation.Active = true;
-                            reservation.ReasonForExpiration = "";
+                        reservation.Number = tbxContact.Text;
+                        reservation.Name = tbxName.Text;
+                        reservation.TakenFrom = dtpTakenFrom.Value.AddHours(2);
+                        reservation.TableId = thisTable.objectId;
+                        reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value) + 2);   //the +2:00 timezone
+                        reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                        reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
+                        reservation.Active = true;
+                        reservation.ReasonForExpiration = "";
 
-                            AsyncCallback<Reservation> callback = new AsyncCallback<Reservation>(
-                                                result =>
+                        AsyncCallback<Reservation> callback = new AsyncCallback<Reservation>(
+                                            result =>
+                                            {
+                                                Invoke(new Action(() =>
                                                 {
-                                                    Invoke(new Action(() =>
-                                                    {
-                                                        pnlPanel.Visible = true;
-                                                        OwnerStorage.FileWriter.WriteLineToFile("User Created Manager Reservation", true);
-                                                        OwnerStorage.FileWriter.WriteLineToFile("Name:  " + reservation.Name, false);
+                                                    pnlPanel.Visible = true;
+                                                    OwnerStorage.FileWriter.WriteLineToFile("User Created Manager Reservation", true);
+                                                    OwnerStorage.FileWriter.WriteLineToFile("Name:  " + reservation.Name, false);
 
-                                                        MessageBox.Show(this, "Reservation for " + reservation.Name + " is successfull");
-                                                        DialogResult = DialogResult.OK;
-                                                        this.Close();
-                                                    }));
-                                                },
-                                                fault =>
+                                                    MessageBox.Show(this, "Reservation for " + reservation.Name + " is successfull");
+                                                    DialogResult = DialogResult.OK;
+                                                    this.Close();
+                                                }));
+                                            },
+                                            fault =>
+                                            {
+                                                Invoke(new Action(() =>
                                                 {
-                                                    Invoke(new Action(() =>
-                                                    {
-                                                        OwnerStorage.FileWriter.WriteLineToFile("Reservation failed", true);
+                                                    OwnerStorage.FileWriter.WriteLineToFile("Reservation failed", true);
 
-                                                        OwnerStorage.FileWriter.WriteLineToFile("Error: " + fault.Message.ToString(), false);
+                                                    OwnerStorage.FileWriter.WriteLineToFile("Error: " + fault.Message.ToString(), false);
 
-                                                        MessageBox.Show(this, "Error: " + fault.Message);
-                                                    }));
-                                                });
-                            Backendless.Data.Of<Reservation>().Save(reservation, callback);
-                        }
-                        else
-                        {
-                            {
-                            ShowLoading(false);
-                                MessageBox.Show(this, "this Reservation clashes with " + flag.Name + " reservation for " + flag.TakenFrom.ToString("HH:mm") + " to " + flag.TakenTo.ToString("HH:mm"));
-                            }
-                        }
+                                                    MessageBox.Show(this, "Error: " + fault.Message);
+                                                }));
+                                            });
+                        Backendless.Data.Of<Reservation>().Save(reservation, callback);
                     }
                     else
                     {
+                        {
+                            ShowLoading(false);
+                            MessageBox.Show(this, "this Reservation clashes with " + flag.Name + " reservation for " + flag.TakenFrom.ToString("HH:mm") + " to " + flag.TakenTo.ToString("HH:mm"));
+                        }
+                    }
+                }
+                else
+                {
                     ShowLoading(false);
                     MessageBox.Show(this, "This reservation is outside the restaurant's set open and close times, please select another time.");
-                    }
+                }
             }
         }
 

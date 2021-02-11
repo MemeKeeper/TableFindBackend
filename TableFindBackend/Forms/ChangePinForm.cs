@@ -1,14 +1,6 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.Async;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -48,7 +40,7 @@ namespace TableFindBackend.Forms
         }
         private void ShowLoading(bool toggle)
         {
-            if(toggle==true)
+            if (toggle == true)
             {
                 pbxLoading.Visible = true;
                 btnCancel.Enabled = false;
@@ -87,7 +79,7 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         ShowLoading(false);
-                        MessageBox.Show(this, "You have logged in with another user's login credentials. Please login using your correct login credentials");                        
+                        MessageBox.Show(this, "You have logged in with another user's login credentials. Please login using your correct login credentials");
                     }));
                 }
             },
@@ -96,10 +88,10 @@ namespace TableFindBackend.Forms
                 Invoke(new Action(() =>
                 {
                     ShowLoading(false);
-                    MessageBox.Show(this, "Error: " + fault.Message);                    
+                    MessageBox.Show(this, "Error: " + fault.Message);
                 }));
                 System.Console.WriteLine(fault.ToString());
-                
+
             });
 
             String login = tbxEmail.Text;
@@ -115,19 +107,19 @@ namespace TableFindBackend.Forms
             AddEditNewAdminForm addForm = new AddEditNewAdminForm(null); // creating new admin user
             DialogResult result = addForm.ShowDialog();
 
-            if(result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 PopulateList();
             }
         }
 
-        private void dgvAdmins_CellDoubleClick(object sender, DataGridViewCellEventArgs e)        
+        private void dgvAdmins_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= -1)
             {
                 string selected;
                 selected = dgvAdmins.CurrentRow.Cells[2].Value.ToString();
-                AdminPins temp =null;
+                AdminPins temp = null;
                 bool flag = false;
                 foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                 {
@@ -172,7 +164,7 @@ namespace TableFindBackend.Forms
                         flag = true;
                     }
                 }
-                if(flag==false)
+                if (flag == false)
                 {
                     MessageBox.Show(this, "No Admin User could be found. Please reopen the form and try again.", "No Admin Found");
                 }

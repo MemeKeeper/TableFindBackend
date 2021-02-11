@@ -2,14 +2,8 @@
 using BackendlessAPI.Async;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -249,9 +243,9 @@ namespace TableFindBackend.Forms
                         if (foundRestaurant.Count != 0)
                         {
                             List<Restaurant> tempList = new List<Restaurant>();
-                            foreach(Restaurant r in foundRestaurant)
+                            foreach (Restaurant r in foundRestaurant)
                             {
-                                if(r.Active==true)
+                                if (r.Active == true)
                                 {
                                     tempList.Add(r);
                                 }

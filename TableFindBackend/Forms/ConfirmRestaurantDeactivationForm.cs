@@ -3,12 +3,7 @@ using BackendlessAPI.Async;
 using BackendlessAPI.Messaging;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -18,7 +13,7 @@ namespace TableFindBackend.Forms
     public partial class ConfirmRestaurantDeactivationForm : Form
     {
         public ConfirmRestaurantDeactivationForm()
-        {            
+        {
             InitializeComponent();
             lblConfirm.Text = "Please Type: " + OwnerStorage.ThisRestaurant.Name;
         }
@@ -42,7 +37,7 @@ namespace TableFindBackend.Forms
 
         private void tbxConfirm_TextChanged(object sender, EventArgs e)
         {
-            if(tbxConfirm.Text==OwnerStorage.ThisRestaurant.Name)
+            if (tbxConfirm.Text == OwnerStorage.ThisRestaurant.Name)
             {
                 btnConfirm.Enabled = true;
             }
@@ -52,14 +47,14 @@ namespace TableFindBackend.Forms
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if(tbxEmail.Text=="")
+            if (tbxEmail.Text == "")
             {
-                MessageBox.Show(this, "Be sure to fill in a valid Login Email and try again","Empty Email",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(this, "Be sure to fill in a valid Login Email and try again", "Empty Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 tbxConfirm.Text = "";
             }
             else
             {
-                if(tbxPassword.Text=="")
+                if (tbxPassword.Text == "")
                 {
                     MessageBox.Show(this, "Be sure to fill in a valid Login Password and try again", "Empty Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     tbxConfirm.Text = "";
@@ -69,7 +64,7 @@ namespace TableFindBackend.Forms
                     AsyncCallback<BackendlessUser> callback = new AsyncCallback<BackendlessUser>(
                     user =>
                     {
-                        if(user.ObjectId==OwnerStorage.CurrentlyLoggedIn.ObjectId)
+                        if (user.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                         {
 
                             AsyncCallback<Restaurant> updateObjectCallback = new AsyncCallback<Restaurant>(
@@ -78,10 +73,10 @@ namespace TableFindBackend.Forms
                                     Invoke(new Action(() =>
                                     {
 
-                                            OwnerStorage.FileWriter.WriteLineToFile("Restaurant has been deactivated", false);
-                                            OwnerStorage.FileWriter.FormShutDown();
-                                            Properties.Settings.Default.defaultRestaurant = -1;
-                                            Properties.Settings.Default.Save();
+                                        OwnerStorage.FileWriter.WriteLineToFile("Restaurant has been deactivated", false);
+                                        OwnerStorage.FileWriter.FormShutDown();
+                                        Properties.Settings.Default.defaultRestaurant = -1;
+                                        Properties.Settings.Default.Save();
                                     }));
 
                                     AsyncCallback<MessageStatus> responder = new AsyncCallback<MessageStatus>(
@@ -148,7 +143,7 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
-                    String login =tbxEmail.Text;
+                    String login = tbxEmail.Text;
                     String password = tbxPassword.Text;
                     Backendless.UserService.Login(login, password, callback);
                 }

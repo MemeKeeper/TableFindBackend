@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,17 +18,23 @@ namespace TableFindBackend.ViewModels
         private bool blinking = true;
 
         [Category("Custom Prop")]
-        public string UserName { get => uName; set
+        public string UserName
+        {
+            get => uName; set
             {
                 uName = value;
                 lblName.Text = value;
-            } }
+            }
+        }
         [Category("Custom Prop")]
-        public string UserContactNumber { get => uContactNumber; set 
+        public string UserContactNumber
+        {
+            get => uContactNumber; set
             {
                 uContactNumber = value;
                 lblContact.Text = value;
-            } }
+            }
+        }
         [Category("Custom Prop")]
         public string TableName
         {
@@ -44,11 +45,13 @@ namespace TableFindBackend.ViewModels
             }
         }
         [Category("Custom Prop")]
-        public string Date { get => tDate; set 
+        public string Date
+        {
+            get => tDate; set
             {
                 tDate = value;
                 lblDate.Text = value;
-            } 
+            }
         }
         [Category("Custom Prop")]
         public string FromToTime
@@ -60,7 +63,9 @@ namespace TableFindBackend.ViewModels
             }
         }
         [Category("Custom Prop")]
-        public string ObjectId { get => objectId; set 
+        public string ObjectId
+        {
+            get => objectId; set
             {
                 objectId = value;
                 lblId.Text = value;
@@ -84,9 +89,9 @@ namespace TableFindBackend.ViewModels
         public async void Deselected()
         {
             blinking = false;
-                await Task.Delay(500);
-                this.BackColor = Color.FromName("Control");
-            
+            await Task.Delay(500);
+            this.BackColor = Color.FromName("Control");
+
         }
         public void New()
         {

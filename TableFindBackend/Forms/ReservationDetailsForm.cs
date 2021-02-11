@@ -1,13 +1,6 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.Async;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -23,7 +16,7 @@ namespace TableFindBackend.Forms
 
             thisReservation = r;
 
-        
+
             InitializeComponent();
 
             tbxCapacity.Text = t.Capacity.ToString();
@@ -34,7 +27,7 @@ namespace TableFindBackend.Forms
             tbxLName.Text = u.GetProperty("LastName").ToString();
             tbxTable.Text = t.Name;
             tbxTime.Text = r.TakenFrom.ToString("dddd, dd/MM,    HH:mm") + " - " + r.TakenTo.ToString("HH:mm");
-            lblTitle.Text ="Reservation for "+ r.Name;
+            lblTitle.Text = "Reservation for " + r.Name;
 
             if (u.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
             {
@@ -64,7 +57,7 @@ namespace TableFindBackend.Forms
         }
         private void ShowLoading(bool show)
         {
-            if (show ==true)
+            if (show == true)
             {
                 pbxLoading.Visible = true;
                 btnClose.Enabled = false;
@@ -97,12 +90,12 @@ namespace TableFindBackend.Forms
                        Invoke(new Action(() =>
                        {
                            OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  " + savedReservation.Name);
-                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                            _master.RemoveOneReservationView(thisReservation, savedReservation);
+                           OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                           _master.RemoveOneReservationView(thisReservation, savedReservation);
 
-                            MessageBox.Show(this, "reservation for " + thisReservation.Name + " has been removed");
-                            ShowLoading(false);
-                            this.Close();
+                           MessageBox.Show(this, "reservation for " + thisReservation.Name + " has been removed");
+                           ShowLoading(false);
+                           this.Close();
                        }));
                    },
                    error =>
@@ -131,7 +124,7 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
-                    Backendless.Persistence.Of<Reservation>().Save(thisReservation, saveObjectCallback);                 
+                    Backendless.Persistence.Of<Reservation>().Save(thisReservation, saveObjectCallback);
                 }
             }
             else

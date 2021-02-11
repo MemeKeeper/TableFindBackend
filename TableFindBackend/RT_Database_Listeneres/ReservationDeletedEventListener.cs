@@ -1,10 +1,5 @@
 ﻿using BackendlessAPI;
 using BackendlessAPI.RT.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TableFindBackend.Forms;
 using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
@@ -39,9 +34,9 @@ namespace TableFindBackend.RT_Database_Listeneres
 
                 OwnerStorage.ActiveReservations.Remove(tempReservation);
                 OwnerStorage.PastReservations.Add(tempReservation);
-             //   _master.RemoveOneReservationView(deletedOrder);
+                //   _master.RemoveOneReservationView(deletedOrder);
             });
         }
-    
+
     }
 }

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TableFindBackend.ViewModels
@@ -27,7 +21,7 @@ namespace TableFindBackend.ViewModels
         [Category("Custom Prop")]
         public string RestaurantName
         {
-            get => name; 
+            get => name;
             set
             {
                 name = value;
@@ -37,7 +31,7 @@ namespace TableFindBackend.ViewModels
         [Category("Custom Prop")]
         public string LocationString
         {
-            get => locationString; 
+            get => locationString;
             set
             {
                 locationString = value;

@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Models;
 using TableFindBackend.ViewModels;
@@ -26,20 +20,20 @@ namespace TableFindBackend.Forms
             {
                 ListViewItem item = new ListViewItem(r.Name);
             }
-        
+
 
         }
 
         private void PopulateList()
         {
-            Boolean toggle=false;
-            foreach(Restaurant r in list)
+            Boolean toggle = false;
+            foreach (Restaurant r in list)
             {
                 RestaurantView tempView = new RestaurantView();
-                tempView.RestaurantName=r.Name;
+                tempView.RestaurantName = r.Name;
                 tempView.LocationString = r.LocationString;
                 tempView.ObjectId = r.objectId;
-                if (toggle==true)
+                if (toggle == true)
                 {
                     toggle = false;
                     tempView.BackgroundColor = System.Drawing.Color.FromArgb(209, 196, 233);
@@ -57,7 +51,7 @@ namespace TableFindBackend.Forms
         private void restaurant_Click(object sender, MouseEventArgs e)
         {
             RestaurantView tempView = (RestaurantView)sender;
-            foreach(Restaurant r in list)
+            foreach (Restaurant r in list)
             {
                 if (r.objectId == tempView.ObjectId)
                 {
@@ -65,7 +59,7 @@ namespace TableFindBackend.Forms
                     tempView.Selected(true);
                 }
             }
-            foreach(RestaurantView r in flpRestaurants.Controls)
+            foreach (RestaurantView r in flpRestaurants.Controls)
             {
                 if (r == tempView)
                 {
@@ -78,7 +72,7 @@ namespace TableFindBackend.Forms
 
         private void lvRestaurant_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void SelectRestaurant_Load(object sender, EventArgs e)
@@ -96,10 +90,10 @@ namespace TableFindBackend.Forms
         private void btnChangeLoad_Click(object sender, EventArgs e)
         {
 
-            if (selected!=null)
+            if (selected != null)
             {
                 RestaurantView tempView = null;
-                foreach(RestaurantView r in flpRestaurants.Controls)
+                foreach (RestaurantView r in flpRestaurants.Controls)
                 {
                     if (r.ObjectId == selected.objectId)
                     {

@@ -2,11 +2,6 @@
 using BackendlessAPI.Async;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TableFindBackend.Global_Variables;
@@ -14,16 +9,16 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
-    
+
     public partial class ReservationsForm : Form
     {
-     //   private System.Timers.Timer bottleneck;
+        //   private System.Timers.Timer bottleneck;
 
         List<Reservation> rList;
         int index;
         RestaurantTable thisTable;
         MainForm _master;
-        public ReservationsForm(RestaurantTable item,MainForm _master)
+        public ReservationsForm(RestaurantTable item, MainForm _master)
         {
             this._master = _master;
             InitializeComponent();
@@ -34,7 +29,7 @@ namespace TableFindBackend.Forms
             lvBookings.Columns.Add("Taken To", 190);
             lvBookings.Columns.Add("Booked By", 120);
             lvBookings.Columns.Add("Contact Number", 170);
-            
+
             thisTable = item;
 
             lblTitle.Text = thisTable.Name;
@@ -129,7 +124,7 @@ namespace TableFindBackend.Forms
 
                     foreach (RestaurantTable table in OwnerStorage.RestaurantTables)
                     {
-                        if (table.objectId==reservation.TableId)
+                        if (table.objectId == reservation.TableId)
                         {
                             arr[5] = table.Name.ToString();
                         }
@@ -138,8 +133,8 @@ namespace TableFindBackend.Forms
                     itm = new ListViewItem(arr);
 
                     lvBookings.Items.Add(itm);
-                    }
-                
+                }
+
             }
         }
 
@@ -162,7 +157,7 @@ namespace TableFindBackend.Forms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (thisTable.Available == true || OwnerStorage.AdminMode==true)
+            if (thisTable.Available == true || OwnerStorage.AdminMode == true)
             {
                 CreateReservationForm newReservation = new CreateReservationForm(thisTable);
                 DialogResult result = newReservation.ShowDialog();
@@ -171,7 +166,7 @@ namespace TableFindBackend.Forms
                     Invoke(new Action(() =>
                     {
                         CheckIfNew();
-                    }));                         
+                    }));
                 }
             }
             else
@@ -180,37 +175,37 @@ namespace TableFindBackend.Forms
             }
         }
         private async void CheckIfNew()
-            {
-                    await Task.Delay(800);
+        {
+            await Task.Delay(800);
             if (thisTable != null)
                 populateList(true);
             else
                 populateList(false);
-        }       
+        }
         private void lvBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
 
 
-                if (lvBookings.SelectedItems.Count > 0)
-                {
-                    btnRemove.Enabled = true;
-                    btnViewCustomer.Enabled = true;
-                    index = lvBookings.Items.IndexOf(lvBookings.SelectedItems[0]);
-                }
-                else
-                {
-                    btnRemove.Enabled = false;
-                    btnViewCustomer.Enabled = false;
-                }        
+            if (lvBookings.SelectedItems.Count > 0)
+            {
+                btnRemove.Enabled = true;
+                btnViewCustomer.Enabled = true;
+                index = lvBookings.Items.IndexOf(lvBookings.SelectedItems[0]);
+            }
+            else
+            {
+                btnRemove.Enabled = false;
+                btnViewCustomer.Enabled = false;
+            }
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            if (OwnerStorage.AdminMode==true)
-            { 
-            DialogResult remove = MessageBox.Show("Are you sure you want to remove this reservation?", "Remove Reservation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (OwnerStorage.AdminMode == true)
+            {
+                DialogResult remove = MessageBox.Show("Are you sure you want to remove this reservation?", "Remove Reservation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-                pbxLoading.Visible=true;
+                pbxLoading.Visible = true;
                 this.Enabled = false;
                 if (remove == DialogResult.Yes)
                 {
@@ -219,26 +214,26 @@ namespace TableFindBackend.Forms
                     AsyncCallback<Reservation> updateObjectCallback = new AsyncCallback<Reservation>(
                 savedReservation =>
                 {
-                   Invoke(new Action(() =>
-                   {
-                       lvBookings.Items.RemoveAt(index);
-                       pbxLoading.Visible = false;
-                       this.Enabled = true;
-                       OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + tempReservation.Name);
-                       OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                       MessageBox.Show(this, "reservation for " + tempReservation.Name + " has been removed");
-                       _master.RemoveOneReservationView(tempReservation, savedReservation);
-                       CheckIfNew();
-                   }));
+                    Invoke(new Action(() =>
+                    {
+                        lvBookings.Items.RemoveAt(index);
+                        pbxLoading.Visible = false;
+                        this.Enabled = true;
+                        OwnerStorage.LogInfo.Add("Reservation has been removed\nName:  " + tempReservation.Name);
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                        MessageBox.Show(this, "reservation for " + tempReservation.Name + " has been removed");
+                        _master.RemoveOneReservationView(tempReservation, savedReservation);
+                        CheckIfNew();
+                    }));
                 },
                 error =>
                 {
-                   Invoke(new Action(() =>
-                   {
-                       MessageBox.Show(this, "Error: " + error.Message);
-                       pbxLoading.Visible = true;
-                       this.Enabled = false;
-                   }));
+                    Invoke(new Action(() =>
+                    {
+                        MessageBox.Show(this, "Error: " + error.Message);
+                        pbxLoading.Visible = true;
+                        this.Enabled = false;
+                    }));
                 });
 
                     AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
@@ -320,15 +315,15 @@ namespace TableFindBackend.Forms
 
         private void btnViewCustomer_Click(object sender, EventArgs e)
         {
-            BackendlessUser tempUser=null;          
-                foreach (BackendlessUser user in OwnerStorage.AllUsers)
-                {
-                    if (user.ObjectId == rList[index].UserId)
-                        tempUser = user;
+            BackendlessUser tempUser = null;
+            foreach (BackendlessUser user in OwnerStorage.AllUsers)
+            {
+                if (user.ObjectId == rList[index].UserId)
+                    tempUser = user;
 
-                }
-                CustomerDetailsForm detailsForm = new CustomerDetailsForm(tempUser, rList[index]);
-                detailsForm.ShowDialog();          
+            }
+            CustomerDetailsForm detailsForm = new CustomerDetailsForm(tempUser, rList[index]);
+            detailsForm.ShowDialog();
         }
     }
 }
