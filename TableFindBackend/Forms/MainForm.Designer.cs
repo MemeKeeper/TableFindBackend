@@ -320,7 +320,7 @@ namespace TableFindBackend.Forms
             this.btnEditMenu.Name = "btnEditMenu";
             this.btnEditMenu.Size = new System.Drawing.Size(120, 39);
             this.btnEditMenu.TabIndex = 11;
-            this.btnEditMenu.Text = "Edit Menu Items";
+            this.btnEditMenu.Text = "Menu Items";
             this.btnEditMenu.UseVisualStyleBackColor = false;
             this.btnEditMenu.Visible = false;
             this.btnEditMenu.Click += new System.EventHandler(this.btnEditMenu_Click);

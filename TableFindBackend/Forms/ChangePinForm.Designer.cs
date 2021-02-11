@@ -44,33 +44,33 @@ namespace TableFindBackend.Forms
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.tbxEmail = new System.Windows.Forms.TextBox();
             this.pnlPin = new System.Windows.Forms.Panel();
+            this.tcAdmins = new System.Windows.Forms.TabControl();
+            this.tpActive = new System.Windows.Forms.TabPage();
             this.dgvAdmins = new System.Windows.Forms.DataGridView();
             this.userName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contactNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ObjectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pnlDescription = new System.Windows.Forms.Panel();
-            this.lblDescription = new System.Windows.Forms.Label();
-            this.btnAddNewAdmin = new System.Windows.Forms.Button();
-            this.lblPinTitle = new System.Windows.Forms.Label();
-            this.adminPinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tcAdmins = new System.Windows.Forms.TabControl();
-            this.tpActive = new System.Windows.Forms.TabPage();
             this.tpUnActive = new System.Windows.Forms.TabPage();
             this.dgvUnactive = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlDescription = new System.Windows.Forms.Panel();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.btnAddNewAdmin = new System.Windows.Forms.Button();
+            this.lblPinTitle = new System.Windows.Forms.Label();
+            this.adminPinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlPin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).BeginInit();
-            this.pnlDescription.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).BeginInit();
             this.tcAdmins.SuspendLayout();
             this.tpActive.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).BeginInit();
             this.tpUnActive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnactive)).BeginInit();
+            this.pnlDescription.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -82,7 +82,7 @@ namespace TableFindBackend.Forms
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(634, 43);
+            this.pnlHeader.Size = new System.Drawing.Size(636, 43);
             this.pnlHeader.TabIndex = 4;
             // 
             // btnExit
@@ -92,7 +92,7 @@ namespace TableFindBackend.Forms
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnExit.Location = new System.Drawing.Point(591, 0);
+            this.btnExit.Location = new System.Drawing.Point(593, 0);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(43, 43);
@@ -129,7 +129,7 @@ namespace TableFindBackend.Forms
             this.pnlLogin.Location = new System.Drawing.Point(14, 51);
             this.pnlLogin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlLogin.Name = "pnlLogin";
-            this.pnlLogin.Size = new System.Drawing.Size(288, 451);
+            this.pnlLogin.Size = new System.Drawing.Size(288, 506);
             this.pnlLogin.TabIndex = 5;
             // 
             // pbxLoading
@@ -224,8 +224,32 @@ namespace TableFindBackend.Forms
             this.pnlPin.Location = new System.Drawing.Point(308, 51);
             this.pnlPin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlPin.Name = "pnlPin";
-            this.pnlPin.Size = new System.Drawing.Size(314, 451);
+            this.pnlPin.Size = new System.Drawing.Size(316, 506);
             this.pnlPin.TabIndex = 6;
+            // 
+            // tcAdmins
+            // 
+            this.tcAdmins.Controls.Add(this.tpActive);
+            this.tcAdmins.Controls.Add(this.tpUnActive);
+            this.tcAdmins.ItemSize = new System.Drawing.Size(140, 21);
+            this.tcAdmins.Location = new System.Drawing.Point(15, 274);
+            this.tcAdmins.Name = "tcAdmins";
+            this.tcAdmins.SelectedIndex = 0;
+            this.tcAdmins.Size = new System.Drawing.Size(284, 160);
+            this.tcAdmins.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tcAdmins.TabIndex = 13;
+            // 
+            // tpActive
+            // 
+            this.tpActive.Controls.Add(this.dgvAdmins);
+            this.tpActive.Location = new System.Drawing.Point(4, 25);
+            this.tpActive.Name = "tpActive";
+            this.tpActive.Padding = new System.Windows.Forms.Padding(3);
+            this.tpActive.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tpActive.Size = new System.Drawing.Size(276, 131);
+            this.tpActive.TabIndex = 0;
+            this.tpActive.Text = "Active Admin Users";
+            this.tpActive.UseVisualStyleBackColor = true;
             // 
             // dgvAdmins
             // 
@@ -273,75 +297,6 @@ namespace TableFindBackend.Forms
             this.ObjectId.Name = "ObjectId";
             this.ObjectId.ReadOnly = true;
             this.ObjectId.Visible = false;
-            // 
-            // pnlDescription
-            // 
-            this.pnlDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlDescription.Controls.Add(this.lblDescription);
-            this.pnlDescription.Location = new System.Drawing.Point(15, 34);
-            this.pnlDescription.Name = "pnlDescription";
-            this.pnlDescription.Size = new System.Drawing.Size(284, 175);
-            this.pnlDescription.TabIndex = 12;
-            // 
-            // lblDescription
-            // 
-            this.lblDescription.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescription.Location = new System.Drawing.Point(-1, 0);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(284, 173);
-            this.lblDescription.TabIndex = 8;
-            this.lblDescription.Text = resources.GetString("lblDescription.Text");
-            this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblDescription.UseCompatibleTextRendering = true;
-            // 
-            // btnAddNewAdmin
-            // 
-            this.btnAddNewAdmin.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddNewAdmin.Location = new System.Drawing.Point(85, 386);
-            this.btnAddNewAdmin.Name = "btnAddNewAdmin";
-            this.btnAddNewAdmin.Size = new System.Drawing.Size(131, 48);
-            this.btnAddNewAdmin.TabIndex = 8;
-            this.btnAddNewAdmin.Text = "Add New Admin";
-            this.btnAddNewAdmin.UseVisualStyleBackColor = true;
-            this.btnAddNewAdmin.Click += new System.EventHandler(this.btnAddNewAdmins_Click);
-            // 
-            // lblPinTitle
-            // 
-            this.lblPinTitle.AutoSize = true;
-            this.lblPinTitle.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPinTitle.Location = new System.Drawing.Point(81, 9);
-            this.lblPinTitle.Name = "lblPinTitle";
-            this.lblPinTitle.Size = new System.Drawing.Size(162, 22);
-            this.lblPinTitle.TabIndex = 8;
-            this.lblPinTitle.Text = "Manage Admins";
-            // 
-            // adminPinsBindingSource
-            // 
-            this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
-            // 
-            // tcAdmins
-            // 
-            this.tcAdmins.Controls.Add(this.tpActive);
-            this.tcAdmins.Controls.Add(this.tpUnActive);
-            this.tcAdmins.ItemSize = new System.Drawing.Size(140, 21);
-            this.tcAdmins.Location = new System.Drawing.Point(15, 220);
-            this.tcAdmins.Name = "tcAdmins";
-            this.tcAdmins.SelectedIndex = 0;
-            this.tcAdmins.Size = new System.Drawing.Size(284, 160);
-            this.tcAdmins.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tcAdmins.TabIndex = 13;
-            // 
-            // tpActive
-            // 
-            this.tpActive.Controls.Add(this.dgvAdmins);
-            this.tpActive.Location = new System.Drawing.Point(4, 25);
-            this.tpActive.Name = "tpActive";
-            this.tpActive.Padding = new System.Windows.Forms.Padding(3);
-            this.tpActive.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tpActive.Size = new System.Drawing.Size(276, 131);
-            this.tpActive.TabIndex = 0;
-            this.tpActive.Text = "Active Admin Users";
-            this.tpActive.UseVisualStyleBackColor = true;
             // 
             // tpUnActive
             // 
@@ -401,12 +356,57 @@ namespace TableFindBackend.Forms
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             this.dataGridViewTextBoxColumn3.Visible = false;
             // 
+            // pnlDescription
+            // 
+            this.pnlDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlDescription.Controls.Add(this.lblDescription);
+            this.pnlDescription.Location = new System.Drawing.Point(15, 34);
+            this.pnlDescription.Name = "pnlDescription";
+            this.pnlDescription.Size = new System.Drawing.Size(280, 234);
+            this.pnlDescription.TabIndex = 12;
+            // 
+            // lblDescription
+            // 
+            this.lblDescription.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescription.Location = new System.Drawing.Point(-1, 0);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(280, 232);
+            this.lblDescription.TabIndex = 8;
+            this.lblDescription.Text = resources.GetString("lblDescription.Text");
+            this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDescription.UseCompatibleTextRendering = true;
+            // 
+            // btnAddNewAdmin
+            // 
+            this.btnAddNewAdmin.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddNewAdmin.Location = new System.Drawing.Point(85, 440);
+            this.btnAddNewAdmin.Name = "btnAddNewAdmin";
+            this.btnAddNewAdmin.Size = new System.Drawing.Size(131, 48);
+            this.btnAddNewAdmin.TabIndex = 8;
+            this.btnAddNewAdmin.Text = "Add New Admin";
+            this.btnAddNewAdmin.UseVisualStyleBackColor = true;
+            this.btnAddNewAdmin.Click += new System.EventHandler(this.btnAddNewAdmins_Click);
+            // 
+            // lblPinTitle
+            // 
+            this.lblPinTitle.AutoSize = true;
+            this.lblPinTitle.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPinTitle.Location = new System.Drawing.Point(81, 9);
+            this.lblPinTitle.Name = "lblPinTitle";
+            this.lblPinTitle.Size = new System.Drawing.Size(162, 22);
+            this.lblPinTitle.TabIndex = 8;
+            this.lblPinTitle.Text = "Manage Admins";
+            // 
+            // adminPinsBindingSource
+            // 
+            this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
+            // 
             // ChangePinForm
             // 
             this.AcceptButton = this.btnConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 515);
+            this.ClientSize = new System.Drawing.Size(636, 570);
             this.Controls.Add(this.pnlPin);
             this.Controls.Add(this.pnlLogin);
             this.Controls.Add(this.pnlHeader);
@@ -423,13 +423,13 @@ namespace TableFindBackend.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             this.pnlPin.ResumeLayout(false);
             this.pnlPin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).EndInit();
-            this.pnlDescription.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).EndInit();
             this.tcAdmins.ResumeLayout(false);
             this.tpActive.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).EndInit();
             this.tpUnActive.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnactive)).EndInit();
+            this.pnlDescription.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.adminPinsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="rtbStaff.Text" xml:space="preserve">
-    <value>Staff Members can access onscreen tables by double-clicking any table object. As the restaurant staff, they will have to ability to:
+    <value>General restaurant staff members such as waiters and waitresses can access on-screen tables by double-clicking any table object. As general restaurant staff, they will have to ability to:
 
-• View reservations under specific tables made available by the manager,
-• Create reservations under specific tables made available by the manager.
+• View reservations under specific tables made available by an Admin user
+• Create reservations under specific tables made available by an Admin user.
 
-Restaurant staff, other than the manager or selected assistant manager, will not have elevated permissions such as:
+Restaurant staff are considered 'General' and not 'Admin' and therefore will not have elevated permissions such as:
                 
 • Adding new Tables to the restaurant,
 • Editing/updating Tables in the restaurants,
@@ -136,22 +136,22 @@ Restaurant staff, other than the manager or selected assistant manager, will not
   <data name="rtbAdmin.Text" xml:space="preserve">
     <value>Overview:
 
-The manager and selected assistant managers can access onscreen tables by double-clicking on any table object. They will also have access to more options when a correct manager PIN is provided. Admin mode will allow the restaurant manager or selected assistant manager to have access to elivated privileges. These privileges include:
+Admin users, such as the restaurant manager and selected assistant managers can access on-screen tables by double-clicking on any table object. They will also have access to more options when a correct Admin PIN is provided. Admin mode will allow the restaurant manager or selected assistant managers to have access to elivated privileges. These privileges include:
 
-• View reservations under specific tables,
-• Create reservations under specific tables,
-• Adding new Tables to the restaurant,
-• Editing/updating Tables in the restaurants,
-• Removing Tables in the restaurant,
-• Adding new Menu Items to the interactive menu,
-• Updating Menu Items of the interactive menu,
-• Removing Menu Items of the interactive menu,
-• Removing Reservations already made.
+• View reservations under specific tables
+• Create reservations under specific tables
+• Adding new Tables to the restaurant
+• Editing/updating Tables in the restaurants
+• Removing Tables in the restaurant
+• Adding new Menu Items to the interactive menu
+• Updating Menu Items of the interactive menu
+• Removing Menu Items of the interactive menu
+• Removing Reservations already made
 
 
-Manager PIN:
+Admin PIN:
 
-The manager PIN is a easy and quick way for the manager and selected assistant managers to gain access to elevated privileges. The manager PIN can be changed by pressing the 'Change PIN' button on the main screen. The Manager will then be prompted to enter his or her login  credentials in order to set up a new PIN. Please note that the Manager PIN is stored locally and therefor can not be changed from another computer.</value>
+The Admin PIN is an effective way for the manager and selected assistant managers to gain access to elevated privileges. The Admin PIN can be changed by editing the Admin User credentials within 'Manage Admin Users'. The user will need to confirm their credentials as an Admin user in order to access this functionality.</value>
   </data>
   <data name="rtcFunctionsPnlAllReservations.Text" xml:space="preserve">
     <value>This allows the user to view a list of all reservations that have not yet expired, along with the reservation details - Customer name, date and time of the reservation, who booked the reservation (Restaurant or Customer), Customer's contact number and the table name. Within this window, the user will be able to select a reservation and then view contact details of the user who made the reservation.</value>
@@ -169,16 +169,18 @@ Enter Admin PIN to access Admin Mode input field
 Enable Admin Mode
 Change PIN
 
-The only buttons that the General User will be able to access are View All Reservations, Change Restaurant Capacity Status and How To Use? The General user will be able to enter an Admin PIN only if they have been given the PIN by the restaurant manager or owner.</value>
+The only buttons that the General User will be able to access are View All Reservations, Change Restaurant Capacity Status and How To Use? The General user will be able to enter an Admin PIN only if they have been registered as an Admin User by the restaurant manager or owner.</value>
   </data>
   <data name="rtbChangePIN.Text" xml:space="preserve">
-    <value>This will prompt the user to provide their login credentials again to confirm that they are an Elevated user. Once the login credentials are confirmed, the user will be able to change their Admin PIN and save it locally.
+    <value>This will prompt the user to provide their login credentials again to confirm that they are an Admin user. Once the login credentials are confirmed, the user will be able to add new Admin users, edit existing Admin users, deactivate and delete existing Admin users. Deactivating an Admin user effectively disables their elevated privileges. To reactivate an Admin user or to delete that Admin user, navigate to the 'Unactive Admin User' tab.
 </value>
   </data>
   <data name="rtbUsingTables.Text" xml:space="preserve">
-    <value>When not in admin mode, the user can double-click on any table item on the right-hand side of the screen. This will open the Reservations window where the user can add reservations under the selected table.
+    <value>When not in Admin mode, the user can double-click on any table item on the right-hand side of the screen. This will open the Reservations window where the user can add reservations under the selected table. 
 
-When in admin mode, the user can drag the table items on the right-hand side of the screen to change the table's position. The user can also double-click on a table to open the table editor, which will allow the user to change the name of the table, maximum capacity and availability, and view the reservations made under it by pressing the 'Reservations' button.</value>
+When in Admin mode, the user can drag the table items on the right-hand side of the screen to change the table's position. 
+The user can also double-click on a table to open the table editor, which will allow the user to change the name of the table, maximum capacity, table description and availability, and view the reservations made under it by pressing the 'Reservations' button.
+Please note that changes will not be saved unless the user selects the 'Save Changes' button. These changes will only be applied once the user finishes their session as an Admin user by clicking the 'Finish' button on the main screen.</value>
   </data>
   <data name="rtbAddNewTable.Text" xml:space="preserve">
     <value>This will open the Table Editor window where the user can create new table objects. The user can enter the table name, number of seats the table should have and table description (where in the restaurant the table object is located).
@@ -188,13 +190,27 @@ The user will be able to view the reservations made for that table via the Reser
 The user will also be able to delete the table and make the table Available or Unavailable.</value>
   </data>
   <data name="richTextBox2.Text" xml:space="preserve">
-    <value>The user will be able to edit restaurant information - name, location, and contact number.
+    <value>The user will be able to:
+• Edit restaurant information - name, location, and contact number.
+• Change the restaurant layout image displayed on the main screen by selecting an image file from the computer, or reset the layout image to blank.
+• Change the restaurant's opening and closing times
+• Deactivate the restaurant by navigating to the Danger Zone within this form.
+• View a System Report by clicking on the 'Open System Report Page' button.
 
-The user will be able to upload a menu in the form of a PDF file, PNG file or a JPEG file. This menu will display on the TableFind Mobile application.
+System Report:
+The system report shows basic system information collected throughout the working day such as:
+• Restaurant Tables - displays a list of restaurant tables with their basic information such as name, capacity, description and availability.
+• System Log - displays a list of most actions taken by the users throughout their session such as editing table information, logging in, changing the restaurant layout etc.
+• Admin Users - displays a list of all admin users along with how many times they logged in as admin and the times that they logged in throughout the working day.
+• Active and Past Reservations - displays a list of any active or past reservations made.
 
-The user can change the restaurant layout image displayed on the main screen by selecting an image file from the computer.
+This report can be generated as an Excel, Word or PDF document which is automatically saved to the local device.
 
-	// functionality for System Report</value>
+Restaurant Deactivation:
+This is helpful for when the restaurant would like to temporarily close, for example when changing locations. To deactivate the restaurant, the user will have to provide the restaurant owner's email address and password, as well as answer a security question. Once the user deactivates the restaurant a Confirmation email will be sent to them containing their restaurant ID and their user ID.
+To reactivate the restaurant, the restaurant manager or owner should contact the TableFind Development Team using the references provided in the Deactivation confirmation email.
+
+Please note that any changes made will not be saved until the user clicks the 'Save' button and these changes will not be applied until the user ends the Admin session by selecting 'Finish' on the main screen.</value>
   </data>
   <data name="rtbRestaurantOptions.Text" xml:space="preserve">
     <value>The user will be able to edit restaurant information - name, location, and contact number.
@@ -206,7 +222,7 @@ The user can change the restaurant layout image displayed on the main screen by 
 	// functionality for System Report</value>
   </data>
   <data name="rtbMenuItems.Text" xml:space="preserve">
-    <value>The Edit Interactive Menu window will allow the user to to add, edit, and delete menu items from the Interactive Menu that will display on the TableFind Mobile application.
+    <value>The Menu Items window will allow the user to to add, edit, and delete menu items from the Interactive Menu that will display on the TableFind Mobile application, as well as sort these menu items by price, recently added and meal type.
 
 Adding a Menu Item:
 The user can click on the 'Add Item' button which will provide a new interface that will allow the user to specify all the details of the new item - name, type, price and description.	
@@ -225,9 +241,9 @@ The panel's main functions include notifying the user that a new reservation has
 
 • Current Reservations:
 When a new reservation is made, either by the restaurant or by a customer, a flashing Reservation object will appear inside the panel under Current Reservations. This object shows basic reservation information such as the client information - name and contact number, and table information - table name, date of the reservation and the duration that the table was reserved for.
-If the user clicks on the object, a secondary window Reservation for &lt;Customer name&gt; will open and the flashing will stop. This window shows the basic information listed previously, as well as whether the reservation was made by the restaurant or a client, and includes the table capacity.
+If the user clicks on the object, a secondary window Reservation for &lt;Customer name&gt; will open and the flashing will stop. This window shows the basic information listed previously, as well as whether the reservation was made by the restaurant or a customer, and includes the table capacity.
 
 • Previous Reservations:
-If a reservation has been cancelled or deleted, or if the reservation has expired, the reservation object will move from the Current Reservations tab and appear in the panel under Previous Reservations.</value>
+If a reservation has been cancelled or removed, or if the reservation has expired, the reservation object will move from the Current Reservations tab and appear in the panel under Previous Reservations.</value>
   </data>
 </root>
