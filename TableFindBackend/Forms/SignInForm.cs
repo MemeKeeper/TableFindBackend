@@ -18,7 +18,7 @@ namespace TableFindBackend.Forms
             InitializeComponent();
 
 
-            pbxLoading.Visible = true;
+            ShowLoading(true);
 
             AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>(
             isValidLogin =>
@@ -70,7 +70,7 @@ namespace TableFindBackend.Forms
                                     {
                                         Invoke(new Action(() =>
                                         {
-                                            pbxLoading.Visible = false;
+                                            ShowLoading(false);
                                             MessageBox.Show(this, "No Restaurants was located under these credentials. it may be that you deactivated your restaurant" +
                                                 " in the past. Please contact the TableFind Development Team via email to assist you in reactivating your restaurant"); //Fix later
                                         }));
@@ -80,7 +80,7 @@ namespace TableFindBackend.Forms
                                 {
                                     Invoke(new Action(() =>
                                     {
-                                        pbxLoading.Visible = false;
+                                        ShowLoading(false);
                                         MessageBox.Show(this, "No Restaurant was located under these login credentials. If " +
                                     "you are a new user who only recently created a Tablefind Profile " +
                                     "then it may be that we are still setting up your profile for a restaurant " +
@@ -92,7 +92,7 @@ namespace TableFindBackend.Forms
                             {
                                 Invoke(new Action(() =>
                                 {
-                                    pbxLoading.Visible = false;
+                                    ShowLoading(false);
                                     MessageBox.Show(this, "Error: " + error.Message);
                                 }));
                             });
@@ -112,7 +112,7 @@ namespace TableFindBackend.Forms
 
                             Invoke(new Action(() =>
                             {
-                                pbxLoading.Visible = false;
+                                ShowLoading(false);
                             }));
                         });
 
@@ -120,14 +120,14 @@ namespace TableFindBackend.Forms
                 }
                 else
                 {
-                    pbxLoading.Visible = false;
+                    ShowLoading(false);
                 }
             },
             fault =>
             {
                 Invoke(new Action(() =>
                 {
-                    pbxLoading.Visible = false;
+                    ShowLoading(false);
                 }));
             });
 
@@ -169,11 +169,11 @@ namespace TableFindBackend.Forms
         private void lblForgot_Click(object sender, EventArgs e)
         {
             string userEmail = tbEmail.Text;
-            pbxLoading.Visible = true;
+            ShowLoading(true);
 
             if (!IsValidEmail(userEmail))
             {
-                pbxLoading.Visible = false;
+                ShowLoading(false);
                 lblEnterEmailForRecovery.Visible = true;
                 //MessageBox.Show("Invalid email has been entered. Please make sure your email format is correct e.g wizerd@oz.com");
 
@@ -187,7 +187,7 @@ namespace TableFindBackend.Forms
                 {
                     Invoke(new Action(() =>
                     {
-                        pbxLoading.Visible = false;
+                        ShowLoading(false);
                         MessageBox.Show("Password recovery email has been sent");
                     }));
                 },
@@ -195,7 +195,7 @@ namespace TableFindBackend.Forms
                     {
                         Invoke(new Action(() =>
                         {
-                            pbxLoading.Visible = false;
+                            ShowLoading(false);
                             MessageBox.Show(this, "Error: " + fault.Message);
                         }));
                     });
@@ -213,19 +213,40 @@ namespace TableFindBackend.Forms
         {
             Cursor = Cursors.Default;
         }
-
+        private void ShowLoading(bool toggle)
+        {
+            if (toggle == true)
+            {
+                pbxLoading.Visible = true;
+                btnLogin.Enabled = false;
+                lblX.Enabled = false;
+                lblX2.Enabled = false;
+                btnRegister.Enabled = false;
+                lblRegisterTitle.Enabled = false;
+                lblForgot.Enabled = false;
+            }
+            else
+            {
+                pbxLoading.Visible = false;
+                btnLogin.Enabled = true;
+                lblX.Enabled = true;
+                lblX2.Enabled = true;
+                btnRegister.Enabled = true;
+                lblRegisterTitle.Enabled = true;
+                lblForgot.Enabled = true;
+            }
+        }
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            pbxLoading.Visible = true;
+            ShowLoading(true);
             string userEmail = tbEmail.Text;
             string password = tbPassword.Text;
 
             if (!IsValidEmail(userEmail))
             {
-                pbxLoading.Visible = false;
+                ShowLoading(false);
                 MessageBox.Show("Invalid email has been entered. Please make sure your email format is correct e.g wizerd@oz.com");
-
             }
             else
             {
@@ -272,7 +293,7 @@ namespace TableFindBackend.Forms
                             {
                                 Invoke(new Action(() =>
                                 {
-                                    pbxLoading.Visible = false;
+                                    ShowLoading(false);
                                     MessageBox.Show(this, "No Restaurants was located under these credentials. it may be that you deactivated your restaurant" +
                                         " in the past. Please contact the TableFind Development Team via email to assist you in reactivating your restaurant"); //Fix later
                                 }));
@@ -282,7 +303,7 @@ namespace TableFindBackend.Forms
                         {
                             Invoke(new Action(() =>
                             {
-                                pbxLoading.Visible = false;
+                                ShowLoading(false);
                                 MessageBox.Show(this, "No Restaurant was located under these login credentials. If " +
                                     "you are a new user who only recently created a Tablefind Profile " +
                                     "then it may be that we are still setting up your profile for a restaurant " +
@@ -296,7 +317,7 @@ namespace TableFindBackend.Forms
                     {
                         Invoke(new Action(() =>
                         {
-                            pbxLoading.Visible = false;
+                            ShowLoading(false);
                             MessageBox.Show(this, "Error: " + error.Message);
                         }));
                     });
@@ -307,7 +328,7 @@ namespace TableFindBackend.Forms
                 {
                     Invoke(new Action(() =>
                     {
-                        pbxLoading.Visible = false;
+                        ShowLoading(false);
                         MessageBox.Show(this, "Error: " + fault.Message);
                     }));
                 });
@@ -339,12 +360,12 @@ namespace TableFindBackend.Forms
                 || tbPass.Text == ""
                 || tbConfirmPass.Text == "")
             {
-                ToggleLoading(false);
+                ShowLoading(false);
                 MessageBox.Show("Please be sure to fill in all fields");
             }
             else
             {
-                ToggleLoading(true);
+                ShowLoading(true);
                 string firstName = tbFirstName.Text;
                 string lastName = tbLastName.Text;
                 string contactNumber = tbContactNumber.Text;
@@ -364,7 +385,7 @@ namespace TableFindBackend.Forms
                                     {
                                         tcLoginRegister.SelectedTab = tpLogin;
                                         MessageBox.Show(this, "A verification email has been sent to the specified email address. Please follow the link which is provided in the email");
-                                        ToggleLoading(false);
+                                        ShowLoading(false);
                                     }));
                             },
                             fault =>
@@ -372,7 +393,7 @@ namespace TableFindBackend.Forms
                                 Invoke(new Action(() =>
                                 {
                                     MessageBox.Show(this, "Error: " + fault.Message);
-                                    ToggleLoading(false);
+                                    ShowLoading(false);
                                 }));
                             });
 
@@ -387,40 +408,23 @@ namespace TableFindBackend.Forms
                         }
                         else
                         {
-                            ToggleLoading(false);
+                            ShowLoading(false);
                             MessageBox.Show("Invalid password format. Please make sure that you're password contains minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
                         }
                     }
                     else
                     {
-                        ToggleLoading(false);
+                        ShowLoading(false);
                         MessageBox.Show("Invalid password format. Please make sure that you're password contains minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
                     }
                 }
                 else
                 {
-                    ToggleLoading(false);
+                    ShowLoading(false);
                     MessageBox.Show("Invalid email has been entered. Please make sure your email format is correct e.g wizerd@oz.com");
                 }
 
 
-            }
-        }
-        private void ToggleLoading(bool toggle)
-        {
-            if (toggle == true)
-            {
-                pnlPersonal.Enabled = false;
-                lblTitle.Enabled = false;
-                btnRegister.Enabled = false;
-                pbxLoadingFS.Visible = true;
-            }
-            else
-            {
-                pnlPersonal.Enabled = true;
-                lblTitle.Enabled = true;
-                btnRegister.Enabled = true;
-                pbxLoadingFS.Visible = false;
             }
         }
         private bool PasswordValidater(string password)
