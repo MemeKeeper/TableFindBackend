@@ -386,6 +386,12 @@ namespace TableFindBackend.Forms
                                         tcLoginRegister.SelectedTab = tpLogin;
                                         MessageBox.Show(this, "A verification email has been sent to the specified email address. Please follow the link which is provided in the email");
                                         ShowLoading(false);
+                                        tbContactNumber.Text = "";
+                                        tbFirstName.Text = "";
+                                        tbLastName.Text = "";
+                                        tbEmailAddress.Text = "";
+                                        tbPass.Text = "";
+                                        tbConfirmPass.Text = "";
                                     }));
                             },
                             fault =>
