@@ -317,7 +317,7 @@ namespace TableFindBackend.Forms
             // 
             this.btnManageAdminUsers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnManageAdminUsers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnManageAdminUsers.Location = new System.Drawing.Point(59, 253);
+            this.btnManageAdminUsers.Location = new System.Drawing.Point(58, 253);
             this.btnManageAdminUsers.Name = "btnManageAdminUsers";
             this.btnManageAdminUsers.Size = new System.Drawing.Size(111, 39);
             this.btnManageAdminUsers.TabIndex = 12;
@@ -343,7 +343,7 @@ namespace TableFindBackend.Forms
             this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnLogout.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogout.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnLogout.Location = new System.Drawing.Point(59, 253);
+            this.btnLogout.Location = new System.Drawing.Point(31, 253);
             this.btnLogout.Margin = new System.Windows.Forms.Padding(1);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(56, 39);
@@ -394,7 +394,7 @@ namespace TableFindBackend.Forms
             // 
             this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnUpdate.Location = new System.Drawing.Point(119, 253);
+            this.btnUpdate.Location = new System.Drawing.Point(88, 253);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(102, 39);
             this.btnUpdate.TabIndex = 8;
@@ -408,14 +408,13 @@ namespace TableFindBackend.Forms
             this.btnReloadAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnReloadAll.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReloadAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnReloadAll.Location = new System.Drawing.Point(8, 253);
+            this.btnReloadAll.Location = new System.Drawing.Point(180, 88);
             this.btnReloadAll.Margin = new System.Windows.Forms.Padding(1);
             this.btnReloadAll.Name = "btnReloadAll";
             this.btnReloadAll.Size = new System.Drawing.Size(41, 39);
             this.btnReloadAll.TabIndex = 6;
             this.btnReloadAll.Text = "⟳";
             this.btnReloadAll.UseVisualStyleBackColor = false;
-            this.btnReloadAll.Visible = false;
             this.btnReloadAll.Click += new System.EventHandler(this.btnReloadAll_Click);
             // 
             // btnApply

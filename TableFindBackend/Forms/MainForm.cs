@@ -979,7 +979,6 @@ namespace TableFindBackend.Forms
                 btnApply.Visible = true;
                 btnCreate.Visible = true;
                 btnUpdate.Visible = true;
-                btnReloadAll.Visible = true;
                 btnLogout.Visible = true;
                 btnEditRestaurant.Visible = true;
                 tbxPass.Visible = false;
@@ -1004,7 +1003,6 @@ namespace TableFindBackend.Forms
                     btnUpdate.Visible = false;
                     btnLogout.Visible = false;
                     btnEditRestaurant.Visible = false;
-                    btnReloadAll.Visible = false;
                     tbxPass.Visible = true;
                     lblLogin.Visible = true;
                     btnEnableAdmin.Visible = true;
