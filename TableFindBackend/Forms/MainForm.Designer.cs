@@ -47,6 +47,7 @@ namespace TableFindBackend.Forms
             this.btnEnableAdmin = new System.Windows.Forms.Button();
             this.pboxLoading = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.btnChangeLoad = new System.Windows.Forms.Button();
             this.btnViewAll = new System.Windows.Forms.Button();
             this.btnInfo = new System.Windows.Forms.Button();
@@ -62,7 +63,6 @@ namespace TableFindBackend.Forms
             this.btnCreate = new System.Windows.Forms.Button();
             this.lblCapacity = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.lblMessage = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.tbcReservationHolder.SuspendLayout();
             this.tpCurrent.SuspendLayout();
@@ -265,6 +265,17 @@ namespace TableFindBackend.Forms
             this.panel2.Size = new System.Drawing.Size(233, 300);
             this.panel2.TabIndex = 2;
             // 
+            // lblMessage
+            // 
+            this.lblMessage.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lblMessage.Location = new System.Drawing.Point(4, 180);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(228, 32);
+            this.lblMessage.TabIndex = 16;
+            this.lblMessage.Text = "Message Displayed here";
+            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMessage.Visible = false;
+            // 
             // btnChangeLoad
             // 
             this.btnChangeLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
@@ -449,17 +460,6 @@ namespace TableFindBackend.Forms
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 15);
             this.lblStatus.TabIndex = 10;
-            // 
-            // lblMessage
-            // 
-            this.lblMessage.ForeColor = System.Drawing.Color.Maroon;
-            this.lblMessage.Location = new System.Drawing.Point(4, 180);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(228, 32);
-            this.lblMessage.TabIndex = 16;
-            this.lblMessage.Text = "Message Displayed here";
-            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblMessage.Visible = false;
             // 
             // MainForm
             // 
