@@ -271,6 +271,7 @@ namespace TableFindBackend.Forms
             this.Name = "AddEditNewAdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddEditNewAdminForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddEditNewAdminForm_FormClosing);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlNewAdmin.ResumeLayout(false);

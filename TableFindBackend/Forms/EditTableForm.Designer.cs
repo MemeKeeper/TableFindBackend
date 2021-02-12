@@ -256,6 +256,7 @@
             this.Name = "EditTableForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Table Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditTableForm_FormClosing);
             this.Load += new System.EventHandler(this.EditTableForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

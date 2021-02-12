@@ -101,5 +101,13 @@ namespace TableFindBackend.Forms
         {
             this.Close();
         }
+
+        private void RestaurantStatusForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

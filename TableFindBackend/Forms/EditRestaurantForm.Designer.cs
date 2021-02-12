@@ -409,6 +409,7 @@ namespace TableFindBackend.Forms
             this.Name = "EditRestaurantForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "-";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditRestaurantForm_FormClosing);
             this.pnlRestaurantDetails.ResumeLayout(false);
             this.pnlRestaurantDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();

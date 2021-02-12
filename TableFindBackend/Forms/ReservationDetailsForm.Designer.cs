@@ -356,6 +356,7 @@ namespace TableFindBackend.Forms
             this.Name = "ReservationDetailsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReservationDetailsForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReservationDetailsForm_FormClosing);
             this.pnlUser.ResumeLayout(false);
             this.pnlUser.PerformLayout();
             this.pnlHeader.ResumeLayout(false);

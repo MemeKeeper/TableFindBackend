@@ -416,6 +416,7 @@ namespace TableFindBackend.Forms
             this.Name = "ChangePinForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ChangePinForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChangePinForm_FormClosing);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlLogin.ResumeLayout(false);

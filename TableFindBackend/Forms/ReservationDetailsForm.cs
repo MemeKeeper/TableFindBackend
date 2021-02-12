@@ -132,5 +132,13 @@ namespace TableFindBackend.Forms
                 MessageBox.Show("You do not have permission to remove this reservation. Only managers or selected assistant mangers can remove reservations");
             }
         }
+
+        private void ReservationDetailsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

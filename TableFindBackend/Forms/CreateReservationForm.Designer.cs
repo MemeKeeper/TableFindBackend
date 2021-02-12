@@ -34,6 +34,7 @@ namespace TableFindBackend.Models
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlPanel = new System.Windows.Forms.Panel();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.lblDuration = new System.Windows.Forms.Label();
             this.spnDuration = new System.Windows.Forms.NumericUpDown();
             this.dtpTakenFrom = new System.Windows.Forms.DateTimePicker();
@@ -45,11 +46,10 @@ namespace TableFindBackend.Models
             this.tbxContact = new System.Windows.Forms.TextBox();
             this.tbxName = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.pnlHeader.SuspendLayout();
             this.pnlPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spnDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spnDuration)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -112,6 +112,17 @@ namespace TableFindBackend.Models
             this.pnlPanel.Size = new System.Drawing.Size(346, 339);
             this.pnlPanel.TabIndex = 6;
             this.pnlPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
+            this.pbxLoading.Location = new System.Drawing.Point(124, 107);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(100, 97);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 14;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
             // 
             // lblDuration
             // 
@@ -233,17 +244,6 @@ namespace TableFindBackend.Models
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // pbxLoading
-            // 
-            this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pbxLoading.Location = new System.Drawing.Point(124, 107);
-            this.pbxLoading.Name = "pbxLoading";
-            this.pbxLoading.Size = new System.Drawing.Size(100, 97);
-            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxLoading.TabIndex = 14;
-            this.pbxLoading.TabStop = false;
-            this.pbxLoading.Visible = false;
-            // 
             // CreateReservationForm
             // 
             this.AcceptButton = this.btnCreate;
@@ -258,12 +258,13 @@ namespace TableFindBackend.Models
             this.Name = "CreateReservationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateReservationForm_FormClosing);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlPanel.ResumeLayout(false);
             this.pnlPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spnDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spnDuration)).EndInit();
             this.ResumeLayout(false);
 
         }

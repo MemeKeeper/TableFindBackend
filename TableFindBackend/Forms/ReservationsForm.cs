@@ -283,5 +283,18 @@ namespace TableFindBackend.Forms
             CustomerDetailsForm detailsForm = new CustomerDetailsForm(tempUser, rList[index]);
             detailsForm.ShowDialog();
         }
+
+        private void ReservationsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+        }
+
+        private void ReservationsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }
