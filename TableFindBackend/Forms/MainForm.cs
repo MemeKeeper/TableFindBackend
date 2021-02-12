@@ -961,7 +961,7 @@ namespace TableFindBackend.Forms
                         "\nWould you like to configure a Manager PIN now?", "Manager PIN", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (result == DialogResult.Yes)
                     {
-                        ChangePinForm NewPin = new ChangePinForm();
+                        ManageAdminUsersForm NewPin = new ManageAdminUsersForm();
                         NewPin.ShowDialog();
                     }
                     else if (result == DialogResult.No)
@@ -1125,25 +1125,6 @@ namespace TableFindBackend.Forms
 
         }
 
-        private void btnChangePin_Click(object sender, EventArgs e)
-        {
-
-            ChangePinForm NewPin = new ChangePinForm();
-            DialogResult pinResult = NewPin.ShowDialog();
-            if (pinResult == DialogResult.OK)
-            {
-                OwnerStorage.FileWriter.WriteLineToFile("User Modified Manager PINs", true);
-                OwnerStorage.LogInfo.Add("User Modified Manager PINs");
-                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-            }
-            if (OwnerStorage.ListOfAdmins.Count != 0)
-            {
-                tbxPass.Enabled = true;
-            }
-            else
-                tbxPass.Enabled = false;
-        }
-
         private void btnInfo_Click(object sender, EventArgs e)
         {
             InfoForm infoForm = new InfoForm();
@@ -1181,6 +1162,24 @@ namespace TableFindBackend.Forms
             {
                 e.Cancel = true;
             }
+        }
+
+        private void btnManageAdminUsers_Click(object sender, EventArgs e)
+        {
+            ManageAdminUsersForm NewPin = new ManageAdminUsersForm();
+            DialogResult pinResult = NewPin.ShowDialog();
+            if (pinResult == DialogResult.OK)
+            {
+                OwnerStorage.FileWriter.WriteLineToFile("User Modified Manager PINs", true);
+                OwnerStorage.LogInfo.Add("User Modified Manager PINs");
+                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+            }
+            if (OwnerStorage.ListOfAdmins.Count != 0)
+            {
+                tbxPass.Enabled = true;
+            }
+            else
+                tbxPass.Enabled = false;
         }
     }
 }

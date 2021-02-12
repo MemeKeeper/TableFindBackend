@@ -336,11 +336,11 @@
     <Compile Include="Forms\AddEditNewAdminForm.Designer.cs">
       <DependentUpon>AddEditNewAdminForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ChangePinForm.cs">
+    <Compile Include="Forms\ManageAdminUsersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ChangePinForm.Designer.cs">
-      <DependentUpon>ChangePinForm.cs</DependentUpon>
+    <Compile Include="Forms\ManageAdminUsersForm.Designer.cs">
+      <DependentUpon>ManageAdminUsersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ConfirmRestaurantDeactivationForm.cs">
       <SubType>Form</SubType>
@@ -469,8 +469,8 @@
     <EmbeddedResource Include="Forms\AddEditNewAdminForm.resx">
       <DependentUpon>AddEditNewAdminForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ChangePinForm.resx">
-      <DependentUpon>ChangePinForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ManageAdminUsersForm.resx">
+      <DependentUpon>ManageAdminUsersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ConfirmRestaurantDeactivationForm.resx">
       <DependentUpon>ConfirmRestaurantDeactivationForm.cs</DependentUpon>

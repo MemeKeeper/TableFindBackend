@@ -396,6 +396,12 @@ namespace TableFindBackend.Forms
                                     {
                                         MessageBox.Show(this, "Error: " + fault.Message);
                                         ShowLoading(false);
+                                        tbContactNumber.Text = "";
+                                        tbFirstName.Text = "";
+                                        tbLastName.Text = "";
+                                        tbEmailAddress.Text = "";
+                                        tbPass.Text = "";
+                                        tbConfirmPass.Text = "";
                                     }));
                                 });
 
