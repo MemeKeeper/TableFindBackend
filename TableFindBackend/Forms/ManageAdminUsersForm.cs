@@ -7,9 +7,9 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
-    public partial class ChangePinForm : Form
+    public partial class ManageAdminUsersForm : Form
     {
-        public ChangePinForm()
+        public ManageAdminUsersForm()
         {
             InitializeComponent();
             PopulateList();

@@ -1,7 +1,7 @@
 ﻿
 namespace TableFindBackend.Forms
 {
-    partial class ChangePinForm
+    partial class ManageAdminsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace TableFindBackend.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangePinForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageAdminsForm));
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();

@@ -266,7 +266,6 @@ namespace TableFindBackend.Forms
             // 
             // lblMessage
             // 
-
             this.lblMessage.ForeColor = System.Drawing.Color.OrangeRed;
             this.lblMessage.Location = new System.Drawing.Point(4, 180);
             this.lblMessage.Name = "lblMessage";
@@ -323,7 +322,7 @@ namespace TableFindBackend.Forms
             this.btnManageAdminUsers.TabIndex = 12;
             this.btnManageAdminUsers.Text = "Manage Admin Users";
             this.btnManageAdminUsers.UseVisualStyleBackColor = false;
-            this.btnManageAdminUsers.Click += new System.EventHandler(this.btnChangePin_Click);
+            this.btnManageAdminUsers.Click += new System.EventHandler(this.btnManageAdminUsers_Click);
             // 
             // btnEditMenu
             // 
