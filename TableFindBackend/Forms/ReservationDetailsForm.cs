@@ -35,9 +35,17 @@ namespace TableFindBackend.Forms
             }
             else
             {
-                lblContactNumber.Visible = false;
-                tbxContact2.Visible = false;
-                pnlReservation.Height += -50;
+                if (u.Email == "-")
+                {
+                    lblMadeByRestaurant.Visible = true;
+                    lblMadeByRestaurant.Text = "This User could not be located in the database. It might be that this user has been removed completely.";
+                }
+                else
+                {
+                    lblContactNumber.Visible = false;
+                    tbxContact2.Visible = false;
+                    pnlReservation.Height += -50;
+                }
             }
 
             if (OwnerStorage.AdminMode == true && active == true)
