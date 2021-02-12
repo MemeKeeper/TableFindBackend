@@ -34,6 +34,7 @@ namespace TableFindBackend.Forms
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlBackground = new System.Windows.Forms.Panel();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblUserAccountDeactivation = new System.Windows.Forms.Label();
             this.cbxDeactivateAccount = new System.Windows.Forms.CheckBox();
@@ -45,7 +46,6 @@ namespace TableFindBackend.Forms
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.tbxEmail = new System.Windows.Forms.TextBox();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.panel3.SuspendLayout();
             this.pnlBackground.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
@@ -111,6 +111,17 @@ namespace TableFindBackend.Forms
             this.pnlBackground.Size = new System.Drawing.Size(374, 396);
             this.pnlBackground.TabIndex = 23;
             this.pnlBackground.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlBackground_Paint);
+            // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
+            this.pbxLoading.Location = new System.Drawing.Point(88, 105);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(192, 185);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 10;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
             // 
             // btnCancel
             // 
@@ -222,17 +233,6 @@ namespace TableFindBackend.Forms
             this.lblInfo.Text = resources.GetString("lblInfo.Text");
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbxLoading
-            // 
-            this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pbxLoading.Location = new System.Drawing.Point(88, 105);
-            this.pbxLoading.Name = "pbxLoading";
-            this.pbxLoading.Size = new System.Drawing.Size(192, 185);
-            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxLoading.TabIndex = 10;
-            this.pbxLoading.TabStop = false;
-            this.pbxLoading.Visible = false;
-            // 
             // ConfirmRestaurantDeactivationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,6 +244,7 @@ namespace TableFindBackend.Forms
             this.Name = "ConfirmRestaurantDeactivationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ConfirmRestaurantDeactivationForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfirmRestaurantDeactivationForm_FormClosing);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.pnlBackground.ResumeLayout(false);

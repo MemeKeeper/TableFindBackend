@@ -242,6 +242,7 @@ namespace TableFindBackend.Forms
             this.Name = "RestaurantStatusForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RestaurantStatusForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RestaurantStatusForm_FormClosing);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbrCapacity)).EndInit();

@@ -237,7 +237,6 @@ namespace TableFindBackend.Forms
             this.pboxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pboxLoading.TabIndex = 0;
             this.pboxLoading.TabStop = false;
-            this.pboxLoading.Click += new System.EventHandler(this.pboxLoading_Click);
             // 
             // panel2
             // 
@@ -267,6 +266,7 @@ namespace TableFindBackend.Forms
             // 
             // lblMessage
             // 
+
             this.lblMessage.ForeColor = System.Drawing.Color.OrangeRed;
             this.lblMessage.Location = new System.Drawing.Point(4, 180);
             this.lblMessage.Name = "lblMessage";
@@ -305,7 +305,7 @@ namespace TableFindBackend.Forms
             // 
             this.btnInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnInfo.Location = new System.Drawing.Point(4, 77);
+            this.btnInfo.Location = new System.Drawing.Point(4, 69);
             this.btnInfo.Name = "btnInfo";
             this.btnInfo.Size = new System.Drawing.Size(45, 64);
             this.btnInfo.TabIndex = 13;
@@ -481,6 +481,7 @@ namespace TableFindBackend.Forms
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Screen";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();

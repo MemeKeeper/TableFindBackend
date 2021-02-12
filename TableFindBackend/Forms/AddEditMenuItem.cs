@@ -22,11 +22,6 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void AddEditMenuItem_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnX_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -99,11 +94,6 @@ namespace TableFindBackend.Forms
                     this.Close();
                 }
             }
-        }
-
-        private void tbxPrice_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void tbxPrice_KeyPress(object sender, KeyPressEventArgs e)

@@ -30,7 +30,6 @@ namespace TableFindBackend.Forms
         private void InitializeComponent()
         {
             this.pnlPanel = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.nudPrice = new System.Windows.Forms.NumericUpDown();
             this.lblPriceTitle = new System.Windows.Forms.Label();
             this.lblDescriptionTitle = new System.Windows.Forms.Label();
@@ -46,7 +45,6 @@ namespace TableFindBackend.Forms
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +55,6 @@ namespace TableFindBackend.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPanel.Controls.Add(this.pictureBox1);
             this.pnlPanel.Controls.Add(this.nudPrice);
             this.pnlPanel.Controls.Add(this.lblPriceTitle);
             this.pnlPanel.Controls.Add(this.lblDescriptionTitle);
@@ -72,17 +69,6 @@ namespace TableFindBackend.Forms
             this.pnlPanel.Name = "pnlPanel";
             this.pnlPanel.Size = new System.Drawing.Size(379, 388);
             this.pnlPanel.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pictureBox1.Location = new System.Drawing.Point(138, 123);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(111, 101);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
             // 
             // nudPrice
             // 
@@ -150,6 +136,7 @@ namespace TableFindBackend.Forms
             this.tbxDescription.Location = new System.Drawing.Point(28, 230);
             this.tbxDescription.Multiline = true;
             this.tbxDescription.Name = "tbxDescription";
+            this.tbxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbxDescription.Size = new System.Drawing.Size(320, 143);
             this.tbxDescription.TabIndex = 3;
             // 
@@ -265,10 +252,8 @@ namespace TableFindBackend.Forms
             this.Name = "AddEditMenuItem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "1";
-            this.Load += new System.EventHandler(this.AddEditMenuItem_Load);
             this.pnlPanel.ResumeLayout(false);
             this.pnlPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
@@ -278,7 +263,6 @@ namespace TableFindBackend.Forms
 
         #endregion
         private System.Windows.Forms.Panel pnlPanel;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox tbxName;
         private System.Windows.Forms.TextBox tbxDescription;
         private System.Windows.Forms.ComboBox cbxType;

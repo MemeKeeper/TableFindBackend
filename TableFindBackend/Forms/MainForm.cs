@@ -25,6 +25,7 @@ namespace TableFindBackend.Forms
         private ReservationCreatedEventListener createdListener;
         private ReservationDeletedEventListener deletedListener;
         private static System.Timers.Timer removeTimer;
+        private bool ALT_F4 = false;
 
         public MainForm()
         {
@@ -1130,9 +1131,12 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void pboxLoading_Click(object sender, EventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pboxLoading.Visible==true)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

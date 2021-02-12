@@ -408,5 +408,13 @@ namespace TableFindBackend.Forms
                     }
             }
         }
+
+        private void MenuItemsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

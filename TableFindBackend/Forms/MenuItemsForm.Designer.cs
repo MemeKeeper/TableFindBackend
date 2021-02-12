@@ -312,6 +312,7 @@ namespace TableFindBackend.Forms
             this.Name = "MenuItemsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "MenuItems";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuItemsForm_FormClosing);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlEdit.ResumeLayout(false);
