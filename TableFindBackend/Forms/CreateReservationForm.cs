@@ -95,9 +95,9 @@ namespace TableFindBackend.Models
 
                         reservation.Number = tbxContact.Text;
                         reservation.Name = tbxName.Text;
-                        reservation.TakenFrom = dtpTakenFrom.Value.AddHours(2);
+                        reservation.TakenFrom = dtpTakenFrom.Value; //<-- +2:00 time zone
                         reservation.TableId = thisTable.objectId;
-                        reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value) + 2);   //the +2:00 timezone
+                        reservation.TakenTo = dtpTakenFrom.Value.AddHours(Convert.ToInt32(spnDuration.Value));   //the +2:00 timezone
                         reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
                         reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
                         reservation.Active = true;
@@ -108,7 +108,7 @@ namespace TableFindBackend.Models
                                             {
                                                 Invoke(new Action(() =>
                                                 {
-                                                    pnlPanel.Visible = true;
+                                                    ShowLoading(false);
                                                     OwnerStorage.FileWriter.WriteLineToFile("User Created Manager Reservation", true);
                                                     OwnerStorage.FileWriter.WriteLineToFile("Name:  " + reservation.Name, false);
 
@@ -121,6 +121,7 @@ namespace TableFindBackend.Models
                                             {
                                                 Invoke(new Action(() =>
                                                 {
+                                                    ShowLoading(false);
                                                     OwnerStorage.FileWriter.WriteLineToFile("Reservation failed", true);
 
                                                     OwnerStorage.FileWriter.WriteLineToFile("Error: " + fault.Message.ToString(), false);
