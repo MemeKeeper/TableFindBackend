@@ -25,7 +25,6 @@ namespace TableFindBackend.Forms
         private ReservationCreatedEventListener createdListener;
         private ReservationDeletedEventListener deletedListener;
         private static System.Timers.Timer removeTimer;
-        private bool ALT_F4 = false;
 
         public MainForm()
         {
@@ -345,6 +344,17 @@ namespace TableFindBackend.Forms
                             tempUser = user;
                         }
                     }
+                    if(tempUser==null)
+                    {
+                        BackendlessUser blankUser = new BackendlessUser();
+                        blankUser.Email = "-";
+                        blankUser.SetProperty("Cellphone", "-");
+                        blankUser.Password = "-";
+                        blankUser.SetProperty("FirstName", "-");
+                        blankUser.SetProperty("LastName", "-");
+                        blankUser.SetProperty("isOwner", false);
+                        tempUser = blankUser;
+                    }
                     Reservation tempReservation = null;
                     foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                     {
@@ -392,6 +402,17 @@ namespace TableFindBackend.Forms
                         {
                             tempUser = user;
                         }
+                    }
+                    if (tempUser == null)
+                    {
+                        BackendlessUser blankUser = new BackendlessUser();
+                        blankUser.Email = "-";
+                        blankUser.SetProperty("Cellphone", "-");
+                        blankUser.Password = "-";
+                        blankUser.SetProperty("FirstName", "-");
+                        blankUser.SetProperty("LastName", "-");
+                        blankUser.SetProperty("isOwner", false);
+                        tempUser = blankUser;
                     }
                     Reservation tempReservation = null;
                     foreach (Reservation reservation in OwnerStorage.PastReservations)
@@ -487,8 +508,31 @@ namespace TableFindBackend.Forms
                         AsyncCallback<BackendlessUser> loadContactCallback = new AsyncCallback<BackendlessUser>(
                         foundContact =>
                         {
-
-                            OwnerStorage.AllUsers.Add(foundContact);
+                                OwnerStorage.AllUsers.Add(foundContact);
+                                if (i == foundReservations.Count)
+                                    Invoke(new Action(() =>
+                                    {
+                                        ShowLoading(false);
+                                        OwnerStorage.FileWriter.WriteLineToFile("All Reservations has been downloaded", true);
+                                        btnViewAll.Enabled = true;
+                                        btnApply.Enabled = true;
+                                        btnManageAdminUsers.Enabled = true;
+                                        PerformReservationViewListPopulation((List<Reservation>)foundReservations);
+                                    }));
+                                else
+                                    i++;                                                       
+                        },
+                        error =>
+                        {
+                            //In the rare case that a user has been removed completely from the database, a blank record has to be generated so that the program can resume
+                            BackendlessUser blankUser = new BackendlessUser();
+                            blankUser.Email = "-";
+                            blankUser.SetProperty("Cellphone", "-");
+                            blankUser.Password = "-";
+                            blankUser.SetProperty("FirstName", "-");
+                            blankUser.SetProperty("LastName", "-");
+                            blankUser.SetProperty("isOwner", false);
+                            OwnerStorage.AllUsers.Add(blankUser);
                             if (i == foundReservations.Count)
                                 Invoke(new Action(() =>
                                 {
@@ -501,10 +545,10 @@ namespace TableFindBackend.Forms
                                 }));
                             else
                                 i++;
-                        },
-                        error =>
-                        {
 
+                            OwnerStorage.FileWriter.WriteLineToFile("Server returned an error " + error.Message, true);
+                            OwnerStorage.LogInfo.Add("Server returned an error " + error.Message);
+                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                         });
 
                         Backendless.Data.Of<BackendlessUser>().FindById(r.UserId, loadContactCallback);
