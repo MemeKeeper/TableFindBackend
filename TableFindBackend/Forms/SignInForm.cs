@@ -378,44 +378,52 @@ namespace TableFindBackend.Forms
                     {
                         if (password == cPassword)
                         {
-                            AsyncCallback<BackendlessUser> callbackRegister = new AsyncCallback<BackendlessUser>(
-                            user =>
+                            if (tbContactNumber.TextLength == 10)
                             {
-                                Invoke(new Action(() =>
+                                AsyncCallback<BackendlessUser> callbackRegister = new AsyncCallback<BackendlessUser>(
+                                user =>
+                                {
+                                    Invoke(new Action(() =>
+                                        {
+                                            tcLoginRegister.SelectedTab = tpLogin;
+                                            MessageBox.Show(this, "A verification email has been sent to the specified email address. Please follow the link which is provided in the email");
+                                            ShowLoading(false);
+                                        }));
+                                },
+                                fault =>
+                                {
+                                    Invoke(new Action(() =>
                                     {
-                                        tcLoginRegister.SelectedTab = tpLogin;
-                                        MessageBox.Show(this, "A verification email has been sent to the specified email address. Please follow the link which is provided in the email");
+                                        MessageBox.Show(this, "Error: " + fault.Message);
                                         ShowLoading(false);
                                     }));
-                            },
-                            fault =>
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    MessageBox.Show(this, "Error: " + fault.Message);
-                                    ShowLoading(false);
-                                }));
-                            });
+                                });
 
-                            BackendlessUser newUser = new BackendlessUser();
-                            newUser.Password = password;
-                            newUser.Email = email;
-                            newUser.SetProperty("FirstName", firstName);
-                            newUser.SetProperty("LastName", lastName);
-                            newUser.SetProperty("isOwner", true);
-                            newUser.SetProperty("Cellphone", contactNumber);
-                            Backendless.UserService.Register(newUser, callbackRegister);
+                                BackendlessUser newUser = new BackendlessUser();
+                                newUser.Password = password;
+                                newUser.Email = email;
+                                newUser.SetProperty("FirstName", firstName);
+                                newUser.SetProperty("LastName", lastName);
+                                newUser.SetProperty("isOwner", true);
+                                newUser.SetProperty("Cellphone", contactNumber);
+                                Backendless.UserService.Register(newUser, callbackRegister);
+                            }
+                            else
+                            {
+                                ShowLoading(false);
+                                MessageBox.Show("Invalid contact number format. Please make sure that your contact number contains ten (10) numbers");
+                            }
                         }
                         else
                         {
                             ShowLoading(false);
-                            MessageBox.Show("Invalid password format. Please make sure that you're password contains minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
+                            MessageBox.Show("Invalid password format. Please make sure that your password contains minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
                         }
                     }
                     else
                     {
                         ShowLoading(false);
-                        MessageBox.Show("Invalid password format. Please make sure that you're password contains minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
+                        MessageBox.Show("Invalid password format. Please make sure that your password contains minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
                     }
                 }
                 else
