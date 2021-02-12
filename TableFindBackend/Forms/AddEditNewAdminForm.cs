@@ -131,7 +131,7 @@ namespace TableFindBackend.Forms
                                     TempAdmin = new AdminPins();
                                     TempAdmin.UserName = tbxName.Text;
                                     TempAdmin.ContactNumber = tbxContact.Text;
-                                    TempAdmin.PinCode = Convert.ToInt32(tbxPinCode.Text);
+                                    TempAdmin.PinCode = tbxPinCode.Text;
                                     TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
                                     TempAdmin.Active = true;
                                     Backendless.Data.Of<AdminPins>().Save(TempAdmin, callback);
@@ -288,7 +288,7 @@ namespace TableFindBackend.Forms
                                     {
                                         TempAdmin.UserName = tbxName.Text;
                                         TempAdmin.ContactNumber = tbxContact.Text;
-                                        TempAdmin.PinCode = Convert.ToInt32(tbxPinCode.Text);
+                                        TempAdmin.PinCode = tbxPinCode.Text;
                                         TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
                                         Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
                                     }
