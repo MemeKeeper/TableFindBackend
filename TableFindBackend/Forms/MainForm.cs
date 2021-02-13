@@ -1181,5 +1181,10 @@ namespace TableFindBackend.Forms
             else
                 tbxPass.Enabled = false;
         }
+
+        private void lblLogin_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

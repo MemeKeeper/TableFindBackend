@@ -14,6 +14,5 @@ namespace TableFindBackend.Forms
         {
             this.Close();
         }
-
     }
 }
