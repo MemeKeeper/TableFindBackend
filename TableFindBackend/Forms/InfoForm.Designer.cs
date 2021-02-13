@@ -64,8 +64,6 @@ namespace TableFindBackend.Forms
             this.rtbRestaurantOptions = new System.Windows.Forms.RichTextBox();
             this.tpEditMenu = new System.Windows.Forms.TabPage();
             this.rtbMenuItems = new System.Windows.Forms.RichTextBox();
-            this.tpRefresh = new System.Windows.Forms.TabPage();
-            this.rtbRefresh = new System.Windows.Forms.RichTextBox();
             this.tpLogout = new System.Windows.Forms.TabPage();
             this.rtbLogout = new System.Windows.Forms.RichTextBox();
             this.tpUpdates = new System.Windows.Forms.TabPage();
@@ -76,6 +74,8 @@ namespace TableFindBackend.Forms
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.rtbGettingStarted = new System.Windows.Forms.RichTextBox();
+            this.tpRefresh = new System.Windows.Forms.TabPage();
+            this.rtbRefresh = new System.Windows.Forms.RichTextBox();
             this.pnlHeader.SuspendLayout();
             this.tclInfo.SuspendLayout();
             this.tpStaff.SuspendLayout();
@@ -94,12 +94,12 @@ namespace TableFindBackend.Forms
             this.tpAddNewTable.SuspendLayout();
             this.tpRestaurantOptions.SuspendLayout();
             this.tpEditMenu.SuspendLayout();
-            this.tpRefresh.SuspendLayout();
             this.tpLogout.SuspendLayout();
             this.tpUpdates.SuspendLayout();
             this.tpFinish.SuspendLayout();
             this.tpReservations.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tpRefresh.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -217,6 +217,7 @@ namespace TableFindBackend.Forms
             // 
             // tpFunctions
             // 
+            this.tpFunctions.BackColor = System.Drawing.SystemColors.ControlDark;
             this.tpFunctions.Controls.Add(this.tcAdminMode);
             this.tpFunctions.Location = new System.Drawing.Point(4, 55);
             this.tpFunctions.Name = "tpFunctions";
@@ -224,31 +225,30 @@ namespace TableFindBackend.Forms
             this.tpFunctions.Size = new System.Drawing.Size(549, 321);
             this.tpFunctions.TabIndex = 2;
             this.tpFunctions.Text = "Functions Panel";
-            this.tpFunctions.UseVisualStyleBackColor = true;
             // 
             // tcAdminMode
             // 
-            this.tcAdminMode.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tcAdminMode.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tcAdminMode.Controls.Add(this.tpAllReservations);
             this.tcAdminMode.Controls.Add(this.tpCapacityStatus);
             this.tcAdminMode.Controls.Add(this.tpOverview);
             this.tcAdminMode.Controls.Add(this.tpAdminMode);
             this.tcAdminMode.Controls.Add(this.tpChangePIN);
-            this.tcAdminMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tcAdminMode.Location = new System.Drawing.Point(3, 3);
+            this.tcAdminMode.Controls.Add(this.tpRefresh);
+            this.tcAdminMode.Location = new System.Drawing.Point(9, 10);
             this.tcAdminMode.Multiline = true;
             this.tcAdminMode.Name = "tcAdminMode";
             this.tcAdminMode.SelectedIndex = 0;
-            this.tcAdminMode.Size = new System.Drawing.Size(543, 315);
+            this.tcAdminMode.Size = new System.Drawing.Size(532, 298);
             this.tcAdminMode.TabIndex = 0;
             // 
             // tpAllReservations
             // 
             this.tpAllReservations.Controls.Add(this.rtcFunctionsPnlAllReservations);
-            this.tpAllReservations.Location = new System.Drawing.Point(4, 4);
+            this.tpAllReservations.Location = new System.Drawing.Point(4, 55);
             this.tpAllReservations.Name = "tpAllReservations";
             this.tpAllReservations.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAllReservations.Size = new System.Drawing.Size(535, 265);
+            this.tpAllReservations.Size = new System.Drawing.Size(524, 239);
             this.tpAllReservations.TabIndex = 0;
             this.tpAllReservations.Text = "View All Reservations";
             this.tpAllReservations.UseVisualStyleBackColor = true;
@@ -261,17 +261,17 @@ namespace TableFindBackend.Forms
             this.rtcFunctionsPnlAllReservations.Name = "rtcFunctionsPnlAllReservations";
             this.rtcFunctionsPnlAllReservations.ReadOnly = true;
             this.rtcFunctionsPnlAllReservations.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtcFunctionsPnlAllReservations.Size = new System.Drawing.Size(529, 259);
+            this.rtcFunctionsPnlAllReservations.Size = new System.Drawing.Size(518, 233);
             this.rtcFunctionsPnlAllReservations.TabIndex = 9;
             this.rtcFunctionsPnlAllReservations.Text = resources.GetString("rtcFunctionsPnlAllReservations.Text");
             // 
             // tpCapacityStatus
             // 
             this.tpCapacityStatus.Controls.Add(this.rtbCapacityStatus);
-            this.tpCapacityStatus.Location = new System.Drawing.Point(4, 4);
+            this.tpCapacityStatus.Location = new System.Drawing.Point(4, 28);
             this.tpCapacityStatus.Name = "tpCapacityStatus";
             this.tpCapacityStatus.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCapacityStatus.Size = new System.Drawing.Size(535, 265);
+            this.tpCapacityStatus.Size = new System.Drawing.Size(535, 283);
             this.tpCapacityStatus.TabIndex = 1;
             this.tpCapacityStatus.Text = "Change Restaurant Capacity Status";
             this.tpCapacityStatus.UseVisualStyleBackColor = true;
@@ -284,17 +284,17 @@ namespace TableFindBackend.Forms
             this.rtbCapacityStatus.Name = "rtbCapacityStatus";
             this.rtbCapacityStatus.ReadOnly = true;
             this.rtbCapacityStatus.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbCapacityStatus.Size = new System.Drawing.Size(529, 259);
+            this.rtbCapacityStatus.Size = new System.Drawing.Size(529, 277);
             this.rtbCapacityStatus.TabIndex = 10;
             this.rtbCapacityStatus.Text = resources.GetString("rtbCapacityStatus.Text");
             // 
             // tpOverview
             // 
             this.tpOverview.Controls.Add(this.rtbOverview);
-            this.tpOverview.Location = new System.Drawing.Point(4, 4);
+            this.tpOverview.Location = new System.Drawing.Point(4, 28);
             this.tpOverview.Name = "tpOverview";
             this.tpOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOverview.Size = new System.Drawing.Size(535, 265);
+            this.tpOverview.Size = new System.Drawing.Size(535, 283);
             this.tpOverview.TabIndex = 2;
             this.tpOverview.Text = "Overview";
             this.tpOverview.UseVisualStyleBackColor = true;
@@ -307,18 +307,18 @@ namespace TableFindBackend.Forms
             this.rtbOverview.Name = "rtbOverview";
             this.rtbOverview.ReadOnly = true;
             this.rtbOverview.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbOverview.Size = new System.Drawing.Size(529, 259);
+            this.rtbOverview.Size = new System.Drawing.Size(529, 277);
             this.rtbOverview.TabIndex = 9;
             this.rtbOverview.Text = resources.GetString("rtbOverview.Text");
             // 
             // tpAdminMode
             // 
             this.tpAdminMode.Controls.Add(this.rtbEnableAdmin);
-            this.tpAdminMode.Location = new System.Drawing.Point(4, 4);
+            this.tpAdminMode.Location = new System.Drawing.Point(4, 55);
             this.tpAdminMode.Name = "tpAdminMode";
             this.tpAdminMode.Padding = new System.Windows.Forms.Padding(3);
             this.tpAdminMode.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tpAdminMode.Size = new System.Drawing.Size(535, 265);
+            this.tpAdminMode.Size = new System.Drawing.Size(535, 256);
             this.tpAdminMode.TabIndex = 3;
             this.tpAdminMode.Text = "Enable Admin Mode";
             this.tpAdminMode.UseVisualStyleBackColor = true;
@@ -337,10 +337,10 @@ namespace TableFindBackend.Forms
             // tpChangePIN
             // 
             this.tpChangePIN.Controls.Add(this.rtbChangePIN);
-            this.tpChangePIN.Location = new System.Drawing.Point(4, 4);
+            this.tpChangePIN.Location = new System.Drawing.Point(4, 55);
             this.tpChangePIN.Name = "tpChangePIN";
             this.tpChangePIN.Padding = new System.Windows.Forms.Padding(3);
-            this.tpChangePIN.Size = new System.Drawing.Size(535, 265);
+            this.tpChangePIN.Size = new System.Drawing.Size(535, 256);
             this.tpChangePIN.TabIndex = 4;
             this.tpChangePIN.Text = "Manage Admin Users";
             this.tpChangePIN.UseVisualStyleBackColor = true;
@@ -353,7 +353,7 @@ namespace TableFindBackend.Forms
             this.rtbChangePIN.Name = "rtbChangePIN";
             this.rtbChangePIN.ReadOnly = true;
             this.rtbChangePIN.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbChangePIN.Size = new System.Drawing.Size(529, 259);
+            this.rtbChangePIN.Size = new System.Drawing.Size(529, 250);
             this.rtbChangePIN.TabIndex = 11;
             this.rtbChangePIN.Text = resources.GetString("rtbChangePIN.Text");
             // 
@@ -382,6 +382,9 @@ namespace TableFindBackend.Forms
             // 
             // tpElevated
             // 
+            this.tpElevated.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tpElevated.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tpElevated.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tpElevated.Controls.Add(this.tcElevatedUser);
             this.tpElevated.Location = new System.Drawing.Point(4, 55);
             this.tpElevated.Name = "tpElevated";
@@ -389,34 +392,31 @@ namespace TableFindBackend.Forms
             this.tpElevated.Size = new System.Drawing.Size(549, 321);
             this.tpElevated.TabIndex = 4;
             this.tpElevated.Text = "Elevated Functions Panel";
-            this.tpElevated.UseVisualStyleBackColor = true;
             // 
             // tcElevatedUser
             // 
-            this.tcElevatedUser.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tcElevatedUser.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tcElevatedUser.Controls.Add(this.tpOverviewElevated);
             this.tcElevatedUser.Controls.Add(this.tpAddNewTable);
             this.tcElevatedUser.Controls.Add(this.tpRestaurantOptions);
             this.tcElevatedUser.Controls.Add(this.tpEditMenu);
-            this.tcElevatedUser.Controls.Add(this.tpRefresh);
             this.tcElevatedUser.Controls.Add(this.tpLogout);
             this.tcElevatedUser.Controls.Add(this.tpUpdates);
             this.tcElevatedUser.Controls.Add(this.tpFinish);
-            this.tcElevatedUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tcElevatedUser.Location = new System.Drawing.Point(3, 3);
+            this.tcElevatedUser.Location = new System.Drawing.Point(8, 11);
             this.tcElevatedUser.Multiline = true;
             this.tcElevatedUser.Name = "tcElevatedUser";
             this.tcElevatedUser.SelectedIndex = 0;
-            this.tcElevatedUser.Size = new System.Drawing.Size(543, 315);
+            this.tcElevatedUser.Size = new System.Drawing.Size(531, 296);
             this.tcElevatedUser.TabIndex = 0;
             // 
             // tpOverviewElevated
             // 
             this.tpOverviewElevated.Controls.Add(this.rtcElevatedOverview);
-            this.tpOverviewElevated.Location = new System.Drawing.Point(4, 4);
+            this.tpOverviewElevated.Location = new System.Drawing.Point(4, 55);
             this.tpOverviewElevated.Name = "tpOverviewElevated";
             this.tpOverviewElevated.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOverviewElevated.Size = new System.Drawing.Size(535, 265);
+            this.tpOverviewElevated.Size = new System.Drawing.Size(523, 237);
             this.tpOverviewElevated.TabIndex = 0;
             this.tpOverviewElevated.Text = "Overview";
             this.tpOverviewElevated.UseVisualStyleBackColor = true;
@@ -429,19 +429,18 @@ namespace TableFindBackend.Forms
             this.rtcElevatedOverview.Name = "rtcElevatedOverview";
             this.rtcElevatedOverview.ReadOnly = true;
             this.rtcElevatedOverview.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtcElevatedOverview.Size = new System.Drawing.Size(529, 259);
+            this.rtcElevatedOverview.Size = new System.Drawing.Size(517, 231);
             this.rtcElevatedOverview.TabIndex = 9;
             this.rtcElevatedOverview.Text = "As an Admin user, the user will now be able to see additional buttons - Add New T" +
-    "able, Finish, Restaurant Options, Edit Menu Items, Refresh, Logout, and Check fo" +
-    "r Updates.";
+    "able, Finish, Restaurant Options, Menu Items, Logout, and Check for Updates.";
             // 
             // tpAddNewTable
             // 
             this.tpAddNewTable.Controls.Add(this.rtbAddNewTable);
-            this.tpAddNewTable.Location = new System.Drawing.Point(4, 4);
+            this.tpAddNewTable.Location = new System.Drawing.Point(4, 28);
             this.tpAddNewTable.Name = "tpAddNewTable";
             this.tpAddNewTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAddNewTable.Size = new System.Drawing.Size(535, 274);
+            this.tpAddNewTable.Size = new System.Drawing.Size(523, 264);
             this.tpAddNewTable.TabIndex = 1;
             this.tpAddNewTable.Text = "Add New Table";
             this.tpAddNewTable.UseVisualStyleBackColor = true;
@@ -454,7 +453,7 @@ namespace TableFindBackend.Forms
             this.rtbAddNewTable.Name = "rtbAddNewTable";
             this.rtbAddNewTable.ReadOnly = true;
             this.rtbAddNewTable.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbAddNewTable.Size = new System.Drawing.Size(529, 268);
+            this.rtbAddNewTable.Size = new System.Drawing.Size(517, 258);
             this.rtbAddNewTable.TabIndex = 10;
             this.rtbAddNewTable.Text = resources.GetString("rtbAddNewTable.Text");
             // 
@@ -462,10 +461,10 @@ namespace TableFindBackend.Forms
             // 
             this.tpRestaurantOptions.Controls.Add(this.richTextBox2);
             this.tpRestaurantOptions.Controls.Add(this.rtbRestaurantOptions);
-            this.tpRestaurantOptions.Location = new System.Drawing.Point(4, 4);
+            this.tpRestaurantOptions.Location = new System.Drawing.Point(4, 28);
             this.tpRestaurantOptions.Name = "tpRestaurantOptions";
             this.tpRestaurantOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRestaurantOptions.Size = new System.Drawing.Size(535, 265);
+            this.tpRestaurantOptions.Size = new System.Drawing.Size(523, 264);
             this.tpRestaurantOptions.TabIndex = 2;
             this.tpRestaurantOptions.Text = "Restaurant Options";
             this.tpRestaurantOptions.UseVisualStyleBackColor = true;
@@ -478,7 +477,7 @@ namespace TableFindBackend.Forms
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
             this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox2.Size = new System.Drawing.Size(529, 259);
+            this.richTextBox2.Size = new System.Drawing.Size(517, 258);
             this.richTextBox2.TabIndex = 12;
             this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -490,17 +489,17 @@ namespace TableFindBackend.Forms
             this.rtbRestaurantOptions.Name = "rtbRestaurantOptions";
             this.rtbRestaurantOptions.ReadOnly = true;
             this.rtbRestaurantOptions.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbRestaurantOptions.Size = new System.Drawing.Size(529, 259);
+            this.rtbRestaurantOptions.Size = new System.Drawing.Size(517, 258);
             this.rtbRestaurantOptions.TabIndex = 11;
             this.rtbRestaurantOptions.Text = resources.GetString("rtbRestaurantOptions.Text");
             // 
             // tpEditMenu
             // 
             this.tpEditMenu.Controls.Add(this.rtbMenuItems);
-            this.tpEditMenu.Location = new System.Drawing.Point(4, 4);
+            this.tpEditMenu.Location = new System.Drawing.Point(4, 28);
             this.tpEditMenu.Name = "tpEditMenu";
             this.tpEditMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.tpEditMenu.Size = new System.Drawing.Size(535, 265);
+            this.tpEditMenu.Size = new System.Drawing.Size(523, 264);
             this.tpEditMenu.TabIndex = 3;
             this.tpEditMenu.Text = "Menu Items";
             this.tpEditMenu.UseVisualStyleBackColor = true;
@@ -513,41 +512,17 @@ namespace TableFindBackend.Forms
             this.rtbMenuItems.Name = "rtbMenuItems";
             this.rtbMenuItems.ReadOnly = true;
             this.rtbMenuItems.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbMenuItems.Size = new System.Drawing.Size(529, 259);
+            this.rtbMenuItems.Size = new System.Drawing.Size(517, 258);
             this.rtbMenuItems.TabIndex = 13;
             this.rtbMenuItems.Text = resources.GetString("rtbMenuItems.Text");
-            // 
-            // tpRefresh
-            // 
-            this.tpRefresh.Controls.Add(this.rtbRefresh);
-            this.tpRefresh.Location = new System.Drawing.Point(4, 4);
-            this.tpRefresh.Name = "tpRefresh";
-            this.tpRefresh.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRefresh.Size = new System.Drawing.Size(535, 265);
-            this.tpRefresh.TabIndex = 4;
-            this.tpRefresh.Text = "Refresh";
-            this.tpRefresh.UseVisualStyleBackColor = true;
-            // 
-            // rtbRefresh
-            // 
-            this.rtbRefresh.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbRefresh.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbRefresh.Location = new System.Drawing.Point(3, 3);
-            this.rtbRefresh.Name = "rtbRefresh";
-            this.rtbRefresh.ReadOnly = true;
-            this.rtbRefresh.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbRefresh.Size = new System.Drawing.Size(529, 259);
-            this.rtbRefresh.TabIndex = 14;
-            this.rtbRefresh.Text = "This button will refresh the screen to show any changes made in the reservations " +
-    "panel, on the table objects and the restauarant layout.";
             // 
             // tpLogout
             // 
             this.tpLogout.Controls.Add(this.rtbLogout);
-            this.tpLogout.Location = new System.Drawing.Point(4, 4);
+            this.tpLogout.Location = new System.Drawing.Point(4, 28);
             this.tpLogout.Name = "tpLogout";
             this.tpLogout.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLogout.Size = new System.Drawing.Size(535, 265);
+            this.tpLogout.Size = new System.Drawing.Size(523, 264);
             this.tpLogout.TabIndex = 5;
             this.tpLogout.Text = "Logout";
             this.tpLogout.UseVisualStyleBackColor = true;
@@ -560,7 +535,7 @@ namespace TableFindBackend.Forms
             this.rtbLogout.Name = "rtbLogout";
             this.rtbLogout.ReadOnly = true;
             this.rtbLogout.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbLogout.Size = new System.Drawing.Size(529, 259);
+            this.rtbLogout.Size = new System.Drawing.Size(517, 258);
             this.rtbLogout.TabIndex = 15;
             this.rtbLogout.Text = "This will log the user completely out of the system. This is intended for users w" +
     "ho would like to log into a different restaurant, as a user might have multiple " +
@@ -569,46 +544,49 @@ namespace TableFindBackend.Forms
             // tpUpdates
             // 
             this.tpUpdates.Controls.Add(this.rtbUpdates);
-            this.tpUpdates.Location = new System.Drawing.Point(4, 4);
+            this.tpUpdates.Location = new System.Drawing.Point(4, 55);
             this.tpUpdates.Name = "tpUpdates";
             this.tpUpdates.Padding = new System.Windows.Forms.Padding(3);
-            this.tpUpdates.Size = new System.Drawing.Size(535, 265);
+            this.tpUpdates.Size = new System.Drawing.Size(523, 237);
             this.tpUpdates.TabIndex = 6;
             this.tpUpdates.Text = "Check for Updates";
             this.tpUpdates.UseVisualStyleBackColor = true;
             // 
             // rtbUpdates
             // 
+            this.rtbUpdates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbUpdates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbUpdates.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbUpdates.Location = new System.Drawing.Point(3, 3);
             this.rtbUpdates.Name = "rtbUpdates";
             this.rtbUpdates.ReadOnly = true;
             this.rtbUpdates.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbUpdates.Size = new System.Drawing.Size(529, 259);
+            this.rtbUpdates.Size = new System.Drawing.Size(517, 231);
             this.rtbUpdates.TabIndex = 16;
             this.rtbUpdates.Text = resources.GetString("rtbUpdates.Text");
             // 
             // tpFinish
             // 
+            this.tpFinish.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tpFinish.Controls.Add(this.rtbUpdate);
-            this.tpFinish.Location = new System.Drawing.Point(4, 4);
+            this.tpFinish.Location = new System.Drawing.Point(4, 55);
             this.tpFinish.Name = "tpFinish";
             this.tpFinish.Padding = new System.Windows.Forms.Padding(3);
-            this.tpFinish.Size = new System.Drawing.Size(535, 265);
+            this.tpFinish.Size = new System.Drawing.Size(523, 237);
             this.tpFinish.TabIndex = 7;
             this.tpFinish.Text = "Finish";
             this.tpFinish.UseVisualStyleBackColor = true;
             // 
             // rtbUpdate
             // 
+            this.rtbUpdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbUpdate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbUpdate.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbUpdate.Location = new System.Drawing.Point(3, 3);
             this.rtbUpdate.Name = "rtbUpdate";
             this.rtbUpdate.ReadOnly = true;
             this.rtbUpdate.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbUpdate.Size = new System.Drawing.Size(529, 259);
+            this.rtbUpdate.Size = new System.Drawing.Size(517, 231);
             this.rtbUpdate.TabIndex = 17;
             this.rtbUpdate.Text = "This will end the Admin user session and revert the user back to a General user. " +
     "The user will then have to enable Admin mode again to access Admin functionality" +
@@ -660,6 +638,30 @@ namespace TableFindBackend.Forms
             this.rtbGettingStarted.TabIndex = 8;
             this.rtbGettingStarted.Text = resources.GetString("rtbGettingStarted.Text");
             // 
+            // tpRefresh
+            // 
+            this.tpRefresh.Controls.Add(this.rtbRefresh);
+            this.tpRefresh.Location = new System.Drawing.Point(4, 55);
+            this.tpRefresh.Name = "tpRefresh";
+            this.tpRefresh.Padding = new System.Windows.Forms.Padding(3);
+            this.tpRefresh.Size = new System.Drawing.Size(524, 239);
+            this.tpRefresh.TabIndex = 5;
+            this.tpRefresh.Text = "Refresh";
+            this.tpRefresh.UseVisualStyleBackColor = true;
+            // 
+            // rtbRefresh
+            // 
+            this.rtbRefresh.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbRefresh.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbRefresh.Location = new System.Drawing.Point(3, 3);
+            this.rtbRefresh.Name = "rtbRefresh";
+            this.rtbRefresh.ReadOnly = true;
+            this.rtbRefresh.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtbRefresh.Size = new System.Drawing.Size(518, 233);
+            this.rtbRefresh.TabIndex = 15;
+            this.rtbRefresh.Text = "This button will refresh the screen to show any changes made in the reservations " +
+    "panel, on the table objects and the restauarant layout.";
+            // 
             // InfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -691,12 +693,12 @@ namespace TableFindBackend.Forms
             this.tpAddNewTable.ResumeLayout(false);
             this.tpRestaurantOptions.ResumeLayout(false);
             this.tpEditMenu.ResumeLayout(false);
-            this.tpRefresh.ResumeLayout(false);
             this.tpLogout.ResumeLayout(false);
             this.tpUpdates.ResumeLayout(false);
             this.tpFinish.ResumeLayout(false);
             this.tpReservations.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tpRefresh.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -737,18 +739,18 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.RichTextBox rtbAddNewTable;
         private System.Windows.Forms.TabPage tpRestaurantOptions;
         private System.Windows.Forms.TabPage tpEditMenu;
-        private System.Windows.Forms.TabPage tpRefresh;
         private System.Windows.Forms.TabPage tpLogout;
         private System.Windows.Forms.TabPage tpUpdates;
         private System.Windows.Forms.TabPage tpFinish;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox rtbRestaurantOptions;
         private System.Windows.Forms.RichTextBox rtbMenuItems;
-        private System.Windows.Forms.RichTextBox rtbRefresh;
         private System.Windows.Forms.RichTextBox rtbLogout;
         private System.Windows.Forms.RichTextBox rtbUpdates;
         private System.Windows.Forms.RichTextBox rtbUpdate;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.RichTextBox rtbGettingStarted;
+        private System.Windows.Forms.TabPage tpRefresh;
+        private System.Windows.Forms.RichTextBox rtbRefresh;
     }
 }
