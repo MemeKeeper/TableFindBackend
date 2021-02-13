@@ -66,11 +66,45 @@ namespace TableFindBackend.Forms
         private void btnCreateNewAdmin_Click(object sender, EventArgs e)//This Button is used for both creating a new user or reactivating a deactivated user.
         {
             showLoading(true);
-            if (TempAdmin == null)//This determines of its a new user being made because the parent form sends in a Null object
-            {
-                //Create New Admin
 
-                AsyncCallback<AdminPins> callback = new AsyncCallback<AdminPins>(
+            AsyncCallback<AdminPins> reactivateObjectCallback = new AsyncCallback<AdminPins>(
+                  savedAdminPins =>
+                  {
+                      Invoke(new Action(() =>
+                      {
+                          showLoading(false);
+                          OwnerStorage.FileWriter.WriteLineToFile("User reactivated Admin ", true);
+                          OwnerStorage.FileWriter.WriteLineToFile("Name:  " + TempAdmin.UserName, false);
+                          OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was reactivated");
+                          OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                          MessageBox.Show(this, TempAdmin.UserName + " has been reactivated");
+                          DialogResult = DialogResult.OK;
+                          this.Close();
+                      }));
+                  },
+                  error =>
+                  {
+                      Invoke(new Action(() =>
+                      {
+                          showLoading(false);
+                          MessageBox.Show(this, "Error: " + error.Message);
+                      }));
+                  });
+
+            AsyncCallback<AdminPins> saveReactivatedObjectCallback = new AsyncCallback<AdminPins>(
+              savedAdminPins =>
+              {
+                  Backendless.Persistence.Of<AdminPins>().Save(savedAdminPins, reactivateObjectCallback);
+              },
+              error =>
+              {
+                  Invoke(new Action(() =>
+                  {
+                      showLoading(false);
+                      MessageBox.Show(this, "Error: " + error.Message);
+                  }));
+              });
+            AsyncCallback<AdminPins> callback = new AsyncCallback<AdminPins>(
                 result =>
                 {
                     //Perform other operations that indicate the success of the creation (logging, showing a message, closing the form)
@@ -99,146 +133,20 @@ namespace TableFindBackend.Forms
                     }));
                 });
 
-                if (tbxName.Text == ""
-                    || tbxContact.Text == ""
-                    || tbxPinCode.Text == ""
-                    || tbxConfirmPin.Text == "")//performs Validation to determine if all textBoxes are filled in
-                {
-                    showLoading(false);
-                    MessageBox.Show(this, "Please fill in all fields.");
-                }
-                else
-                {
-                    if (tbxContact.TextLength == 10)//performs Contact validation
-                    {
-                        if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))//performs Validation to determine if the pin codes both match
-                        {
-                            if (tbxPinCode.TextLength < 4)//performs Validation to determine if the pin is at least 4 digits long
-                            {
-                                showLoading(false);
-                                MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
-                                tbxPinCode.Text = "";
-                                tbxConfirmPin.Text = "";
-                            }
-                            else
-                            {
-                                bool flag = false;
-                                foreach (AdminPins a in OwnerStorage.ListOfAdmins)
-                                {
-                                    if (a.PinCode.ToString().Equals(tbxPinCode.Text))
-                                    {
-                                        flag = true;
-                                    }
-                                }
-                                if (flag == false)//flag is used to determine of the pin specified by the user already exists. The way the program tracks which user logs in is his/her PinCode, therefor it has to be unique
-                                {
-                                    TempAdmin = new AdminPins();
-                                    TempAdmin.UserName = tbxName.Text;
-                                    TempAdmin.ContactNumber = tbxContact.Text;
-                                    TempAdmin.PinCode = tbxPinCode.Text;
-                                    TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                                    TempAdmin.Active = true;
-                                    Backendless.Data.Of<AdminPins>().Save(TempAdmin, callback);
-                                }
-                                else
-                                {
-                                    //a duplicate pin code has been detected, so messages are to be displayed
-                                    showLoading(false);
-                                    MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
-                                    tbxPinCode.Text = "";
-                                    tbxConfirmPin.Text = "";
-                                }
-                            }
-                        }
-                        else
-                        {
-                            //the passwords do not match, so messages are being displayed
-                            showLoading(false);
-                            MessageBox.Show(this, "The two Admin PINS you have entered do not match.");
-                            tbxPinCode.Text = "";
-                            tbxConfirmPin.Text = "";
-                        }
-                    }
-                    else
-                    {
-                        //the contact number is of incorrect format, so messages are being displayed
-                        showLoading(false);
-                        MessageBox.Show(this, "The Contact number you have entered is invalid");
-                    }
-                }
-            }
-            else
-            {
-                //Edit Existing Admin
 
-
-                if (TempAdmin.Active == false)
-                {
-                    //reactivate Admin
-                    AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
-                   savedAdminPins =>
-                   {
-                       //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
-                       Invoke(new Action(() =>
-                       {
-                           showLoading(false);
-                           OwnerStorage.FileWriter.WriteLineToFile("User reactivated Admin ", true);
-                           OwnerStorage.FileWriter.WriteLineToFile("Name:  " + TempAdmin.UserName, false);
-                           OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was reactivated");
-                           OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                           MessageBox.Show(this, TempAdmin.UserName + " has been reactivated");
-                           DialogResult = DialogResult.OK;
-                           this.Close();
-                       }));
-                   },
-                   error =>
-                   {
-                       //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
-                       Invoke(new Action(() =>
-                       {
-                           showLoading(false);
-                           MessageBox.Show(this, "Error: " + error.Message);
-                       }));
-                   });
-
-                    AsyncCallback<AdminPins> saveObjectCallback = new AsyncCallback<AdminPins>(
-                      savedAdminPins =>
-                      {
-                          //The Object has to be saved first in order to update the object
-                          Backendless.Persistence.Of<AdminPins>().Save(savedAdminPins, updateObjectCallback);
-                      },
-                      error =>
-                      {
-                          //server returned an error
-                          //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
-                          Invoke(new Action(() =>
-                          {
-                              showLoading(false);
-                              MessageBox.Show(this, "Error: " + error.Message);
-                          }));
-                      });
-
-                    //makes the small change of activating the admin/
-                    TempAdmin.Active = true;
-                    Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
-                }
-                else
-                {
-                    //Admin is being edited
-
-                    AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
+                AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
                     savedAdminPin =>
                     {
                         //Admin has been successfully created
                         //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
-                            {
-                                showLoading(false);
-                                MessageBox.Show(this, "Admin PIN has been updated");
-                                OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was Updated");
-                                OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                                this.DialogResult = DialogResult.OK;
-                            }));
+                        {
+                            showLoading(false);
+                            MessageBox.Show(this, "Admin PIN has been updated");
+                            OwnerStorage.LogInfo.Add(TempAdmin.UserName + " admin User was Updated");
+                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                            this.DialogResult = DialogResult.OK;
+                        }));
                     },
                     error =>
                     {
@@ -251,95 +159,136 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
-                    AsyncCallback<AdminPins> saveObjectCallback = new AsyncCallback<AdminPins>(
-                      savedAdminPin =>
-                      {
+                AsyncCallback<AdminPins> saveObjectCallback = new AsyncCallback<AdminPins>(
+                  savedAdminPin =>
+                  {
                           //The Object has to be saved first in order to update the object
                           Backendless.Persistence.Of<AdminPins>().Save(savedAdminPin, updateObjectCallback);
-                      },
-                      error =>
-                      {
+                  },
+                  error =>
+                  {
                           //server reported an error
                           //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                           Invoke(new Action(() =>
-                          {                             
-                              showLoading(false);
-                              MessageBox.Show(this, "error: " + error.Message);
-                          }));
-                      });
+                      {
+                          showLoading(false);
+                          MessageBox.Show(this, "error: " + error.Message);
+                      }));
+                  });
 
 
-                    if (tbxName.Text == ""
-                        || tbxContact.Text == ""
-                        || tbxPinCode.Text == ""
-                        || tbxConfirmPin.Text == "")//performs Validation to determine if all textBoxes are filled in
+                if (tbxName.Text == ""
+                    || tbxContact.Text == ""
+                    || tbxPinCode.Text == "")//performs Validation to determine if all textBoxes are filled in
+                {
+                    showLoading(false);
+                    MessageBox.Show(this, "Please fill in all fields.");
+                }
+                else
+                {
+                if (tbxContact.TextLength == 10)//performs Contact validation
+                {
+                    if (tbxPinCode.TextLength < 4)//performs Validation to determine if the pin is at least 4 digits long
                     {
                         showLoading(false);
-                        MessageBox.Show(this, "Please fill in all fields.");
-
+                        MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
+                        tbxPinCode.Text = "";
+                        tbxConfirmPin.Text = "";
                     }
                     else
                     {
-                        if (tbxContact.TextLength == 10)//performs Validation to determine if the contact number is valid
+                        if (TempAdmin == null)//This determines of its a new user being made because the parent form sends in a Null object
                         {
                             if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))//performs Validation to determine if the pin codes both match
                             {
+                                if (tbxConfirmPin.Text == "")//Validates that the confirm Pin is entered
+                                {
 
-                                if (tbxPinCode.TextLength < 4)//performs Validation to determine if the pin codes both match
-                                {
-                                    showLoading(false);
-                                    MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
-                                    tbxPinCode.Text = "";
-                                    tbxConfirmPin.Text = "";
-                                }
-                                else
-                                {
+                                    //Create New Admin
                                     bool flag = false;
                                     foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                                     {
-                                        if (a.PinCode.ToString().Equals(tbxPinCode.Text)
-                                            && a.PinCode != TempAdmin.PinCode)
+                                        if (a.PinCode.ToString().Equals(tbxPinCode.Text))
                                         {
                                             flag = true;
                                         }
                                     }
-
-                                    if (flag == false)
+                                    if (flag == false)//flag is used to determine of the pin specified by the user already exists. The way the program tracks which user logs in is his/her PinCode, therefor it has to be unique
                                     {
+                                        TempAdmin = new AdminPins();
                                         TempAdmin.UserName = tbxName.Text;
                                         TempAdmin.ContactNumber = tbxContact.Text;
                                         TempAdmin.PinCode = tbxPinCode.Text;
                                         TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                                        Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
+                                        TempAdmin.Active = true;
+                                        Backendless.Data.Of<AdminPins>().Save(TempAdmin, callback);
                                     }
                                     else
                                     {
+                                        //a duplicate pin code has been detected, so messages are to be displayed
                                         showLoading(false);
                                         MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
                                         tbxPinCode.Text = "";
                                         tbxConfirmPin.Text = "";
-
                                     }
+
+                                }
+                                else
+                                {
+                                    //the contact number is of incorrect format, so messages are being displayed
+                                    showLoading(false);
+                                    MessageBox.Show(this, "The Contact number you have entered is invalid");
                                 }
                             }
                             else
                             {
                                 showLoading(false);
-                                MessageBox.Show(this, "The two Admin PINS you have entered do not match.");
-                                tbxPinCode.Text = "";
-                                tbxConfirmPin.Text = "";
+                                MessageBox.Show(this, "Please be sure to fill in both spaces for the pin Code");
                             }
+
                         }
                         else
                         {
-                            showLoading(false);
-                            MessageBox.Show(this, "The Contact Number you have entered is invalid");
+                            //Edit Existing Admin
+                            if (TempAdmin.Active == false)
+                            {
+                                TempAdmin.Active = true;
+                                Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveReactivatedObjectCallback);
+                            }
+                            else
+                            {
+                                bool flag = false;
+                                foreach (AdminPins a in OwnerStorage.ListOfAdmins)
+                                {
+                                    if (a.PinCode.ToString().Equals(tbxPinCode.Text)
+                                        && a.PinCode != TempAdmin.PinCode)
+                                    {
+                                        flag = true;
+                                    }
+                                }
+
+                                if (flag == false)
+                                {
+                                    TempAdmin.UserName = tbxName.Text;
+                                    TempAdmin.ContactNumber = tbxContact.Text;
+                                    TempAdmin.PinCode = tbxPinCode.Text;
+                                    TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                                    Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
+                                }
+                                else
+                                {
+                                    showLoading(false);
+                                    MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
+                                    tbxPinCode.Text = "";
+                                    tbxConfirmPin.Text = "";
+
+                                }
+                            }
                         }
                     }
-
-
                 }
             }
+                         
         }
 
         private void btnCancel_Click(object sender, EventArgs e)//Button used to close the form if the user wishes to not save changes made

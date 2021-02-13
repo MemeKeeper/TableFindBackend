@@ -46,19 +46,45 @@ namespace TableFindBackend.Logging
 
         public void WriteLineToFile(String text, bool timeOfDay)
         {
-            StreamWriter writer = new StreamWriter(textFile, true);
+
+            bool open = IsFileLocked(new FileInfo(textFile));
+            if (open == false)
+            {
+                StreamWriter writer = new StreamWriter(textFile, true);
+                try
+                {
+                    if (timeOfDay == true)
+                        writer.WriteLine(text + "\t" + System.DateTime.Now.TimeOfDay.ToString());
+                    else
+                        writer.WriteLine(text);
+                    writer.Close();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Failed to write to log file: " + e.Message.ToString());
+                }
+            }
+        }
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
             try
             {
-                if (timeOfDay == true)
-                    writer.WriteLine(text + "\t" + System.DateTime.Now.TimeOfDay.ToString());
-                else
-                    writer.WriteLine(text);
-                writer.Close();
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
             }
-            catch (Exception e)
+            catch (IOException)
             {
-                MessageBox.Show("Failed to write to log file: " + e.Message.ToString());
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
             }
+
+            //file is not locked
+            return false;
         }
 
         public void FormShutDown()

@@ -55,8 +55,8 @@ namespace TableFindBackend.Forms
             this.btnEditMenu = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.lblLogin = new System.Windows.Forms.Label();
-            this.btnEditRestaurant = new System.Windows.Forms.Button();
             this.tbxPass = new System.Windows.Forms.TextBox();
+            this.btnEditRestaurant = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnReloadAll = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
@@ -219,7 +219,7 @@ namespace TableFindBackend.Forms
             this.btnEnableAdmin.Location = new System.Drawing.Point(58, 210);
             this.btnEnableAdmin.Name = "btnEnableAdmin";
             this.btnEnableAdmin.Size = new System.Drawing.Size(111, 39);
-            this.btnEnableAdmin.TabIndex = 7;
+            this.btnEnableAdmin.TabIndex = 5;
             this.btnEnableAdmin.Text = "Enable Admin Mode";
             this.btnEnableAdmin.UseVisualStyleBackColor = false;
             this.btnEnableAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
@@ -282,7 +282,7 @@ namespace TableFindBackend.Forms
             this.btnChangeLoad.Location = new System.Drawing.Point(52, 57);
             this.btnChangeLoad.Name = "btnChangeLoad";
             this.btnChangeLoad.Size = new System.Drawing.Size(124, 43);
-            this.btnChangeLoad.TabIndex = 15;
+            this.btnChangeLoad.TabIndex = 9;
             this.btnChangeLoad.Text = "Change Restaurant Capacity Status";
             this.btnChangeLoad.UseVisualStyleBackColor = false;
             this.btnChangeLoad.Click += new System.EventHandler(this.btnChangeLoad_Click);
@@ -295,7 +295,7 @@ namespace TableFindBackend.Forms
             this.btnViewAll.Location = new System.Drawing.Point(59, 8);
             this.btnViewAll.Name = "btnViewAll";
             this.btnViewAll.Size = new System.Drawing.Size(112, 43);
-            this.btnViewAll.TabIndex = 14;
+            this.btnViewAll.TabIndex = 10;
             this.btnViewAll.Text = "View All Reservations";
             this.btnViewAll.UseVisualStyleBackColor = false;
             this.btnViewAll.Click += new System.EventHandler(this.btnViewAll_Click);
@@ -307,7 +307,7 @@ namespace TableFindBackend.Forms
             this.btnInfo.Location = new System.Drawing.Point(4, 69);
             this.btnInfo.Name = "btnInfo";
             this.btnInfo.Size = new System.Drawing.Size(45, 64);
-            this.btnInfo.TabIndex = 13;
+            this.btnInfo.TabIndex = 8;
             this.btnInfo.Text = "How to use?";
             this.btnInfo.UseVisualStyleBackColor = false;
             this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
@@ -319,7 +319,7 @@ namespace TableFindBackend.Forms
             this.btnManageAdminUsers.Location = new System.Drawing.Point(58, 253);
             this.btnManageAdminUsers.Name = "btnManageAdminUsers";
             this.btnManageAdminUsers.Size = new System.Drawing.Size(111, 39);
-            this.btnManageAdminUsers.TabIndex = 12;
+            this.btnManageAdminUsers.TabIndex = 6;
             this.btnManageAdminUsers.Text = "Manage Admin Users";
             this.btnManageAdminUsers.UseVisualStyleBackColor = false;
             this.btnManageAdminUsers.Click += new System.EventHandler(this.btnManageAdminUsers_Click);
@@ -364,19 +364,6 @@ namespace TableFindBackend.Forms
             this.lblLogin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblLogin.Click += new System.EventHandler(this.lblLogin_Click);
             // 
-            // btnEditRestaurant
-            // 
-            this.btnEditRestaurant.BackColor = System.Drawing.Color.Coral;
-            this.btnEditRestaurant.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnEditRestaurant.Location = new System.Drawing.Point(8, 210);
-            this.btnEditRestaurant.Name = "btnEditRestaurant";
-            this.btnEditRestaurant.Size = new System.Drawing.Size(87, 39);
-            this.btnEditRestaurant.TabIndex = 9;
-            this.btnEditRestaurant.Text = "Restaurant Options";
-            this.btnEditRestaurant.UseVisualStyleBackColor = false;
-            this.btnEditRestaurant.Visible = false;
-            this.btnEditRestaurant.Click += new System.EventHandler(this.btnEditRestaurant_Click);
-            // 
             // tbxPass
             // 
             this.tbxPass.Enabled = false;
@@ -389,6 +376,19 @@ namespace TableFindBackend.Forms
             this.tbxPass.TabIndex = 4;
             this.tbxPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbxPass.TextChanged += new System.EventHandler(this.tbxPass_TextChanged);
+            // 
+            // btnEditRestaurant
+            // 
+            this.btnEditRestaurant.BackColor = System.Drawing.Color.Coral;
+            this.btnEditRestaurant.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.btnEditRestaurant.Location = new System.Drawing.Point(8, 210);
+            this.btnEditRestaurant.Name = "btnEditRestaurant";
+            this.btnEditRestaurant.Size = new System.Drawing.Size(87, 39);
+            this.btnEditRestaurant.TabIndex = 9;
+            this.btnEditRestaurant.Text = "Restaurant Options";
+            this.btnEditRestaurant.UseVisualStyleBackColor = false;
+            this.btnEditRestaurant.Visible = false;
+            this.btnEditRestaurant.Click += new System.EventHandler(this.btnEditRestaurant_Click);
             // 
             // btnUpdate
             // 
@@ -412,7 +412,7 @@ namespace TableFindBackend.Forms
             this.btnReloadAll.Margin = new System.Windows.Forms.Padding(1);
             this.btnReloadAll.Name = "btnReloadAll";
             this.btnReloadAll.Size = new System.Drawing.Size(41, 39);
-            this.btnReloadAll.TabIndex = 6;
+            this.btnReloadAll.TabIndex = 7;
             this.btnReloadAll.Text = "⟳";
             this.btnReloadAll.UseVisualStyleBackColor = false;
             this.btnReloadAll.Click += new System.EventHandler(this.btnReloadAll_Click);
