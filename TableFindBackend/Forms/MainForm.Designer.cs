@@ -216,7 +216,7 @@ namespace TableFindBackend.Forms
             this.btnEnableAdmin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnEnableAdmin.Enabled = false;
             this.btnEnableAdmin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.btnEnableAdmin.Location = new System.Drawing.Point(59, 212);
+            this.btnEnableAdmin.Location = new System.Drawing.Point(58, 210);
             this.btnEnableAdmin.Name = "btnEnableAdmin";
             this.btnEnableAdmin.Size = new System.Drawing.Size(111, 39);
             this.btnEnableAdmin.TabIndex = 7;
@@ -253,8 +253,8 @@ namespace TableFindBackend.Forms
             this.panel2.Controls.Add(this.btnEditMenu);
             this.panel2.Controls.Add(this.btnLogout);
             this.panel2.Controls.Add(this.lblLogin);
-            this.panel2.Controls.Add(this.btnEditRestaurant);
             this.panel2.Controls.Add(this.tbxPass);
+            this.panel2.Controls.Add(this.btnEditRestaurant);
             this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Controls.Add(this.btnReloadAll);
             this.panel2.Controls.Add(this.btnApply);
@@ -356,12 +356,13 @@ namespace TableFindBackend.Forms
             // 
             this.lblLogin.AutoSize = true;
             this.lblLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.lblLogin.Location = new System.Drawing.Point(56, 110);
+            this.lblLogin.Location = new System.Drawing.Point(56, 107);
             this.lblLogin.Name = "lblLogin";
             this.lblLogin.Size = new System.Drawing.Size(116, 30);
             this.lblLogin.TabIndex = 11;
             this.lblLogin.Text = "Enter Admin PIN to\r\naccess Admin Mode";
             this.lblLogin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblLogin.Click += new System.EventHandler(this.lblLogin_Click);
             // 
             // btnEditRestaurant
             // 
@@ -380,7 +381,7 @@ namespace TableFindBackend.Forms
             // 
             this.tbxPass.Enabled = false;
             this.tbxPass.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPass.Location = new System.Drawing.Point(24, 143);
+            this.tbxPass.Location = new System.Drawing.Point(22, 140);
             this.tbxPass.MaxLength = 10;
             this.tbxPass.Name = "tbxPass";
             this.tbxPass.PasswordChar = '*';
@@ -437,7 +438,7 @@ namespace TableFindBackend.Forms
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(111, 39);
             this.btnCreate.TabIndex = 0;
-            this.btnCreate.Text = "Add new table";
+            this.btnCreate.Text = "Add New Table";
             this.btnCreate.UseVisualStyleBackColor = false;
             this.btnCreate.Visible = false;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
