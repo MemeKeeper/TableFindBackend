@@ -111,7 +111,7 @@ namespace TableFindBackend.Forms
                 {
                     if (tbxContact.TextLength == 10)//performs Contact validation
                     {
-                        if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))////performs Validation to determine if the pin codes both match
+                        if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))//performs Validation to determine if the pin codes both match
                         {
                             if (tbxPinCode.TextLength < 4)//performs Validation to determine if the pin is at least 4 digits long
                             {
@@ -225,6 +225,7 @@ namespace TableFindBackend.Forms
                 else
                 {
                     //Admin is being edited
+
                     AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
                     savedAdminPin =>
                     {
@@ -279,12 +280,12 @@ namespace TableFindBackend.Forms
                     }
                     else
                     {
-                        if (tbxContact.TextLength == 10)
+                        if (tbxContact.TextLength == 10)//performs Validation to determine if the contact number is valid
                         {
-                            if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))
+                            if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))//performs Validation to determine if the pin codes both match
                             {
 
-                                if (tbxPinCode.TextLength < 4)
+                                if (tbxPinCode.TextLength < 4)//performs Validation to determine if the pin codes both match
                                 {
                                     showLoading(false);
                                     MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
