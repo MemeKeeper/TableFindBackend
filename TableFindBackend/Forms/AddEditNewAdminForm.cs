@@ -9,13 +9,15 @@ namespace TableFindBackend.Forms
 {
     public partial class AddEditNewAdminForm : Form
     {
-        public AdminPins TempAdmin { get; set; }
+        //This Form is to either create or modify Admin Users.
+        public AdminPins TempAdmin { get; set; }// public property that makes retreiving the modified MenuItem effective and easy
 
         public AddEditNewAdminForm(AdminPins a)
         {
             InitializeComponent();
 
             TempAdmin = a;
+            //Determining if a new user is being created or an existing one is being modified
             if (a == null)
             {
                 //Addinng New Admin User
@@ -23,6 +25,7 @@ namespace TableFindBackend.Forms
             }
             else
             {
+                //Editing Existing Admin User
                 lblTitle.Text = "Editing Admin User";
                 tbxName.Text = a.UserName;
                 tbxContact.Text = a.ContactNumber;
@@ -30,10 +33,9 @@ namespace TableFindBackend.Forms
 
                 if (a.Active == true)
                 {
-                    //Editing Existing Admin User
+                    //Editing Active Admin User
                     lblDescription.Text = "You can edit your Admin details below.\n \n Remember that the Admin PIN should only include numerical digits wih a minimum of at least 4 digits and a maximum of 10 digits.";
                     btnCreateNewAdmin.Text = "Update";
-
                 }
                 else
                 {
@@ -50,29 +52,30 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)//Button used to close the form if the user wishes to not save changes made
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        private void tbxPinCode_KeyPress(object sender, KeyPressEventArgs e)
+        private void tbxPinCode_KeyPress(object sender, KeyPressEventArgs e)//Forces the user to only be able to enter numbers instead of any other character
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
-        private void btnCreateNewAdmin_Click(object sender, EventArgs e)
+        private void btnCreateNewAdmin_Click(object sender, EventArgs e)//This Button is used for both creating a new user or reactivating a deactivated user.
         {
             showLoading(true);
-            if (TempAdmin == null)
+            if (TempAdmin == null)//This determines of its a new user being made because the parent form sends in a Null object
             {
                 //Create New Admin
 
                 AsyncCallback<AdminPins> callback = new AsyncCallback<AdminPins>(
                 result =>
                 {
-
+                    //Perform other operations that indicate the success of the creation (logging, showing a message, closing the form)
                     OwnerStorage.ListOfAdmins.Add(result);
+                    //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                     Invoke(new Action(() =>
                     {
                         // object has been saved
@@ -86,30 +89,31 @@ namespace TableFindBackend.Forms
 
                 fault =>
                 {
+                    //Perform other operations that indicate the failure of the creation (showing a message)
+                    //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                     Invoke(new Action(() =>
                     {
                         // server reported an error
                         showLoading(false);
                         MessageBox.Show(this, "error: " + fault.Message);
                     }));
-
                 });
 
                 if (tbxName.Text == ""
                     || tbxContact.Text == ""
                     || tbxPinCode.Text == ""
-                    || tbxConfirmPin.Text == "")
+                    || tbxConfirmPin.Text == "")//performs Validation to determine if all textBoxes are filled in
                 {
                     showLoading(false);
                     MessageBox.Show(this, "Please fill in all fields.");
                 }
                 else
                 {
-                    if (tbxContact.TextLength == 10)
+                    if (tbxContact.TextLength == 10)//performs Contact validation
                     {
-                        if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))
+                        if (tbxPinCode.Text.Equals(tbxConfirmPin.Text))////performs Validation to determine if the pin codes both match
                         {
-                            if (tbxPinCode.TextLength < 4)
+                            if (tbxPinCode.TextLength < 4)//performs Validation to determine if the pin is at least 4 digits long
                             {
                                 showLoading(false);
                                 MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
@@ -126,7 +130,7 @@ namespace TableFindBackend.Forms
                                         flag = true;
                                     }
                                 }
-                                if (flag == false)
+                                if (flag == false)//flag is used to determine of the pin specified by the user already exists. The way the program tracks which user logs in is his/her PinCode, therefor it has to be unique
                                 {
                                     TempAdmin = new AdminPins();
                                     TempAdmin.UserName = tbxName.Text;
@@ -138,6 +142,7 @@ namespace TableFindBackend.Forms
                                 }
                                 else
                                 {
+                                    //a duplicate pin code has been detected, so messages are to be displayed
                                     showLoading(false);
                                     MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
                                     tbxPinCode.Text = "";
@@ -147,6 +152,7 @@ namespace TableFindBackend.Forms
                         }
                         else
                         {
+                            //the passwords do not match, so messages are being displayed
                             showLoading(false);
                             MessageBox.Show(this, "The two Admin PINS you have entered do not match.");
                             tbxPinCode.Text = "";
@@ -155,6 +161,7 @@ namespace TableFindBackend.Forms
                     }
                     else
                     {
+                        //the contact number is of incorrect format, so messages are being displayed
                         showLoading(false);
                         MessageBox.Show(this, "The Contact number you have entered is invalid");
                     }
@@ -171,6 +178,7 @@ namespace TableFindBackend.Forms
                     AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
                    savedAdminPins =>
                    {
+                       //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                        Invoke(new Action(() =>
                        {
                            showLoading(false);
@@ -185,6 +193,7 @@ namespace TableFindBackend.Forms
                    },
                    error =>
                    {
+                       //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                        Invoke(new Action(() =>
                        {
                            showLoading(false);
@@ -195,25 +204,32 @@ namespace TableFindBackend.Forms
                     AsyncCallback<AdminPins> saveObjectCallback = new AsyncCallback<AdminPins>(
                       savedAdminPins =>
                       {
+                          //The Object has to be saved first in order to update the object
                           Backendless.Persistence.Of<AdminPins>().Save(savedAdminPins, updateObjectCallback);
                       },
                       error =>
                       {
+                          //server returned an error
+                          //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                           Invoke(new Action(() =>
                           {
                               showLoading(false);
                               MessageBox.Show(this, "Error: " + error.Message);
                           }));
                       });
+
+                    //makes the small change of activating the admin/
                     TempAdmin.Active = true;
                     Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
                 }
                 else
                 {
+                    //Admin is being edited
                     AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
                     savedAdminPin =>
                     {
-                        //good stuff
+                        //Admin has been successfully created
+                        //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
                             {
                                 showLoading(false);
@@ -225,6 +241,7 @@ namespace TableFindBackend.Forms
                     },
                     error =>
                     {
+                        //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
                         {
                             //server reported an error
@@ -236,13 +253,15 @@ namespace TableFindBackend.Forms
                     AsyncCallback<AdminPins> saveObjectCallback = new AsyncCallback<AdminPins>(
                       savedAdminPin =>
                       {
+                          //The Object has to be saved first in order to update the object
                           Backendless.Persistence.Of<AdminPins>().Save(savedAdminPin, updateObjectCallback);
                       },
                       error =>
                       {
+                          //server reported an error
+                          //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                           Invoke(new Action(() =>
-                          {
-                              //server reported an error
+                          {                             
                               showLoading(false);
                               MessageBox.Show(this, "error: " + error.Message);
                           }));
@@ -252,7 +271,7 @@ namespace TableFindBackend.Forms
                     if (tbxName.Text == ""
                         || tbxContact.Text == ""
                         || tbxPinCode.Text == ""
-                        || tbxConfirmPin.Text == "")
+                        || tbxConfirmPin.Text == "")//performs Validation to determine if all textBoxes are filled in
                     {
                         showLoading(false);
                         MessageBox.Show(this, "Please fill in all fields.");
@@ -322,7 +341,7 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)//Button used to close the form if the user wishes to not save changes made
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
@@ -374,6 +393,7 @@ namespace TableFindBackend.Forms
                     AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
                     deletionTime =>
                     {
+                        //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
                         {
                             showLoading(false);
@@ -391,6 +411,7 @@ namespace TableFindBackend.Forms
                     },
                 error =>
                 {
+                    //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                     Invoke(new Action(() =>
                     {
                         showLoading(false);
@@ -406,6 +427,7 @@ namespace TableFindBackend.Forms
                       },
                       error =>
                       {
+                          //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                           Invoke(new Action(() =>
                           {
                               showLoading(false);
@@ -427,6 +449,7 @@ namespace TableFindBackend.Forms
                     AsyncCallback<AdminPins> updateObjectCallback = new AsyncCallback<AdminPins>(
                     savedAdminPins =>
                     {
+                        //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
                         {
                             showLoading(false);
@@ -441,6 +464,7 @@ namespace TableFindBackend.Forms
                     },
                     error =>
                     {
+                        //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
                         {
                             showLoading(false);
@@ -455,6 +479,7 @@ namespace TableFindBackend.Forms
                       },
                       error =>
                       {
+                          //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                           Invoke(new Action(() =>
                           {
                               showLoading(false);
