@@ -126,12 +126,6 @@
   <metadata name="lblTitle.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="btnExit.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="lblTitle.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="lblHeading.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -144,16 +138,49 @@
   <metadata name="rtbStaff.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="rtbStaff.Text" xml:space="preserve">
+    <value>General restaurant staff members such as waiters and waitresses can access on-screen tables by double-clicking any table object. As general restaurant staff, they will have to ability to:
+
+• View reservations under specific tables made available by an Admin user
+• Create reservations under specific tables made available by an Admin user.
+
+Restaurant staff are considered 'General' and not 'Admin' and therefore will not have elevated permissions such as:
+                
+• Adding new Tables to the restaurant,
+• Editing/updating Tables in the restaurants,
+• Removing Tables in the restaurant,
+• Adding new Menu Items to the interactive menu,
+• Updating Menu Items of the interactive menu,
+• Removing Menu Items of the interactive menu,
+• Removing Reservations already made.</value>
+  </data>
   <metadata name="tpAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="rtbAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="rtbAdmin.Text" xml:space="preserve">
+    <value>Overview:
+
+Admin users, such as the restaurant manager and selected assistant managers can access on-screen tables by double-clicking on any table object. They will also have access to more options when a correct Admin PIN is provided. Admin mode will allow the restaurant manager or selected assistant managers to have access to elivated privileges. These privileges include:
+
+• View reservations under specific tables
+• Create reservations under specific tables
+• Adding new Tables to the restaurant
+• Editing/updating Tables in the restaurants
+• Removing Tables in the restaurant
+• Adding new Menu Items to the interactive menu
+• Updating Menu Items of the interactive menu
+• Removing Menu Items of the interactive menu
+• Removing Reservations already made
+
+
+Admin PIN:
+
+The Admin PIN is an effective way for the manager and selected assistant managers to gain access to elevated privileges. The Admin PIN can be changed by editing the Admin User credentials within 'Manage Admin Users'. The user will need to confirm their credentials as an Admin user in order to access this functionality.</value>
+  </data>
   <metadata name="tpFunctions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tcAdminMode.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="tpAllReservations.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -206,18 +233,22 @@ The only buttons that the General User will be able to access are View All Reser
     <value>This will prompt the user to provide their login credentials again to confirm that they are an Admin user. Once the login credentials are confirmed, the user will be able to add new Admin users, edit existing Admin users, deactivate and delete existing Admin users. Deactivating an Admin user effectively disables their elevated privileges. To reactivate an Admin user or to delete that Admin user, navigate to the 'Unactive Admin User' tab.
 </value>
   </data>
+  <metadata name="rtbRefresh.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="tpUsingTables.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="rtbUsingTables.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="tpElevated.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tcElevatedUser.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="rtbUsingTables.Text" xml:space="preserve">
+    <value>When not in Admin mode, the user can double-click on any table item on the right-hand side of the screen. This will open the Reservations window where the user can add reservations under the selected table. 
+
+When in Admin mode, the user can drag the table items on the right-hand side of the screen to change the table's position. 
+The user can also double-click on a table to open the table editor, which will allow the user to change the name of the table, maximum capacity, table description and availability, and view the reservations made under it by pressing the 'Reservations' button.
+Please note that changes will not be saved unless the user selects the 'Save Changes' button. These changes will only be applied once the user finishes their session as an Admin user by clicking the 'Finish' button on the main screen.</value>
+  </data>
   <metadata name="tpOverviewElevated.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -230,6 +261,13 @@ The only buttons that the General User will be able to access are View All Reser
   <metadata name="rtbAddNewTable.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="rtbAddNewTable.Text" xml:space="preserve">
+    <value>This will open the Table Editor window where the user can create new table objects. The user can enter the table name, number of seats the table should have and table description (where in the restaurant the table object is located).
+
+The user will be able to view the reservations made for that table via the Reservations button.
+
+The user will also be able to delete the table and make the table Available or Unavailable.</value>
+  </data>
   <metadata name="tpRestaurantOptions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -286,12 +324,6 @@ The user can click on the 'Add Item' button which will provide a new interface t
 Editing a Menu Item:
 The user must select the menu item he/she would like to modify on the right side of the window. After selecting an item, the left side will become enabled and can then be used to make changes to the selected item.</value>
   </data>
-  <metadata name="tpRefresh.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="rtbRefresh.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="tpLogout.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -321,80 +353,6 @@ Once the user downloads the update, the TableFind Backend program will close and
   <metadata name="richTextBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="tabPage1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="rtbGettingStarted.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="rtbStaff.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="rtbStaff.Text" xml:space="preserve">
-    <value>General restaurant staff members such as waiters and waitresses can access on-screen tables by double-clicking any table object. As general restaurant staff, they will have to ability to:
-
-• View reservations under specific tables made available by an Admin user
-• Create reservations under specific tables made available by an Admin user.
-
-Restaurant staff are considered 'General' and not 'Admin' and therefore will not have elevated permissions such as:
-                
-• Adding new Tables to the restaurant,
-• Editing/updating Tables in the restaurants,
-• Removing Tables in the restaurant,
-• Adding new Menu Items to the interactive menu,
-• Updating Menu Items of the interactive menu,
-• Removing Menu Items of the interactive menu,
-• Removing Reservations already made.</value>
-  </data>
-  <metadata name="rtbAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="rtbAdmin.Text" xml:space="preserve">
-    <value>Overview:
-
-Admin users, such as the restaurant manager and selected assistant managers can access on-screen tables by double-clicking on any table object. They will also have access to more options when a correct Admin PIN is provided. Admin mode will allow the restaurant manager or selected assistant managers to have access to elivated privileges. These privileges include:
-
-• View reservations under specific tables
-• Create reservations under specific tables
-• Adding new Tables to the restaurant
-• Editing/updating Tables in the restaurants
-• Removing Tables in the restaurant
-• Adding new Menu Items to the interactive menu
-• Updating Menu Items of the interactive menu
-• Removing Menu Items of the interactive menu
-• Removing Reservations already made
-
-
-Admin PIN:
-
-The Admin PIN is an effective way for the manager and selected assistant managers to gain access to elevated privileges. The Admin PIN can be changed by editing the Admin User credentials within 'Manage Admin Users'. The user will need to confirm their credentials as an Admin user in order to access this functionality.</value>
-  </data>
-  <metadata name="rtbUsingTables.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="rtbUsingTables.Text" xml:space="preserve">
-    <value>When not in Admin mode, the user can double-click on any table item on the right-hand side of the screen. This will open the Reservations window where the user can add reservations under the selected table. 
-
-When in Admin mode, the user can drag the table items on the right-hand side of the screen to change the table's position. 
-The user can also double-click on a table to open the table editor, which will allow the user to change the name of the table, maximum capacity, table description and availability, and view the reservations made under it by pressing the 'Reservations' button.
-Please note that changes will not be saved unless the user selects the 'Save Changes' button. These changes will only be applied once the user finishes their session as an Admin user by clicking the 'Finish' button on the main screen.</value>
-  </data>
-  <metadata name="rtcElevatedOverview.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="rtbAddNewTable.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="rtbAddNewTable.Text" xml:space="preserve">
-    <value>This will open the Table Editor window where the user can create new table objects. The user can enter the table name, number of seats the table should have and table description (where in the restaurant the table object is located).
-
-The user will be able to view the reservations made for that table via the Reservations button.
-
-The user will also be able to delete the table and make the table Available or Unavailable.</value>
-  </data>
-  <metadata name="richTextBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="richTextBox1.Text" xml:space="preserve">
     <value>The Reservations panel is located in the top-left corner of the screen and has two tabs to view - Current Reservations and Previous Reservations.
 The panel's main functions include notifying the user that a new reservation has been made and displaying these reservations in the form of Restaurant objects. If the user wishes to view a list of all reservations, the user should navigate to the Functions panel just below the Reservations panel, that includes a few buttons. 
@@ -406,6 +364,9 @@ If the user clicks on the object, a secondary window Reservation for &lt;Custome
 • Previous Reservations:
 If a reservation has been cancelled or removed, or if the reservation has expired, the reservation object will move from the Current Reservations tab and appear in the panel under Previous Reservations.</value>
   </data>
+  <metadata name="tabPage1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="rtbGettingStarted.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
