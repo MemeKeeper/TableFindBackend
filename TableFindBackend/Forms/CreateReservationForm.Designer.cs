@@ -111,7 +111,6 @@ namespace TableFindBackend.Models
             this.pnlPanel.Name = "pnlPanel";
             this.pnlPanel.Size = new System.Drawing.Size(346, 339);
             this.pnlPanel.TabIndex = 6;
-            this.pnlPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // pbxLoading
             // 
@@ -167,7 +166,6 @@ namespace TableFindBackend.Models
             this.dtpTakenFrom.Name = "dtpTakenFrom";
             this.dtpTakenFrom.Size = new System.Drawing.Size(312, 27);
             this.dtpTakenFrom.TabIndex = 11;
-            this.dtpTakenFrom.ValueChanged += new System.EventHandler(this.dtpTakenFrom_ValueChanged);
             // 
             // btnCancel
             // 
@@ -199,7 +197,6 @@ namespace TableFindBackend.Models
             this.lblContact.Size = new System.Drawing.Size(100, 16);
             this.lblContact.TabIndex = 5;
             this.lblContact.Text = "Contact Number";
-            this.lblContact.Click += new System.EventHandler(this.lblContact_Click);
             // 
             // lblTakenFrom
             // 
@@ -227,7 +224,6 @@ namespace TableFindBackend.Models
             this.tbxContact.Name = "tbxContact";
             this.tbxContact.Size = new System.Drawing.Size(312, 27);
             this.tbxContact.TabIndex = 2;
-            this.tbxContact.TextChanged += new System.EventHandler(this.tbxContact_TextChanged);
             this.tbxContact.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxContact_KeyPress);
             // 
             // tbxName

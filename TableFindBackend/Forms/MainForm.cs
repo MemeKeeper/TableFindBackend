@@ -707,12 +707,10 @@ namespace TableFindBackend.Forms
             OwnerStorage.LogInfo.Add("Editing a Table\nName:  " + tempItem.Label);
             OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
 
-            bool flag = false;
             foreach (RestaurantTable ti in OwnerStorage.RestaurantTables)
             {
                 if (ti.objectId == tempItem.Tag)
                 {
-                    flag = true;
                     tempTable = ti;
                 }
             }
@@ -770,12 +768,13 @@ namespace TableFindBackend.Forms
                         pnlMain.Controls.Remove((RestaurantTableView)sender);
                     }
 
-                    RestaurantTableView tempView = new RestaurantTableView();
-
-                    tempView.Tag = tempTable.objectId;
-                    tempView.Label = tempTable.Name;
-                    tempView.Seating = tempTable.Capacity;
-                    tempView.Availability = tempTable.Available;
+                    RestaurantTableView tempView = new RestaurantTableView
+                    {
+                        Tag = tempTable.objectId,
+                        Label = tempTable.Name,
+                        Seating = tempTable.Capacity,
+                        Availability = tempTable.Available
+                    };
 
                     pnlMain.Controls.Add(tempView);
                     pnlMain.Controls[pnlMain.Controls.Count - 1].Location = tempPoint;

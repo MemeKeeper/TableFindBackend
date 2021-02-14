@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTableForm));
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlHeading = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnViewDetails = new System.Windows.Forms.Button();
@@ -39,31 +39,30 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.lblSeatingTitle = new System.Windows.Forms.Label();
             this.lblNameTitle = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlTableInfo = new System.Windows.Forms.Panel();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.btnDisable = new System.Windows.Forms.Button();
             this.rtbInfo = new System.Windows.Forms.RichTextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.lblInfoTitle = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.pnlButtons = new System.Windows.Forms.Panel();
+            this.pnlHeading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spnSeating)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.pnlTableInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
-            this.panel3.SuspendLayout();
+            this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // pnlHeading
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(109)))), ((int)(((byte)(254)))));
-            this.panel1.Controls.Add(this.btnClose);
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(321, 43);
-            this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.pnlHeading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(109)))), ((int)(((byte)(254)))));
+            this.pnlHeading.Controls.Add(this.btnClose);
+            this.pnlHeading.Controls.Add(this.lblTitle);
+            this.pnlHeading.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeading.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeading.Name = "pnlHeading";
+            this.pnlHeading.Size = new System.Drawing.Size(321, 43);
+            this.pnlHeading.TabIndex = 0;
             // 
             // btnClose
             // 
@@ -78,7 +77,7 @@
             this.btnClose.TabIndex = 1;
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.button1_Click);
+            this.btnClose.Click += new System.EventHandler(this.btnX_Click);
             // 
             // lblTitle
             // 
@@ -90,7 +89,6 @@
             this.lblTitle.Size = new System.Drawing.Size(118, 23);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Table Editor\r\n";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // btnViewDetails
             // 
@@ -162,23 +160,23 @@
             this.lblNameTitle.TabIndex = 8;
             this.lblNameTitle.Text = "Name";
             // 
-            // panel2
+            // pnlTableInfo
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.pbxLoading);
-            this.panel2.Controls.Add(this.btnDisable);
-            this.panel2.Controls.Add(this.rtbInfo);
-            this.panel2.Controls.Add(this.btnDelete);
-            this.panel2.Controls.Add(this.lblNameTitle);
-            this.panel2.Controls.Add(this.btnViewDetails);
-            this.panel2.Controls.Add(this.lblSeatingTitle);
-            this.panel2.Controls.Add(this.spnSeating);
-            this.panel2.Controls.Add(this.edtName);
-            this.panel2.Controls.Add(this.lblInfoTitle);
-            this.panel2.Location = new System.Drawing.Point(7, 52);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(307, 388);
-            this.panel2.TabIndex = 9;
+            this.pnlTableInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlTableInfo.Controls.Add(this.pbxLoading);
+            this.pnlTableInfo.Controls.Add(this.btnDisable);
+            this.pnlTableInfo.Controls.Add(this.rtbInfo);
+            this.pnlTableInfo.Controls.Add(this.btnDelete);
+            this.pnlTableInfo.Controls.Add(this.lblNameTitle);
+            this.pnlTableInfo.Controls.Add(this.btnViewDetails);
+            this.pnlTableInfo.Controls.Add(this.lblSeatingTitle);
+            this.pnlTableInfo.Controls.Add(this.spnSeating);
+            this.pnlTableInfo.Controls.Add(this.edtName);
+            this.pnlTableInfo.Controls.Add(this.lblInfoTitle);
+            this.pnlTableInfo.Location = new System.Drawing.Point(7, 52);
+            this.pnlTableInfo.Name = "pnlTableInfo";
+            this.pnlTableInfo.Size = new System.Drawing.Size(307, 388);
+            this.pnlTableInfo.TabIndex = 9;
             // 
             // pbxLoading
             // 
@@ -234,44 +232,43 @@
             this.lblInfoTitle.TabIndex = 12;
             this.lblInfoTitle.Text = "Table Description";
             // 
-            // panel3
+            // pnlButtons
             // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.btnCancel);
-            this.panel3.Controls.Add(this.btnSave);
-            this.panel3.Location = new System.Drawing.Point(7, 446);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(307, 75);
-            this.panel3.TabIndex = 10;
+            this.pnlButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlButtons.Controls.Add(this.btnCancel);
+            this.pnlButtons.Controls.Add(this.btnSave);
+            this.pnlButtons.Location = new System.Drawing.Point(7, 446);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.Size = new System.Drawing.Size(307, 75);
+            this.pnlButtons.TabIndex = 10;
             // 
             // EditTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 530);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.pnlHeading);
+            this.Controls.Add(this.pnlTableInfo);
+            this.Controls.Add(this.pnlButtons);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "EditTableForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Table Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditTableForm_FormClosing);
-            this.Load += new System.EventHandler(this.EditTableForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlHeading.ResumeLayout(false);
+            this.pnlHeading.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spnSeating)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pnlTableInfo.ResumeLayout(false);
+            this.pnlTableInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
-            this.panel3.ResumeLayout(false);
+            this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlHeading;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnViewDetails;
@@ -281,8 +278,8 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblSeatingTitle;
         private System.Windows.Forms.Label lblNameTitle;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel pnlTableInfo;
+        private System.Windows.Forms.Panel pnlButtons;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.PictureBox pbxLoading;
         private System.Windows.Forms.Button btnDisable;
