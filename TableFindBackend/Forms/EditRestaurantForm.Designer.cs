@@ -58,7 +58,7 @@ namespace TableFindBackend.Forms
             this.lblTimes = new System.Windows.Forms.Label();
             this.dtpClose = new System.Windows.Forms.DateTimePicker();
             this.dtpOpen = new System.Windows.Forms.DateTimePicker();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.pnlDangerZone = new System.Windows.Forms.Panel();
             this.btnDeactivate = new System.Windows.Forms.Button();
             this.lblDangerZone = new System.Windows.Forms.Label();
             this.pnlRestaurantDetails.SuspendLayout();
@@ -68,7 +68,7 @@ namespace TableFindBackend.Forms
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.pnlRestaurantTimes.SuspendLayout();
-            this.panel5.SuspendLayout();
+            this.pnlDangerZone.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbxLocation
@@ -356,16 +356,16 @@ namespace TableFindBackend.Forms
             this.dtpOpen.TabIndex = 0;
             this.dtpOpen.Value = new System.DateTime(2021, 1, 29, 15, 37, 27, 0);
             // 
-            // panel5
+            // pnlDangerZone
             // 
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.btnDeactivate);
-            this.panel5.Controls.Add(this.lblDangerZone);
-            this.panel5.Location = new System.Drawing.Point(299, 177);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(281, 126);
-            this.panel5.TabIndex = 25;
-            this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
+            this.pnlDangerZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlDangerZone.Controls.Add(this.btnDeactivate);
+            this.pnlDangerZone.Controls.Add(this.lblDangerZone);
+            this.pnlDangerZone.Location = new System.Drawing.Point(299, 177);
+            this.pnlDangerZone.Name = "pnlDangerZone";
+            this.pnlDangerZone.Size = new System.Drawing.Size(281, 126);
+            this.pnlDangerZone.TabIndex = 25;
+            this.pnlDangerZone.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDangerZone_Paint);
             // 
             // btnDeactivate
             // 
@@ -393,7 +393,7 @@ namespace TableFindBackend.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(587, 456);
             this.Controls.Add(this.pbxLoading);
-            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.pnlDangerZone);
             this.Controls.Add(this.pnlRestaurantTimes);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -418,7 +418,7 @@ namespace TableFindBackend.Forms
             this.panel3.PerformLayout();
             this.pnlRestaurantTimes.ResumeLayout(false);
             this.pnlRestaurantTimes.PerformLayout();
-            this.panel5.ResumeLayout(false);
+            this.pnlDangerZone.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -452,7 +452,7 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.Label lblClosing;
         private System.Windows.Forms.Label lblOpen;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel pnlDangerZone;
         private System.Windows.Forms.Label lblDangerZone;
         private System.Windows.Forms.Button btnDeactivate;
     }
