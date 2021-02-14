@@ -170,7 +170,6 @@ namespace TableFindBackend.Forms
                 }
             }
         }  //come back
-
         private void CheckLayoutImage()
         {
             string file = @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl";
@@ -197,12 +196,6 @@ namespace TableFindBackend.Forms
             result = new double[] { pnlMain.Bounds.Width, pnlMain.Bounds.Height };
 
             return result;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-
         }
 
         private void ShowLoading(bool enable)
@@ -249,8 +242,6 @@ namespace TableFindBackend.Forms
                     OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                 }
             }
-
-
         }
         public void AddOneReservationView(Reservation r) // Controller for ReservationView
         {
@@ -279,8 +270,6 @@ namespace TableFindBackend.Forms
                 flpItems.Controls.SetChildIndex(reservation, 0);
                 reservation.New();
             }));
-
-
         }
         private void PerformReservationViewListPopulation(List<Reservation> list)
         {
@@ -385,7 +374,6 @@ namespace TableFindBackend.Forms
         }
         private void pastReservation_Click(object sender, MouseEventArgs e)
         {
-
             Panel templabel = (Panel)sender;
             ReservationView tempReservationView = (ReservationView)templabel.Parent;
             bool flag = false;
@@ -941,11 +929,6 @@ namespace TableFindBackend.Forms
             deletedListener.RemoveDeletedEventListener();
             PopulateTables();
         }
-
-        private void pnlMain_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
         private void CheckPin()
         {
 
@@ -1179,11 +1162,6 @@ namespace TableFindBackend.Forms
             }
             else
                 tbxPass.Enabled = false;
-        }
-
-        private void lblLogin_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

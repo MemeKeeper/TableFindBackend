@@ -46,7 +46,7 @@ namespace TableFindBackend.Forms
             this.flpPrevious = new System.Windows.Forms.FlowLayoutPanel();
             this.btnEnableAdmin = new System.Windows.Forms.Button();
             this.pboxLoading = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlFunctions = new System.Windows.Forms.Panel();
             this.lblMessage = new System.Windows.Forms.Label();
             this.btnChangeLoad = new System.Windows.Forms.Button();
             this.btnViewAll = new System.Windows.Forms.Button();
@@ -68,7 +68,7 @@ namespace TableFindBackend.Forms
             this.tpCurrent.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLoading)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.pnlFunctions.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -85,7 +85,6 @@ namespace TableFindBackend.Forms
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(854, 596);
             this.pnlMain.TabIndex = 1;
-            this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // lblTitle
             // 
@@ -238,31 +237,31 @@ namespace TableFindBackend.Forms
             this.pboxLoading.TabIndex = 0;
             this.pboxLoading.TabStop = false;
             // 
-            // panel2
+            // pnlFunctions
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel2.BackgroundImage = global::TableFindBackend.Properties.Resources.Logo;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel2.Controls.Add(this.lblMessage);
-            this.panel2.Controls.Add(this.btnChangeLoad);
-            this.panel2.Controls.Add(this.btnViewAll);
-            this.panel2.Controls.Add(this.btnInfo);
-            this.panel2.Controls.Add(this.btnManageAdminUsers);
-            this.panel2.Controls.Add(this.btnEnableAdmin);
-            this.panel2.Controls.Add(this.btnEditMenu);
-            this.panel2.Controls.Add(this.btnLogout);
-            this.panel2.Controls.Add(this.lblLogin);
-            this.panel2.Controls.Add(this.tbxPass);
-            this.panel2.Controls.Add(this.btnEditRestaurant);
-            this.panel2.Controls.Add(this.btnUpdate);
-            this.panel2.Controls.Add(this.btnReloadAll);
-            this.panel2.Controls.Add(this.btnApply);
-            this.panel2.Controls.Add(this.btnCreate);
-            this.panel2.Location = new System.Drawing.Point(12, 369);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(233, 300);
-            this.panel2.TabIndex = 2;
+            this.pnlFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pnlFunctions.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pnlFunctions.BackgroundImage = global::TableFindBackend.Properties.Resources.Logo;
+            this.pnlFunctions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pnlFunctions.Controls.Add(this.lblMessage);
+            this.pnlFunctions.Controls.Add(this.btnChangeLoad);
+            this.pnlFunctions.Controls.Add(this.btnViewAll);
+            this.pnlFunctions.Controls.Add(this.btnInfo);
+            this.pnlFunctions.Controls.Add(this.btnManageAdminUsers);
+            this.pnlFunctions.Controls.Add(this.btnEnableAdmin);
+            this.pnlFunctions.Controls.Add(this.btnEditMenu);
+            this.pnlFunctions.Controls.Add(this.btnLogout);
+            this.pnlFunctions.Controls.Add(this.lblLogin);
+            this.pnlFunctions.Controls.Add(this.tbxPass);
+            this.pnlFunctions.Controls.Add(this.btnEditRestaurant);
+            this.pnlFunctions.Controls.Add(this.btnUpdate);
+            this.pnlFunctions.Controls.Add(this.btnReloadAll);
+            this.pnlFunctions.Controls.Add(this.btnApply);
+            this.pnlFunctions.Controls.Add(this.btnCreate);
+            this.pnlFunctions.Location = new System.Drawing.Point(12, 369);
+            this.pnlFunctions.Name = "pnlFunctions";
+            this.pnlFunctions.Size = new System.Drawing.Size(233, 300);
+            this.pnlFunctions.TabIndex = 2;
             // 
             // lblMessage
             // 
@@ -362,7 +361,6 @@ namespace TableFindBackend.Forms
             this.lblLogin.TabIndex = 11;
             this.lblLogin.Text = "Enter Admin PIN to\r\naccess Admin Mode";
             this.lblLogin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblLogin.Click += new System.EventHandler(this.lblLogin_Click);
             // 
             // tbxPass
             // 
@@ -473,7 +471,7 @@ namespace TableFindBackend.Forms
             this.Controls.Add(this.lblDoubleClick);
             this.Controls.Add(this.pboxLoading);
             this.Controls.Add(this.pnlHeader);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnlFunctions);
             this.Controls.Add(this.pnlMain);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -482,15 +480,14 @@ namespace TableFindBackend.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Screen";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.tbcReservationHolder.ResumeLayout(false);
             this.tpCurrent.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pboxLoading)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pnlFunctions.ResumeLayout(false);
+            this.pnlFunctions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -498,7 +495,7 @@ namespace TableFindBackend.Forms
 
         #endregion
         private System.Windows.Forms.Panel pnlMain;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnlFunctions;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel pnlHeader;
