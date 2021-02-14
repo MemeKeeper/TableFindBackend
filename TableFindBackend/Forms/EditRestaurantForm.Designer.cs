@@ -343,7 +343,6 @@ namespace TableFindBackend.Forms
             this.dtpClose.ShowUpDown = true;
             this.dtpClose.Size = new System.Drawing.Size(65, 27);
             this.dtpClose.TabIndex = 1;
-            this.dtpClose.ValueChanged += new System.EventHandler(this.dtpClose_ValueChanged);
             // 
             // dtpOpen
             // 
@@ -356,7 +355,6 @@ namespace TableFindBackend.Forms
             this.dtpOpen.Size = new System.Drawing.Size(65, 27);
             this.dtpOpen.TabIndex = 0;
             this.dtpOpen.Value = new System.DateTime(2021, 1, 29, 15, 37, 27, 0);
-            this.dtpOpen.ValueChanged += new System.EventHandler(this.dtpOpen_ValueChanged);
             // 
             // panel5
             // 

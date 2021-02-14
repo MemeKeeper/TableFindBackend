@@ -26,20 +26,7 @@ namespace TableFindBackend.Forms
             dtpClose.Value = OwnerStorage.ThisRestaurant.Close;
 
             if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
-                try
-                {
-                    btnDefault.Enabled = true;
-                }
-                catch (IOException)
-                {
-                }
-
-        }
-
-        private void lblX_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            this.Close();
+                btnDefault.Enabled = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -91,13 +78,10 @@ namespace TableFindBackend.Forms
                     string text = File.ReadAllText(file);
                     lblLayout.Text = ofdLayoutBrowse.FileName;
                     if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
-                        try
-                        {
-                            _master.DisableLayoutImage();
-                            File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
-                        }
-                        catch (IOException)
-                        { }
+                    {
+                        _master.DisableLayoutImage();
+                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
+                    }
                     File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
                     OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant layout image", true);
                     OwnerStorage.LogInfo.Add("User changed the restaurant layout image");
@@ -106,22 +90,16 @@ namespace TableFindBackend.Forms
                 else
                 {
                     //<-----------Layout was reset or deleted.
-                    try
-                    {
-                        _master.DisableLayoutImage();
-                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
-                        OwnerStorage.FileWriter.WriteLineToFile("User cleared the restaurant layout image", true);
-                        OwnerStorage.LogInfo.Add("User cleared the restaurant layout image");
-                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                    }
-                    catch (IOException)
-                    {
-
-                    }
+                    _master.DisableLayoutImage();
+                    File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
+                    OwnerStorage.FileWriter.WriteLineToFile("User cleared the restaurant layout image", true);
+                    OwnerStorage.LogInfo.Add("User cleared the restaurant layout image");
+                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                 }
             }
-            catch (IOException)
+            catch (IOException ex)
             {
+                MessageBox.Show(this, "Error: " + ex.Message);
             }
 
             OwnerStorage.ThisRestaurant.ContactNumber = tbxContactNumber.Text;
@@ -313,11 +291,6 @@ namespace TableFindBackend.Forms
             printerPage.ShowDialog();
         }
 
-        private void btnApplyImage_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnDefault_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you would like to reset the restaurant layout to a blank canvas?", "Reset Restaurant layout", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -346,16 +319,6 @@ namespace TableFindBackend.Forms
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        private void dtpOpen_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dtpClose_ValueChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void panel5_Paint(object sender, PaintEventArgs e)
