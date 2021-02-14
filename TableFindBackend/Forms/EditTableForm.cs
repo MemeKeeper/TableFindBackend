@@ -10,14 +10,14 @@ namespace TableFindBackend.Forms
 {
     public partial class EditTableForm : Form
     {
-        //this form will allow an admin user to modify settings specific to this RestaurantTable object, as well as get access to more features
+        //This form will allow an Admin user to modify settings specific to this RestaurantTable object, as well as get access to more features
 
-        RestaurantTable table;//receives the specific table the form is working with
-        private bool availability;// a variable to easily toggle the availability of the table
-        MainForm _master;// receives an instance of the mainForm so that it can be easily updated after changes are made.
+        RestaurantTable table; //Receives the specific table the form is working with
+        private bool availability; //A variable to easily toggle the availability of the table
+        MainForm _master; //Receives an instance of the mainForm so that it can be easily updated after changes are made.
         public EditTableForm(RestaurantTable item, MainForm _master)
         {
-            //constructor which receives an instance of the mainform (parent) and the table which the form is going to work with
+            //Constructor which receives an instance of the mainform (parent) and the table which the form is going to work with
             table = item;
             this._master = _master;
             InitializeComponent();
@@ -25,12 +25,12 @@ namespace TableFindBackend.Forms
             this.FormBorderStyle = FormBorderStyle.None;
             availability = item.Available;
 
-            if (availability == true)//just determines which text should appear  on the button
+            if (availability == true) //Determines which text should appear on the button
                 btnDisable.Text = "Make Table Unavailable";
             else
                 btnDisable.Text = "Make Table Available";
 
-            //populates some textboxes with the appropriate information
+            //Populates some textboxes with the appropriate information
             edtName.Text = item.Name;
             spnSeating.Value = item.Capacity;
             rtbInfo.Text = item.TableInfo;
@@ -45,10 +45,10 @@ namespace TableFindBackend.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //simple method which creates or saves the changes made to the RestaurantTable
+            //Simple method which creates or saves the changes made to the RestaurantTable
             showLoading(true);
 
-            //assigns all information to the RestaurantTable object.
+            //Assigns all information to the RestaurantTable object
             table.Name = edtName.Text;
             table.Capacity = Convert.ToInt32(spnSeating.Value);
             table.Available = availability;
@@ -57,8 +57,8 @@ namespace TableFindBackend.Forms
             AsyncCallback<RestaurantTable> updateObjectCallback = new AsyncCallback<RestaurantTable>(
               savedTable =>
               {
-                  //success, the table has been successfully created/updated and the form will then be closed
-                  //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                  //Success, the table has been successfully created/updated and the form will then be closed
+                  //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                   Invoke(new Action(() =>
                   {
                       showLoading(false);
@@ -70,8 +70,8 @@ namespace TableFindBackend.Forms
               },
               error =>
               {
-                  //something went wrong. An error message will now be displayed
-                  //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                  //Something went wrong. An error message will now be displayed
+                  //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                   Invoke(new Action(() =>
                   {
                       showLoading(false);
@@ -82,14 +82,14 @@ namespace TableFindBackend.Forms
             AsyncCallback<RestaurantTable> saveObjectCallback = new AsyncCallback<RestaurantTable>(
               savedTable =>
               {
-                  //backendless demands that an object first has to be saved before it can be updated
+                  //Backendless demands that an object first has to be saved before it can be updated
                   Backendless.Persistence.Of<RestaurantTable>().Save(savedTable, updateObjectCallback);
 
               },
               error =>
               {
-                  //something went wrong. An error message will now be displayed
-                  //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                  //Something went wrong. An error message will now be displayed
+                  //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                   Invoke(new Action(() =>
                   {
                       showLoading(false);
@@ -97,13 +97,13 @@ namespace TableFindBackend.Forms
                   }));
               });
 
-            //the RestaurantTable finally gets saved
+            //The RestaurantTable finally gets saved
             Backendless.Persistence.Of<RestaurantTable>().Save(table, saveObjectCallback);
 
         }
         private void showLoading(bool activate)
         {
-            //a method that will appear on all forms. it simulates a loading screen by showing and hiding all neccessary buttons and interface elements.
+            //A method that will appear on all forms. It simulates a loading screen by showing and hiding all neccessary buttons and interface elements
             if (activate == true)
             {
                 pbxLoading.Visible = true;
@@ -135,26 +135,26 @@ namespace TableFindBackend.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //this method will allow the admin user to completly remove the RestaurantTable, but only if there are no reservations for the table and it has been made Unavailable
+            //This method will allow the Admin user to completly remove the RestaurantTable, but only if there are no reservations for the table and it has been made Unavailable
 
             List<Reservation> rList = new List<Reservation>();
 
-            //this block of code checks if there are any reservations under this specific table
+            //This block of code checks if there are any reservations under this specific table
             foreach (Reservation r in OwnerStorage.ActiveReservations)
             {
                 if (r.TableId == table.objectId)
                 {
-                    rList.Add(r);//temp list for the amount of reservations made for this table
+                    rList.Add(r); //Temp list for the amount of reservations made for this table
                 }
             }
-            if (availability == false && rList.Count == 0)// only allows the user to remove the table on these conditions mentioned above
+            if (availability == false && rList.Count == 0) //Only allows the user to remove the table on these conditions mentioned above
             {
 
-                //confirms with the user if he/she really wishes to remove the table
+                //Confirms with the user if he/she really wishes to remove the table
                 DialogResult result;
                 result = MessageBox.Show(this, "Are you sure you would like to remove '" + table.Name + "'?", "Remove '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                if (result == DialogResult.Yes)//the user said 'Yes'
+                if (result == DialogResult.Yes) //The user said 'Yes'
                 {
                     showLoading(true);
 
@@ -162,7 +162,7 @@ namespace TableFindBackend.Forms
                     deletionTime =>
                     {
                         //The table has been successfully removed
-                        //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                        //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
                         {
                             showLoading(false);
@@ -175,8 +175,8 @@ namespace TableFindBackend.Forms
                     },
                     error =>
                     {
-                        //something went wrong, an error message will now be displayed
-                        //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                        //Something went wrong, an error message will now be displayed
+                        //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
                         {
                             showLoading(false);
@@ -192,8 +192,8 @@ namespace TableFindBackend.Forms
                       },
                       error =>
                       {
-                          //something went wrong, an error message will be displayed
-                          //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                          //Something went wrong, an error message will be displayed
+                          //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                           Invoke(new Action(() =>
                           {
                               showLoading(false);
@@ -207,7 +207,7 @@ namespace TableFindBackend.Forms
             }
             else
             {
-                //message telling the user that he/she has to wait for all reservations to be removed and to make the table unavailable and try again
+                //Message telling the user that he/she has to wait for all reservations to be removed and to make the table unavailable and try again
                 MessageBox.Show("The table has to be made unavailable and have no reservations under it in order to remove this table from the restaurant. Please make these changes before trying again.");
             }
 
@@ -216,14 +216,14 @@ namespace TableFindBackend.Forms
 
         private void btnViewDetails_Click(object sender, EventArgs e)
         {
-            //will launch a ReservationsForm where all reservations for this current table can be viewed, reservations can be made and removed
+            //Will launch a ReservationsForm where all reservations for this current table can be viewed, reservations can be made and removed
             ReservationsForm bookings = new ReservationsForm(table, _master);
             bookings.ShowDialog();
         }
 
         private void btnDisable_Click(object sender, EventArgs e)
         {
-            //just toggles between availability of the table. it Changes text and logs informtion about the actions
+            //Just toggles between availability of the table. It changes text and logs informtion about the actions
             if (availability == false)
             {
                 btnDisable.Text = "Make Table Unavailable";
@@ -241,13 +241,13 @@ namespace TableFindBackend.Forms
         }
         public RestaurantTable RetreiveEditedTable()
         {
-            //a method which is used outside of this form. it only retreives the fully edited table and updates it on the mainform of performance reasons
+            //A method which is used outside of this form. It only retreives the fully edited table and updates it on the mainform of performance reasons
             return table;
         }
 
         private void EditTableForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //this wonderfull piece of code blocks the "alt F4" capability so that the user can not close the program while a process is running
+            //This wonderfull piece of code blocks the "alt F4" capability so that the user can not close the program while a process is running
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;

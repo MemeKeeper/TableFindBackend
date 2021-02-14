@@ -9,8 +9,8 @@ namespace TableFindBackend.Models
     public partial class CreateReservationForm : Form
     {
         //This form is used to create new Reservations from the restaurant's side
-        RestaurantTable thisTable;//variable to make working with the currently selected table a lot easier 
-        public CreateReservationForm(RestaurantTable thisTable)//the constructor receives the table object to ensure that the reservation to be made is aimed at this specific table
+        RestaurantTable thisTable; //Variable to make working with the currently selected table a lot easier 
+        public CreateReservationForm(RestaurantTable thisTable) //The constructor receives the table object to ensure that the reservation to be made is aimed at this specific table
         {
             InitializeComponent();
             this.thisTable = thisTable;
@@ -30,7 +30,7 @@ namespace TableFindBackend.Models
         }
         private void ShowLoading(bool toggle)
         {
-            //a method that will appear on all forms. it simulates a loading screen by showing and hiding all neccessary buttons and interface elements.
+            //A method that will appear on all forms. It simulates a loading screen by showing and hiding all neccessary buttons and interface elements
             if (toggle == true)
             {
                 pbxLoading.Visible = true;
@@ -50,22 +50,22 @@ namespace TableFindBackend.Models
         {
             Reservation reservation = new Reservation();
 
-            if (tbxContact.Text == "" || tbxName.Text == "")//performs validation to ensure that all text fields are entered.
+            if (tbxContact.Text == "" || tbxName.Text == "") //Performs validation to ensure that all text fields are entered
             {
                 MessageBox.Show(this, "Make sure to fill in all fields");
             }
             else
-            if (tbxContact.Text.Length != 10)//checks if the contact number is of valid format
+            if (tbxContact.Text.Length != 10) //Checks if the contact number is of valid format
             {
                 MessageBox.Show(this, "The Contact number you have entered is invalid");
             }
             else
             {                
-                //this If statement ensures that the times specified by the user does not go outside of the open and close bounds of the restaurant
+                //This If statement ensures that the times specified by the user does not go outside of the open and close bounds of the restaurant
                 if ((dtpTakenFrom.Value.TimeOfDay > OwnerStorage.ThisRestaurant.Open.TimeOfDay) && ((dtpTakenFrom.Value.TimeOfDay.Hours + spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
                 {
 
-                    //this block of code ensures that the reservation being made does not clash with another reservation for this table
+                    //This block of code ensures that the reservation being made does not clash with another reservation for this table
                     Reservation flag = null;
                     foreach (Reservation r in OwnerStorage.ActiveReservations)
                     {
@@ -76,10 +76,10 @@ namespace TableFindBackend.Models
                         }
                     }
 
-                    if (flag == null) //if flag is null then it means that no other clashing reservation was found
+                    if (flag == null) //If flag is null then it means that no other clashing reservation was found
                     {
 
-                        //all validations are completed. the program can now proceed to creating the program
+                        //All validations are completed. The program can now proceed to creating the program
                         ShowLoading(true);
 
                         reservation.Number = tbxContact.Text;
@@ -90,15 +90,15 @@ namespace TableFindBackend.Models
                         reservation.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
                         reservation.UserId = OwnerStorage.CurrentlyLoggedIn.ObjectId;
 
-                        //since the reservation is created active, these fields are set as is
+                        //Since the reservation is created active, these fields are set as is
                         reservation.Active = true;
                         reservation.ReasonForExpiration = "";
 
                         AsyncCallback<Reservation> callback = new AsyncCallback<Reservation>(
                                             result =>
                                             {
-                                                //success. The form can now close.
-                                                //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                                                //Success. The form can now close
+                                                //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                                                 Invoke(new Action(() =>
                                                 {
                                                     ShowLoading(false);
@@ -112,8 +112,8 @@ namespace TableFindBackend.Models
                                             },
                                             fault =>
                                             {
-                                                //something went wrong. an error message will be displayed
-                                                //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                                                //Something went wrong. An error message will be displayed
+                                                //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                                                 Invoke(new Action(() =>
                                                 {
                                                     ShowLoading(false);
@@ -122,7 +122,7 @@ namespace TableFindBackend.Models
                                                     MessageBox.Show(this, "Error: " + fault.Message);
                                                 }));
                                             });
-                        //runs the callback
+                        //Runs the callback
                         Backendless.Data.Of<Reservation>().Save(reservation, callback);
                     }
                     else
@@ -135,7 +135,7 @@ namespace TableFindBackend.Models
                 }
                 else
                 {
-                    //this reservation is outside the restaurant open and close time bounds
+                    //This reservation is outside the restaurant open and close time bounds
                     ShowLoading(false);
                     MessageBox.Show(this, "This reservation is outside the restaurant's set open and close times, please select another time.");
                 }
@@ -143,7 +143,7 @@ namespace TableFindBackend.Models
         }
         private void tbxContact_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //this only allows numbers to be entered into the textbox
+            //This only allows numbers to be entered into the textbox
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
                 (e.KeyChar != '.'))
             {
@@ -153,7 +153,7 @@ namespace TableFindBackend.Models
 
         private void CreateReservationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //this wonderfull piece of code blocks the "alt F4" capability so that the user can not close the program while a process is running
+            //This wonderfull piece of code blocks the "alt F4" capability so that the user cannot close the program while a process is running
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;
