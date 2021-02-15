@@ -881,7 +881,6 @@ namespace TableFindBackend.Forms
                     Label tempLabel = (Label)sender;
                     RestaurantTableView tempView = (RestaurantTableView)tempLabel.Parent;
 
-                    //only admin users are allowed to move table objects
                     if (activeControl == null || activeControl != tempView)
                     {
                         return;
@@ -894,7 +893,6 @@ namespace TableFindBackend.Forms
                 }
                 else
                 {
-                    //only admin users are allowed to move table objects
                     if (activeControl == null || activeControl != sender)
                     {
                         return;
@@ -904,6 +902,23 @@ namespace TableFindBackend.Forms
                     //applies the new location to the control
                     location.Offset(e.Location.X - previousPosition.X, e.Location.Y - previousPosition.Y);
                     activeControl.Location = location;
+                }
+                //this block of code will ensure that the user cannot place a RestaurantTableView outside of the Main Panel
+                if((activeControl.Location.Y+40)>pnlMain.Height)
+                {
+                    activeControl.Location = new Point(activeControl.Location.X,pnlMain.Height-40);
+                }
+                if ((activeControl.Location.X + 73) > pnlMain.Width)
+                {
+                    activeControl.Location = new Point(pnlMain.Width - 73, activeControl.Location.Y);
+                }
+                if(activeControl.Location.Y<0)
+                {
+                    activeControl.Location = new Point(activeControl.Location.X, 0);
+                }
+                if (activeControl.Location.X<0)
+                {
+                    activeControl.Location = new Point(0, activeControl.Location.Y);
                 }
             }
         }
