@@ -5,15 +5,17 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
+    //This form is used to either create or modify Menu Items
     public partial class AddEditMenuItem : Form
     {
-        //This form is used to either create or modify Menu Items
-        public RestaurantMenuItem transferedItem { get; set; } //Public property that makes retreiving the modified MenuItem effective and easy
+        //Public property that makes retrieving the modified MenuItem effective and easy
+        public RestaurantMenuItem transferedItem { get; set; } 
         public AddEditMenuItem(RestaurantMenuItem item)
         {
             InitializeComponent();
             this.transferedItem = item;
-            if (transferedItem != null) //Determines if this form should be used to create a NEW Menu Item or Modify an existing one
+            //Determines if this form should be used to create a new Menu Item or modify an existing one
+            if (transferedItem != null) 
             {
                 lblTitle.Text = "Editing Menu Item";
                 tbxDescription.Text = item.Ingredients;
@@ -23,7 +25,8 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) //Button used to close the form if the user wishes to not save changes made
+        //Button used to close the form if the user wishes to not save changes made
+        private void btnCancel_Click(object sender, EventArgs e) 
         {            
             DialogResult = DialogResult.Cancel;
             this.Close();
@@ -57,7 +60,7 @@ namespace TableFindBackend.Forms
             }
             else
             {
-                //Code that determines if a Menu Item with the same name exists
+                //Determines if a Menu Item with the same name exists
                 bool flag = false;
                 foreach (RestaurantMenuItem item in OwnerStorage.MenuItems)
                 {
@@ -70,7 +73,7 @@ namespace TableFindBackend.Forms
                 }
                 else
                 {
-                    //Object finally gets created
+                    //MenuItem object gets created
                     RestaurantMenuItem newItem = new RestaurantMenuItem();
                     newItem.Name = tbxName.Text;
                     newItem.Ingredients = tbxDescription.Text;
@@ -81,7 +84,8 @@ namespace TableFindBackend.Forms
                     if (transferedItem != null)
                         newItem.objectId = transferedItem.objectId;
 
-                    transferedItem = newItem; //Since the Backendless creation happens on the parent form, we only have to assign it to the public property and then close this form
+                    //Since the Backendless creation happens on the parent form, we only have to assign it to the public property and then close this form
+                    transferedItem = newItem; 
 
 
                     OwnerStorage.FileWriter.WriteLineToFile("User Added a new Menu Item", true);
@@ -91,9 +95,10 @@ namespace TableFindBackend.Forms
                     this.Close();
                 }
             }
-        }     
+        }
 
-        private void btnExit_Click(object sender, EventArgs e) //Button used to close the form if the user wishes to not save changes made
+        //Button used to close the form if the user wishes to not save changes made
+        private void btnExit_Click(object sender, EventArgs e) 
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();

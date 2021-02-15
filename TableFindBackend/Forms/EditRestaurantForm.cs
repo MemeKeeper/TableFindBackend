@@ -10,15 +10,14 @@ using TableFindBackend.Output;
 
 namespace TableFindBackend.Forms
 {
+    //This form is used to change some of the settings of the program and get access to more features
     public partial class EditRestaurantForm : Form
     {
-        //This form is used to change some of the settings of the program and get access to more features
-
-        private MainForm _master; //An instance of the main form gets passed along so that is can be manipulated from this form
-        public EditRestaurantForm(MainForm master) //This form is created with an instance of the main form
-        {            
+        private MainForm _master; //An instance of the MainForm gets passed along so that is can be manipulated from this form
+        //This form is created with an instance of the MainForm
+        public EditRestaurantForm(MainForm master) 
+        {
             InitializeComponent();
-
             _master = master;
             //All textboxes are filled in with valid information
             tbxName.Text = OwnerStorage.ThisRestaurant.Name;
@@ -32,15 +31,16 @@ namespace TableFindBackend.Forms
                 btnDefault.Enabled = true;
         }
 
+        //Button used to close the form if the user wishes to not save changes made
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //Button used to close the form if the user wishes to not save changes made
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        //A method that will appear on all forms. It simulates a loading screen by showing and hiding all necessary buttons and interface elements
         private void ShowLoading(bool toggle)
         {
-            //A method that will appear on all forms. It simulates a loading screen by showing and hiding all neccessary buttons and interface elements
             if (toggle == true)
             {
                 pbxLoading.Visible = true;
@@ -69,23 +69,25 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Saves the changes made by the user, as well as checking if the layout has been modified or cleared
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //Slightly tricky method, but it saves the changes made by the user, as well as checking if the layout has been modified or cleared
             string file = ofdLayoutBrowse.FileName;
             ShowLoading(true);
             try
             {
+                //The directory has to be created first. If it does not already exist, it's created here
                 if (File.Exists("layouts") != true)
-                    Directory.CreateDirectory("layouts"); //The directory has to be created first. If it does not already exist, it's created here
+                    Directory.CreateDirectory("layouts");
 
-                if (file.Equals("") != true)   //Layout was chosen or left as is
+                //Layout was chosen or left as is
+                if (file.Equals("") != true)   
                 {
                     string text = File.ReadAllText(file);
                     lblLayout.Text = ofdLayoutBrowse.FileName;
+                    //If the file already exists, it has to be deleted first so that it can be replaced with the new one
                     if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
                     {
-                        //If the file already exists, it has to be deleted first so that it can be replaced with the new one
                         _master.DisableLayoutImage();
                         File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
                     }
@@ -97,9 +99,10 @@ namespace TableFindBackend.Forms
                     OwnerStorage.LogInfo.Add("User changed the restaurant layout image");
                     OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                 }
-                else //Layout was reset or deleted
+                //Layout was reset or deleted
+                else
                 {
-                    //Calls a method on the main form which disables the image so that the image can be deleted fromm the program files
+                    //Calls a method on the MainForm which disables the image so that the image can be deleted fromm the program files
                     _master.DisableLayoutImage();
                     //deletes the image file
                     File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
@@ -109,14 +112,13 @@ namespace TableFindBackend.Forms
                     OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                 }
             }
+            //Something went wrong, so an error message gets displayed
             catch (IOException ex)
             {
-                //Something went wrong, so an error message gets displayed
                 MessageBox.Show(this, "Error: " + ex.Message);
             }
 
             //Saving the rest of the restaurant information
-
             OwnerStorage.ThisRestaurant.ContactNumber = tbxContactNumber.Text;
             OwnerStorage.ThisRestaurant.Name = tbxName.Text;
             OwnerStorage.ThisRestaurant.LocationString = tbxLocation.Text;
@@ -143,7 +145,7 @@ namespace TableFindBackend.Forms
             error =>
             {
                 //Something went wrong, an error message will now display
-                //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                 Invoke(new Action(() =>
                 {
                     ShowLoading(false);
@@ -154,7 +156,7 @@ namespace TableFindBackend.Forms
             AsyncCallback<Restaurant> saveObjectCallback = new AsyncCallback<Restaurant>(
               savedRestaurant =>
               {
-                  //The object has to be saved first before it can be updated according to Backendless
+                  //The object has to be saved first before it can be updated
                   Backendless.Persistence.Of<Restaurant>().Save(savedRestaurant, updateObjectCallback);
               },
               error =>
@@ -296,14 +298,16 @@ namespace TableFindBackend.Forms
         //}
         #endregion
 
+        //Method which displays an OpenFileDialog form in which the user can locate a layout image of format either BMP, JPG or PNG
         private void btnBrowseLayout_Click(object sender, EventArgs e)
-        {
-            //Simple method which displays an OpenFileDialog form in which the user can locate a layout image of format either BMP, JPG or PNG. 
+        { 
             //If the user is advanced enough he/she can even locate the .tbl files which is what happens after a regular image is selected by the TableFind Program
             ofdLayoutBrowse.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG|TableFindBackend Layout files (*.tbl)|*.tbl";
-            DialogResult result = ofdLayoutBrowse.ShowDialog(); //Show the dialog
+            //Show the dialog
+            DialogResult result = ofdLayoutBrowse.ShowDialog();
 
-            if (result == DialogResult.OK) //Test result
+            //Test result
+            if (result == DialogResult.OK) 
             {
                 //Enables and clears the appropriate controls
                 string file = ofdLayoutBrowse.FileName;
@@ -312,16 +316,16 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Opens the SystemReportForm where the user can generate documents containing information about the report of the day
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            //Opens the SystemReportForm where the user can generate documents containing information about the report of the day
             SystemReportForm sysReportForm = new SystemReportForm();
             sysReportForm.ShowDialog();
         }
 
+        //This method will clear the layout image of the restaurant on the MainForm
         private void btnDefault_Click(object sender, EventArgs e)
         {
-            //This method will clear the layout image of the restaurant on the MainForm
             DialogResult result = MessageBox.Show("Are you sure you would like to reset the restaurant layout to a blank canvas?", "Reset Restaurant layout", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
@@ -332,32 +336,32 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Button used to close the form if the user wishes to not save changes made
         private void btnClose_Click(object sender, EventArgs e)
         {
-            //Button used to close the form if the user wishes to not save changes made
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
+        //Shows the ConfirmRestaurantDeactivationForm, which will allow the user to deactivate his/her restaurant
         private void btnDeactivate_Click(object sender, EventArgs e)
         {
-            //Shows the ConfirmRestaurantDeactivationForm, which will allow the user to deactivate his/her restaurant
             ConfirmRestaurantDeactivationForm form = new ConfirmRestaurantDeactivationForm();
             form.ShowDialog();
         }
 
         private void EditRestaurantForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //This wonderfull piece of code blocks the "alt F4" capability so that the user cannot close the program while a process is running
+            //Blocks the "alt F4" capability so that the user cannot close the program while a process is running
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;
             }
         }
 
+        //Sets the coulors in the panel to fit with the theme of the functions on the panel
         private void pnlDangerZone_Paint(object sender, PaintEventArgs e)
         {
-            //This code sets the coulors in the panel to fit with the theme of the functions on the panel
             Color color = Color.Red;
             Panel panel = (Panel)sender;
             float width = (float)4.0;

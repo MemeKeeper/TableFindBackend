@@ -6,31 +6,37 @@ using TableFindBackend.Global_Variables;
 
 namespace TableFindBackend.Models
 {
+    //This form is used to create new Reservations from the restaurant's side
     public partial class CreateReservationForm : Form
     {
-        //This form is used to create new Reservations from the restaurant's side
-        RestaurantTable thisTable; //Variable to make working with the currently selected table a lot easier 
-        public CreateReservationForm(RestaurantTable thisTable) //The constructor receives the table object to ensure that the reservation to be made is aimed at this specific table
+        //Variable to make working with the currently selected RestaurantTable a lot easier 
+        RestaurantTable thisTable;
+
+        //The constructor receives the RestaurantTable object to ensure that the reservation to be made is aimed at this specific RestaurantTable
+        public CreateReservationForm(RestaurantTable thisTable) 
         {
             InitializeComponent();
             this.thisTable = thisTable;
             lblTitle.Text = thisTable.Name;
         }
+
+        //Button used to close the form if the user wishes to not save changes made
         private void btnExit_Click(object sender, EventArgs e)
         {
-            //Button used to close the form if the user wishes to not save changes made
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        //Button used to close the form if the user wishes to not save changes made
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //Button used to close the form if the user wishes to not save changes made
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        //A method that will appear on all forms. It simulates a loading screen by showing and hiding all necessary buttons and interface elements
         private void ShowLoading(bool toggle)
         {
-            //A method that will appear on all forms. It simulates a loading screen by showing and hiding all neccessary buttons and interface elements
             if (toggle == true)
             {
                 pbxLoading.Visible = true;
@@ -50,22 +56,23 @@ namespace TableFindBackend.Models
         {
             Reservation reservation = new Reservation();
 
-            if (tbxContact.Text == "" || tbxName.Text == "") //Performs validation to ensure that all text fields are entered
+            //Performs validation to ensure that all text fields are entered
+            if (tbxContact.Text == "" || tbxName.Text == "") 
             {
                 MessageBox.Show(this, "Make sure to fill in all fields");
             }
             else
-            if (tbxContact.Text.Length != 10) //Checks if the contact number is of valid format
+            //Checks if the contact number is of valid format
+            if (tbxContact.Text.Length != 10) 
             {
                 MessageBox.Show(this, "The Contact number you have entered is invalid");
             }
             else
             {                
-                //This If statement ensures that the times specified by the user does not go outside of the open and close bounds of the restaurant
+                //This if statement ensures that the times specified by the user does not go outside of the open and close bounds of the restaurant
                 if ((dtpTakenFrom.Value.TimeOfDay > OwnerStorage.ThisRestaurant.Open.TimeOfDay) && ((dtpTakenFrom.Value.TimeOfDay.Hours + spnDuration.Value) < OwnerStorage.ThisRestaurant.Close.Hour))
                 {
-
-                    //This block of code ensures that the reservation being made does not clash with another reservation for this table
+                    //Ensures that the reservation being made does not clash with another reservation for this RestaurantTable
                     Reservation flag = null;
                     foreach (Reservation r in OwnerStorage.ActiveReservations)
                     {
@@ -76,9 +83,9 @@ namespace TableFindBackend.Models
                         }
                     }
 
-                    if (flag == null) //If flag is null then it means that no other clashing reservation was found
+                    //If flag is null then it means that no other clashing reservation was found
+                    if (flag == null) 
                     {
-
                         //All validations are completed. The program can now proceed to creating the program
                         ShowLoading(true);
 
@@ -153,7 +160,7 @@ namespace TableFindBackend.Models
 
         private void CreateReservationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //This wonderfull piece of code blocks the "alt F4" capability so that the user cannot close the program while a process is running
+            //Blocks the "alt F4" capability so that the user cannot close the program while a process is running
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;

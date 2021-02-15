@@ -10,18 +10,19 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
-    public partial class ConfirmRestaurantDeactivationForm : Form //This form is used to deativate the restaurant for whatever reason the owner whishes to do so
+    //This form is used to deativate the restaurant 
+    public partial class ConfirmRestaurantDeactivationForm : Form 
     {
         public ConfirmRestaurantDeactivationForm()
         {
             InitializeComponent();
-            //A little last line of security which forces the user to type in the name of the restaurant in order to confirm deactivation
+            //Forces the user to type in the name of the restaurant in order to confirm deactivation
             lblConfirm.Text = "Please Type: " + OwnerStorage.ThisRestaurant.Name;
         }
 
         private void pnlBackground_Paint(object sender, PaintEventArgs e)
         {
-            //Code to colour in the background of the panel with red borders to add to the theme of the form's purpose
+            //Sets the background colour of the panel with red borders to add to the theme of the form's purpose
             Color color = Color.Red;
             Panel panel = (Panel)sender;
             float width = (float)4.0;
@@ -32,22 +33,27 @@ namespace TableFindBackend.Forms
             e.Graphics.DrawLine(pen, panel.Width - 1, panel.Height - 1, panel.Width - 1, 0);
         }
 
-        private void btnClose_Click(object sender, EventArgs e) //Button used to close the form if the user wishes to not save changes made
+        //Button used to close the form if the user wishes to not save changes made
+        private void btnClose_Click(object sender, EventArgs e) 
         {
             this.Close();
         }
 
         private void tbxConfirm_TextChanged(object sender, EventArgs e)
         {
-            //Code to confirm that the restaurant name confirmation has been entered
+            //Confirms that the restaurant name confirmation has been entered
             if (tbxConfirm.Text == OwnerStorage.ThisRestaurant.Name)
             {
-                btnConfirm.Enabled = true; //Enables the confirm button
+                //Enables the confirm button
+                btnConfirm.Enabled = true; 
             }
             else
-                btnConfirm.Enabled = false; //Keeps the confirm button disabled
+                //Keeps the confirm button disabled
+                btnConfirm.Enabled = false; 
         }
-        private void ShowLoading(bool toggle) //A method that will appear on all forms. It simulates a loading screen by showing and hiding all neccessary buttons and interface elements
+
+        //A method that will appear on all forms. It simulates a loading screen by showing and hiding all neccessary buttons and interface elements
+        private void ShowLoading(bool toggle) 
         {
             if (toggle==true)
             {
@@ -64,33 +70,36 @@ namespace TableFindBackend.Forms
                 btnConfirm.Enabled = true;
             }
         }
+
+        //This method will confirm that the user entered all neccessary information into the corresponding textboxes
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            //This method will confirm that the user entered all neccessary information into the corrisponding textboxes
-            if (tbxEmail.Text == "") //Confirms that the user did not leave the email field empty 
+            //Confirms that the user should not leave the email field empty 
+            if (tbxEmail.Text == "") 
             {
                 MessageBox.Show(this, "Be sure to fill in a valid Login Email and try again", "Empty Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 tbxConfirm.Text = "";
             }
             else
             {
-                if (tbxPassword.Text == "") //Confirms that the user did not leave the password field empty
+                //Confirms that the user should not leave the password field empty
+                if (tbxPassword.Text == "") 
                 {
                     MessageBox.Show(this, "Be sure to fill in a valid Login Password and try again", "Empty Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     tbxConfirm.Text = "";
                 }
                 else
                 {
-                    //Along with the restaurant name being entered as a final confirmation, the password and email to be entered has been confirmed
                     ShowLoading(true);
 
                     //This callback will confirm if the user exists on the Backendless database and confirm the login
                     AsyncCallback<BackendlessUser> callback = new AsyncCallback<BackendlessUser>(
                     user =>
                     {
-                        if (user.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId) //Confirms that the user who is currently logged in is the same one who entered his/her credentials
+                        //Confirms that the user who is currently logged in is the same one who entered his/her credentials
+                        if (user.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId) 
                         {
-                            //This callback ultimately deactivates the restaurant object
+                            //This callback deactivates the restaurant object
                             AsyncCallback<Restaurant> updateObjectCallback = new AsyncCallback<Restaurant>(
                             savedRestaurant =>
                                 {
@@ -108,7 +117,6 @@ namespace TableFindBackend.Forms
                                     AsyncCallback<MessageStatus> responder = new AsyncCallback<MessageStatus>(
                                       result =>
                                       {
-                                          
                                           //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                                           Invoke(new Action(() =>
                                           {
@@ -143,7 +151,7 @@ namespace TableFindBackend.Forms
                                 error =>
                                 {
                                     //Something went wrong, an error message with the reason will be displayed
-                                    //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
+                                    //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                                     Invoke(new Action(() =>
                                     {
                                         ShowLoading(false);
@@ -151,7 +159,7 @@ namespace TableFindBackend.Forms
                                     }));
                                 });
 
-                            //Because Backendless demands that a object has to be saved first before it can be updated, this callback first saves the restaurant and then updates the restaurant
+                            //This callback first saves the restaurant and then updates the restaurant
                             AsyncCallback<Restaurant> saveObjectCallback = new AsyncCallback<Restaurant>(
                               savedRestaurant =>
                               {
@@ -169,7 +177,8 @@ namespace TableFindBackend.Forms
                                   }));
                               });
 
-                            OwnerStorage.ThisRestaurant.Active = false; //Deactivating the restaurant object
+                            //Deactivating the restaurant object
+                            OwnerStorage.ThisRestaurant.Active = false; 
                             Backendless.Persistence.Of<Restaurant>().Save(OwnerStorage.ThisRestaurant, saveObjectCallback);
                         }
                         else
@@ -194,7 +203,7 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
-                    //Preps the user to login
+                    //Prepares the user to login
                     String login = tbxEmail.Text;
                     String password = tbxPassword.Text;
                     //Runs the login callback
@@ -203,15 +212,15 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Button used to close the form if the user wishes to not save changes made
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //Button used to close the form if the user wishes to not save changes made
             this.Close();
         }
 
         private void ConfirmRestaurantDeactivationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //This wonderfull piece of code blocks the "alt F4" capability so that the user cannot close the program while a process is running
+            //Blocks the "alt F4" capability so that the user cannot close the program while a process is running
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;
