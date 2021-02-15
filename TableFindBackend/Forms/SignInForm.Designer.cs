@@ -274,7 +274,6 @@
             this.tbContactNumber.Name = "tbContactNumber";
             this.tbContactNumber.Size = new System.Drawing.Size(306, 29);
             this.tbContactNumber.TabIndex = 0;
-            this.tbContactNumber.TextChanged += new System.EventHandler(this.tbContactNumber_TextChanged);
             this.tbContactNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbContactNumber_KeyPress);
             // 
             // tbConfirmPass

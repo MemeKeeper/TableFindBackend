@@ -8,16 +8,16 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
+    //This form will allow an Admin user to modify settings specific to this RestaurantTable object, as well as get access to more features
     public partial class EditTableForm : Form
     {
-        //This form will allow an Admin user to modify settings specific to this RestaurantTable object, as well as get access to more features
+        RestaurantTable table; //Receives the specific RestaurantTable the form is working with
+        private bool availability; //A variable to easily toggle the availability of the RestaurantTable
+        MainForm _master; //Receives an instance of the MainForm(parent) so that it can be easily updated after changes are made
 
-        RestaurantTable table; //Receives the specific table the form is working with
-        private bool availability; //A variable to easily toggle the availability of the table
-        MainForm _master; //Receives an instance of the mainForm so that it can be easily updated after changes are made.
+        //Constructor which receives an instance of the MainForm and the RestaurantTable which the form is going to work with
         public EditTableForm(RestaurantTable item, MainForm _master)
         {
-            //Constructor which receives an instance of the mainform (parent) and the table which the form is going to work with
             table = item;
             this._master = _master;
             InitializeComponent();
@@ -25,7 +25,8 @@ namespace TableFindBackend.Forms
             this.FormBorderStyle = FormBorderStyle.None;
             availability = item.Available;
 
-            if (availability == true) //Determines which text should appear on the button
+            //Determines which text should appear on the button
+            if (availability == true) 
                 btnDisable.Text = "Make Table Unavailable";
             else
                 btnDisable.Text = "Make Table Available";
@@ -36,16 +37,16 @@ namespace TableFindBackend.Forms
             rtbInfo.Text = item.TableInfo;
         }
 
+        //Button used to close the form if the user wishes to not save changes made
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //Button used to close the form if the user wishes to not save changes made
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
+        //Method which creates or saves the changes made to the RestaurantTable
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //Simple method which creates or saves the changes made to the RestaurantTable
             showLoading(true);
 
             //Assigns all information to the RestaurantTable object
@@ -57,7 +58,7 @@ namespace TableFindBackend.Forms
             AsyncCallback<RestaurantTable> updateObjectCallback = new AsyncCallback<RestaurantTable>(
               savedTable =>
               {
-                  //Success, the table has been successfully created/updated and the form will then be closed
+                  //Success, the RestaurantTable has been successfully created/updated and the form will then be closed
                   //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                   Invoke(new Action(() =>
                   {
@@ -82,7 +83,7 @@ namespace TableFindBackend.Forms
             AsyncCallback<RestaurantTable> saveObjectCallback = new AsyncCallback<RestaurantTable>(
               savedTable =>
               {
-                  //Backendless demands that an object first has to be saved before it can be updated
+                  //Backendless requires that an object first has to be saved before it can be updated
                   Backendless.Persistence.Of<RestaurantTable>().Save(savedTable, updateObjectCallback);
 
               },
@@ -97,13 +98,14 @@ namespace TableFindBackend.Forms
                   }));
               });
 
-            //The RestaurantTable finally gets saved
+            //The RestaurantTable gets saved
             Backendless.Persistence.Of<RestaurantTable>().Save(table, saveObjectCallback);
 
         }
+
+        //A method that will appear on all forms. It simulates a loading screen by showing and hiding all necessary buttons and interface elements
         private void showLoading(bool activate)
         {
-            //A method that will appear on all forms. It simulates a loading screen by showing and hiding all neccessary buttons and interface elements
             if (activate == true)
             {
                 pbxLoading.Visible = true;
@@ -133,35 +135,37 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //This method will allow the Admin user to completely remove the RestaurantTable, but only if there are no reservations for the RestaurantTable and it has been made unavailable
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //This method will allow the Admin user to completly remove the RestaurantTable, but only if there are no reservations for the table and it has been made Unavailable
-
             List<Reservation> rList = new List<Reservation>();
 
-            //This block of code checks if there are any reservations under this specific table
+            //Checks if there are any reservations under this specific RestaurantTable
             foreach (Reservation r in OwnerStorage.ActiveReservations)
             {
                 if (r.TableId == table.objectId)
                 {
-                    rList.Add(r); //Temp list for the amount of reservations made for this table
+                    //Temp list for the amount of reservations made for this RestaurantTable
+                    rList.Add(r); 
                 }
             }
-            if (availability == false && rList.Count == 0) //Only allows the user to remove the table on these conditions mentioned above
+            //Only allows the user to remove the RestaurnatTable on these conditions mentioned above
+            if (availability == false && rList.Count == 0) 
             {
 
-                //Confirms with the user if he/she really wishes to remove the table
+                //Confirms if the user wishes to remove the RestaurantTable
                 DialogResult result;
                 result = MessageBox.Show(this, "Are you sure you would like to remove '" + table.Name + "'?", "Remove '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                if (result == DialogResult.Yes) //The user said 'Yes'
+                //The user said 'Yes'
+                if (result == DialogResult.Yes) 
                 {
                     showLoading(true);
 
                     AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
                     deletionTime =>
                     {
-                        //The table has been successfully removed
+                        //The RestaurantTable has been successfully removed
                         //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
                         Invoke(new Action(() =>
                         {
@@ -207,23 +211,24 @@ namespace TableFindBackend.Forms
             }
             else
             {
-                //Message telling the user that he/she has to wait for all reservations to be removed and to make the table unavailable and try again
+                //Message telling the user that he/she has to wait for all reservations to be removed and to make the RestaurantTable unavailable and try again
                 MessageBox.Show("The table has to be made unavailable and have no reservations under it in order to remove this table from the restaurant. Please make these changes before trying again.");
             }
 
 
         }
 
+        //Will launch the ReservationsForm where all reservations for this current RestaurantTable can be viewed, reservations can be made and removed
         private void btnViewDetails_Click(object sender, EventArgs e)
         {
-            //Will launch a ReservationsForm where all reservations for this current table can be viewed, reservations can be made and removed
             ReservationsForm bookings = new ReservationsForm(table, _master);
             bookings.ShowDialog();
         }
 
+        //Toggles availability of the RestaurantTable. It changes text and logs informtion about these actions
         private void btnDisable_Click(object sender, EventArgs e)
         {
-            //Just toggles between availability of the table. It changes text and logs informtion about the actions
+            
             if (availability == false)
             {
                 btnDisable.Text = "Make Table Unavailable";
@@ -239,23 +244,25 @@ namespace TableFindBackend.Forms
                 OwnerStorage.FileWriter.WriteLineToFile("User made table '" + table.Name + "' unavailable", true);
             }
         }
+
+        //A method which is used outside of this form. It retrieves the fully edited table and updates it on the MainForm for performance 
         public RestaurantTable RetreiveEditedTable()
         {
-            //A method which is used outside of this form. It only retreives the fully edited table and updates it on the mainform of performance reasons
             return table;
         }
 
         private void EditTableForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //This wonderfull piece of code blocks the "alt F4" capability so that the user can not close the program while a process is running
+            //Blocks the "alt F4" capability so that the user cannot close the program while a process is running
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;
             }
         }
+
+        //Button used to close the form if the user wishes to not save changes made
         private void btnX_Click(object sender, EventArgs e)
         {
-            //Button used to close the form if the user wishes to not save changes made
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
