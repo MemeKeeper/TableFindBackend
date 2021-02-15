@@ -7,17 +7,18 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
+    //This form is to either create or modify Admin Users
     public partial class AddEditNewAdminForm : Form
     {
-        //This Form is to either create or modify Admin Users.
-        public AdminPins TempAdmin { get; set; } //Public property that makes retreiving the modified MenuItem effective and easy
+        //Public property that makes retrieving the modified MenuItem effective and easy
+        public AdminPins TempAdmin { get; set; } 
 
         public AddEditNewAdminForm(AdminPins a)
         {
             InitializeComponent();
 
             TempAdmin = a;
-            //Determining if a new user is being created or an existing one is being modified
+            //Determines if a new Admin user is being created or an existing one is being modified
             if (a == null)
             {
                 //Addinng New Admin User
@@ -52,18 +53,21 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e) //Button used to close the form if the user wishes to not save changes made
+        //Button used to close the form if the user wishes to not save changes made
+        private void btnExit_Click(object sender, EventArgs e) 
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        private void tbxPinCode_KeyPress(object sender, KeyPressEventArgs e) //Forces the user to only be able to enter numbers instead of any other character
+        //Forces the user to only be able to enter numbers instead of any other character
+        private void tbxPinCode_KeyPress(object sender, KeyPressEventArgs e) 
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
-        private void btnCreateNewAdmin_Click(object sender, EventArgs e) //This button is used for both creating a new user or reactivating a deactivated user
+        //This button is used for both creating a new user or reactivating a deactivated user
+        private void btnCreateNewAdmin_Click(object sender, EventArgs e) 
         {
             showLoading(true);
 
@@ -184,18 +188,21 @@ namespace TableFindBackend.Forms
 
             #endregion
 
+            //Performs validation to determine if all TextBoxes are filled in
             if (tbxName.Text == ""
                 || tbxContact.Text == ""
-                || tbxPinCode.Text == "") //Performs validation to determine if all textBoxes are filled in
+                || tbxPinCode.Text == "") 
             {
                 showLoading(false);
                 MessageBox.Show(this, "Please fill in all fields.");
             }
             else
             {
-                if (tbxContact.TextLength == 10) //Performs Contact validation
+                //Performs Contact validation
+                if (tbxContact.TextLength == 10) 
                 {
-                    if (tbxPinCode.TextLength < 4) //Performs validation to determine if the PIN is at least 4 digits long
+                    //Performs validation to determine if the PIN is at least 4 digits long
+                    if (tbxPinCode.TextLength < 4) 
                     {
                         showLoading(false);
                         MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
@@ -204,14 +211,16 @@ namespace TableFindBackend.Forms
                     }
                     else
                     {
-                        if (TempAdmin == null) //This determines if a new user is being made because the parent form sends in a Null object
+                        //Determines if a new Admin user is being made because the parent form sends in a Null object
+                        if (TempAdmin == null) 
                         {
-                            if (tbxPinCode.Text.Equals(tbxConfirmPin.Text)) //Performs validation to determine if the PIN codes both match
+                            //Performs validation to determine if the PIN codes both match
+                            if (tbxPinCode.Text.Equals(tbxConfirmPin.Text)) 
                             {
-                                if (tbxConfirmPin.Text == "") //Validates that the confirm PIN is entered
+                                //Validates that the confirm PIN is entered
+                                if (tbxConfirmPin.Text == "") 
                                 {
-
-                                    //Create New Admin
+                                    //Create New Admin user
                                     bool flag = false;
                                     foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                                     {
@@ -220,7 +229,8 @@ namespace TableFindBackend.Forms
                                             flag = true;
                                         }
                                     }
-                                    if (flag == false) //flag is used to determine if the PIN specified by the user already exists. The way the program tracks which user logs in is his/her PINCode, therefore it has to be unique
+                                    //flag is used to determine if the PIN specified by the user already exists. The way the program tracks which user logs in is his/her PINCode, therefore it has to be unique
+                                    if (flag == false) 
                                     {
                                         TempAdmin = new AdminPins();
                                         TempAdmin.UserName = tbxName.Text;
@@ -230,9 +240,9 @@ namespace TableFindBackend.Forms
                                         TempAdmin.Active = true;
                                         Backendless.Data.Of<AdminPins>().Save(TempAdmin, callback);
                                     }
+                                    //A duplicate PIN code has been detected, so messages are to be displayed
                                     else
                                     {
-                                        //A duplicate PIN code has been detected, so messages are to be displayed
                                         showLoading(false);
                                         MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
                                         tbxPinCode.Text = "";
@@ -240,9 +250,9 @@ namespace TableFindBackend.Forms
                                     }
 
                                 }
+                                //The contact number is of incorrect format, so messages are being displayed
                                 else
                                 {
-                                    //The contact number is of incorrect format, so messages are being displayed
                                     showLoading(false);
                                     MessageBox.Show(this, "The Contact number you have entered is invalid");
                                 }
@@ -254,15 +264,17 @@ namespace TableFindBackend.Forms
                             }
 
                         }
+                        //Edit Existing Admin
                         else
                         {
-                            //Edit Existing Admin
-                            if (TempAdmin.Active == false) //Determines whether the Admin should be reactivated or just edited
+                            //Determines whether the Admin should be reactivated or just edited
+                            if (TempAdmin.Active == false) 
                             {
                                 TempAdmin.Active = true;
                                 Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveReactivatedObjectCallback);
                             }
-                            else//Admin is to be updated
+                            //Admin is to be updated
+                            else
                             {
                                 bool flag = false;
                                 foreach (AdminPins a in OwnerStorage.ListOfAdmins)
@@ -273,8 +285,8 @@ namespace TableFindBackend.Forms
                                         flag = true;
                                     }
                                 }
-
-                                if (flag == false) //flag is used to determine if the PIN specified by the user already exists. The way the program tracks which user logs in is his/her PINCode, therefore it has to be unique
+                                //flag is used to determine if the PIN specified by the user already exists. The way the program tracks which user logs in is his/her PINCode, therefore it has to be unique
+                                if (flag == false) 
                                 {
                                     TempAdmin.UserName = tbxName.Text;
                                     TempAdmin.ContactNumber = tbxContact.Text;
@@ -282,9 +294,9 @@ namespace TableFindBackend.Forms
                                     TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
                                     Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
                                 }
+                                //An Admin with this PIN already exists
                                 else
                                 {
-                                    //An Admin with this PIN already exists
                                     showLoading(false);
                                     MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
                                     tbxPinCode.Text = "";
@@ -298,7 +310,8 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) //Button used to close the form if the user wishes to not save changes made
+        //Button used to close the form if the user wishes to not save changes made
+        private void btnCancel_Click(object sender, EventArgs e) 
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
@@ -313,10 +326,10 @@ namespace TableFindBackend.Forms
                 e.Handled = true;
             }
         }
-        
+
+        //A method that will appear on all forms. It simulates a loading screen by showing and hiding all necessary buttons and interface elements
         private void showLoading(bool toggle)
         {
-            //A method that will appear on all forms. It simulates a loading screen by showing and hiding all neccessary buttons and interface elements
             if (toggle == true)
             {
                 pbxLoading.Visible = true;
@@ -335,12 +348,12 @@ namespace TableFindBackend.Forms
             }
 
         }
+        //Multifunctional button that can both deactivate an Admin object and remove it
         private void btnRemoveAdmin_Click(object sender, EventArgs e)
         {
-            //This button is multifunctional, it can both deactivate a admin object AND remove it
+            //This will permanently remove the deactivated record off of the database
             if (TempAdmin.Active == false)
             {
-                //This will permanently remove the deactivated record off of the database
                 DialogResult result = MessageBox.Show(this, "Are you sure you wish permanently remove " + TempAdmin.UserName + " as administrator?", "Removing Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
@@ -455,7 +468,7 @@ namespace TableFindBackend.Forms
 
         private void AddEditNewAdminForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //This wonderfull piece of code blocks the "alt F4" capability so that the user cannot close the program while a process is running
+            //Blocks the "alt F4" capability so that the user cannot close the program while a process is running
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;
