@@ -14,11 +14,12 @@ using TableFindBackend.Global_Variables;
 
 namespace TableFindBackend.Forms
 {
+    //This form allows the user to reset their password
     public partial class ChangePasswordForm : Form
     {
         public ChangePasswordForm()
         {
-            //standard constructor
+            //Standard constructor
             InitializeComponent();
         }
 
@@ -28,9 +29,9 @@ namespace TableFindBackend.Forms
             this.Close();
         }
 
+        //Method which simulated a loading screen, disabling and enabling the right elements on the form
         private void ShowLoading(bool toggle)
         {
-            //Method which simulated a loading screen, disabeling and enabling the right elements on the form
             if(toggle==true)
             {
                 pbxLoading.Visible = true;
@@ -51,22 +52,25 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Performs all validations necessary to change the user's login password
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            //this method will perform all validations neccessary to change the user's login password
             ShowLoading(true);
-            if (tbxEmail.Text == "" || tbxNewPassConfirm.Text == "" || tbxPassNew.Text == "" || tbxPassword.Text == "")//confirms that all fields are filled in
+            //Confirms that all fields are filled in
+            if (tbxEmail.Text == "" || tbxNewPassConfirm.Text == "" || tbxPassNew.Text == "" || tbxPassword.Text == "")
             {
-                //the user failed to fill in all fields                
+                //The user failed to fill in all fields                
                 ShowLoading(false);
                 MessageBox.Show(this, "Please be sure to fill in all fields");
                 
             }
             else
-            { 
-                if (tbxNewPassConfirm.Text.Equals(tbxPassNew.Text))//validates that the password meets the password standards described on the form
+            {
+                //Validates that the password meets the password standards described on the form
+                if (tbxNewPassConfirm.Text.Equals(tbxPassNew.Text))
                 {
-                    if (PasswordValidater(tbxNewPassConfirm.Text) == true)//validates that both the password and confirm passwords mathc
+                    //Validates that both the password and confirm passwords match
+                    if (PasswordValidater(tbxNewPassConfirm.Text) == true)
                     {
                         AsyncCallback<BackendlessUser> callback = new AsyncCallback<BackendlessUser>(
                         user =>
@@ -76,7 +80,7 @@ namespace TableFindBackend.Forms
                                 AsyncCallback<BackendlessUser> updateCallback = new AsyncCallback<BackendlessUser>(
                                     newPass =>
                                     {
-                                        //success, the program will now restart
+                                        //Success, the program will now restart
                                         Invoke(new Action(() =>
                                         {
                                             ShowLoading(false);
@@ -89,7 +93,7 @@ namespace TableFindBackend.Forms
                                     },
                                     fault =>
                                     {
-                                        //something went wrong, an error message will now display
+                                        //Something went wrong, an error message will now display
                                         Invoke(new Action(() =>
                                         {
                                             ShowLoading(false);
@@ -97,12 +101,13 @@ namespace TableFindBackend.Forms
                                         }));
                                     });
 
-                                //applies the new password
+                                //Applies the new password
                                 OwnerStorage.CurrentlyLoggedIn.Password = tbxNewPassConfirm.Text;
-                                //runs the update callback
+                                //Runs the update callback
                                 Backendless.UserService.Update(OwnerStorage.CurrentlyLoggedIn, updateCallback);
                             }
-                            else//this means that the user logged in with a different user's credentials
+                            //This means that the user logged in with a different user's credentials
+                            else
                             {
                                 Invoke(new Action(() =>
                                 {
@@ -113,7 +118,7 @@ namespace TableFindBackend.Forms
                         },
                         fault =>
                         {
-                            //something went wrong, an error message will now displa
+                            //Something went wrong, an error message will now display
                             Invoke(new Action(() =>
                             {
                                 ShowLoading(false);
@@ -123,16 +128,18 @@ namespace TableFindBackend.Forms
 
                         String login = tbxEmail.Text;
                         String password = tbxPassword.Text;
-                        //runs the check login callback
+                        //Runs the check login callback
                         Backendless.UserService.Login(login, password, callback);
                     }
-                    else//the two password fields does not match
+                    //Password is of invalid format or does not meet password standards
+                    else
                     {
                         ShowLoading(false);
                         MessageBox.Show(this, "The password you have specified does not meet the password standards listed on this window");
                     }
                 }
-                else//password is of invalid format op does not meet password standards
+                //The two password fields do not match
+                else
                 {
                     ShowLoading(false);
                     MessageBox.Show(this, "The password field and the confirm password fields do not match");
