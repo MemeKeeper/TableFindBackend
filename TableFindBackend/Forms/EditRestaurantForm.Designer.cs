@@ -39,7 +39,6 @@ namespace TableFindBackend.Forms
             this.pnlRestaurantDetails = new System.Windows.Forms.Panel();
             this.lblContactNumber = new System.Windows.Forms.Label();
             this.tbxContactNumber = new System.Windows.Forms.TextBox();
-            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.btnBrowseLayout = new System.Windows.Forms.Button();
             this.lblLayout = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
@@ -61,14 +60,16 @@ namespace TableFindBackend.Forms
             this.pnlDangerZone = new System.Windows.Forms.Panel();
             this.btnDeactivate = new System.Windows.Forms.Button();
             this.lblDangerZone = new System.Windows.Forms.Label();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
+            this.btnChangePassoword = new System.Windows.Forms.Button();
             this.pnlRestaurantDetails.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.pnlButtons.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.pnlRestaurantTimes.SuspendLayout();
             this.pnlDangerZone.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // tbxLocation
@@ -161,17 +162,6 @@ namespace TableFindBackend.Forms
             this.tbxContactNumber.Name = "tbxContactNumber";
             this.tbxContactNumber.Size = new System.Drawing.Size(242, 29);
             this.tbxContactNumber.TabIndex = 15;
-            // 
-            // pbxLoading
-            // 
-            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(239, 199);
-            this.pbxLoading.Name = "pbxLoading";
-            this.pbxLoading.Size = new System.Drawing.Size(113, 113);
-            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxLoading.TabIndex = 12;
-            this.pbxLoading.TabStop = false;
-            this.pbxLoading.Visible = false;
             // 
             // btnBrowseLayout
             // 
@@ -359,6 +349,7 @@ namespace TableFindBackend.Forms
             // pnlDangerZone
             // 
             this.pnlDangerZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlDangerZone.Controls.Add(this.btnChangePassoword);
             this.pnlDangerZone.Controls.Add(this.btnDeactivate);
             this.pnlDangerZone.Controls.Add(this.lblDangerZone);
             this.pnlDangerZone.Location = new System.Drawing.Point(299, 177);
@@ -370,9 +361,9 @@ namespace TableFindBackend.Forms
             // btnDeactivate
             // 
             this.btnDeactivate.BackColor = System.Drawing.Color.Coral;
-            this.btnDeactivate.Location = new System.Drawing.Point(51, 53);
+            this.btnDeactivate.Location = new System.Drawing.Point(51, 27);
             this.btnDeactivate.Name = "btnDeactivate";
-            this.btnDeactivate.Size = new System.Drawing.Size(173, 48);
+            this.btnDeactivate.Size = new System.Drawing.Size(173, 40);
             this.btnDeactivate.TabIndex = 5;
             this.btnDeactivate.Text = "Deactivate Restaurant";
             this.btnDeactivate.UseVisualStyleBackColor = false;
@@ -380,12 +371,34 @@ namespace TableFindBackend.Forms
             // 
             // lblDangerZone
             // 
-            this.lblDangerZone.Location = new System.Drawing.Point(29, 17);
+            this.lblDangerZone.Location = new System.Drawing.Point(29, 4);
             this.lblDangerZone.Name = "lblDangerZone";
             this.lblDangerZone.Size = new System.Drawing.Size(225, 21);
             this.lblDangerZone.TabIndex = 21;
             this.lblDangerZone.Text = "Danger Zone";
             this.lblDangerZone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
+            this.pbxLoading.Location = new System.Drawing.Point(239, 199);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(113, 113);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 12;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
+            // 
+            // btnChangePassoword
+            // 
+            this.btnChangePassoword.BackColor = System.Drawing.Color.Coral;
+            this.btnChangePassoword.Location = new System.Drawing.Point(51, 75);
+            this.btnChangePassoword.Name = "btnChangePassoword";
+            this.btnChangePassoword.Size = new System.Drawing.Size(173, 40);
+            this.btnChangePassoword.TabIndex = 22;
+            this.btnChangePassoword.Text = "Change User Password";
+            this.btnChangePassoword.UseVisualStyleBackColor = false;
+            this.btnChangePassoword.Click += new System.EventHandler(this.btnChangePassoword_Click);
             // 
             // EditRestaurantForm
             // 
@@ -410,7 +423,6 @@ namespace TableFindBackend.Forms
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditRestaurantForm_FormClosing);
             this.pnlRestaurantDetails.ResumeLayout(false);
             this.pnlRestaurantDetails.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             this.pnlButtons.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -419,6 +431,7 @@ namespace TableFindBackend.Forms
             this.pnlRestaurantTimes.ResumeLayout(false);
             this.pnlRestaurantTimes.PerformLayout();
             this.pnlDangerZone.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -455,5 +468,6 @@ namespace TableFindBackend.Forms
         private System.Windows.Forms.Panel pnlDangerZone;
         private System.Windows.Forms.Label lblDangerZone;
         private System.Windows.Forms.Button btnDeactivate;
+        private System.Windows.Forms.Button btnChangePassoword;
     }
 }
