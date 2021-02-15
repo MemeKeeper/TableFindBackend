@@ -263,7 +263,7 @@
             this.lblPassHint.Name = "lblPassHint";
             this.lblPassHint.Size = new System.Drawing.Size(326, 144);
             this.lblPassHint.TabIndex = 11;
-            this.lblPassHint.Text = "Please make sure that your password contains a minimum of eight characters, at le" +
+            this.lblPassHint.Text = "Please make sure that your password contains a minimum of eight characters: At le" +
     "ast one uppercase letter, one lowercase letter and one number";
             this.lblPassHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

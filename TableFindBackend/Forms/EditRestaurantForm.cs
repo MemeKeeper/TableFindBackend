@@ -371,5 +371,11 @@ namespace TableFindBackend.Forms
             e.Graphics.DrawLine(pen, panel.Width - 1, panel.Height - 1, 0, panel.Height - 1);
             e.Graphics.DrawLine(pen, panel.Width - 1, panel.Height - 1, panel.Width - 1, 0);
         }
+
+        private void btnChangePassoword_Click(object sender, EventArgs e)
+        {
+            ChangePasswordForm passChangeForm = new ChangePasswordForm();
+            passChangeForm.ShowDialog();
+        }
     }
 }
