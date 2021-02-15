@@ -9,11 +9,17 @@ namespace TableFindBackend.Forms
 {
     public partial class ManageAdminUsersForm : Form
     {
+        //This form is used to create admin users which will have more elevated permissions on the program
+
+        //basic constructor
         public ManageAdminUsersForm()
         {
+            //basic constructor
             InitializeComponent();
             PopulateList();
         }
+
+        //Method that will populate the small DataGridView with all the existing Admin users
         private void PopulateList()
         {
             dgvAdmins.Rows.Clear();
@@ -27,17 +33,21 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Button used to close the form if the user wishes to not save changes made
         private void btnExit_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
+        //Button used to close the form if the user wishes to not save changes made
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        //A method that will appear on all forms. It simulates a loading screen by showing and hiding all necessary buttons and interface elements
         private void ShowLoading(bool toggle)
         {
             if (toggle == true)
