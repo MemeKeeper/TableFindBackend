@@ -112,7 +112,6 @@ namespace TableFindBackend.Forms
             this.lblTitle.Size = new System.Drawing.Size(237, 23);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Admin PIN Management";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // pnlLogin
             // 
@@ -401,7 +400,7 @@ namespace TableFindBackend.Forms
             // 
             this.adminPinsBindingSource.DataSource = typeof(TableFindBackend.Models.AdminPins);
             // 
-            // ChangePinForm
+            // ManageAdminUsersForm
             // 
             this.AcceptButton = this.btnConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -413,7 +412,7 @@ namespace TableFindBackend.Forms
             this.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "ChangePinForm";
+            this.Name = "ManageAdminUsersForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ChangePinForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChangePinForm_FormClosing);

@@ -108,10 +108,8 @@ namespace TableFindBackend.Forms
             String password = tbxPassword.Text;
             Backendless.UserService.Login(login, password, callback);
         }
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
 
-        }
+        //This method will open the AddEditNewAdminForm with a Null as parameter. this signals to the form that a new user is being created.
         private void btnAddNewAdmins_Click(object sender, EventArgs e)
         {
             AddEditNewAdminForm addForm = new AddEditNewAdminForm(null); // creating new admin user
@@ -119,10 +117,12 @@ namespace TableFindBackend.Forms
 
             if (result == DialogResult.OK)
             {
+                //upon returning with success, the form will reload the DataGridView with the new Information
                 PopulateList();
             }
         }
 
+        //This methods handles the DataGridView_OnCellDoubleClick event. It will also launch the AddEditAdminForm, but with a valid AdminPins object, signaling that an existing AdminPin is being edited
         private void dgvAdmins_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= -1)
@@ -153,11 +153,10 @@ namespace TableFindBackend.Forms
                         PopulateList();
                     }
                 }
-
-
             }
         }
 
+        //This methods handles the DataGridView_OnCellDoubleClick event. It will also launch the AddEditAdminForm, but with a valid AdminPins object, signaling that an existing AdminPin is being deleted or reactivated
         private void dgvUnactive_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= -1)
@@ -192,8 +191,9 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Blocks the "alt F4" capability so that the user cannot close the program while a process is running
         private void ChangePinForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        {            
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;
