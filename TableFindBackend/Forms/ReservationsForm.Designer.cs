@@ -181,8 +181,6 @@ namespace TableFindBackend.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "TableBookings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReservationsForm_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ReservationsForm_FormClosed);
-            this.Load += new System.EventHandler(this.TableBookings_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
