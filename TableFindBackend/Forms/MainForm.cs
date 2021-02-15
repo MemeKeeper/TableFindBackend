@@ -904,19 +904,19 @@ namespace TableFindBackend.Forms
                     activeControl.Location = location;
                 }
                 //this block of code will ensure that the user cannot place a RestaurantTableView outside of the Main Panel
-                if((activeControl.Location.Y+40)>pnlMain.Height)
+                if ((activeControl.Location.Y + 40) > pnlMain.Height)
                 {
-                    activeControl.Location = new Point(activeControl.Location.X,pnlMain.Height-40);
+                    activeControl.Location = new Point(activeControl.Location.X, pnlMain.Height - 40);
                 }
                 if ((activeControl.Location.X + 73) > pnlMain.Width)
                 {
                     activeControl.Location = new Point(pnlMain.Width - 73, activeControl.Location.Y);
                 }
-                if(activeControl.Location.Y<0)
+                if (activeControl.Location.Y < 0)
                 {
                     activeControl.Location = new Point(activeControl.Location.X, 0);
                 }
-                if (activeControl.Location.X<0)
+                if (activeControl.Location.X < 0)
                 {
                     activeControl.Location = new Point(0, activeControl.Location.Y);
                 }
