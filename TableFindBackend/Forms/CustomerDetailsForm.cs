@@ -8,18 +8,18 @@ namespace TableFindBackend.Forms
 {
     public partial class CustomerDetailsForm : Form
     {
-        //this form shows the customer details of the reservation on which the user clicks to view more details
+        //This form shows the customer details of the reservation on which the user clicks to view more details
         public CustomerDetailsForm(BackendlessUser user, Reservation r)
         {
             InitializeComponent();
-            if (user != null)//in the rare occurance that the user has deleted/deactivated his/her account
+            if (user != null) //In the rare occurance that the user has deleted/deactivated his/her account
             {
-                if (user.ObjectId == OwnerStorage.ThisRestaurant.ownerId)//determines if the reservation was made by the restaurant
+                if (user.ObjectId == OwnerStorage.ThisRestaurant.ownerId) //Determines if the reservation was made by the restaurant
                 {
                     lblRestaurantLabel.Visible = true;
                     lblTitle.Text = "Reservation details for " + r.Name;
                 }
-                else//the reservation was made by a customer. his/her details will be displayed accordingly
+                else //The reservation was made by a customer. His/her details will be displayed accordingly
                 {
                     tbxContact.Text = user.GetProperty("Cellphone").ToString();
                     tbxFName.Text = user.GetProperty("FirstName").ToString();
@@ -30,7 +30,7 @@ namespace TableFindBackend.Forms
             }
             else
             {
-                //displays that the account could not be located
+                //Displays that the account could not be located
                 lblRestaurantLabel.Visible = true;
                 lblRestaurantLabel.Text = "This user has deactivated or deleted his/her account. No valid information about this user could be retrieved";
                 lblTitle.Text = "Reservation details for " + r.Name;
