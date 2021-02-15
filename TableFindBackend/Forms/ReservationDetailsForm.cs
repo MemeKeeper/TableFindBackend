@@ -53,15 +53,19 @@ namespace TableFindBackend.Forms
             this._master = _master;
         }
 
+        //Button used to close the form if the user wishes to not save changes made
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        //Button used to close the form if the user wishes to not save changes made
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        //A method that will appear on all forms. It simulates a loading screen by showing and hiding all necessary buttons and interface elements
         private void ShowLoading(bool show)
         {
             if (show == true)
@@ -80,24 +84,26 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //this method will 'deactivate' the reservation.
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (OwnerStorage.AdminMode == true)
+            if (OwnerStorage.AdminMode == true)//makes sure that the user is in admin mode first
             {
                 DialogResult remove = MessageBox.Show("Are you sure you want to remove this reservation?", "Remove Reservation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (remove == DialogResult.Yes)
                 {
                     ShowLoading(true);
-
-
+                    
                     AsyncCallback<Reservation> updateObjectCallback = new AsyncCallback<Reservation>(
                    savedReservation =>
                    {
+                       //success, the reservation has been created. it will now call a method on the MainForm to update the visual elements
                        Invoke(new Action(() =>
                        {
                            OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  " + savedReservation.Name);
                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                           //calls the method to add the reservation on to the form
                            _master.RemoveOneReservationView(thisReservation, savedReservation);
 
                            MessageBox.Show(this, "reservation for " + thisReservation.Name + " has been removed");
@@ -107,23 +113,25 @@ namespace TableFindBackend.Forms
                    },
                    error =>
                    {
+                       //something went wrong. An error message will now display
                        Invoke(new Action(() =>
-                                {
-                                    MessageBox.Show(this, "Error: " + error.Message);
-                                    ShowLoading(false);
-                                }));
+                       {
+                           MessageBox.Show(this, "Error: " + error.Message);
+                           ShowLoading(false);
+                       }));
                    });
 
                     AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
                     savedReservation =>
-                    {
-                        // now update the saved object
+                    {                        
+                        //success, now update the saved object
                         savedReservation.Active = false;
                         savedReservation.ReasonForExpiration = "Reservation has passed its expiration date";
                         Backendless.Persistence.Of<Reservation>().Save(savedReservation, updateObjectCallback);
                     },
                     error =>
                     {
+                        //something went wrong. An error message will now display
                         Invoke(new Action(() =>
                         {
                             MessageBox.Show(this, "Error: " + error.Message);
@@ -131,6 +139,7 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
+                    //backendless demands that the object be 'saved' first before we can update the object
                     Backendless.Persistence.Of<Reservation>().Save(thisReservation, saveObjectCallback);
                 }
             }
@@ -140,6 +149,7 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Blocks the "alt F4" capability so that the user cannot close the program while a process is running
         private void ReservationDetailsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
