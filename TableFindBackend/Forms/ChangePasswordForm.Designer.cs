@@ -33,19 +33,19 @@ namespace TableFindBackend.Forms
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlBackPanel = new System.Windows.Forms.Panel();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
+            this.lblPassHint = new System.Windows.Forms.Label();
+            this.lblNew2 = new System.Windows.Forms.Label();
+            this.lblNew1 = new System.Windows.Forms.Label();
+            this.tbxNewPassConfirm = new System.Windows.Forms.TextBox();
+            this.tbxPassNew = new System.Windows.Forms.TextBox();
+            this.lblLoginTitle = new System.Windows.Forms.Label();
             this.lblPasswordOld = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.tbxEmail = new System.Windows.Forms.TextBox();
-            this.lblLoginTitle = new System.Windows.Forms.Label();
-            this.tbxPassNew = new System.Windows.Forms.TextBox();
-            this.tbxNewPassConfirm = new System.Windows.Forms.TextBox();
-            this.lblNew1 = new System.Windows.Forms.Label();
-            this.lblNew2 = new System.Windows.Forms.Label();
-            this.lblPassHint = new System.Windows.Forms.Label();
-            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.panel3.SuspendLayout();
             this.pnlBackPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
@@ -112,11 +112,81 @@ namespace TableFindBackend.Forms
             this.pnlBackPanel.Size = new System.Drawing.Size(300, 427);
             this.pnlBackPanel.TabIndex = 24;
             // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
+            this.pbxLoading.Location = new System.Drawing.Point(75, 128);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(140, 130);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxLoading.TabIndex = 18;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
+            // 
+            // lblPassHint
+            // 
+            this.lblPassHint.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassHint.Location = new System.Drawing.Point(14, 276);
+            this.lblPassHint.Name = "lblPassHint";
+            this.lblPassHint.Size = new System.Drawing.Size(261, 90);
+            this.lblPassHint.TabIndex = 17;
+            this.lblPassHint.Text = "Please make sure that your password contains a minimum of eight characters: At le" +
+    "ast one uppercase letter, one lowercase letter and one number";
+            this.lblPassHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblNew2
+            // 
+            this.lblNew2.AutoSize = true;
+            this.lblNew2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNew2.Location = new System.Drawing.Point(30, 227);
+            this.lblNew2.Name = "lblNew2";
+            this.lblNew2.Size = new System.Drawing.Size(159, 17);
+            this.lblNew2.TabIndex = 16;
+            this.lblNew2.Text = "Confirm New Password";
+            // 
+            // lblNew1
+            // 
+            this.lblNew1.AutoSize = true;
+            this.lblNew1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNew1.Location = new System.Drawing.Point(30, 167);
+            this.lblNew1.Name = "lblNew1";
+            this.lblNew1.Size = new System.Drawing.Size(103, 17);
+            this.lblNew1.TabIndex = 15;
+            this.lblNew1.Text = "New Password";
+            // 
+            // tbxNewPassConfirm
+            // 
+            this.tbxNewPassConfirm.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxNewPassConfirm.Location = new System.Drawing.Point(16, 247);
+            this.tbxNewPassConfirm.Name = "tbxNewPassConfirm";
+            this.tbxNewPassConfirm.PasswordChar = '•';
+            this.tbxNewPassConfirm.Size = new System.Drawing.Size(258, 27);
+            this.tbxNewPassConfirm.TabIndex = 3;
+            // 
+            // tbxPassNew
+            // 
+            this.tbxPassNew.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPassNew.Location = new System.Drawing.Point(16, 187);
+            this.tbxPassNew.Name = "tbxPassNew";
+            this.tbxPassNew.PasswordChar = '•';
+            this.tbxPassNew.Size = new System.Drawing.Size(258, 27);
+            this.tbxPassNew.TabIndex = 2;
+            // 
+            // lblLoginTitle
+            // 
+            this.lblLoginTitle.AutoSize = true;
+            this.lblLoginTitle.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoginTitle.Location = new System.Drawing.Point(34, 11);
+            this.lblLoginTitle.Name = "lblLoginTitle";
+            this.lblLoginTitle.Size = new System.Drawing.Size(221, 22);
+            this.lblLoginTitle.TabIndex = 12;
+            this.lblLoginTitle.Text = "Change user password";
+            // 
             // lblPasswordOld
             // 
             this.lblPasswordOld.AutoSize = true;
             this.lblPasswordOld.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPasswordOld.Location = new System.Drawing.Point(30, 95);
+            this.lblPasswordOld.Location = new System.Drawing.Point(30, 99);
             this.lblPasswordOld.Name = "lblPasswordOld";
             this.lblPasswordOld.Size = new System.Drawing.Size(150, 17);
             this.lblPasswordOld.TabIndex = 11;
@@ -126,7 +196,7 @@ namespace TableFindBackend.Forms
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmail.Location = new System.Drawing.Point(30, 40);
+            this.lblEmail.Location = new System.Drawing.Point(30, 44);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(43, 17);
             this.lblEmail.TabIndex = 10;
@@ -157,7 +227,7 @@ namespace TableFindBackend.Forms
             // tbxPassword
             // 
             this.tbxPassword.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPassword.Location = new System.Drawing.Point(16, 115);
+            this.tbxPassword.Location = new System.Drawing.Point(16, 119);
             this.tbxPassword.Name = "tbxPassword";
             this.tbxPassword.PasswordChar = '•';
             this.tbxPassword.Size = new System.Drawing.Size(258, 27);
@@ -166,80 +236,10 @@ namespace TableFindBackend.Forms
             // tbxEmail
             // 
             this.tbxEmail.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxEmail.Location = new System.Drawing.Point(16, 60);
+            this.tbxEmail.Location = new System.Drawing.Point(16, 64);
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(258, 27);
             this.tbxEmail.TabIndex = 0;
-            // 
-            // lblLoginTitle
-            // 
-            this.lblLoginTitle.AutoSize = true;
-            this.lblLoginTitle.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoginTitle.Location = new System.Drawing.Point(34, 11);
-            this.lblLoginTitle.Name = "lblLoginTitle";
-            this.lblLoginTitle.Size = new System.Drawing.Size(221, 22);
-            this.lblLoginTitle.TabIndex = 12;
-            this.lblLoginTitle.Text = "Change user password";
-            // 
-            // tbxPassNew
-            // 
-            this.tbxPassNew.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPassNew.Location = new System.Drawing.Point(16, 187);
-            this.tbxPassNew.Name = "tbxPassNew";
-            this.tbxPassNew.PasswordChar = '•';
-            this.tbxPassNew.Size = new System.Drawing.Size(258, 27);
-            this.tbxPassNew.TabIndex = 2;
-            // 
-            // tbxNewPassConfirm
-            // 
-            this.tbxNewPassConfirm.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxNewPassConfirm.Location = new System.Drawing.Point(16, 247);
-            this.tbxNewPassConfirm.Name = "tbxNewPassConfirm";
-            this.tbxNewPassConfirm.PasswordChar = '•';
-            this.tbxNewPassConfirm.Size = new System.Drawing.Size(258, 27);
-            this.tbxNewPassConfirm.TabIndex = 3;
-            // 
-            // lblNew1
-            // 
-            this.lblNew1.AutoSize = true;
-            this.lblNew1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNew1.Location = new System.Drawing.Point(30, 167);
-            this.lblNew1.Name = "lblNew1";
-            this.lblNew1.Size = new System.Drawing.Size(103, 17);
-            this.lblNew1.TabIndex = 15;
-            this.lblNew1.Text = "New Password";
-            // 
-            // lblNew2
-            // 
-            this.lblNew2.AutoSize = true;
-            this.lblNew2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNew2.Location = new System.Drawing.Point(30, 227);
-            this.lblNew2.Name = "lblNew2";
-            this.lblNew2.Size = new System.Drawing.Size(159, 17);
-            this.lblNew2.TabIndex = 16;
-            this.lblNew2.Text = "Confirm New Password";
-            // 
-            // lblPassHint
-            // 
-            this.lblPassHint.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPassHint.Location = new System.Drawing.Point(14, 276);
-            this.lblPassHint.Name = "lblPassHint";
-            this.lblPassHint.Size = new System.Drawing.Size(261, 90);
-            this.lblPassHint.TabIndex = 17;
-            this.lblPassHint.Text = "Please make sure that your password contains a minimum of eight characters: At le" +
-    "ast one uppercase letter, one lowercase letter and one number";
-            this.lblPassHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pbxLoading
-            // 
-            this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pbxLoading.Location = new System.Drawing.Point(75, 128);
-            this.pbxLoading.Name = "pbxLoading";
-            this.pbxLoading.Size = new System.Drawing.Size(140, 130);
-            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxLoading.TabIndex = 18;
-            this.pbxLoading.TabStop = false;
-            this.pbxLoading.Visible = false;
             // 
             // ChangePasswordForm
             // 

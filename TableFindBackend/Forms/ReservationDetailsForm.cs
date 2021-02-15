@@ -16,7 +16,6 @@ namespace TableFindBackend.Forms
 
             thisReservation = r;
 
-
             InitializeComponent();
 
             tbxCapacity.Text = t.Capacity.ToString();
