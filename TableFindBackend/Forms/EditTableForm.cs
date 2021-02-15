@@ -25,6 +25,11 @@ namespace TableFindBackend.Forms
             this.FormBorderStyle = FormBorderStyle.None;
             availability = item.Available;
 
+            //Blocks the user from creating reservations for a RestaurantTable that does not exist
+            if(item.objectId==null)
+            {
+                btnViewDetails.Enabled = false;
+            }
             //Determines which text should appear on the button
             if (availability == true) 
                 btnDisable.Text = "Make Table Unavailable";
