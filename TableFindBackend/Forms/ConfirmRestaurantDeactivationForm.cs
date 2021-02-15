@@ -123,7 +123,10 @@ namespace TableFindBackend.Forms
                                               ShowLoading(false);
                                               MessageBox.Show(this, "An email has been sent to your provided email as confirmation of your restaurant being made deactivated. Please use RST-" + OwnerStorage.ThisRestaurant.objectId + " as your restaurant reference and USR-" + OwnerStorage.CurrentlyLoggedIn.ObjectId + " as your user account reference.", "restaurant successfully deactivated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                           }));
-                                          //On success the program will restart
+                                          //resets the default restaurant
+                                          Properties.Settings.Default.defaultRestaurant = -1;
+
+                                          //On success the program will restart                                         
                                           Application.Restart();
                                           Environment.Exit(0);
                                       },

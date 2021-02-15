@@ -8,11 +8,14 @@ namespace TableFindBackend.Forms
 {
     public partial class SelectRestaurantForm : Form
     {
-        public Restaurant selected { get; set; }
+        //This form will only appear if the owner has more than one restaurant under his/her control
+        public Restaurant selected { get; set; }//public property which allows the login Form to easily get access to the user's choice
 
         private List<Restaurant> list;
+
+        //constructor of the form. receives a list of restaurant objects which will be listed on the flp        
         public SelectRestaurantForm(List<Restaurant> list)
-        {
+        {            
             this.list = list;
             InitializeComponent();
             PopulateList();
@@ -20,10 +23,9 @@ namespace TableFindBackend.Forms
             {
                 ListViewItem item = new ListViewItem(r.Name);
             }
-
-
         }
 
+        //method which generates the RestaurantViews
         private void PopulateList()
         {
             Boolean toggle = false;
@@ -33,7 +35,7 @@ namespace TableFindBackend.Forms
                 tempView.RestaurantName = r.Name;
                 tempView.LocationString = r.LocationString;
                 tempView.ObjectId = r.objectId;
-                if (toggle == true)
+                if (toggle == true)//toggle is used to change the color of the 'selected restaurantView'
                 {
                     toggle = false;
                     tempView.BackgroundColor = System.Drawing.Color.FromArgb(209, 196, 233);
@@ -48,18 +50,19 @@ namespace TableFindBackend.Forms
             }
         }
 
+        // method that simulates a button press on one of the restaurantViews
         private void restaurant_Click(object sender, MouseEventArgs e)
         {
             RestaurantView tempView = (RestaurantView)sender;
             foreach (Restaurant r in list)
             {
-                if (r.objectId == tempView.ObjectId)
+                if (r.objectId == tempView.ObjectId)//the one that is selected
                 {
                     selected = r;
                     tempView.Selected(true);
                 }
             }
-            foreach (RestaurantView r in flpRestaurants.Controls)
+            foreach (RestaurantView r in flpRestaurants.Controls)//the rest has toe be 'deselected'
             {
                 if (r == tempView)
                 {
@@ -70,14 +73,9 @@ namespace TableFindBackend.Forms
             }
         }
 
-        private void lvRestaurant_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        //this method will check if the user specified a default restaurant in the past and will prioritize that option first
         private void SelectRestaurant_Load(object sender, EventArgs e)
         {
-
             if (Properties.Settings.Default.defaultRestaurant != -1)
             {
                 selected = this.list[Properties.Settings.Default.defaultRestaurant];
@@ -87,6 +85,7 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //this method will effectively close the form after the user made a selection. if the checkbox is selected, it will apply it as the default option
         private void btnChangeLoad_Click(object sender, EventArgs e)
         {
 
@@ -100,7 +99,7 @@ namespace TableFindBackend.Forms
                         tempView = r;
                     }
                 }
-                if (cbxDefault.Checked)
+                if (cbxDefault.Checked)//changes the default settings
                 {
                     Properties.Settings.Default.defaultRestaurant = flpRestaurants.Controls.IndexOf(tempView);
                     Properties.Settings.Default.Save();
