@@ -252,6 +252,7 @@ namespace TableFindBackend.Forms
             this.Name = "ChangePasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ChangePasswordForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChangePasswordForm_FormClosing);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.pnlBackPanel.ResumeLayout(false);

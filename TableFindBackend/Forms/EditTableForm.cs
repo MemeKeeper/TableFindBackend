@@ -157,7 +157,6 @@ namespace TableFindBackend.Forms
             //Only allows the user to remove the RestaurnatTable on these conditions mentioned above
             if (availability == false && rList.Count == 0) 
             {
-
                 //Confirms if the user wishes to remove the RestaurantTable
                 DialogResult result;
                 result = MessageBox.Show(this, "Are you sure you would like to remove '" + table.Name + "'?", "Remove '" + table.Name + "' ?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);

@@ -193,7 +193,7 @@ namespace TableFindBackend.Forms
             this.btnReload.TabIndex = 7;
             this.btnReload.Text = "⟳";
             this.btnReload.UseVisualStyleBackColor = true;
-            this.btnReload.Click += new System.EventHandler(this.button1_Click);
+            this.btnReload.Click += new System.EventHandler(this.Reload_Click);
             // 
             // pbxLoading
             // 
