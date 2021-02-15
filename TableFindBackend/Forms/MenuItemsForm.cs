@@ -409,6 +409,7 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //Blocks the "alt F4" capability so that the user cannot close the program while a process is running
         private void MenuItemsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)

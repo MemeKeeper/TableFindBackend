@@ -9,11 +9,13 @@ namespace TableFindBackend.Forms
 {
     public partial class ReservationDetailsForm : Form
     {
-        MainForm _master;
-        Reservation thisReservation;
-        public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t, bool active, MainForm _master)
-        {
+        //This Form Displays details about the reservation, who made it and which table. It also gives the user the ability to deactivate the reservation
+        MainForm _master;//an instance of the MainForm form
+        Reservation thisReservation;//the reservation being viewed
 
+        //This constructor receives an instance of the user, the reservation AND the Table. This method will populate the all the necessary information on the form
+        public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t, bool active, MainForm _master)
+        {            
             thisReservation = r;
 
             InitializeComponent();
@@ -28,6 +30,7 @@ namespace TableFindBackend.Forms
             tbxTime.Text = r.TakenFrom.ToString("dddd, dd/MM,    HH:mm") + " - " + r.TakenTo.ToString("HH:mm");
             lblTitle.Text = "Reservation for " + r.Name;
 
+            //a special block of code that will determine if the reservation was made by the Restaurant or by a customer in order to conseal critical information about the restaurant to the employees
             if (u.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
             {
                 lblMadeByRestaurant.Visible = true;
