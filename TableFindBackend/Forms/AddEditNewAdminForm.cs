@@ -218,7 +218,7 @@ namespace TableFindBackend.Forms
                             if (tbxPinCode.Text.Equals(tbxConfirmPin.Text)) 
                             {
                                 //Validates that the confirm PIN is entered
-                                if (tbxConfirmPin.Text == "") 
+                                if (tbxConfirmPin.Text != "") 
                                 {
                                     //Create New Admin user
                                     bool flag = false;
@@ -250,11 +250,11 @@ namespace TableFindBackend.Forms
                                     }
 
                                 }
-                                //The contact number is of incorrect format, so messages are being displayed
+                                //the user failed to enter the confirm pin
                                 else
                                 {
                                     showLoading(false);
-                                    MessageBox.Show(this, "The Contact number you have entered is invalid");
+                                    MessageBox.Show(this, "Please be sure to Confirm the pin");
                                 }
                             }
                             else
@@ -306,6 +306,12 @@ namespace TableFindBackend.Forms
                             }
                         }
                     }
+                }
+                //The contact number is of incorrect format, so messages are being displayed
+                else
+                {
+                    showLoading(false);
+                    MessageBox.Show(this, "The Contact number you have entered is invalid");
                 }
             }
         }
