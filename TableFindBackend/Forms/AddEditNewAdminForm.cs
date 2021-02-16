@@ -35,6 +35,7 @@ namespace TableFindBackend.Forms
                 if (a.Active == true)
                 {
                     //Editing Active Admin User
+                    tbxConfirmPin.Enabled = false;
                     lblDescription.Text = "You can edit your Admin details below.\n \n Remember that the Admin PIN should only include numerical digits wih a minimum of at least 4 digits and a maximum of 10 digits.";
                     btnCreateNewAdmin.Text = "Update";
                 }
@@ -276,7 +277,8 @@ namespace TableFindBackend.Forms
                             //Admin is to be updated
                             else
                             {
-                                bool flag = false;
+
+                                bool flag = false;//flag is used to determine if the PIN specified by the user already exists. The way the program tracks which user logs in is his/her PINCode, therefore it has to be unique
                                 foreach (AdminPins a in OwnerStorage.ListOfAdmins)
                                 {
                                     if (a.PinCode.ToString().Equals(tbxPinCode.Text)
@@ -285,23 +287,43 @@ namespace TableFindBackend.Forms
                                         flag = true;
                                     }
                                 }
-                                //flag is used to determine if the PIN specified by the user already exists. The way the program tracks which user logs in is his/her PINCode, therefore it has to be unique
-                                if (flag == false) 
-                                {
-                                    TempAdmin.UserName = tbxName.Text;
-                                    TempAdmin.ContactNumber = tbxContact.Text;
-                                    TempAdmin.PinCode = tbxPinCode.Text;
-                                    TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
-                                    Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
-                                }
-                                //An Admin with this PIN already exists
-                                else
-                                {
-                                    showLoading(false);
-                                    MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
-                                    tbxPinCode.Text = "";
-                                    tbxConfirmPin.Text = "";
+                                if (tbxPinCode.Text.Equals(TempAdmin.PinCode) == true)
+                                {                                   
+                                    if (flag == false)
+                                    {
+                                        TempAdmin.UserName = tbxName.Text;
+                                        TempAdmin.ContactNumber = tbxContact.Text;
+                                        TempAdmin.PinCode = tbxPinCode.Text;
+                                        TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                                        Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
+                                    }
+                                    //An Admin with this PIN already exists
+                                    else
+                                    {
+                                        showLoading(false);
+                                        MessageBox.Show(this, "There is already an administrator with this PIN, please use a different PIN");
+                                        tbxPinCode.Text = "";
+                                        tbxConfirmPin.Text = "";
 
+                                    }
+                                }
+                                else//means that the pin was changed
+                                {
+                                    if (tbxConfirmPin.Text.Equals(tbxPinCode.Text) == true)
+                                    {
+                                        TempAdmin.UserName = tbxName.Text;
+                                        TempAdmin.ContactNumber = tbxContact.Text;
+                                        TempAdmin.PinCode = tbxPinCode.Text;
+                                        TempAdmin.RestaurantId = OwnerStorage.ThisRestaurant.objectId;
+                                        Backendless.Persistence.Of<AdminPins>().Save(TempAdmin, saveObjectCallback);
+                                    }
+                                    else//the user did not confirm the pin
+                                    {
+                                        showLoading(false);
+                                        MessageBox.Show(this, "It seems that you have changed the pin, please be sure to confirm the pin code");
+                                        tbxPinCode.Text = "";
+                                        tbxConfirmPin.Text = "";
+                                    }
                                 }
                             }
                         }
@@ -478,6 +500,25 @@ namespace TableFindBackend.Forms
             if (e.CloseReason == System.Windows.Forms.CloseReason.UserClosing && pbxLoading.Visible == true)
             {
                 e.Cancel = true;
+            }
+        }
+
+        private void tbxPinCode_TextChanged(object sender, EventArgs e)
+        {
+            if (TempAdmin != null)
+            {
+                if (tbxPinCode.Text.Equals(TempAdmin.PinCode) != true)
+                {
+                    tbxConfirmPin.Enabled = true;
+                }
+                else
+                {
+                    tbxConfirmPin.Enabled = false;
+                }
+            }
+            else
+            {
+                tbxConfirmPin.Enabled = true;
             }
         }
     }
