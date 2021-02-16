@@ -12,8 +12,10 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace TableFindBackend.Output
 {
+    //this form will provide detailed information about the current records of the reatautrant
     public partial class SystemReportForm : Form
     {
+        //constructor that populates the on-form datagridviews and listviews
         public SystemReportForm()
         {
             InitializeComponent();
@@ -64,8 +66,10 @@ namespace TableFindBackend.Output
             PopulateAdminReport();
         }
 
+        //method that generates a temp list of admin users and sends it to a method that outputs it to the form using dynamic controls
         private void PopulateAdminReport()
         {
+            //generates a list for each admin user
             foreach (AdminPins a in OwnerStorage.ListOfAdmins)
             {
                 List<string> tempList = new List<string>();
@@ -81,7 +85,7 @@ namespace TableFindBackend.Output
             }
         }
 
-
+        //this method simulates a loading screen, by showing a loading .gif and disabling the appropriate controls
         private void ToggleLoading(bool toggle)
         {
             if (toggle == true)
@@ -101,6 +105,8 @@ namespace TableFindBackend.Output
                 btnPDF.Enabled = true;
             }
         }
+
+        //this method receives a list of Admin activity times for a specific admin user and generates a dynamic panel, datagridview and corresponding labels
         private void AddAdminUserLoginTable(List<string> log, AdminPins a)
         {
             Panel backPanel = new Panel();
@@ -156,7 +162,7 @@ namespace TableFindBackend.Output
             }
         }
 
-        //displays reservations under each table (right-hand side panel)
+        //displays reservations under each table (right-hand side panel) for both active and past reservations
         private void AddRestaurantReservationTable(RestaurantTable table, List<Reservation> list,FlowLayoutPanel pnl)
         {
 
@@ -192,11 +198,13 @@ namespace TableFindBackend.Output
             pnl.Controls.Add(backPanel);
         }
 
-
+        //when the user decides to close the form
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        //this method will generate a excell workbook on click
         private async void btnExcel_Click(object sender, EventArgs e)
         {
             ToggleLoading(true);
@@ -428,9 +436,12 @@ namespace TableFindBackend.Output
             });
             ToggleLoading(false);
         }
+        //this method will primaraly generate the word document with all the inforation currently stored in the OwnerStorage Class
         private async void GenerateWordDoc(Boolean word)
         {
             ToggleLoading(true);
+
+            #region word document generation
             await System.Threading.Tasks.Task.Run(() =>
             {
                 try
@@ -694,19 +705,17 @@ namespace TableFindBackend.Output
 
                     FileInfo fInfo = new FileInfo(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
 
-                    if (word == true)
+                    if (word == true)//indicates that the word document is to be shown
                     {
                         document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
                         document.Close(false);
                         winword.Quit(false);
                         System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
                     }
-                    else
+                    else//indicates that the word document is to be saved and converted to a PDF
                     {
-                        //if (IsFileLocked(fInfo) != true)
-                        //}
+
                         document.SaveAs("TableFindBackend\\System Reports\\" + OwnerStorage.ThisRestaurant.Name + @"\" + OwnerStorage.ThisRestaurant.objectId + "\\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".docx");
-                        //}
                         document.Close(false);
                         winword.Quit(false);
 
@@ -719,13 +728,6 @@ namespace TableFindBackend.Output
 
                         //launch document
                         System.Diagnostics.Process.Start(path + @"\SystemReport_" + System.DateTime.Now.ToString("dd-MM-yyyy") + ".pdf");
-
-
-                        //Invoke(new Action(() =>
-                        //{
-                        //    ToggleLoading(false);
-                        //    MessageBox.Show(ex.Message);
-                        //}));
 
                     }
                 }
@@ -752,7 +754,9 @@ namespace TableFindBackend.Output
                 }
             });
             ToggleLoading(false);
-            #region
+            #endregion
+
+            #region obsolete 'FreeSpire.Doc' code
             //Document document = new Document();
 
             //Section section = document.AddSection();
@@ -1171,40 +1175,21 @@ namespace TableFindBackend.Output
             //}
             #endregion
         }
-        protected virtual bool IsFileLocked(FileInfo file)
-        {
-            try
-            {
-                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
-                {
-                    stream.Close();
-                }
-            }
-            catch (IOException)
-            {
-                //the file is unavailable because it is:
-                //still being written to
-                //or being processed by another thread
-                //or does not exist (has already been processed)
-                return true;
-            }
-
-            //file is not locked
-            return false;
-
-        }
-
+        
+        //the user decided to generate a word document
         private void btnWord_Click(object sender, EventArgs e)
         {
-            GenerateWordDoc(true);
+            GenerateWordDoc(true);//<-- true indicates that the word document will be generated and opened
         }
-
+        //The user selected to generate a pdf document. a Word document will have to be created first which will then be converted to a pdf
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            GenerateWordDoc(false);
-
-
-
+            GenerateWordDoc(false);//<--false indicates that the word document will be generated, but not opened and instead converted to a pdf
+        }
+        //when the user decides to close the form
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
