@@ -503,6 +503,7 @@ namespace TableFindBackend.Forms
             }
         }
 
+        //method that adds slightly more security to the confirm PINs when updating the AdminPin
         private void tbxPinCode_TextChanged(object sender, EventArgs e)
         {
             if (TempAdmin != null)
@@ -514,6 +515,7 @@ namespace TableFindBackend.Forms
                 else
                 {
                     tbxConfirmPin.Enabled = false;
+                    tbxConfirmPin.Text = "";
                 }
             }
             else
