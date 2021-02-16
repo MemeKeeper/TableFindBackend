@@ -6,8 +6,10 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Global_Variables
 {
+    //This is where all downloaded records are housed. the Global Variables
     static class OwnerStorage
     {
+        //properties
         private static TextFileWriter fileWriter;
         private static BackendlessUser currentlyLoggedIn = null;
         private static List<RestaurantTable> restaurantTables;
@@ -21,11 +23,9 @@ namespace TableFindBackend.Global_Variables
         private static List<String> logTimes;
         private static List<AdminPins> listOfAdmins;
         private static List<String[]> adminLog;
-        public static BackendlessUser CurrentlyLoggedIn
-        {
-            get => currentlyLoggedIn;
-            set => currentlyLoggedIn = value;
-        }
+
+        //getters and setters
+        public static BackendlessUser CurrentlyLoggedIn { get => currentlyLoggedIn; set => currentlyLoggedIn = value; }
         public static List<RestaurantTable> RestaurantTables { get => restaurantTables; set => restaurantTables = value; }
         public static Restaurant ThisRestaurant { get => thisRestaurant; set => thisRestaurant = value; }
         public static bool AdminMode { get => adminMode; set => adminMode = value; }
