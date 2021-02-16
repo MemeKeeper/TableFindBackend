@@ -197,7 +197,7 @@ namespace TableFindBackend.Forms
         //A method that actively checks whether the layout image has been changed
         private void CheckLayoutImage()
         {
-            string file = @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl";
+            string file = @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_layout.tbl";
             if (File.Exists(file) == true)
             {
                 pnlMain.BackgroundImage = Image.FromFile(file);

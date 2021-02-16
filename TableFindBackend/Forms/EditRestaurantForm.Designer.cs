@@ -58,10 +58,10 @@ namespace TableFindBackend.Forms
             this.dtpClose = new System.Windows.Forms.DateTimePicker();
             this.dtpOpen = new System.Windows.Forms.DateTimePicker();
             this.pnlDangerZone = new System.Windows.Forms.Panel();
+            this.btnChangePassoword = new System.Windows.Forms.Button();
             this.btnDeactivate = new System.Windows.Forms.Button();
             this.lblDangerZone = new System.Windows.Forms.Label();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
-            this.btnChangePassoword = new System.Windows.Forms.Button();
             this.pnlRestaurantDetails.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -165,7 +165,7 @@ namespace TableFindBackend.Forms
             // 
             // btnBrowseLayout
             // 
-            this.btnBrowseLayout.Location = new System.Drawing.Point(218, 14);
+            this.btnBrowseLayout.Location = new System.Drawing.Point(218, 22);
             this.btnBrowseLayout.Name = "btnBrowseLayout";
             this.btnBrowseLayout.Size = new System.Drawing.Size(36, 29);
             this.btnBrowseLayout.TabIndex = 19;
@@ -175,7 +175,7 @@ namespace TableFindBackend.Forms
             // 
             // lblLayout
             // 
-            this.lblLayout.Location = new System.Drawing.Point(29, 14);
+            this.lblLayout.Location = new System.Drawing.Point(27, 9);
             this.lblLayout.Name = "lblLayout";
             this.lblLayout.Size = new System.Drawing.Size(183, 47);
             this.lblLayout.TabIndex = 18;
@@ -225,7 +225,7 @@ namespace TableFindBackend.Forms
             // btnDefault
             // 
             this.btnDefault.Enabled = false;
-            this.btnDefault.Location = new System.Drawing.Point(88, 48);
+            this.btnDefault.Location = new System.Drawing.Point(88, 53);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(93, 28);
             this.btnDefault.TabIndex = 20;
@@ -269,10 +269,6 @@ namespace TableFindBackend.Forms
             this.lblTitle.Size = new System.Drawing.Size(183, 23);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Restaurant Options";
-            // 
-            // ofdLayoutBrowse
-            // 
-            this.ofdLayoutBrowse.FileName = "openFileDialog1";
             // 
             // pnlRestaurantTimes
             // 
@@ -358,6 +354,17 @@ namespace TableFindBackend.Forms
             this.pnlDangerZone.TabIndex = 25;
             this.pnlDangerZone.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDangerZone_Paint);
             // 
+            // btnChangePassoword
+            // 
+            this.btnChangePassoword.BackColor = System.Drawing.Color.Coral;
+            this.btnChangePassoword.Location = new System.Drawing.Point(51, 75);
+            this.btnChangePassoword.Name = "btnChangePassoword";
+            this.btnChangePassoword.Size = new System.Drawing.Size(173, 40);
+            this.btnChangePassoword.TabIndex = 22;
+            this.btnChangePassoword.Text = "Change User Password";
+            this.btnChangePassoword.UseVisualStyleBackColor = false;
+            this.btnChangePassoword.Click += new System.EventHandler(this.btnChangePassoword_Click);
+            // 
             // btnDeactivate
             // 
             this.btnDeactivate.BackColor = System.Drawing.Color.Coral;
@@ -388,17 +395,6 @@ namespace TableFindBackend.Forms
             this.pbxLoading.TabIndex = 12;
             this.pbxLoading.TabStop = false;
             this.pbxLoading.Visible = false;
-            // 
-            // btnChangePassoword
-            // 
-            this.btnChangePassoword.BackColor = System.Drawing.Color.Coral;
-            this.btnChangePassoword.Location = new System.Drawing.Point(51, 75);
-            this.btnChangePassoword.Name = "btnChangePassoword";
-            this.btnChangePassoword.Size = new System.Drawing.Size(173, 40);
-            this.btnChangePassoword.TabIndex = 22;
-            this.btnChangePassoword.Text = "Change User Password";
-            this.btnChangePassoword.UseVisualStyleBackColor = false;
-            this.btnChangePassoword.Click += new System.EventHandler(this.btnChangePassoword_Click);
             // 
             // EditRestaurantForm
             // 
