@@ -39,20 +39,9 @@ namespace TableFindBackend.Forms
                                 //Checks if restaurants exist under the logged in user
                                 if (foundRestaurant.Count != 0)
                                 {
-                                    List<Restaurant> tempList = new List<Restaurant>();
-                                    foreach (Restaurant r in foundRestaurant)
-                                    {
-                                        //Adds all active restaurants to a temp list
-                                        if (r.Active == true)
-                                        {
-                                            tempList.Add(r);
-                                        }
-                                    }
-                                    //Checks if active restaurants exist under the logged in user
-                                    if (tempList.Count != 0)
-                                    {
-                                        //Checks if the user manages multiple restaurants and if true, prompts the user to select a restaurant to sign into
-                                        if (tempList.Count > 1)
+                                    List<Restaurant> tempList = (List<Restaurant>)foundRestaurant;
+                                    //Checks if the user manages multiple restaurants and if true, prompts the user to select a restaurant to sign into
+                                    if (tempList.Count > 1)
                                         {
                                             SelectRestaurantForm selectForm = new SelectRestaurantForm(tempList);
                                             selectForm.ShowDialog();
@@ -68,17 +57,7 @@ namespace TableFindBackend.Forms
                                             DialogResult = DialogResult.OK;
                                             this.Close();
                                         }));
-                                    }
-                                    //Only unactive restaurants were found 
-                                    else
-                                    {
-                                        Invoke(new Action(() =>
-                                        {
-                                            ShowLoading(false);
-                                            MessageBox.Show(this, "No Restaurant was located under these credentials. It may be that you deactivated your restaurant" +
-                                                " in the past. Please contact the TableFind Development Team via email to assist you in reactivating your restaurant"); 
-                                        }));
-                                    }
+                                    
                                 }
                                 //No restaurants were found under the entered login credentials
                                 else
@@ -287,46 +266,25 @@ namespace TableFindBackend.Forms
                         //Checks if restaurants exist under the logged in user
                         if (foundRestaurant.Count != 0)
                         {
-                            List<Restaurant> tempList = new List<Restaurant>();
-                            foreach (Restaurant r in foundRestaurant)
+                            List<Restaurant> tempList = (List<Restaurant>)foundRestaurant;
+                            //Checks if the user manages multiple restaurants and if true, prompts the user to select a restaurant to sign into
+                            if (tempList.Count > 1)
                             {
-                                //Adds all active restaurants to a temp list
-                                if (r.Active == true)
-                                {
-                                    tempList.Add(r);
-                                }
+                                SelectRestaurantForm selectForm = new SelectRestaurantForm(tempList);
+                                selectForm.ShowDialog();
+                                OwnerStorage.ThisRestaurant = selectForm.selected;
                             }
-                            //Checks if active restaurants exist under the logged in user
-                            if (tempList.Count != 0)
-                            {
-                                //Checks if the user manages multiple restaurants and if true, prompts the user to select a restaurant to sign into
-                                if (tempList.Count > 1)
-                                {
-                                    SelectRestaurantForm selectForm = new SelectRestaurantForm(tempList);
-                                    selectForm.ShowDialog();
-                                    OwnerStorage.ThisRestaurant = selectForm.selected;
-                                }
-                                //The user only manages one restaurant - Logs the user into their registered restaurant
-                                else
-                                {
-                                    OwnerStorage.ThisRestaurant = tempList[0];
-                                }
-                                Invoke(new Action(() =>
-                                {
-                                    DialogResult = DialogResult.OK;
-                                    this.Close();
-                                }));
-                            }
-                            //Only unactive restaurants were found 
+                            //The user only manages one restaurant - Logs the user into their registered restaurant
                             else
                             {
-                                Invoke(new Action(() =>
-                                {
-                                    ShowLoading(false);
-                                    MessageBox.Show(this, "No Restaurant was located under these credentials. it may be that you deactivated your restaurant" +
-                                        " in the past. Please contact the TableFind Development Team via email to assist you in reactivating your restaurant"); 
-                                }));
+                                OwnerStorage.ThisRestaurant = tempList[0];
                             }
+                            Invoke(new Action(() =>
+                            {
+                                DialogResult = DialogResult.OK;
+                                this.Close();
+                            }));
+
                         }
                         //No restaurants were found under the entered login credentials
                         else

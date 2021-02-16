@@ -36,6 +36,10 @@ namespace TableFindBackend.Forms
                 tempView.RestaurantName = r.Name;
                 tempView.LocationString = r.LocationString;
                 tempView.ObjectId = r.objectId;
+                if(r.Active==false)
+                {
+                    tempView.Active = false;
+                }
                 //Toggle is used to change the color of the 'selected restaurantView'
                 if (toggle == true)
                 {

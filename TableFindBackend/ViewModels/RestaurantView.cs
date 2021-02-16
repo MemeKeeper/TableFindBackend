@@ -14,6 +14,7 @@ namespace TableFindBackend.ViewModels
         private string name;
         private string locationString;
         private string objectId;
+        private bool active;
         private Color backgroundColor;
 
 
@@ -64,6 +65,19 @@ namespace TableFindBackend.ViewModels
         }
 
         public string ObjectId { get => objectId; set => objectId = value; }
+        public bool Active 
+        {
+            set 
+            {
+                lblActive.Text = "Deactivated";
+                active = value; 
+            } 
+        }
         #endregion
+
+        private void RestaurantView_Load(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

@@ -26,6 +26,12 @@ namespace TableFindBackend.Forms
             dtpOpen.Value = OwnerStorage.ThisRestaurant.Open;
             dtpClose.Value = OwnerStorage.ThisRestaurant.Close;
 
+            if(OwnerStorage.ThisRestaurant.Active==false)
+            {
+                btnReactivate.Visible = true;
+                btnDeactivate.Enabled = false;
+            }
+
             //Ensures that the Reset to Defaults button is only enabled if there is a layout to replace
             if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_layout.tbl"))
             {
@@ -129,6 +135,10 @@ namespace TableFindBackend.Forms
             OwnerStorage.ThisRestaurant.LocationString = tbxLocation.Text;
             OwnerStorage.ThisRestaurant.Open = dtpOpen.Value;
             OwnerStorage.ThisRestaurant.Close = dtpClose.Value;
+            if(btnReactivate.Enabled==false)
+            {
+                OwnerStorage.ThisRestaurant.Active = true;
+            }
 
             AsyncCallback<Restaurant> updateObjectCallback = new AsyncCallback<Restaurant>(
             savedRestaurant =>
@@ -381,6 +391,16 @@ namespace TableFindBackend.Forms
         {
             ChangePasswordForm passChangeForm = new ChangePasswordForm();
             passChangeForm.ShowDialog();
+        }
+
+        private void btnReactivate_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(this, "Are you sure would like to Activate your restaurant? This will enable users to see your restaurant on the mobile app.", "Activation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+            if(result == DialogResult.Yes)
+            {
+                btnReactivate.Enabled = false;
+            }
         }
     }
 }
