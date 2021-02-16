@@ -1085,9 +1085,9 @@ namespace TableFindBackend.Forms
                     //Message stating that it is his first time using the program
                     DialogResult result = MessageBox.Show(this, "Seems like this is your first time logging in to the " +
                         "TableFindBackend Desktop App with this restaurant, therefore " +
-                        "you have not yet registered a Manager PIN. Without it " +
-                        "you will not be able to have access to admin capabilities." +
-                        "\nWould you like to configure a Manager PIN now?", "Manager PIN", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        "you have not yet registered an Admin PIN. Without it " +
+                        "you will not be able to have access to Admin capabilities." +
+                        "\nWould you like to configure an Admin PIN now?", "Admin PIN", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     //User said yes
                     if (result == DialogResult.Yes)
                     {
@@ -1097,7 +1097,7 @@ namespace TableFindBackend.Forms
                     //User said no
                     else if (result == DialogResult.No)
                     {
-                        OwnerStorage.FileWriter.WriteLineToFile("User Denied First-time Manager PIN Setup", true);
+                        OwnerStorage.FileWriter.WriteLineToFile("User Denied First-time Admin PIN Setup", true);
                     }
                 }));
 
@@ -1336,8 +1336,8 @@ namespace TableFindBackend.Forms
             if (pinResult == DialogResult.OK)
             {
                 //Logs the event
-                OwnerStorage.FileWriter.WriteLineToFile("User Modified Manager PINs", true);
-                OwnerStorage.LogInfo.Add("User Modified Manager PINs");
+                OwnerStorage.FileWriter.WriteLineToFile("User Modified Admin PINs", true);
+                OwnerStorage.LogInfo.Add("User Modified Admin PINs");
                 OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
             }
             //This will most likely only happen the first time the user launches the program. It checks if there is at least one Admin user registered for this restaurant

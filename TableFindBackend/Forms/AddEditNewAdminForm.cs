@@ -255,13 +255,13 @@ namespace TableFindBackend.Forms
                                 else
                                 {
                                     showLoading(false);
-                                    MessageBox.Show(this, "Please be sure to Confirm the pin");
+                                    MessageBox.Show(this, "Please be sure to confirm the PIN");
                                 }
                             }
                             else
                             {
                                 showLoading(false);
-                                MessageBox.Show(this, "Please be sure to fill in both spaces for the pin Code");
+                                MessageBox.Show(this, "Please be sure to fill in both spaces for the PIN");
                             }
 
                         }
@@ -320,7 +320,7 @@ namespace TableFindBackend.Forms
                                     else//the user did not confirm the pin
                                     {
                                         showLoading(false);
-                                        MessageBox.Show(this, "It seems that you have changed the pin, please be sure to confirm the pin code");
+                                        MessageBox.Show(this, "It seems that you have changed the PIN, please be sure to confirm this PIN");
                                         tbxPinCode.Text = "";
                                         tbxConfirmPin.Text = "";
                                     }
@@ -333,7 +333,7 @@ namespace TableFindBackend.Forms
                 else
                 {
                     showLoading(false);
-                    MessageBox.Show(this, "The Contact number you have entered is invalid");
+                    MessageBox.Show(this, "The contact number you have entered is invalid");
                 }
             }
         }
