@@ -118,7 +118,7 @@ namespace TableFindBackend.Forms
             // pbxLoading
             // 
             this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pbxLoading.Location = new System.Drawing.Point(98, 137);
+            this.pbxLoading.Location = new System.Drawing.Point(94, 137);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(273, 297);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -235,6 +235,7 @@ namespace TableFindBackend.Forms
             // 
             this.tbxName.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.tbxName.Location = new System.Drawing.Point(99, 188);
+            this.tbxName.MaxLength = 11;
             this.tbxName.Name = "tbxName";
             this.tbxName.Size = new System.Drawing.Size(261, 27);
             this.tbxName.TabIndex = 17;
