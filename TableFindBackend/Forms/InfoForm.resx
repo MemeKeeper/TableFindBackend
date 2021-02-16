@@ -126,6 +126,12 @@
   <metadata name="lblTitle.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="btnExit.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="lblTitle.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="lblHeading.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -138,6 +144,48 @@
   <metadata name="rtbStaff.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="tpAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtbAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpFunctions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpUsingTables.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtbUsingTables.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpReservations.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="richTextBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tabPage1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtbGettingStarted.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="rtbGettingStarted.Text" xml:space="preserve">
+    <value>The intended first user of this application is the restaurant owner or manager. Once the restaurant owner or manager has successfully registered his or her restaurant with the TableFind Development Team, the next steps will be to populate the workspace of this application.
+
+To get started, the user is advised to create Admin Users. Admin users will have full functionality of the program, granted by Admin PINs. This can be done by selecting the 'Manage Admin Users' button found on the main screen. Once at least one Admin user has been created, the PIN should be entered in the provided space and Admin Mode should be enabled.
+
+Next, the user should create Table objects that appear on the main screen as rectangular shapes. This can be done by selecting the 'Add New Table' button found on the main screen after Admin Mode has been enabled. The user can then drag the Table objects around on the screen and place them anywhere within the panel. Users are advised to upload a floorplan of their restaurant to visually aid in the placement of Table objects. This can be done by selecting the 'Restaurant Options' button once in Admin Mode.
+
+The final step is to create Menu Items that users of the mobile application will see. This can be done by selecting the 'Menu Items' button on the main screen after Admin Mode has been enabled.
+
+Please note that the restaurant owner or manager will be able to change their user password within 'Restaurant Options' form.
+For more in-depth information of the application, please be advised to read the full manual. </value>
+  </data>
+  <metadata name="rtbStaff.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="rtbStaff.Text" xml:space="preserve">
     <value>General restaurant staff members such as waiters and waitresses can access on-screen tables by double-clicking any table object. As general restaurant staff, they will have to ability to:
 
@@ -146,23 +194,20 @@
 
 Restaurant staff are considered 'General' and not 'Admin' and therefore will not have elevated permissions such as:
                 
-• Adding new Tables to the restaurant,
-• Editing/updating Tables in the restaurants,
-• Removing Tables in the restaurant,
-• Adding new Menu Items to the interactive menu,
-• Updating Menu Items of the interactive menu,
-• Removing Menu Items of the interactive menu,
-• Removing Reservations already made.</value>
+• Adding new Tables to the restaurant
+• Editing/updating Tables in the restaurants
+• Removing Tables in the restaurant
+• Adding new Menu Items to the interactive menu
+• Updating Menu Items of the interactive menu
+• Removing Menu Items of the interactive menu
+• Removing Reservations already made
+• Changing user password</value>
   </data>
-  <metadata name="tpAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="rtbAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="rtbAdmin.Text" xml:space="preserve">
     <value>Overview:
-
 Admin users, such as the restaurant manager and selected assistant managers can access on-screen tables by double-clicking on any table object. They will also have access to more options when a correct Admin PIN is provided. Admin mode will allow the restaurant manager or selected assistant managers to have access to elivated privileges. These privileges include:
 
 • View reservations under specific tables
@@ -174,16 +219,27 @@ Admin users, such as the restaurant manager and selected assistant managers can 
 • Updating Menu Items of the interactive menu
 • Removing Menu Items of the interactive menu
 • Removing Reservations already made
-
+• Change user password (This functionality is reserved for the restaurant owner or manager only)
 
 Admin PIN:
-
 The Admin PIN is an effective way for the manager and selected assistant managers to gain access to elevated privileges. The Admin PIN can be changed by editing the Admin User credentials within 'Manage Admin Users'. The user will need to confirm their credentials as an Admin user in order to access this functionality.</value>
   </data>
-  <metadata name="tpFunctions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="tpAllReservations.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpCapacityStatus.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpOverview.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpChangePIN.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="tpAllReservations.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtcFunctionsPnlAllReservations.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="rtcFunctionsPnlAllReservations.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -198,10 +254,16 @@ The Admin PIN is an effective way for the manager and selected assistant manager
   <metadata name="rtbCapacityStatus.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="rtbCapacityStatus.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="rtbCapacityStatus.Text" xml:space="preserve">
     <value>This allows the user to set the Restaurant's capacity status to either Not Busy, Moderately Busy, and Very Busy. The actual capacity status will display on the main screen at the top-center of the screen.</value>
   </data>
   <metadata name="tpOverview.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtbOverview.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="rtbOverview.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -223,7 +285,13 @@ The only buttons that the General User will be able to access are View All Reser
   <metadata name="rtbEnableAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="rtbEnableAdmin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="tpChangePIN.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtbChangePIN.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="rtbChangePIN.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -236,7 +304,7 @@ The only buttons that the General User will be able to access are View All Reser
   <metadata name="rtbRefresh.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="tpUsingTables.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="rtbRefresh.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="rtbUsingTables.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -252,10 +320,37 @@ Please note that changes will not be saved unless the user selects the 'Save Cha
   <metadata name="tpOverviewElevated.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="tpAddNewTable.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpRestaurantOptions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpEditMenu.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpLogout.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpUpdates.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpFinish.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tpOverviewElevated.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtcElevatedOverview.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="rtcElevatedOverview.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="tpAddNewTable.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtbAddNewTable.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="rtbAddNewTable.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -269,6 +364,12 @@ The user will be able to view the reservations made for that table via the Reser
 The user will also be able to delete the table and make the table Available or Unavailable.</value>
   </data>
   <metadata name="tpRestaurantOptions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="richTextBox2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtbRestaurantOptions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="richTextBox2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -295,6 +396,9 @@ Restaurant Deactivation:
 This is helpful for when the restaurant would like to temporarily close, for example when changing locations. To deactivate the restaurant, the user will have to provide the restaurant owner's email address and password, as well as answer a security question. Once the user deactivates the restaurant a Confirmation email will be sent to them containing their restaurant ID and their user ID.
 To reactivate the restaurant, the restaurant manager or owner should contact the TableFind Development Team using the references provided in the Deactivation confirmation email.
 
+Change User Password:
+This functionality is reserved for the restaurant owner or manager only. The user will have to provide their registered email address and old password, and then type in a new password which must be confirmed.
+
 Please note that any changes made will not be saved until the user clicks the 'Save' button and these changes will not be applied until the user ends the Admin session by selecting 'Finish' on the main screen.</value>
   </data>
   <metadata name="rtbRestaurantOptions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -315,6 +419,9 @@ The user can change the restaurant layout image displayed on the main screen by 
   <metadata name="rtbMenuItems.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="rtbMenuItems.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="rtbMenuItems.Text" xml:space="preserve">
     <value>The Menu Items window will allow the user to to add, edit, and delete menu items from the Interactive Menu that will display on the TableFind Mobile application, as well as sort these menu items by price, recently added and meal type.
 
@@ -330,7 +437,13 @@ The user must select the menu item he/she would like to modify on the right side
   <metadata name="rtbLogout.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="rtbLogout.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="tpUpdates.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rtbUpdates.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="rtbUpdates.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -347,7 +460,7 @@ Once the user downloads the update, the TableFind Backend program will close and
   <metadata name="rtbUpdate.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="tpReservations.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="rtbUpdate.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="richTextBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -363,23 +476,6 @@ If the user clicks on the object, a secondary window Reservation for &lt;Custome
 
 • Previous Reservations:
 If a reservation has been cancelled or removed, or if the reservation has expired, the reservation object will move from the Current Reservations tab and appear in the panel under Previous Reservations.</value>
-  </data>
-  <metadata name="tabPage1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="rtbGettingStarted.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="rtbGettingStarted.Text" xml:space="preserve">
-    <value>The intended first user of this application is the restaurant owner or manager. Once the restaurant owner or manager has successfully registered his or her restaurant with the TableFind Development Team, the next steps will be to populate the workspace of this application.
-
-To get started, the user is advised to create Admin Users. Admin users will have full functionality of the program, granted by Admin PINs. This can be done by selecting the 'Manage Admin Users' button found on the main screen. Once at least one Admin user has been created, the PIN should be entered in the provided space and Admin Mode should be enabled.
-
-Next, the user should create Table objects that appear on the main screen as rectangular shapes. This can be done by selecting the 'Add New Table' button found on the main screen after Admin Mode has been enabled. The user can then drag the Table objects around on the screen and place them anywhere within the panel. Users are advised to upload a floorplan of their restaurant to visually aid in the placement of Table objects. This can be done by selecting the 'Restaurant Options' button once in Admin Mode.
-
-The final step is to create Menu Items that users of the mobile application will see. This can be done by selecting the 'Menu Items' button on the main screen after Admin Mode has been enabled.
-
-For more in-depth information of the application, please be advised to read the full manual. </value>
   </data>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
