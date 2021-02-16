@@ -107,49 +107,19 @@ namespace TableFindBackend.Forms
                                     //Runs visual aspects on a new thread because you can not alter visual aspects on any thread other than the GUI thread
                                     Invoke(new Action(() =>
                                     {
+                                        ShowLoading(false);
+                                        MessageBox.Show(this, "Your program will now restart.", "restaurant successfully deactivated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         OwnerStorage.FileWriter.WriteLineToFile("Restaurant has been deactivated", false);
                                         OwnerStorage.FileWriter.FormShutDown();
+
+                                        //resets the default restaurant
                                         Properties.Settings.Default.defaultRestaurant = -1;
                                         Properties.Settings.Default.Save();
-                                    }));
 
-                                    //This callback sends a confirmation email to the user with a reference of both the user and the restaurant objectId
-                                    AsyncCallback<MessageStatus> responder = new AsyncCallback<MessageStatus>(
-                                      result =>
-                                      {
-                                          //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
-                                          Invoke(new Action(() =>
-                                          {
-                                              ShowLoading(false);
-                                              MessageBox.Show(this, "An email has been sent to your provided email as confirmation of your restaurant being made deactivated. Please use RST-" + OwnerStorage.ThisRestaurant.objectId + " as your restaurant reference and USR-" + OwnerStorage.CurrentlyLoggedIn.ObjectId + " as your user account reference.", "restaurant successfully deactivated", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                          }));
-                                          //resets the default restaurant
-                                          Properties.Settings.Default.defaultRestaurant = -1;
-
-                                          //On success the program will restart                                         
-                                          Application.Restart();
-                                          Environment.Exit(0);
-                                      },
-
-                                      fault =>
-                                      {
-                                          //Runs visual aspects on a new thread because you cannot alter visual aspects on any thread other than the GUI thread
-                                          Invoke(new Action(() =>
-                                          {
-                                              ShowLoading(false);
-                                              MessageBox.Show(fault.Message.ToString());
-                                          }));
-                                          //Even if the email failed, the program should continue to shut down
-                                          Application.Restart();
-                                          Environment.Exit(0);
-                                      });
-
-                                    //Async request. Plain text message to one recipient
-                                    List<String> recipients = new List<String>();
-                                    recipients.Add(OwnerStorage.CurrentlyLoggedIn.Email);
-                                    Backendless.Messaging.SendTextEmail(OwnerStorage.ThisRestaurant.Name + " restaurant Deactivation", "This Email has been sent to confirm that you recently deactivated your " + OwnerStorage.ThisRestaurant.Name + " restaurant in " + OwnerStorage.ThisRestaurant.LocationString + "." +
-                                               "\nIf you are seeing this and you did not intentionally deactivated this restaurant please contact the TableFind Development Team.\n\nPlease use RST-" + OwnerStorage.ThisRestaurant.objectId + " as your restaurant reference and USR-" + OwnerStorage.CurrentlyLoggedIn.ObjectId + " as" +
-                                               " your user account reference.\n\nRegards,\nThe TableFind Development Team.", recipients, responder);
+                                        //On success the program will restart                                         
+                                        Application.Restart();
+                                        Environment.Exit(0);
+                                    }));                                   
                                 },
                                 error =>
                                 {

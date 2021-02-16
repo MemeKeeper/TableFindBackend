@@ -31,6 +31,7 @@ namespace TableFindBackend.ViewModels
         {
             this.lblLocation = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
+            this.lblActive = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblLocation
@@ -53,15 +54,26 @@ namespace TableFindBackend.ViewModels
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Restaurant Name";
             // 
+            // lblActive
+            // 
+            this.lblActive.AutoSize = true;
+            this.lblActive.ForeColor = System.Drawing.Color.Salmon;
+            this.lblActive.Location = new System.Drawing.Point(4, 35);
+            this.lblActive.Name = "lblActive";
+            this.lblActive.Size = new System.Drawing.Size(0, 13);
+            this.lblActive.TabIndex = 2;
+            // 
             // RestaurantView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Controls.Add(this.lblActive);
             this.Controls.Add(this.lblLocation);
             this.Controls.Add(this.lblName);
             this.Name = "RestaurantView";
             this.Size = new System.Drawing.Size(308, 75);
+            this.Load += new System.EventHandler(this.RestaurantView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -70,5 +82,6 @@ namespace TableFindBackend.ViewModels
         #endregion
         private System.Windows.Forms.Label lblLocation;
         private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblActive;
     }
 }
