@@ -27,8 +27,10 @@ namespace TableFindBackend.Forms
             dtpClose.Value = OwnerStorage.ThisRestaurant.Close;
 
             //Ensures that the Reset to Defaults button is only enabled if there is a layout to replace
-            if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
+            if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_layout.tbl"))
+            {
                 btnDefault.Enabled = true;
+            }
         }
 
         //Button used to close the form if the user wishes to not save changes made
@@ -74,48 +76,51 @@ namespace TableFindBackend.Forms
         {
             string file = ofdLayoutBrowse.FileName;
             ShowLoading(true);
-            try
-            {
-                //The directory has to be created first. If it does not already exist, it's created here
-                if (File.Exists("layouts") != true)
-                    Directory.CreateDirectory("layouts");
-
-                //Layout was chosen or left as is
-                if (file.Equals("") != true)   
+            if (file != "")
+            {                
+                try
                 {
-                    string text = File.ReadAllText(file);
-                    lblLayout.Text = ofdLayoutBrowse.FileName;
-                    //If the file already exists, it has to be deleted first so that it can be replaced with the new one
-                    if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl"))
+                    //The directory has to be created first. If it does not already exist, it's created here
+                    if (File.Exists("layouts") != true)
+                        Directory.CreateDirectory("layouts");
+
+                    //Layout was chosen or left as is
+                    if (file.Equals("reset") != true)
                     {
-                        _master.DisableLayoutImage();
-                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
-                    }
-                    //The new layout image gets copied to the program files
-                    File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
+                        string text = File.ReadAllText(file);
+                        lblLayout.Text = ofdLayoutBrowse.FileName;
+                        //If the file already exists, it has to be deleted first so that it can be replaced with the new one
+                        if (File.Exists(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_layout.tbl"))
+                        {
+                            _master.DisableLayoutImage();
+                            File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_layout.tbl");
+                        }
+                        //The new layout image gets copied to the program files
+                        File.Copy(ofdLayoutBrowse.FileName, @"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_layout.tbl");
 
-                    //Log and document the event
-                    OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant layout image", true);
-                    OwnerStorage.LogInfo.Add("User changed the restaurant layout image");
-                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                        //Log and document the event
+                        OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant layout image", true);
+                        OwnerStorage.LogInfo.Add("User changed the restaurant layout image");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                    }
+                    //Layout was reset or deleted
+                    else
+                    {
+                        //Calls a method on the MainForm which disables the image so that the image can be deleted fromm the program files
+                        _master.DisableLayoutImage();
+                        //deletes the image file
+                        File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_layout.tbl");
+                        //documents the events
+                        OwnerStorage.FileWriter.WriteLineToFile("User cleared the restaurant layout image", true);
+                        OwnerStorage.LogInfo.Add("User cleared the restaurant layout image");
+                        OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                    }
                 }
-                //Layout was reset or deleted
-                else
+                //Something went wrong, so an error message gets displayed
+                catch (IOException ex)
                 {
-                    //Calls a method on the MainForm which disables the image so that the image can be deleted fromm the program files
-                    _master.DisableLayoutImage();
-                    //deletes the image file
-                    File.Delete(@"layouts\" + OwnerStorage.ThisRestaurant.objectId + "_" + OwnerStorage.ThisRestaurant.LocationString + "_layout.tbl");
-                    //documents the events
-                    OwnerStorage.FileWriter.WriteLineToFile("User cleared the restaurant layout image", true);
-                    OwnerStorage.LogInfo.Add("User cleared the restaurant layout image");
-                    OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
+                    MessageBox.Show(this, "Error: " + ex.Message);
                 }
-            }
-            //Something went wrong, so an error message gets displayed
-            catch (IOException ex)
-            {
-                MessageBox.Show(this, "Error: " + ex.Message);
             }
 
             //Saving the rest of the restaurant information
@@ -332,7 +337,7 @@ namespace TableFindBackend.Forms
                 lblLayout.Text = ofdLayoutBrowse.FileName;
                 lblLayout.Text = "Change restaurant layout image";
                 btnDefault.Enabled = false;
-                ofdLayoutBrowse.FileName = null; //As long as this is empty, the layout will be reset once the user clicks 'save'
+                ofdLayoutBrowse.FileName = "reset"; //As long as this is empty, the layout will be reset once the user clicks 'save'
             }
         }
 
