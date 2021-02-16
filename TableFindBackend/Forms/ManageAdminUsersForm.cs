@@ -7,14 +7,12 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
+    //This form is used to create Admin users which will have more elevated permissions on the program
     public partial class ManageAdminUsersForm : Form
     {
-        //This form is used to create admin users which will have more elevated permissions on the program
-
-        //basic constructor
+        //Basic Constructor
         public ManageAdminUsersForm()
         {
-            //basic constructor
             InitializeComponent();
             PopulateList();
         }
@@ -109,15 +107,16 @@ namespace TableFindBackend.Forms
             Backendless.UserService.Login(login, password, callback);
         }
 
-        //This method will open the AddEditNewAdminForm with a Null as parameter. this signals to the form that a new user is being created.
+        //This method will open the AddEditNewAdminForm with a Null as parameter. This signals to the form that a new user is being created
         private void btnAddNewAdmins_Click(object sender, EventArgs e)
         {
-            AddEditNewAdminForm addForm = new AddEditNewAdminForm(null); // creating new admin user
+            //Creating new Admin user
+            AddEditNewAdminForm addForm = new AddEditNewAdminForm(null); 
             DialogResult result = addForm.ShowDialog();
 
+            //Upon returning with success, the form will reload the DataGridView with the new information
             if (result == DialogResult.OK)
             {
-                //upon returning with success, the form will reload the DataGridView with the new Information
                 PopulateList();
             }
         }

@@ -6,14 +6,14 @@ using TableFindBackend.Global_Variables;
 using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
+    //This form displays details about the reservation, who made it and which table. It also gives the user the ability to deactivate the reservation
 {
     public partial class ReservationDetailsForm : Form
     {
-        //This Form Displays details about the reservation, who made it and which table. It also gives the user the ability to deactivate the reservation
-        MainForm _master;//an instance of the MainForm form
-        Reservation thisReservation;//the reservation being viewed
+        MainForm _master;//An instance of the MainForm form
+        Reservation thisReservation;//The reservation being viewed
 
-        //This constructor receives an instance of the user, the reservation AND the Table. This method will populate the all the necessary information on the form
+        //This constructor receives an instance of the user, the reservation an the Table. This method will populate the all the necessary information on the form
         public ReservationDetailsForm(Reservation r, BackendlessUser u, RestaurantTable t, bool active, MainForm _master)
         {            
             thisReservation = r;
@@ -30,7 +30,7 @@ namespace TableFindBackend.Forms
             tbxTime.Text = r.TakenFrom.ToString("dddd, dd/MM,    HH:mm") + " - " + r.TakenTo.ToString("HH:mm");
             lblTitle.Text = "Reservation for " + r.Name;
 
-            //a special block of code that will determine if the reservation was made by the Restaurant or by a customer in order to conseal critical information about the restaurant to the employees
+            //Determines if the reservation was made by the Restaurant or by a customer in order to conceal critical information about the restaurant to the employees
             if (u.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
             {
                 lblMadeByRestaurant.Visible = true;
@@ -87,10 +87,11 @@ namespace TableFindBackend.Forms
             }
         }
 
-        //this method will 'deactivate' the reservation.
+        //This method will 'deactivate' the reservation
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (OwnerStorage.AdminMode == true)//makes sure that the user is in admin mode first
+            //Makes sure that the user is in Admin mode first
+            if (OwnerStorage.AdminMode == true)
             {
                 DialogResult remove = MessageBox.Show("Are you sure you want to remove this reservation?", "Remove Reservation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
@@ -101,12 +102,12 @@ namespace TableFindBackend.Forms
                     AsyncCallback<Reservation> updateObjectCallback = new AsyncCallback<Reservation>(
                    savedReservation =>
                    {
-                       //success, the reservation has been created. it will now call a method on the MainForm to update the visual elements
+                       //Success, the reservation has been created. It will now call a method on the MainForm to update the visual elements
                        Invoke(new Action(() =>
                        {
                            OwnerStorage.LogInfo.Add("Reservation has Expired\nName:  " + savedReservation.Name);
                            OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                           //calls the method to add the reservation on to the form
+                           //Calls the method to add the reservation on to the form
                            _master.RemoveOneReservationView(thisReservation, savedReservation);
 
                            MessageBox.Show(this, "reservation for " + thisReservation.Name + " has been removed");
@@ -116,7 +117,7 @@ namespace TableFindBackend.Forms
                    },
                    error =>
                    {
-                       //something went wrong. An error message will now display
+                       //Something went wrong. An error message will now display
                        Invoke(new Action(() =>
                        {
                            MessageBox.Show(this, "Error: " + error.Message);
@@ -127,14 +128,14 @@ namespace TableFindBackend.Forms
                     AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
                     savedReservation =>
                     {                        
-                        //success, now update the saved object
+                        //Success, now update the saved object
                         savedReservation.Active = false;
                         savedReservation.ReasonForExpiration = "Reservation has passed its expiration date";
                         Backendless.Persistence.Of<Reservation>().Save(savedReservation, updateObjectCallback);
                     },
                     error =>
                     {
-                        //something went wrong. An error message will now display
+                        //Something went wrong. An error message will now display
                         Invoke(new Action(() =>
                         {
                             MessageBox.Show(this, "Error: " + error.Message);
@@ -142,7 +143,7 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
-                    //backendless demands that the object be 'saved' first before we can update the object
+                    //backendless requires that the object be 'saved' first before we can update the object
                     Backendless.Persistence.Of<Reservation>().Save(thisReservation, saveObjectCallback);
                 }
             }

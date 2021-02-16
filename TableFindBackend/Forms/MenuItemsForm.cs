@@ -10,6 +10,7 @@ using TableFindBackend.ViewModels;
 
 namespace TableFindBackend.Forms
 {
+    //This form allows the user to view MenuItems
     public partial class MenuItemsForm : Form
     {
         private RestaurantMenuItem selectedItem;
@@ -19,7 +20,8 @@ namespace TableFindBackend.Forms
             populateMenu();
         }
 
-        private void populateMenu() // Controller for RestaurantMenuItem
+        // Controller for RestaurantMenuItem
+        private void populateMenu() 
         {
             flpItems.Controls.Clear();
 
@@ -43,7 +45,7 @@ namespace TableFindBackend.Forms
             }
         }
 
-        //this method will simulate the selection of an object by changing the color of the control the user selects
+        //This method will simulate the selection of an object by changing the colour of the control the user selects
         public void SelectItemHighLight(String id)
         {
             foreach (RestaurantMenuItemView viewItem in flpItems.Controls)
@@ -78,7 +80,7 @@ namespace TableFindBackend.Forms
                 }
             }
         }
-        //Method for when the user attempts to click on the control but selects the label ON the control
+        //Method for when the user attempts to click on the control but selects the label on the control
         private void MenuLabel_Click(object sender, MouseEventArgs e)
         {            
             Label tempLabel = (Label)sender;
@@ -94,14 +96,14 @@ namespace TableFindBackend.Forms
             SelectItemHighLight(id);
         }
 
-        //method for when the user selected a control and wishes to edit its properties. sending a valid MenuItem to the method indicates that it should be edited
+        //Method for when the user selected a control and wishes to edit its properties. Sending a valid MenuItem to the method indicates that it should be edited
         private void btnEdit_Click(object sender, EventArgs e)
         {
             AddOrEdit(selectedItem);
         }
 
-        //this method determines if the user wishes to add or edit a MenuItem to the restaurant
-        private void AddOrEdit(RestaurantMenuItem temp) // Controller for RestaurantMenuItem
+        //Controller for RestaurantMenuItem which determines if the user wishes to add or edit a MenuItem to the restaurant
+        private void AddOrEdit(RestaurantMenuItem temp) 
         {
             AddEditMenuItem newForm = new AddEditMenuItem(temp);
             if (newForm.ShowDialog() == DialogResult.OK)
@@ -112,7 +114,8 @@ namespace TableFindBackend.Forms
                         {
                             Invoke(new Action(() =>
                             {
-                                if (temp != null)//means an existing item was edited
+                                //Means an existing item was edited
+                                if (temp != null)
                                 {
                                     OwnerStorage.MenuItems.Insert(OwnerStorage.MenuItems.IndexOf(temp), newForm.transferedItem);
                                     OwnerStorage.MenuItems.Remove(temp);
@@ -130,7 +133,8 @@ namespace TableFindBackend.Forms
                                     SortRefresh();
                                     SelectItemHighLight(selectedItem.objectId);
                                 }
-                                else//means a new Item is created
+                                //Means a new item is created
+                                else
                                 {
                                     RestaurantMenuItemView newView = new RestaurantMenuItemView();
                                     newView.Label = result.Name;
@@ -158,13 +162,13 @@ namespace TableFindBackend.Forms
                             }));
                         });
 
-                //runs the save callback. it automatically updates objects, so no need to create multiple callbacks
+                //Runs the save callback. It automatically updates objects, so no need to create multiple callbacks
                 Backendless.Data.Of<RestaurantMenuItem>().Save(newForm.transferedItem, callback);
             }
 
         }
 
-        //method is for when the user wishes to add a new empty MenuItem to the restaurant. sending a null value will indicate that a new item is to be created
+        //Method for when the user wishes to add a new empty MenuItem to the restaurant. Sending a null value will indicate that a new item is to be created
         private void btnAdd_Click(object sender, EventArgs e)
         {
             AddOrEdit(null);
@@ -183,7 +187,7 @@ namespace TableFindBackend.Forms
             this.Close();
         }
 
-        //this event handler will automatically update the selected menuItem by simply changing the OutOfStock property
+        //This event handler will automatically update the selected menuItem by simply changing the OutOfStock property
         private void cbxEnabled_Click(object sender, EventArgs e)
         {
             ShowLoading(true);
@@ -191,20 +195,20 @@ namespace TableFindBackend.Forms
             AsyncCallback<RestaurantMenuItem> updateObjectCallback = new AsyncCallback<RestaurantMenuItem>(
             savedRestaurantMenuItem =>
             {
-                //success. Now the page gets refreshed so that the color of the item may change.
+                //Success. Now the page gets refreshed so that the color of the item may change
                 Invoke(new Action(() =>
                 {
                     OwnerStorage.LogInfo.Add("User toggled MenuItem: "+savedRestaurantMenuItem.Name);
                     OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
-                    populateMenu();//<--repopulates the items
-                    SortRefresh();//<--sorts it to what it was
-                    SelectItemHighLight(selectedItem.objectId);//<--highlights the Item which the user was currently busy with
+                    populateMenu();//<--Repopulates the items
+                    SortRefresh();//<--Sorts it to what it was
+                    SelectItemHighLight(selectedItem.objectId);//<--Highlights the Item which the user was currently busy with
                     ShowLoading(false);
                 }));
             },
             error =>
             {
-                //something went wrong. An error message will now display
+                //Something went wrong. An error message will now display
                 Invoke(new Action(() =>
                 {
                     MessageBox.Show(this, "Error: " + error.Message);
@@ -215,12 +219,12 @@ namespace TableFindBackend.Forms
             AsyncCallback<RestaurantMenuItem> saveObjectCallback = new AsyncCallback<RestaurantMenuItem>(
               savedRestaurantMenuItem =>
               {
-                  //the Item has been saved, now it can be updated
+                  //The Item has been saved, now it can be updated
                   Backendless.Persistence.Of<RestaurantMenuItem>().Save(savedRestaurantMenuItem, updateObjectCallback);
               },
               error =>
               {
-                  //something went wrong, an error message will now display
+                  //Something went wrong, an error message will now display
                   Invoke(new Action(() =>
                   {
                       MessageBox.Show(this, "Error: " + error.Message);
@@ -229,7 +233,7 @@ namespace TableFindBackend.Forms
               }
             );
 
-            //changes the single property which effectively deactivates the menuItem
+            //Changes the single property which effectively deactivates the menuItem
             selectedItem.OutOfStock = cbxEnabled.Checked ? false : true;
             Backendless.Persistence.Of<RestaurantMenuItem>().Save(selectedItem, saveObjectCallback);
 
@@ -251,7 +255,7 @@ namespace TableFindBackend.Forms
             }
         }
 
-        //Method for deleting the MenuItem.
+        //Method for deleting the MenuItem
         private void btnDelete_Click(object sender, EventArgs e)
         {
             RestaurantMenuItem tempItem = selectedItem;
@@ -262,14 +266,15 @@ namespace TableFindBackend.Forms
                 AsyncCallback<long> deleteObjectCallback = new AsyncCallback<long>(
                 deletionTime =>
                 {
-                    //success. The object has been removed successfully
+                    //Success. The object has been removed successfully
                     Invoke(new Action(() =>
                     {
                         foreach (RestaurantMenuItemView view in flpItems.Controls)
                         {
+                            //The MenuItemView must be removed from the FlowLayoutPanel
                             if (view.Tag.ToString() == tempItem.objectId)
                             {
-                                flpItems.Controls.Remove(view);//the MenuItemView must be removed from the FlowLayoutPanel
+                                flpItems.Controls.Remove(view);
 
                             }
                         }
@@ -282,7 +287,7 @@ namespace TableFindBackend.Forms
                 },
                 error =>
                 {
-                    //something went wrong, an error message will be displayed
+                    //Something went wrong, an error message will be displayed
                     Invoke(new Action(() =>
                     {
                         ShowLoading(false);
@@ -293,12 +298,12 @@ namespace TableFindBackend.Forms
                 AsyncCallback<RestaurantMenuItem> saveObjectCallback = new AsyncCallback<RestaurantMenuItem>(
                 savedMenuItem =>
                 {
-                    //the object has been saved, now it can be removed
+                    //The object has been saved, now it can be removed
                     Backendless.Persistence.Of<RestaurantMenuItem>().Remove(savedMenuItem, deleteObjectCallback);
                 },
                 error =>
                 {
-                    //something went wrong, an error message will be displayed
+                    //Something went wrong, an error message will be displayed
                     Invoke(new Action(() =>
                       {
                           ShowLoading(false);
@@ -342,7 +347,7 @@ namespace TableFindBackend.Forms
             SortRefresh();
         }
 
-        //this method will sort the information on the form according to the setting the user selected
+        //This method will sort the information on the form according to the setting the user selected
         private void SortRefresh()
         {            
             List<RestaurantMenuItemView> tempList = new List<RestaurantMenuItemView>();
@@ -353,12 +358,14 @@ namespace TableFindBackend.Forms
             flpItems.Controls.Clear();
             switch (clbSortOptions.SelectedIndex)
             {
-                case -1: //default sortation
+                //Default sortation
+                case -1: 
                     {
                         populateMenu();
                         break;
                     }
-                case 0://price: low to High
+                //Price: low to high
+                case 0:
                     {
                         RestaurantMenuItemView tempView;
 
@@ -377,7 +384,8 @@ namespace TableFindBackend.Forms
                         flpItems.Controls.AddRange(tempList.ToArray());
                         break;
                     }
-                case 1://price: High to Low
+                //Price: high to low
+                case 1:
                     {
                         RestaurantMenuItemView tempView;
 
@@ -396,7 +404,8 @@ namespace TableFindBackend.Forms
                         flpItems.Controls.AddRange(tempList.ToArray());
                         break;
                     }
-                case 2://recently added
+                //Recently added
+                case 2:
                     {
                         foreach (RestaurantMenuItemView view in tempList)
                         {
@@ -405,9 +414,10 @@ namespace TableFindBackend.Forms
                         }
                         break;
                     }
-                default://sort by meal type
+                //Sort by meal type
+                default:
                     {
-                        //note, this will only arange the selected meal types to the first position. The reset of the Items will remain unsorted as is.
+                        //Note, this will only arrange the selected meal types to the first position. The reset of the Items will remain unsorted as is
                         RestaurantMenuItemView tempView;
                         for (int write = 0; write < tempList.Count; write++)
                         {

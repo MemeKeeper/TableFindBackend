@@ -7,11 +7,10 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
+    //This form is to toggle the capacity status of the restaurant
     public partial class RestaurantStatusForm : Form
     {
-     //this form is to toggle the capacity status of the restaurant
-        
-        //basic constructor. sets the information on the form to the currently saved setting
+        //Basic constructor that sets the information on the form to the currently saved setting
         public RestaurantStatusForm()
         {
             InitializeComponent();
@@ -24,10 +23,10 @@ namespace TableFindBackend.Forms
             this.Close();
         }
 
-        //this method will just apply the changes made in the slider control on the form.
+        //This method will apply the changes made in the slider control on the form
         private void btnEditor_Click(object sender, EventArgs e)
         {
-            //simulate a loading screen
+            //Simulates a loading screen
             pbxLoading.Visible = true;
             btnSave.Enabled = false;
             btnExit.Enabled = false;
@@ -39,23 +38,27 @@ namespace TableFindBackend.Forms
                         {
                             Invoke(new Action(() =>
                             {
-                                switch (tbrCapacity.Value)//a switch to easily determine which value has been selected
+                                //A switch to easily determine which value has been selected
+                                switch (tbrCapacity.Value)
                                 {
-                                    case 0://<------- not busy
+                                    //Not busy
+                                    case 0:
                                         {
                                             OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant capacity status to 'Not Busy'", true);
                                             OwnerStorage.LogInfo.Add("User changed the restaurant capacity status to 'Not Busy'");
                                             OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                                             break;
                                         }
-                                    case 1://<------- Medium Load
+                                    //Medium Capacity
+                                    case 1:
                                         {
                                             OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant capacity status to 'Medium Load'", true);
                                             OwnerStorage.LogInfo.Add("User changed the restaurant capacity status to 'Medium Load'");
                                             OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
                                             break;
                                         }
-                                    default://<------- Very Busy
+                                    //Very Busy
+                                    default:
                                         {
                                             OwnerStorage.FileWriter.WriteLineToFile("User changed the restaurant capacity status to 'Very Busy'", true);
                                             OwnerStorage.LogInfo.Add("User changed the restaurant capacity status to 'Very Busy'");
@@ -73,7 +76,7 @@ namespace TableFindBackend.Forms
                         },
                         error =>
                         {
-                            //something went wrong, a error message will now display
+                            //Something went wrong, a error message will now display
                             Invoke(new Action(() =>
                             {
                                 pbxLoading.Visible = false;
@@ -87,12 +90,12 @@ namespace TableFindBackend.Forms
             AsyncCallback<Restaurant> saveObjectCallback = new AsyncCallback<Restaurant>(
               savedRestaurant =>
               {
-                  //success, now the object can be updated
+                  //Success, now the object can be updated
                   Backendless.Persistence.Of<Restaurant>().Save(savedRestaurant, updateObjectCallback);
               },
               error =>
               {
-                  //something went wrong, a error message will now display
+                  //Something went wrong, a error message will now display
                   Invoke(new Action(() =>
                   {
                       pbxLoading.Visible = false;
@@ -103,7 +106,7 @@ namespace TableFindBackend.Forms
                   }));
               });
 
-            //Backendless demands that the object be saved first before it can be updated
+            //Backendless requires that the object be saved first before it can be updated
             Backendless.Persistence.Of<Restaurant>().Save(OwnerStorage.ThisRestaurant, saveObjectCallback);
         }
 

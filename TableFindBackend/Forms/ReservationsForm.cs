@@ -9,18 +9,16 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.Forms
 {
-
+    //This form is used to display reservations for either All or only One specific Table
+    //note that this form has two constructors
     public partial class ReservationsForm : Form
     {
-        //this form is used to display reservations for either All or only One specific Table
-        //note that this form has two constructors
-
         List<Reservation> rList;
         int index;
         RestaurantTable thisTable;
         MainForm _master;
 
-        //first constructor: this is used when the user requests this form to show only reservations to a specific table
+        //First constructor: This is used when the user requests this form to show only reservations to a specific RestaurantTable
         public ReservationsForm(RestaurantTable item, MainForm _master)
         {
 
@@ -39,7 +37,7 @@ namespace TableFindBackend.Forms
             populateList(true);
         }
 
-        //second constructor: this is used when the user requests this form to show all reservations currently active in the restaurant
+        //Second constructor: This is used when the user requests this form to show all reservations currently active in the restaurant
         public ReservationsForm()
         {
             InitializeComponent();
@@ -56,13 +54,13 @@ namespace TableFindBackend.Forms
             populateList(false);
         }
 
-        //this method will populate tho onscreen listView with the relevent Reservations
+        //This method will populate the onscreen listView with the relevent Reservations
         public void populateList(bool single)
         {
             lvBookings.Items.Clear();
             rList = new List<Reservation>();
-
-            if (thisTable != null)  //<--Means only one table's Reservations are to be shown
+            //Means only one RestaurantTable's Reservations are to be shown
+            if (thisTable != null)  
             {
                 foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                 {
@@ -82,7 +80,8 @@ namespace TableFindBackend.Forms
                         arr[0] = reservation.Name.ToString();
                         arr[1] = reservation.TakenFrom.ToString("ddd, dd/MM/yyyy, HH:mm");
                         arr[2] = reservation.TakenTo.ToString("HH:mm");
-                        if (userId == OwnerStorage.CurrentlyLoggedIn.ObjectId)//<--determines who made the reservation
+                        //Determines who made the reservation
+                        if (userId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                         {
                             arr[3] = "Restaurant";
                         }
@@ -98,7 +97,8 @@ namespace TableFindBackend.Forms
                     }
                 }
             }
-            else//<---means all reservations are to be shown
+            //Means all reservations are to be shown
+            else
             {
                 foreach (Reservation reservation in OwnerStorage.ActiveReservations)
                 {
@@ -116,7 +116,8 @@ namespace TableFindBackend.Forms
                     arr[0] = reservation.Name.ToString();
                     arr[1] = reservation.TakenFrom.ToString("ddd, dd/MM/yyyy, HH:mm");
                     arr[2] = reservation.TakenTo.ToString("HH:mm");
-                    if (userId == OwnerStorage.CurrentlyLoggedIn.ObjectId)//<--determines who made the reservation
+                    //Determines who made the reservation
+                    if (userId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                     {
                         arr[3] = "Restaurant";
                     }
@@ -155,28 +156,31 @@ namespace TableFindBackend.Forms
             this.Close();
         }
 
-        //this method will simply show the CreateReservationsForm after checking if the user has that privilege.
+        //This method will simply show the CreateReservationsForm after checking if the user has that privilege
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (thisTable.Available == true || OwnerStorage.AdminMode == true)//checks if the user is logged in as admin
+            //Checks if the user is logged in as Admin
+            if (thisTable.Available == true || OwnerStorage.AdminMode == true)
             {
                 CreateReservationForm newReservation = new CreateReservationForm(thisTable);
                 DialogResult result = newReservation.ShowDialog();
+                //A timed event which gives the CreatedListener time to catch the new object created and display it on the form
                 if (result == DialogResult.OK)
                 {
                     Invoke(new Action(() =>
                     {
-                        CheckIfNew();//a timed event which gives the CreatedListener time to catch the new object created and display it on the form
+                        CheckIfNew();
                     }));
                 }
             }
-            else//user is not in elevated privilege mode
+            //User is not in Admin mode
+            else
             {
                 MessageBox.Show("This Table has been made unactive by an Admin User. Please login as Admin User to create a reservation for this table", "unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        //a delayed event that gives the CreatedListener time to catch the new object created and display it on the form
+        //A delayed event that gives the CreatedListener time to catch the new object created and display it on the form
         private async void CheckIfNew()
         {
             await Task.Delay(800);//<-- 0.8 seconds
@@ -186,7 +190,7 @@ namespace TableFindBackend.Forms
                 populateList(false);
         }
 
-        //a simple method that keeps track of which object the user has selected from the list
+        //A simple method that keeps track of which object the user has selected from the list
         private void lvBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvBookings.SelectedItems.Count > 0)
@@ -212,12 +216,12 @@ namespace TableFindBackend.Forms
                 this.Enabled = false;
                 if (remove == DialogResult.Yes)
                 {
-                    Reservation tempReservation = rList[index];//the selected reservation
+                    Reservation tempReservation = rList[index];//The selected reservation
 
                     AsyncCallback<Reservation> updateObjectCallback = new AsyncCallback<Reservation>(
                 savedReservation =>
                 {
-                    //success. The reservation has been successfully deactivated. the events are being logged
+                    //Success. The reservation has been successfully deactivated and the events are being logged
                     Invoke(new Action(() =>
                     {
                         lvBookings.Items.RemoveAt(index);
@@ -232,7 +236,7 @@ namespace TableFindBackend.Forms
                 },
                 error =>
                 {
-                    //something went wrong. a error message will now display
+                    //Something went wrong. An error message will now display
                     Invoke(new Action(() =>
                     {
                         MessageBox.Show(this, "Error: " + error.Message);
@@ -244,12 +248,12 @@ namespace TableFindBackend.Forms
                     AsyncCallback<Reservation> saveObjectCallback = new AsyncCallback<Reservation>(
                     savedReservation =>
                     {
-                        // now update the saved reservation
+                        //Now update the saved reservation
                         Backendless.Persistence.Of<Reservation>().Save(savedReservation, updateObjectCallback);
                     },
                     error =>
                     {
-                        //something went wrong. an error message will now display
+                        //Something went wrong. An error message will now display
                         Invoke(new Action(() =>
                         {
                             MessageBox.Show(this, "Error: " + error.Message);
@@ -258,18 +262,20 @@ namespace TableFindBackend.Forms
                         }));
                     });
 
-                    //in order to update the reservation, it must first be saved
+                    //In order to update the reservation, it must first be saved
                     tempReservation.Active = false;
                     tempReservation.ReasonForExpiration = "Reservation has been removed";
                     Backendless.Persistence.Of<Reservation>().Save(tempReservation, saveObjectCallback);                    
                 }
-                else//the user selected 'no'
+                //The user selected 'no'
+                else
                 {
                     this.Enabled = true;
                     pbxLoading.Visible = false;
                 }
             }
-            else//user is not in admin mode
+            //User is not in Admin mode
+            else
             {
                 MessageBox.Show("You do not have permission to remove this reservation. Only managers or selected assistant mangers can remove reservations");
                 pbxLoading.Visible = false;
@@ -278,7 +284,7 @@ namespace TableFindBackend.Forms
             }
         }
 
-        //this method will determine on which item the user clicked and show the detailsForm containing information about the user
+        //This method will determine on which item the user clicked and show the detailsForm containing information about the user
         private void btnViewCustomer_Click(object sender, EventArgs e)
         {
             BackendlessUser tempUser = null;

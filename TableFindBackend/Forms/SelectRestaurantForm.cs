@@ -6,14 +6,15 @@ using TableFindBackend.ViewModels;
 
 namespace TableFindBackend.Forms
 {
+    //This form will only appear if the owner has more than one restaurant under his/her control
     public partial class SelectRestaurantForm : Form
     {
-        //This form will only appear if the owner has more than one restaurant under his/her control
-        public Restaurant selected { get; set; }//public property which allows the login Form to easily get access to the user's choice
+        //Public property which allows the login form to easily get access to the user's choice
+        public Restaurant selected { get; set; }
 
         private List<Restaurant> list;
 
-        //constructor of the form. receives a list of restaurant objects which will be listed on the flp        
+        //Constructor of the form which receives a list of restaurant objects which will be listed on the flp        
         public SelectRestaurantForm(List<Restaurant> list)
         {            
             this.list = list;
@@ -25,7 +26,7 @@ namespace TableFindBackend.Forms
             }
         }
 
-        //method which generates the RestaurantViews
+        //Method which generates the RestaurantViews
         private void PopulateList()
         {
             Boolean toggle = false;
@@ -35,7 +36,8 @@ namespace TableFindBackend.Forms
                 tempView.RestaurantName = r.Name;
                 tempView.LocationString = r.LocationString;
                 tempView.ObjectId = r.objectId;
-                if (toggle == true)//toggle is used to change the color of the 'selected restaurantView'
+                //Toggle is used to change the color of the 'selected restaurantView'
+                if (toggle == true)
                 {
                     toggle = false;
                     tempView.BackgroundColor = System.Drawing.Color.FromArgb(209, 196, 233);
@@ -50,19 +52,21 @@ namespace TableFindBackend.Forms
             }
         }
 
-        // method that simulates a button press on one of the restaurantViews
+        //Method that simulates a button press on one of the restaurantViews
         private void restaurant_Click(object sender, MouseEventArgs e)
         {
             RestaurantView tempView = (RestaurantView)sender;
             foreach (Restaurant r in list)
             {
-                if (r.objectId == tempView.ObjectId)//the one that is selected
+                //the restaurantObject that is selected
+                if (r.objectId == tempView.ObjectId)
                 {
                     selected = r;
                     tempView.Selected(true);
                 }
             }
-            foreach (RestaurantView r in flpRestaurants.Controls)//the rest has toe be 'deselected'
+            //the rest has to be 'deselected'
+            foreach (RestaurantView r in flpRestaurants.Controls)
             {
                 if (r == tempView)
                 {
@@ -73,7 +77,7 @@ namespace TableFindBackend.Forms
             }
         }
 
-        //this method will check if the user specified a default restaurant in the past and will prioritize that option first
+        //This method will check if the user specified a default restaurant in the past and will prioritize that option first
         private void SelectRestaurant_Load(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.defaultRestaurant != -1)
@@ -85,7 +89,7 @@ namespace TableFindBackend.Forms
             }
         }
 
-        //this method will effectively close the form after the user made a selection. if the checkbox is selected, it will apply it as the default option
+        //This method will effectively close the form after the user made a selection. If the checkbox is selected, it will apply it as the default option
         private void btnChangeLoad_Click(object sender, EventArgs e)
         {
 
@@ -99,7 +103,8 @@ namespace TableFindBackend.Forms
                         tempView = r;
                     }
                 }
-                if (cbxDefault.Checked)//changes the default settings
+                //Changes the default settings
+                if (cbxDefault.Checked)
                 {
                     Properties.Settings.Default.defaultRestaurant = flpRestaurants.Controls.IndexOf(tempView);
                     Properties.Settings.Default.Save();
