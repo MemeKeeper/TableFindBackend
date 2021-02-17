@@ -216,6 +216,7 @@ namespace TableFindBackend.Forms
         {
             if (toggle == true)
             {
+                pbxLoadingFS.Visible = true;
                 pbxLoading.Visible = true;
                 btnLogin.Enabled = false;
                 lblX.Enabled = false;
@@ -226,6 +227,7 @@ namespace TableFindBackend.Forms
             }
             else
             {
+                pbxLoadingFS.Visible = false;
                 pbxLoading.Visible = false;
                 btnLogin.Enabled = true;
                 lblX.Enabled = true;
@@ -386,6 +388,12 @@ namespace TableFindBackend.Forms
                                         {
                                             tcLoginRegister.SelectedTab = tpLogin;
                                             MessageBox.Show(this, "A verification email has been sent to the specified email address. Please follow the link which is provided in the email");
+                                            tbContactNumber.Text = "";
+                                            tbFirstName.Text = "";
+                                            tbLastName.Text = "";
+                                            tbEmailAddress.Text = "";
+                                            tbPass.Text = "";
+                                            tbConfirmPass.Text = "";
                                             ShowLoading(false);
                                         }));
                                 },
@@ -396,12 +404,12 @@ namespace TableFindBackend.Forms
                                     {
                                         MessageBox.Show(this, "Error: " + fault.Message);
                                         ShowLoading(false);
-                                        tbContactNumber.Text = "";
-                                        tbFirstName.Text = "";
-                                        tbLastName.Text = "";
-                                        tbEmailAddress.Text = "";
-                                        tbPass.Text = "";
-                                        tbConfirmPass.Text = "";
+                                        //tbContactNumber.Text = "";
+                                        //tbFirstName.Text = "";
+                                        //tbLastName.Text = "";
+                                        //tbEmailAddress.Text = "";
+                                        //tbPass.Text = "";
+                                        //tbConfirmPass.Text = "";
                                     }));
                                 });
 
