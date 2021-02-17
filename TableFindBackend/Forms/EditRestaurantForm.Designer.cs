@@ -58,11 +58,11 @@ namespace TableFindBackend.Forms
             this.dtpClose = new System.Windows.Forms.DateTimePicker();
             this.dtpOpen = new System.Windows.Forms.DateTimePicker();
             this.pnlDangerZone = new System.Windows.Forms.Panel();
+            this.btnReactivate = new System.Windows.Forms.Button();
             this.btnChangePassoword = new System.Windows.Forms.Button();
             this.btnDeactivate = new System.Windows.Forms.Button();
             this.lblDangerZone = new System.Windows.Forms.Label();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
-            this.btnReactivate = new System.Windows.Forms.Button();
             this.pnlRestaurantDetails.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -356,6 +356,18 @@ namespace TableFindBackend.Forms
             this.pnlDangerZone.TabIndex = 25;
             this.pnlDangerZone.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDangerZone_Paint);
             // 
+            // btnReactivate
+            // 
+            this.btnReactivate.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnReactivate.Location = new System.Drawing.Point(51, 28);
+            this.btnReactivate.Name = "btnReactivate";
+            this.btnReactivate.Size = new System.Drawing.Size(173, 38);
+            this.btnReactivate.TabIndex = 5;
+            this.btnReactivate.Text = "Activate Restaurant";
+            this.btnReactivate.UseVisualStyleBackColor = false;
+            this.btnReactivate.Visible = false;
+            this.btnReactivate.Click += new System.EventHandler(this.btnReactivate_Click);
+            // 
             // btnChangePassoword
             // 
             this.btnChangePassoword.BackColor = System.Drawing.Color.Coral;
@@ -390,25 +402,13 @@ namespace TableFindBackend.Forms
             // pbxLoading
             // 
             this.pbxLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbxLoading.Image")));
-            this.pbxLoading.Location = new System.Drawing.Point(159, 205);
+            this.pbxLoading.Location = new System.Drawing.Point(239, 192);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(113, 113);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxLoading.TabIndex = 12;
             this.pbxLoading.TabStop = false;
             this.pbxLoading.Visible = false;
-            // 
-            // btnReactivate
-            // 
-            this.btnReactivate.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnReactivate.Location = new System.Drawing.Point(51, 28);
-            this.btnReactivate.Name = "btnReactivate";
-            this.btnReactivate.Size = new System.Drawing.Size(173, 38);
-            this.btnReactivate.TabIndex = 5;
-            this.btnReactivate.Text = "Activate Restaurant";
-            this.btnReactivate.UseVisualStyleBackColor = false;
-            this.btnReactivate.Visible = false;
-            this.btnReactivate.Click += new System.EventHandler(this.btnReactivate_Click);
             // 
             // EditRestaurantForm
             // 
