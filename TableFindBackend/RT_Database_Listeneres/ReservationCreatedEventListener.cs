@@ -8,13 +8,13 @@ using TableFindBackend.Models;
 
 namespace TableFindBackend.RT_Database_Listeneres
 {
-    //this class houses a Backendless listener, used for when a mobile user creates a reservation while the program is still running
+    //This class houses a Backendless listener, used for when a mobile user creates a reservation while the program is still running
     public class ReservationCreatedEventListener
     {
-        IEventHandler<Reservation> reservationCreatedEvent;//created event handler
-        private MainForm _masterform;//an instance of the MainForm where it will visually display the reservations
+        IEventHandler<Reservation> reservationCreatedEvent;//Created event handler
+        private MainForm _masterform;//An instance of the MainForm where it will visually display the reservations
 
-        //this method is only used when the user reloads the program using the refresh button on the mainForm to prevent duplicate Event listeners
+        //This method is only used when the user reloads the program using the refresh button on the mainForm to prevent duplicate Event listeners
         public void RemoveCreatedEventListener()
         {
             reservationCreatedEvent.RemoveCreateListeners();
@@ -43,13 +43,14 @@ namespace TableFindBackend.RT_Database_Listeneres
                     AsyncCallback<BackendlessUser> loadContactCallback = new AsyncCallback<BackendlessUser>(
                     foundContact =>
                     {
-                        //success. the reservation will now be added to the flp on the main form
+                        //Success. the reservation will now be added to the flp on the main form
                         if (foundContact != null)
                         {
                             OwnerStorage.AllUsers.Add(foundContact);
                             OwnerStorage.ActiveReservations.Add(createdOrder);
                             _masterform.AddOneReservationView(createdOrder);
-                            if (foundContact.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)//justs determines if the reservation was made by the restaurant or by a customer
+                            //Determines if the reservation was made by the restaurant or by a customer
+                            if (foundContact.ObjectId == OwnerStorage.CurrentlyLoggedIn.ObjectId)
                             {
                                 OwnerStorage.LogInfo.Add("Reservation has been created\nName:   " + createdOrder.Name + "\nCreated By:  Restaurant");
                                 OwnerStorage.LogTimes.Add(System.DateTime.Now.ToString("HH:mm:ss"));
@@ -65,7 +66,7 @@ namespace TableFindBackend.RT_Database_Listeneres
                     {
 
                     });
-                    //callback to find the user who created the reservation
+                    //Callback to find the user who created the reservation
                     Backendless.Data.Of<BackendlessUser>().FindById(createdOrder.UserId, loadContactCallback);
                 }
             });
