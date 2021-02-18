@@ -206,7 +206,7 @@ namespace TableFindBackend.Forms
                     if (tbxPinCode.TextLength < 4) 
                     {
                         showLoading(false);
-                        MessageBox.Show(this, "Your PIN number must be at least 4 digits in length.");
+                        MessageBox.Show(this, "Your PIN number must be at least 4 characters in length.");
                         tbxPinCode.Text = "";
                         tbxConfirmPin.Text = "";
                     }
