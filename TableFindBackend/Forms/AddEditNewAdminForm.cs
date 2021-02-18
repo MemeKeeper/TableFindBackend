@@ -64,7 +64,7 @@ namespace TableFindBackend.Forms
         //Forces the user to only be able to enter numbers instead of any other character
         private void tbxPinCode_KeyPress(object sender, KeyPressEventArgs e) 
         {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+           e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
         //This button is used for both creating a new user or reactivating a deactivated user

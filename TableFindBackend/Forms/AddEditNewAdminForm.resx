@@ -120,6 +120,6 @@
   <data name="lblDescription.Text" xml:space="preserve">
     <value>Please supply your First Name, Contact Number and the PIN number you would like to use. You can edit your Admin details later.
 
-Remember that the Admin PIN should only include numerical digits wih a minimum of at least 4 digits and a maximum of 10 digits.</value>
+Remember that the Admin PIN should both numbers and characters wih a minimum of at least 4 digits and a maximum of 10 digits.</value>
   </data>
 </root>
