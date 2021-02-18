@@ -118,7 +118,7 @@ namespace TableFindBackend.Forms
             // pbxLoading
             // 
             this.pbxLoading.Image = global::TableFindBackend.Properties.Resources.Cube_1s_200px;
-            this.pbxLoading.Location = new System.Drawing.Point(94, 142);
+            this.pbxLoading.Location = new System.Drawing.Point(92, 140);
             this.pbxLoading.Name = "pbxLoading";
             this.pbxLoading.Size = new System.Drawing.Size(273, 297);
             this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -178,7 +178,6 @@ namespace TableFindBackend.Forms
             this.tbxConfirmPin.PasswordChar = '•';
             this.tbxConfirmPin.Size = new System.Drawing.Size(261, 27);
             this.tbxConfirmPin.TabIndex = 23;
-            this.tbxConfirmPin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPinCode_KeyPress);
             // 
             // lblPinCode
             // 
@@ -200,7 +199,6 @@ namespace TableFindBackend.Forms
             this.tbxPinCode.Size = new System.Drawing.Size(261, 27);
             this.tbxPinCode.TabIndex = 21;
             this.tbxPinCode.TextChanged += new System.EventHandler(this.tbxPinCode_TextChanged);
-            this.tbxPinCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPinCode_KeyPress);
             // 
             // lblContactTitle
             // 
